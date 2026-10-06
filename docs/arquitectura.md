@@ -1,29 +1,42 @@
-# Arquitectura — Casamento Perfeito
+# Arquitectura do Casamento Perfeito
 
-## Objectivo
+## Visão geral
 
-Criar uma plataforma digital gratuita para planeamento
-e gestão de casamentos.
+O Casamento Perfeito será uma plataforma digital para planeamento e gestão de casamentos.
 
 ## Componentes
 
-- WordPress.com — site público
-- GitHub — código e versionamento
-- Supabase — autenticação e base de dados
-- GitHub Pages / Cloudflare Pages — aplicação web
+### Website público
 
-## Módulos
+O website público será utilizado para apresentar a plataforma, as suas funcionalidades e permitir o acesso dos utilizadores.
 
-- Autenticação
-- Perfis de utilizadores
-- Casamentos
-- Checklist
-- Convidados
-- Orçamento
-- Fornecedores
-- Cronograma
+### Frontend
 
-## Segurança
+O frontend será desenvolvido com HTML, CSS e JavaScript.
 
-Cada utilizador deverá ter acesso apenas aos
-dados associados à sua conta/casamento.
+### Autenticação
+
+A autenticação dos utilizadores será implementada através do Supabase Auth.
+
+### Base de dados
+
+A base de dados será PostgreSQL através do Supabase.
+
+### Funcionalidades principais
+
+- Gestão de utilizadores
+- Gestão do casamento
+- Lista de convidados
+- Checklist de tarefas
+- Gestão do orçamento
+- Gestão de fornecedores
+- Cronograma do casamento
+
+## Estrutura inicial
+
+```text
+Casamento-Perfeito/
+├── frontend/
+├── database/
+├── docs/
+└── README.md

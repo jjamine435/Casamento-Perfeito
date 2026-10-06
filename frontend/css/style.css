@@ -1,14 +1,601 @@
+/* =====================================================
+   CASAMENTO PERFEITO
+   DESIGN PRINCIPAL
+===================================================== */
+
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fff9f5;
-    color: #27232a;
+html {
+    scroll-behavior: smooth;
 }
 
-button {
-    cursor: pointer;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #33263d;
+    background: #fff8fc;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   CORES
+===================================================== */
+
+:root {
+    --rosa: #ff4f81;
+    --rosa-claro: #ffe1eb;
+    --roxo: #7b4bc4;
+    --roxo-claro: #eee2ff;
+    --laranja: #ff9f43;
+    --laranja-claro: #fff0dc;
+    --verde: #36b37e;
+    --verde-claro: #dcf8eb;
+    --azul: #4285f4;
+    --azul-claro: #e1edff;
+    --amarelo: #f5c542;
+    --amarelo-claro: #fff6cf;
+    --escuro: #33263d;
+    --branco: #ffffff;
+}
+
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
+
+.navbar {
+    width: 100%;
+    min-height: 76px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #f1dce6;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--rosa);
+}
+
+.logo span {
+    color: var(--escuro);
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.navbar nav a {
+    text-decoration: none;
+    color: #594b61;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: var(--rosa);
+}
+
+.navbar .btn-login {
+    background: var(--rosa);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.navbar .btn-login:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 650px;
+    padding: 80px 7%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 70px;
+
+    background:
+        radial-gradient(circle at 10% 20%, #ffd9e6 0, transparent 30%),
+        radial-gradient(circle at 90% 20%, #e5d6ff 0, transparent 30%),
+        linear-gradient(135deg, #fff5f9, #f7efff);
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 8px 17px;
+    border-radius: 30px;
+    background: white;
+    color: var(--rosa);
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(100, 50, 90, 0.08);
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
+}
+
+.hero h1 strong {
+    display: block;
+    color: var(--rosa);
+}
+
+.hero-content > p {
+    font-size: 1.18rem;
+    color: #66586c;
+    max-width: 620px;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 35px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--rosa);
+    color: white;
+    box-shadow: 0 12px 25px rgba(255, 79, 129, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(255, 79, 129, 0.35);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--roxo);
+    border: 2px solid #eadcf4;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    border-color: var(--roxo);
+}
+
+/* =====================================================
+   CARTÃO DO HERO
+===================================================== */
+
+.hero-card {
+    background: white;
+    border-radius: 35px;
+    padding: 45px 35px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(76, 42, 80, 0.15);
+    transform: rotate(2deg);
+}
+
+.heart {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--rosa-claro);
+    border-radius: 50%;
+    font-size: 3rem;
+}
+
+.hero-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.hero-card p {
+    color: #766879;
+    margin-bottom: 25px;
+}
+
+.mini-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.mini-info div {
+    padding: 12px 5px;
+    background: #faf5fc;
+    border-radius: 15px;
+    font-size: 0.82rem;
+}
+
+.mini-info strong {
+    display: block;
+    color: var(--verde);
+    font-size: 1.2rem;
+}
+
+/* =====================================================
+   TÍTULOS DAS SECÇÕES
+===================================================== */
+
+.section-heading {
+    max-width: 750px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.section-heading > span {
+    color: var(--rosa);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.section-heading h2 {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.15;
+    margin: 12px 0 18px;
+}
+
+.section-heading p {
+    color: #756779;
+    font-size: 1.05rem;
+}
+
+/* =====================================================
+   FUNCIONALIDADES
+===================================================== */
+
+.features {
+    padding: 100px 7%;
+    background: white;
+}
+
+.feature-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.feature-card {
+    padding: 35px;
+    border-radius: 28px;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(50, 30, 60, 0.1);
+}
+
+.feature-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 1.9rem;
+    margin-bottom: 22px;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #6e6273;
+}
+
+.feature-pink {
+    background: var(--rosa-claro);
+}
+
+.feature-pink .feature-icon {
+    background: #ffc1d4;
+}
+
+.feature-purple {
+    background: var(--roxo-claro);
+}
+
+.feature-purple .feature-icon {
+    background: #d7c0ff;
+}
+
+.feature-orange {
+    background: var(--laranja-claro);
+}
+
+.feature-orange .feature-icon {
+    background: #ffd39f;
+}
+
+.feature-green {
+    background: var(--verde-claro);
+}
+
+.feature-green .feature-icon {
+    background: #b8efd5;
+}
+
+.feature-blue {
+    background: var(--azul-claro);
+}
+
+.feature-blue .feature-icon {
+    background: #c1d8ff;
+}
+
+.feature-yellow {
+    background: var(--amarelo-claro);
+}
+
+.feature-yellow .feature-icon {
+    background: #ffe798;
+}
+
+/* =====================================================
+   COMO FUNCIONA
+===================================================== */
+
+.how-it-works {
+    padding: 100px 7%;
+    background:
+        linear-gradient(135deg, #fff1f7, #f3eaff);
+}
+
+.steps {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+}
+
+.step {
+    text-align: center;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 12px 35px rgba(70, 40, 80, 0.08);
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--rosa);
+    color: white;
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+.step h3 {
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.step p {
+    color: #716475;
+}
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.cta {
+    padding: 90px 7%;
+    text-align: center;
+    background:
+        linear-gradient(135deg, #ff4f81, #8b51d9);
+    color: white;
+}
+
+.cta > div {
+    max-width: 800px;
+    margin: auto;
+}
+
+.cta span {
+    font-weight: 800;
+}
+
+.cta h2 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    margin: 15px 0;
+}
+
+.cta p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.92;
+}
+
+.cta .btn-primary {
+    background: white;
+    color: var(--rosa);
+    box-shadow: none;
+}
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+
+footer {
+    padding: 45px 7%;
+    text-align: center;
+    background: #291d31;
+    color: white;
+}
+
+.footer-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+footer p {
+    color: #c9bdcd;
+}
+
+footer .copyright {
+    margin-top: 20px;
+    font-size: 0.85rem;
+}
+
+/* =====================================================
+   RESPONSIVIDADE — TABLETS
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .navbar nav a:not(.btn-login) {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 70px 6%;
+        text-align: center;
+    }
+
+    .hero-content {
+        margin: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-card {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+    }
+}
+
+/* =====================================================
+   RESPONSIVIDADE — TELEMÓVEIS
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        min-height: 68px;
+    }
+
+    .logo {
+        font-size: 1.05rem;
+    }
+
+    .navbar .btn-login {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 55px 5%;
+    }
+
+    .hero h1 {
+        letter-spacing: -1px;
+    }
+
+    .hero-content > p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-card {
+        padding: 35px 20px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features,
+    .how-it-works {
+        padding: 70px 5%;
+    }
+
+    .section-heading {
+        margin-bottom: 40px;
+    }
+
+    .feature-card {
+        padding: 28px;
+    }
+
+    .cta {
+        padding: 70px 5%;
+    }
+
+    footer {
+        padding: 35px 5%;
+    }
 }

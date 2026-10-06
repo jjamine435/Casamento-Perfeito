@@ -1,24 +1,531 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar | Casamento Perfeito</title>
+
+```
+<title>Entrar | Casamento Perfeito</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+    /* =====================================================
+       PÁGINA DE LOGIN
+    ===================================================== */
+
+    .login-page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background:
+            radial-gradient(circle at 15% 20%, #ffd8e6 0, transparent 32%),
+            radial-gradient(circle at 85% 80%, #dfd0ff 0, transparent 32%),
+            linear-gradient(135deg, #fff3f8, #f5efff);
+    }
+
+    /* =====================================================
+       LADO ESQUERDO
+    ===================================================== */
+
+    .login-welcome {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+    }
+
+    .welcome-content {
+        max-width: 520px;
+    }
+
+    .welcome-logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--rosa);
+        margin-bottom: 55px;
+    }
+
+    .welcome-content .welcome-tag {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--rosa);
+        font-size: 0.85rem;
+        font-weight: 800;
+        margin-bottom: 25px;
+    }
+
+    .welcome-content h1 {
+        font-size: clamp(2.8rem, 5vw, 4.8rem);
+        line-height: 1.05;
+        letter-spacing: -2px;
+        margin-bottom: 25px;
+    }
+
+    .welcome-content h1 strong {
+        display: block;
+        color: var(--rosa);
+    }
+
+    .welcome-content > p {
+        font-size: 1.15rem;
+        color: #66586c;
+        max-width: 500px;
+        margin-bottom: 35px;
+    }
+
+    .login-benefits {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .login-benefit {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #594b61;
+    }
+
+    /* =====================================================
+       LADO DIREITO
+    ===================================================== */
+
+    .login-form-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 7%;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 460px;
+        background: #ffffff;
+        padding: 45px;
+        border-radius: 32px;
+        box-shadow: 0 25px 70px rgba(76, 42, 80, 0.16);
+    }
+
+    .login-card-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .login-icon {
+        width: 75px;
+        height: 75px;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--rosa-claro);
+        font-size: 2rem;
+    }
+
+    .login-card h2 {
+        font-size: 2rem;
+        color: var(--escuro);
+        margin-bottom: 8px;
+    }
+
+    .login-card-header p {
+        color: #766879;
+        font-size: 0.95rem;
+    }
+
+    /* =====================================================
+       FORMULÁRIO
+    ===================================================== */
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #4d3f55;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #e5dbe8;
+        border-radius: 14px;
+        background: #fffafd;
+        color: var(--escuro);
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--rosa);
+        box-shadow: 0 0 0 4px rgba(255, 79, 129, 0.10);
+        background: #ffffff;
+    }
+
+    .password-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .forgot-password {
+        color: var(--rosa);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+    .login-button {
+        width: 100%;
+        border: none;
+        padding: 15px 20px;
+        margin-top: 5px;
+        border-radius: 30px;
+        background: linear-gradient(135deg, var(--rosa), #c94fc9);
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 12px 25px rgba(255, 79, 129, 0.22);
+        transition: 0.3s;
+    }
+
+    .login-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(255, 79, 129, 0.30);
+    }
+
+    /* =====================================================
+       SEPARADOR
+    ===================================================== */
+
+    .login-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 25px 0;
+        color: #9b8fa0;
+        font-size: 0.85rem;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eadfea;
+    }
+
+    /* =====================================================
+       REGISTO
+    ===================================================== */
+
+    .register-text {
+        text-align: center;
+        color: #716475;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
+    .register-text a {
+        color: var(--rosa);
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+    .back-home {
+        display: block;
+        text-align: center;
+        color: #766879;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .back-home:hover {
+        color: var(--rosa);
+    }
+
+    /* =====================================================
+       RESPONSIVIDADE
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+        .login-page {
+            grid-template-columns: 1fr;
+        }
+
+        .login-welcome {
+            padding: 50px 7% 20px;
+            text-align: center;
+        }
+
+        .welcome-content {
+            max-width: 650px;
+        }
+
+        .welcome-logo {
+            margin-bottom: 35px;
+        }
+
+        .welcome-content h1 {
+            font-size: 3rem;
+        }
+
+        .welcome-content > p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .login-benefits {
+            justify-content: center;
+        }
+
+        .login-form-area {
+            padding: 25px 7% 60px;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .login-welcome {
+            padding: 35px 6% 10px;
+        }
+
+        .welcome-logo {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .welcome-content h1 {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+
+        .welcome-content > p {
+            font-size: 1rem;
+        }
+
+        .login-card {
+            padding: 32px 24px;
+            border-radius: 25px;
+        }
+
+        .login-card h2 {
+            font-size: 1.7rem;
+        }
+
+        .login-form-area {
+            padding: 20px 5% 50px;
+        }
+    }
+
+</style>
+```
+
 </head>
 
 <body>
 
-    <h1>Entrar</h1>
+```
+<main class="login-page">
 
-    <form>
-        <label>Email</label>
-        <input type="email" required>
+    <!-- =================================================
+         ÁREA DE BOAS-VINDAS
+    ================================================== -->
 
-        <label>Palavra-passe</label>
-        <input type="password" required>
+    <section class="login-welcome">
 
-        <button type="submit">Entrar</button>
-    </form>
+        <div class="welcome-content">
+
+            <div class="welcome-logo">
+                💍 Casamento Perfeito
+            </div>
+
+            <span class="welcome-tag">
+                💕 O seu grande dia começa aqui
+            </span>
+
+            <h1>
+                Bem-vindo
+                <strong>de volta!</strong>
+            </h1>
+
+            <p>
+                Entre na sua conta e continue a organizar
+                cada detalhe do casamento dos seus sonhos.
+            </p>
+
+            <div class="login-benefits">
+
+                <span class="login-benefit">
+                    ✓ Convidados
+                </span>
+
+                <span class="login-benefit">
+                    ✓ Orçamento
+                </span>
+
+                <span class="login-benefit">
+                    ✓ Tarefas
+                </span>
+
+                <span class="login-benefit">
+                    ✓ Fornecedores
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FORMULÁRIO DE LOGIN
+    ================================================== -->
+
+    <section class="login-form-area">
+
+        <div class="login-card">
+
+            <div class="login-card-header">
+
+                <div class="login-icon">
+                    🔐
+                </div>
+
+                <h2>
+                    Entrar na sua conta
+                </h2>
+
+                <p>
+                    Aceda ao seu espaço de planeamento.
+                </p>
+
+            </div>
+
+
+            <form id="form-login" class="login-form">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="exemplo@email.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="password-row">
+
+                        <label for="password">
+                            Palavra-passe
+                        </label>
+
+                        <a
+                            href="#"
+                            class="forgot-password"
+                        >
+                            Esqueceu-se?
+                        </a>
+
+                    </div>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Introduza a sua palavra-passe"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Entrar →
+                </button>
+
+            </form>
+
+
+            <div class="login-divider">
+                ou
+            </div>
+
+
+            <p class="register-text">
+
+                Ainda não tem uma conta?
+
+                <a href="registo.html">
+                    Criar conta
+                </a>
+
+            </p>
+
+
+            <a
+                href="index.html"
+                class="back-home"
+            >
+                ← Voltar à página inicial
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="js/app.js"></script>
+```
 
 </body>
 </html>

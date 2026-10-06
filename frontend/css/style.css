@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff9f5;
+    color: #27232a;
+}
+
+button {
+    cursor: pointer;
+}

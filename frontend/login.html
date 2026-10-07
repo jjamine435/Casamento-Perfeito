@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Entrar | Casamento Perfeito</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,341 +15,611 @@
         }
 
         body {
-            font-family: Georgia, "Times New Roman", serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8c8d8, #f4a9c4, #eeb5d0);
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,.9), transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(255,180,200,.35), transparent 40%),
+                #f7eeee;
+
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* CONTAINER PRINCIPAL */
+
+        .login-container {
+            width: min(1000px, 95vw);
+            min-height: 560px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: white;
+
+            border-radius: 20px;
+
             overflow: hidden;
-            color: #5b3045;
-        }
 
-        /* Elementos decorativos */
-        .decoracao {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .bolha {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        .bolha-1 {
-            width: 320px;
-            height: 320px;
-            top: -120px;
-            left: -100px;
-        }
-
-        .bolha-2 {
-            width: 420px;
-            height: 420px;
-            right: -180px;
-            bottom: -180px;
-        }
-
-        /* Rosa */
-        .rosa {
-            position: absolute;
-            left: 9%;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 145px;
-            filter: drop-shadow(0 12px 15px rgba(92, 37, 62, 0.20));
-            animation: flutuar 4s ease-in-out infinite;
-        }
-
-        /* Alianças */
-        .aliancas {
-            position: absolute;
-            right: 10%;
-            top: 14%;
-            width: 180px;
-            height: 100px;
-            transform: rotate(-10deg);
-        }
-
-        .anel {
-            position: absolute;
-            width: 82px;
-            height: 82px;
-            border: 9px solid #d7a83e;
-            border-radius: 50%;
             box-shadow:
-                inset 0 0 8px rgba(255,255,255,0.9),
-                0 5px 10px rgba(91, 53, 20, 0.18);
+                0 25px 70px rgba(80, 40, 40, .15);
         }
 
-        .anel::after {
-            content: "";
-            position: absolute;
-            width: 11px;
-            height: 11px;
-            background: #fff5bd;
-            border-radius: 50%;
-            top: -8px;
-            left: 29px;
-            box-shadow: 0 0 8px rgba(255,255,255,0.9);
-        }
 
-        .anel-1 {
-            left: 20px;
-            top: 7px;
-        }
+        /* =========================
+           LADO DA FOTOGRAFIA
+        ========================= */
 
-        .anel-2 {
-            left: 70px;
-            top: 7px;
-        }
+        .photo-side {
 
-        /* Cartão */
-        .login-card {
             position: relative;
-            z-index: 5;
-            width: min(440px, 92%);
-            padding: 45px 42px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 28px;
-            box-shadow: 0 25px 60px rgba(91, 38, 62, 0.25);
-            text-align: center;
+
+            min-height: 560px;
+
+            background-image: url("https://images.openai.com/static-rsc-4/gyEF_huyo9G13Jewi0V_kWAL2R3tije8Q_CJfJ1SqiwjU-EQnSOX3sKAdR5OhuGSJuIShQ5vU66wnNyg2XdhxacN_gu6BwoCeSfsjutBDxz1XPruOu5wJmNHpJnyOu9GvF5SOYnwUWgAXaPjrcxtaluqtXql-RBU1Sbx9uN3Pts?purpose=inline");
+
+            background-size: cover;
+
+            background-position: center;
         }
 
-        .mini-rosa {
-            font-size: 42px;
-            margin-bottom: 8px;
+
+        /* ligeiro efeito sobre a fotografia */
+
+        .photo-side::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,.03),
+                rgba(255,255,255,.08)
+            );
         }
 
-        h1 {
-            font-size: 34px;
-            color: #8f3157;
-            margin-bottom: 8px;
+
+        /* =========================
+           LADO DO LOGIN
+        ========================= */
+
+        .form-side {
+
+            background: #ffffff;
+
+            padding: 38px 60px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
         }
 
-        .subtitulo {
-            font-family: Arial, sans-serif;
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .top-menu {
+
+            display: flex;
+
+            gap: 32px;
+
+            margin-bottom: 62px;
+
             font-size: 14px;
-            color: #8a6876;
-            margin-bottom: 30px;
         }
 
-        .campo {
-            text-align: left;
+        .top-menu a {
+
+            text-decoration: none;
+
+            color: #333;
+
+            padding-bottom: 8px;
+
+            position: relative;
+        }
+
+        .top-menu a.active {
+
+            font-weight: 600;
+        }
+
+        .top-menu a.active::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            height: 2px;
+
+            background: #e7b8b0;
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo {
+
+            text-align: center;
+
+            margin-bottom: 13px;
+        }
+
+        .logo h1 {
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #c44f65;
+
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+
+            color: #777;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           TEXTO
+        ========================= */
+
+        .intro {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            margin-bottom: 27px;
+        }
+
+
+        /* =========================
+           FORMULÁRIO
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 9px;
+
+            font-weight: bold;
+
+            color: #555;
+
+            margin-bottom: 7px;
+
+            text-transform: uppercase;
+        }
+
+        .form-group input {
+
+            width: 100%;
+
+            height: 40px;
+
+            border: 1px solid #e4e4e4;
+
+            border-radius: 5px;
+
+            padding: 0 12px;
+
+            font-size: 11px;
+
+            outline: none;
+
+            background: #fff;
+        }
+
+        .form-group input:focus {
+
+            border-color: #e8b6ae;
+
+            box-shadow: 0 0 0 2px rgba(232,182,174,.12);
+        }
+
+
+        /* =========================
+           ESQUECEU PASSWORD
+        ========================= */
+
+        .forgot {
+
+            text-align: right;
+
+            margin-top: -4px;
+
             margin-bottom: 18px;
         }
 
-        .campo label {
-            display: block;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            color: #71384f;
-            margin-bottom: 7px;
-        }
+        .forgot a {
 
-        .campo input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #e7bfd0;
-            border-radius: 12px;
-            background: #fff8fb;
-            color: #542d40;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
+            color: #444;
 
-        .campo input:focus {
-            border-color: #c85c85;
-            box-shadow: 0 0 0 3px rgba(200, 92, 133, 0.12);
-        }
+            font-size: 9px;
 
-        .opcoes {
-            display: flex;
-            justify-content: flex-end;
-            margin: -5px 0 22px;
-        }
-
-        .opcoes a {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: #a53d68;
             text-decoration: none;
         }
 
-        .opcoes a:hover {
-            text-decoration: underline;
-        }
 
-        .btn-entrar {
+        /* =========================
+           BOTÃO LOGIN
+        ========================= */
+
+        .login-button {
+
             width: 100%;
+
+            height: 40px;
+
             border: none;
-            border-radius: 14px;
-            padding: 15px;
-            background: linear-gradient(135deg, #c43f72, #9d315d);
-            color: white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
+
+            border-radius: 5px;
+
+            background: #f2c9c1;
+
+            color: #513b37;
+
+            font-size: 11px;
+
             cursor: pointer;
-            box-shadow: 0 8px 18px rgba(157, 49, 93, 0.25);
-            transition: 0.3s;
+
+            transition: .2s;
         }
 
-        .btn-entrar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 11px 22px rgba(157, 49, 93, 0.32);
+        .login-button:hover {
+
+            background: #eab6ad;
         }
 
-        .registo {
-            margin-top: 25px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #80616e;
+
+        /* =========================
+           OR
+        ========================= */
+
+        .or {
+
+            text-align: center;
+
+            margin: 16px 0;
+
+            color: #999;
+
+            font-size: 9px;
         }
 
-        .registo a {
-            color: #a83262;
+
+        /* =========================
+           FACEBOOK
+        ========================= */
+
+        .facebook {
+
+            width: 100%;
+
+            height: 38px;
+
+            border: 1px solid #dedede;
+
+            background: white;
+
+            border-radius: 5px;
+
+            font-size: 9px;
+
+            color: #444;
+
+            cursor: pointer;
+        }
+
+        .facebook:hover {
+
+            background: #fafafa;
+        }
+
+
+        /* =========================
+           TERMOS
+        ========================= */
+
+        .terms {
+
+            text-align: center;
+
+            font-size: 8px;
+
+            color: #888;
+
+            line-height: 1.5;
+
+            margin-top: 15px;
+        }
+
+        .terms a {
+
+            color: #555;
+
+            text-decoration: none;
+
             font-weight: bold;
+        }
+
+
+        /* =========================
+           REGISTO
+        ========================= */
+
+        .signup {
+
+            text-align: center;
+
+            border-top: 1px solid #eeeeee;
+
+            margin-top: 18px;
+
+            padding-top: 18px;
+
+            font-size: 9px;
+
+            color: #777;
+        }
+
+        .signup a {
+
+            color: #444;
+
             text-decoration: none;
+
+            font-weight: bold;
         }
 
-        .registo a:hover {
-            text-decoration: underline;
-        }
 
-        .voltar {
-            display: inline-block;
-            margin-top: 22px;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: #9a6377;
-            text-decoration: none;
-        }
+        /* =========================
+           RESPONSIVO
+        ========================= */
 
-        .voltar:hover {
-            color: #8f3157;
-        }
-
-        @keyframes flutuar {
-            0%, 100% {
-                transform: translateY(-50%) rotate(-3deg);
-            }
-
-            50% {
-                transform: translateY(-57%) rotate(3deg);
-            }
-        }
-
-        /* Telemóveis */
-        @media (max-width: 700px) {
+        @media (max-width: 750px) {
 
             body {
-                overflow-y: auto;
-                padding: 30px 0;
+                padding: 20px;
             }
 
-            .rosa {
-                left: -20px;
-                top: 8%;
-                font-size: 85px;
-                transform: none;
+            .login-container {
+
+                grid-template-columns: 1fr;
+
+                width: 100%;
+
+                max-width: 450px;
             }
 
-            .aliancas {
-                right: -25px;
-                top: 7%;
-                transform: scale(0.65) rotate(-10deg);
+            .photo-side {
+
+                min-height: 280px;
+
+                height: 280px;
             }
 
-            .login-card {
-                width: 92%;
-                padding: 35px 25px;
-                margin-top: 55px;
+            .form-side {
+
+                padding: 35px 30px 40px;
             }
 
-            h1 {
-                font-size: 29px;
+            .top-menu {
+
+                margin-bottom: 35px;
             }
         }
+
+
+        @media (max-width: 450px) {
+
+            .photo-side {
+
+                min-height: 220px;
+
+                height: 220px;
+            }
+
+            .form-side {
+
+                padding: 30px 24px;
+            }
+
+            .top-menu {
+
+                gap: 24px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <div class="decoracao">
-        <div class="bolha bolha-1"></div>
-        <div class="bolha bolha-2"></div>
+    <div class="login-container">
 
-        <!-- Rosa decorativa -->
-        <div class="rosa">🌹</div>
 
-        <!-- Par de alianças -->
-        <div class="aliancas">
-            <div class="anel anel-1"></div>
-            <div class="anel anel-2"></div>
+        <!-- =========================
+             FOTOGRAFIA
+        ========================== -->
+
+        <div class="photo-side"></div>
+
+
+        <!-- =========================
+             FORMULÁRIO
+        ========================== -->
+
+        <div class="form-side">
+
+
+            <div class="top-menu">
+
+                <a href="login.html" class="active">
+                    Login
+                </a>
+
+                <a href="registo.html">
+                    Signup
+                </a>
+
+            </div>
+
+
+            <div class="logo">
+
+                <h1>Casamento Perfeito</h1>
+
+                <span>O seu grande dia começa aqui</span>
+
+            </div>
+
+
+            <p class="intro">
+
+                Introduza os seus dados abaixo para<br>
+                entrar na sua conta.
+
+            </p>
+
+
+            <form>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite o seu e-mail"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Palavra-passe
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="A sua palavra-passe"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="forgot">
+
+                    <a href="#">
+                        Esqueceu-se da palavra-passe?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Entrar
+                </button>
+
+
+                <div class="or">
+                    OU
+                </div>
+
+
+                <button
+                    type="button"
+                    class="facebook"
+                >
+                    🔵 &nbsp; Entrar com Facebook
+                </button>
+
+
+                <div class="terms">
+
+                    Ao continuar, aceita os nossos
+
+                    <a href="#">
+                        Termos de Serviço
+                    </a>
+
+                    e
+
+                    <a href="#">
+                        Política de Privacidade
+                    </a>.
+
+                </div>
+
+
+                <div class="signup">
+
+                    Ainda não tem uma conta?
+
+                    <a href="registo.html">
+                        Criar conta
+                    </a>
+
+                </div>
+
+
+            </form>
+
         </div>
+
     </div>
-
-    <main class="login-card">
-
-        <div class="mini-rosa">🌹</div>
-
-        <h1>Bem-vindo de volta</h1>
-
-        <p class="subtitulo">
-            Entre na sua conta e continue a preparar<br>
-            o seu momento perfeito.
-        </p>
-
-        <form>
-
-            <div class="campo">
-                <label for="email">E-mail</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Digite o seu e-mail"
-                    required
-                >
-            </div>
-
-            <div class="campo">
-                <label for="password">Palavra-passe</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Digite a sua palavra-passe"
-                    required
-                >
-            </div>
-
-            <div class="opcoes">
-                <a href="#">Esqueceu-se da palavra-passe?</a>
-            </div>
-
-            <button type="submit" class="btn-entrar">
-                Entrar
-            </button>
-
-        </form>
-
-        <p class="registo">
-            Ainda não tem uma conta?
-            <a href="registo.html">Criar conta</a>
-        </p>
-
-        <a href="index.html" class="voltar">
-            ← Voltar à página inicial
-        </a>
-
-    </main>
 
 </body>
 </html>

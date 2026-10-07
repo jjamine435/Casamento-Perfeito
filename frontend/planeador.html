@@ -7,6 +7,7 @@
     <title>Planeador do Casamento | Casamento Perfeito</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,7 +21,9 @@
             min-height: 100vh;
         }
 
-        /* CABEÇALHO */
+        /* ==========================================
+           CABEÇALHO
+           ========================================== */
 
         header {
             background: #ffffff;
@@ -49,7 +52,9 @@
             text-decoration: underline;
         }
 
-        /* CONTEÚDO */
+        /* ==========================================
+           CONTEÚDO
+           ========================================== */
 
         main {
             width: 100%;
@@ -57,6 +62,10 @@
             margin: 0 auto;
             padding: 40px 25px 60px;
         }
+
+        /* ==========================================
+           HERO
+           ========================================== */
 
         .hero {
             background: linear-gradient(135deg, #ffffff, #fff0f5);
@@ -86,7 +95,9 @@
             max-width: 750px;
         }
 
-        /* RESUMO */
+        /* ==========================================
+           RESUMO
+           ========================================== */
 
         .summary {
             display: grid;
@@ -114,7 +125,9 @@
             color: #c45f7d;
         }
 
-        /* PROGRESSO */
+        /* ==========================================
+           PROGRESSO
+           ========================================== */
 
         .progress-box {
             background: #ffffff;
@@ -147,7 +160,9 @@
             transition: width 0.3s ease;
         }
 
-        /* ÁREAS */
+        /* ==========================================
+           ÁREAS
+           ========================================== */
 
         .section-title {
             margin-bottom: 18px;
@@ -236,18 +251,45 @@
             background: #aa4e69;
         }
 
-        /* PRIMEIRA ÁREA */
-
         .area-destaque {
             grid-column: 1 / -1;
             border: 2px solid #e7b8c7;
         }
 
-        .area-destaque .open-area {
-            background: #c45f7d;
+        /* ==========================================
+           MINI PROGRESSO DAS ÁREAS
+           ========================================== */
+
+        .area-progress {
+            margin-top: 14px;
         }
 
-        /* TAREFAS */
+        .area-progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .area-progress-bar {
+            width: 100%;
+            height: 7px;
+            background: #f3e3e8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .area-progress-fill {
+            height: 100%;
+            background: #c45f7d;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* ==========================================
+           SECÇÃO DE TAREFAS
+           ========================================== */
 
         #tasksSection {
             display: none;
@@ -280,30 +322,222 @@
             font-weight: bold;
         }
 
+        /* ==========================================
+           FILTROS
+           ========================================== */
+
+        .task-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding: 16px;
+            background: #fff8fa;
+            border: 1px solid #f1dfe5;
+            border-radius: 15px;
+        }
+
+        .task-controls select,
+        .task-controls input {
+            width: 100%;
+            border: 1px solid #e6d5dc;
+            background: #ffffff;
+            border-radius: 9px;
+            padding: 10px;
+            font-family: inherit;
+            color: #4a3039;
+        }
+
+        .new-task-button {
+            border: none;
+            background: #c45f7d;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .new-task-button:hover {
+            background: #aa4e69;
+        }
+
+        /* ==========================================
+           TAREFA
+           ========================================== */
+
         .task {
             border: 1px solid #eee0e5;
             border-radius: 15px;
-            padding: 18px;
+            padding: 20px;
             margin-bottom: 14px;
+            background: #ffffff;
         }
 
-        .task:last-child {
-            margin-bottom: 0;
+        .task.task-concluida {
+            border-left: 5px solid #4a9b60;
+        }
+
+        .task.task-atrasada {
+            border-left: 5px solid #c94b4b;
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .task-title-area {
+            flex: 1;
         }
 
         .task-name {
             font-weight: bold;
-            margin-bottom: 12px;
+            font-size: 16px;
+            margin-bottom: 8px;
         }
 
-        .task-priority {
+        .task-number {
+            color: #c45f7d;
+        }
+
+        .task-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .badge {
             display: inline-block;
             font-size: 11px;
             padding: 5px 9px;
             border-radius: 20px;
             background: #f8e8ed;
             color: #a64f69;
-            margin-bottom: 15px;
+        }
+
+        .badge-urgente {
+            background: #f8dddd;
+            color: #a53232;
+        }
+
+        .badge-alta {
+            background: #fff0d8;
+            color: #9a6500;
+        }
+
+        .badge-media {
+            background: #f8e8ed;
+            color: #a64f69;
+        }
+
+        .badge-baixa {
+            background: #e7f2ea;
+            color: #347348;
+        }
+
+        .badge-concluido {
+            background: #dff3e5;
+            color: #28753e;
+        }
+
+        .badge-andamento {
+            background: #e3edf8;
+            color: #35658c;
+        }
+
+        .badge-bloqueado {
+            background: #f8dddd;
+            color: #a53232;
+        }
+
+        .task-edit-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            border: 1px solid #e6d5dc;
+            border-radius: 9px;
+            padding: 10px;
+            font-family: inherit;
+            color: #4a3039;
+            background: #ffffff;
+        }
+
+        .field textarea {
+            min-height: 75px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: #c45f7d;
+            box-shadow: 0 0 0 3px rgba(196, 95, 125, 0.1);
+        }
+
+        .task-save-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+            gap: 8px;
+        }
+
+        .save-task {
+            border: none;
+            background: #c45f7d;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save-task:hover {
+            background: #aa4e69;
+        }
+
+        .task-status-message {
+            color: #4a9b60;
+            font-size: 12px;
+            display: none;
+            align-items: center;
+        }
+
+        /* ==========================================
+           CHECKPOINT
+           ========================================== */
+
+        .checkpoint-area {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #eee0e5;
         }
 
         .checkpoint-title {
@@ -368,7 +602,21 @@
             font-family: inherit;
         }
 
-        /* RODAPÉ */
+        /* ==========================================
+           NOVA TAREFA
+           ========================================== */
+
+        .empty-tasks {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            background: #fff8fa;
+            border-radius: 12px;
+        }
+
+        /* ==========================================
+           RODAPÉ
+           ========================================== */
 
         footer {
             text-align: center;
@@ -377,7 +625,9 @@
             font-size: 13px;
         }
 
-        /* RESPONSIVO */
+        /* ==========================================
+           RESPONSIVO
+           ========================================== */
 
         @media (max-width: 850px) {
 
@@ -392,6 +642,19 @@
             .area-destaque {
                 grid-column: auto;
             }
+
+            .task-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .task-edit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
         }
 
         @media (max-width: 600px) {
@@ -435,11 +698,24 @@
             .close-tasks {
                 margin-top: 15px;
             }
+
+            .task-header {
+                display: block;
+            }
+
+            .task-badges {
+                margin-top: 10px;
+            }
+
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -455,6 +731,9 @@
 
 
 <main>
+
+
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -476,23 +755,46 @@
     <section class="summary">
 
         <div class="summary-card">
+
             <span>Áreas</span>
-            <strong>25</strong>
+
+            <strong id="areasCount">
+                25
+            </strong>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>Tarefas</span>
-            <strong>322</strong>
+
+            <strong id="tasksCount">
+                322
+            </strong>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>Concluídas</span>
-            <strong id="completedCount">0</strong>
+
+            <strong id="completedCount">
+                0
+            </strong>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>Progresso</span>
-            <strong id="progressNumber">0%</strong>
+
+            <strong id="progressNumber">
+                0%
+            </strong>
+
         </div>
 
     </section>
@@ -504,9 +806,13 @@
 
         <div class="progress-header">
 
-            <span>Progresso geral</span>
+            <span>
+                Progresso geral
+            </span>
 
-            <span id="progressText">0%</span>
+            <span id="progressText">
+                0%
+            </span>
 
         </div>
 
@@ -528,10 +834,12 @@
 
         <div class="section-title">
 
-            <h2>As suas áreas de planeamento</h2>
+            <h2>
+                As suas áreas de planeamento
+            </h2>
 
             <p>
-                Escolha uma área para consultar as tarefas.
+                Escolha uma área para consultar e editar as tarefas.
             </p>
 
         </div>
@@ -556,14 +864,88 @@
                 type="button"
                 class="close-tasks"
                 onclick="fecharTarefas()">
+
                 Fechar
+
             </button>
 
         </div>
 
+
+        <!-- FILTROS -->
+
+        <div class="task-controls">
+
+            <select
+                id="filterStatus"
+                onchange="renderizarTarefasDaArea()">
+
+                <option value="todos">
+                    Todos os estados
+                </option>
+
+                <option value="nao_iniciado">
+                    Não iniciado
+                </option>
+
+                <option value="em_andamento">
+                    Em andamento
+                </option>
+
+                <option value="concluido">
+                    Concluído
+                </option>
+
+                <option value="bloqueado">
+                    Bloqueado
+                </option>
+
+            </select>
+
+
+            <select
+                id="filterPriority"
+                onchange="renderizarTarefasDaArea()">
+
+                <option value="todas">
+                    Todas as prioridades
+                </option>
+
+                <option value="Urgente">
+                    Urgente
+                </option>
+
+                <option value="Alta">
+                    Alta
+                </option>
+
+                <option value="Média">
+                    Média
+                </option>
+
+                <option value="Baixa">
+                    Baixa
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="new-task-button"
+                onclick="adicionarTarefa()">
+
+                + Nova tarefa
+
+            </button>
+
+        </div>
+
+
         <div id="tasksContainer"></div>
 
     </section>
+
 
 </main>
 
@@ -575,761 +957,624 @@
 </footer>
 
 
+
 <script>
 
-    /*
-     * ==========================================
-     * DADOS DAS 25 ÁREAS
-     * ==========================================
-     */
 
-    const areas = [
+/*
+ * ==========================================
+ * DADOS DAS 25 ÁREAS
+ * ==========================================
+ */
 
-        {
-            numero: 1,
-            nome: "Planeamento Inicial",
-            tarefas: 10,
-            descricao: "Defina as principais decisões que dão início à organização."
-        },
+const areas = [
 
-        {
-            numero: 2,
-            nome: "Casamento Civil",
-            tarefas: 12,
-            descricao: "Organize documentação, conservatória e procedimentos legais."
-        },
+    {
+        numero: 1,
+        nome: "Planeamento Inicial",
+        tarefas: 10,
+        descricao:
+            "Defina as principais decisões que dão início à organização."
+    },
 
-        {
-            numero: 3,
-            nome: "Cerimónia Religiosa",
-            tarefas: 12,
-            descricao: "Prepare a cerimónia, celebração e todos os seus detalhes."
-        },
+    {
+        numero: 2,
+        nome: "Casamento Civil",
+        tarefas: 12,
+        descricao:
+            "Organize documentação, conservatória e procedimentos legais."
+    },
 
-        {
-            numero: 4,
-            nome: "Noiva",
-            tarefas: 18,
-            descricao: "Vestido, acessórios, beleza, cabelo, maquilhagem e preparação."
-        },
+    {
+        numero: 3,
+        nome: "Cerimónia Religiosa",
+        tarefas: 12,
+        descricao:
+            "Prepare a cerimónia, celebração e todos os seus detalhes."
+    },
 
-        {
-            numero: 5,
-            nome: "Noivo",
-            tarefas: 12,
-            descricao: "Fato, acessórios, cuidados pessoais e preparação."
-        },
+    {
+        numero: 4,
+        nome: "Noiva",
+        tarefas: 18,
+        descricao:
+            "Vestido, acessórios, beleza, cabelo, maquilhagem e preparação."
+    },
 
-        {
-            numero: 6,
-            nome: "Local / Salão",
-            tarefas: 15,
-            descricao: "Escolha, contratação e organização do espaço."
-        },
+    {
+        numero: 5,
+        nome: "Noivo",
+        tarefas: 12,
+        descricao:
+            "Fato, acessórios, cuidados pessoais e preparação."
+    },
 
-        {
-            numero: 7,
-            nome: "Decoração",
-            tarefas: 15,
-            descricao: "Planeie flores, cores, mobiliário e ambiente."
-        },
+    {
+        numero: 6,
+        nome: "Local / Salão",
+        tarefas: 15,
+        descricao:
+            "Escolha, contratação e organização do espaço."
+    },
 
-        {
-            numero: 8,
-            nome: "Catering",
-            tarefas: 15,
-            descricao: "Menu, bebidas, serviço, quantidades e necessidades especiais."
-        },
+    {
+        numero: 7,
+        nome: "Decoração",
+        tarefas: 15,
+        descricao:
+            "Planeie flores, cores, mobiliário e ambiente."
+    },
 
-        {
-            numero: 9,
-            nome: "Fotografia / Vídeo",
-            tarefas: 15,
-            descricao: "Escolha profissionais e planeie os momentos a registar."
-        },
+    {
+        numero: 8,
+        nome: "Catering",
+        tarefas: 15,
+        descricao:
+            "Menu, bebidas, serviço, quantidades e necessidades especiais."
+    },
 
-        {
-            numero: 10,
-            nome: "Música / DJ",
-            tarefas: 15,
-            descricao: "Música, DJ, banda, equipamentos e repertório."
-        },
+    {
+        numero: 9,
+        nome: "Fotografia / Vídeo",
+        tarefas: 15,
+        descricao:
+            "Escolha profissionais e planeie os momentos a registar."
+    },
 
-        {
-            numero: 11,
-            nome: "Alianças",
-            tarefas: 10,
-            descricao: "Escolha, orçamento, gravação e preparação das alianças."
-        },
+    {
+        numero: 10,
+        nome: "Música / DJ",
+        tarefas: 15,
+        descricao:
+            "Música, DJ, banda, equipamentos e repertório."
+    },
 
-        {
-            numero: 12,
-            nome: "Convites",
-            tarefas: 12,
-            descricao: "Prepare, envie e acompanhe os convites."
-        },
+    {
+        numero: 11,
+        nome: "Alianças",
+        tarefas: 10,
+        descricao:
+            "Escolha, orçamento, gravação e preparação das alianças."
+    },
 
-        {
-            numero: 13,
-            nome: "Família / Padrinhos",
-            tarefas: 12,
-            descricao: "Organize responsabilidades e participação da família e padrinhos."
-        },
+    {
+        numero: 12,
+        nome: "Convites",
+        tarefas: 12,
+        descricao:
+            "Prepare, envie e acompanhe os convites."
+    },
 
-        {
-            numero: 14,
-            nome: "Transporte",
-            tarefas: 10,
-            descricao: "Planeie deslocações dos noivos, convidados e fornecedores."
-        },
+    {
+        numero: 13,
+        nome: "Família / Padrinhos",
+        tarefas: 12,
+        descricao:
+            "Organize responsabilidades e participação da família e padrinhos."
+    },
 
-        {
-            numero: 15,
-            nome: "Lua de Mel",
-            tarefas: 12,
-            descricao: "Destino, reservas, transporte, documentos e orçamento."
-        },
+    {
+        numero: 14,
+        nome: "Transporte",
+        tarefas: 10,
+        descricao:
+            "Planeie deslocações dos noivos, convidados e fornecedores."
+    },
 
-        {
-            numero: 16,
-            nome: "Financeiro",
-            tarefas: 15,
-            descricao: "Controle orçamento, pagamentos, depósitos e despesas."
-        },
+    {
+        numero: 15,
+        nome: "Lua de Mel",
+        tarefas: 12,
+        descricao:
+            "Destino, reservas, transporte, documentos e orçamento."
+    },
 
-        {
-            numero: 17,
-            nome: "Convidados",
-            tarefas: 15,
-            descricao: "Lista de convidados, confirmações e informações importantes."
-        },
+    {
+        numero: 16,
+        nome: "Financeiro",
+        tarefas: 15,
+        descricao:
+            "Controle orçamento, pagamentos, depósitos e despesas."
+    },
 
-        {
-            numero: 18,
-            nome: "Mesas / Lugares",
-            tarefas: 10,
-            descricao: "Organize mesas, lugares e distribuição dos convidados."
-        },
+    {
+        numero: 17,
+        nome: "Convidados",
+        tarefas: 15,
+        descricao:
+            "Lista de convidados, confirmações e informações importantes."
+    },
 
-        {
-            numero: 19,
-            nome: "Bolo / Doces",
-            tarefas: 10,
-            descricao: "Escolha bolo, doces, sabores, decoração e entrega."
-        },
+    {
+        numero: 18,
+        nome: "Mesas / Lugares",
+        tarefas: 10,
+        descricao:
+            "Organize mesas, lugares e distribuição dos convidados."
+    },
 
-        {
-            numero: 20,
-            nome: "Lembranças",
-            tarefas: 8,
-            descricao: "Escolha e organize as lembranças para os convidados."
-        },
+    {
+        numero: 19,
+        nome: "Bolo / Doces",
+        tarefas: 10,
+        descricao:
+            "Escolha bolo, doces, sabores, decoração e entrega."
+    },
 
-        {
-            numero: 21,
-            nome: "Programa do Dia",
-            tarefas: 12,
-            descricao: "Defina horários, sequência e responsáveis."
-        },
+    {
+        numero: 20,
+        nome: "Lembranças",
+        tarefas: 8,
+        descricao:
+            "Escolha e organize as lembranças para os convidados."
+    },
 
-        {
-            numero: 22,
-            nome: "Últimas 4 Semanas",
-            tarefas: 15,
-            descricao: "Confirme fornecedores, convidados e últimos preparativos."
-        },
+    {
+        numero: 21,
+        nome: "Programa do Dia",
+        tarefas: 12,
+        descricao:
+            "Defina horários, sequência e responsáveis."
+    },
 
-        {
-            numero: 23,
-            nome: "Semana do Casamento",
-            tarefas: 15,
-            descricao: "Conclua os preparativos finais e confirme tudo."
-        },
+    {
+        numero: 22,
+        nome: "Últimas 4 Semanas",
+        tarefas: 15,
+        descricao:
+            "Confirme fornecedores, convidados e últimos preparativos."
+    },
 
-        {
-            numero: 24,
-            nome: "Dia do Casamento",
-            tarefas: 15,
-            descricao: "Acompanhe as tarefas e responsabilidades do grande dia."
-        },
+    {
+        numero: 23,
+        nome: "Semana do Casamento",
+        tarefas: 15,
+        descricao:
+            "Conclua os preparativos finais e confirme tudo."
+    },
 
-        {
-            numero: 25,
-            nome: "Pós-Casamento",
-            tarefas: 12,
-            descricao: "Organize pagamentos finais, fotografias, documentos e agradecimentos."
-        }
+    {
+        numero: 24,
+        nome: "Dia do Casamento",
+        tarefas: 15,
+        descricao:
+            "Acompanhe as tarefas e responsabilidades do grande dia."
+    },
 
-    ];
+    {
+        numero: 25,
+        nome: "Pós-Casamento",
+        tarefas: 12,
+        descricao:
+            "Organize pagamentos finais, fotografias, documentos e agradecimentos."
+    }
 
-
-    /*
-     * ==========================================
-     * 10 TAREFAS REAIS DA PRIMEIRA ÁREA
-     * ==========================================
-     */
-
-    const tarefasPlaneamentoInicial = [
-
-        {
-            nome: "Definir se haverá casamento civil, religioso ou ambos",
-            prioridade: "Alta",
-            checkpoint: true
-        },
-
-        {
-            nome: "Definir a data do casamento",
-            prioridade: "Alta",
-            checkpoint: true
-        },
-
-        {
-            nome: "Definir o estilo do casamento",
-            prioridade: "Média",
-            checkpoint: true
-        },
-
-        {
-            nome: "Definir o número estimado de convidados",
-            prioridade: "Alta",
-            checkpoint: true
-        },
-
-        {
-            nome: "Definir o orçamento máximo",
-            prioridade: "Alta",
-            checkpoint: true
-        },
-
-        {
-            nome: "Definir quem contribuirá financeiramente",
-            prioridade: "Alta",
-            checkpoint: false
-        },
-
-        {
-            nome: "Criar lista inicial de convidados",
-            prioridade: "Alta",
-            checkpoint: false
-        },
-
-        {
-            nome: "Definir prioridades do casal",
-            prioridade: "Média",
-            checkpoint: false
-        },
-
-        {
-            nome: "Criar cronograma geral",
-            prioridade: "Média",
-            checkpoint: false
-        },
-
-        {
-            nome: "Definir responsáveis pelas principais tarefas",
-            prioridade: "Média",
-            checkpoint: false
-        }
-
-    ];
+];
 
 
-    /*
-     * ==========================================
-     * ESTADO
-     * ==========================================
-     */
+/*
+ * ==========================================
+ * TAREFAS REAIS DA PRIMEIRA ÁREA
+ * ==========================================
+ */
 
-    const STORAGE_KEY = "casamentoPerfeitoPlaneador";
+const tarefasPlaneamentoInicial = [
 
-    let estado = {};
+    {
+        nome: "Definir se haverá casamento civil, religioso ou ambos",
+        prioridade: "Alta",
+        checkpoint: true
+    },
+
+    {
+        nome: "Definir a data do casamento",
+        prioridade: "Alta",
+        checkpoint: true
+    },
+
+    {
+        nome: "Definir o estilo do casamento",
+        prioridade: "Média",
+        checkpoint: true
+    },
+
+    {
+        nome: "Definir o número estimado de convidados",
+        prioridade: "Alta",
+        checkpoint: true
+    },
+
+    {
+        nome: "Definir o orçamento máximo",
+        prioridade: "Alta",
+        checkpoint: true
+    },
+
+    {
+        nome: "Definir quem contribuirá financeiramente",
+        prioridade: "Alta",
+        checkpoint: false
+    },
+
+    {
+        nome: "Criar lista inicial de convidados",
+        prioridade: "Alta",
+        checkpoint: false
+    },
+
+    {
+        nome: "Definir prioridades do casal",
+        prioridade: "Média",
+        checkpoint: false
+    },
+
+    {
+        nome: "Criar cronograma geral",
+        prioridade: "Média",
+        checkpoint: false
+    },
+
+    {
+        nome: "Definir responsáveis pelas principais tarefas",
+        prioridade: "Média",
+        checkpoint: false
+    }
+
+];
+
+
+/*
+ * ==========================================
+ * CONFIGURAÇÕES
+ * ==========================================
+ */
+
+const STORAGE_KEY =
+    "casamentoPerfeitoPlaneador";
+
+
+const PRIORIDADES = [
+    "Urgente",
+    "Alta",
+    "Média",
+    "Baixa"
+];
+
+
+const ESTADOS = [
+    "nao_iniciado",
+    "em_andamento",
+    "concluido",
+    "bloqueado"
+];
+
+
+const RESPONSAVEIS = [
+    "Noivo",
+    "Noiva",
+    "Ambos",
+    "Padrinho",
+    "Madrinha",
+    "Fornecedor",
+    "Outro"
+];
+
+
+let estado = {};
+
+let areaAtual = null;
+
+
+/*
+ * ==========================================
+ * CARREGAR DADOS
+ * ==========================================
+ */
+
+try {
+
+    const guardado =
+        localStorage.getItem(STORAGE_KEY);
+
+    if (guardado) {
+
+        estado =
+            JSON.parse(guardado);
+
+    }
+
+} catch (erro) {
+
+    estado = {};
+
+}
+
+
+/*
+ * ==========================================
+ * GUARDAR ESTADO
+ * ==========================================
+ */
+
+function guardarEstado() {
 
     try {
 
-        const guardado =
-            localStorage.getItem(STORAGE_KEY);
-
-        if (guardado) {
-            estado = JSON.parse(guardado);
-        }
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(estado)
+        );
 
     } catch (erro) {
 
-        estado = {};
+        console.log(
+            "Não foi possível guardar os dados."
+        );
 
     }
 
-
-    /*
-     * ==========================================
-     * MOSTRAR ÁREAS
-     * ==========================================
-     */
-
-    function mostrarAreas() {
-
-        const container =
-            document.getElementById("areas");
-
-        container.innerHTML = "";
+}
 
 
-        areas.forEach(function(area) {
+/*
+ * ==========================================
+ * CRIAR ID DA TAREFA
+ * ==========================================
+ */
 
-            const div =
-                document.createElement("div");
+function criarIdTarefa(areaNumero, numero) {
 
-            div.className = "area";
+    return (
+        "area_" +
+        areaNumero +
+        "_tarefa_" +
+        numero
+    );
 
-            if (area.numero === 1) {
-                div.classList.add("area-destaque");
-            }
-
-
-            div.innerHTML = `
-
-                <div class="area-top">
-
-                    <div class="area-number">
-                        ${area.numero}
-                    </div>
-
-                    <h3>
-                        ${area.nome}
-                    </h3>
-
-                    <span class="task-count">
-                        ${area.tarefas} tarefas
-                    </span>
-
-                </div>
-
-                <p>
-                    ${area.descricao}
-                </p>
-
-                <button
-                    type="button"
-                    class="open-area"
-                    onclick="abrirArea(${area.numero})">
-
-                    Abrir área →
-
-                </button>
-
-            `;
+}
 
 
-            container.appendChild(div);
+/*
+ * ==========================================
+ * OBTER TAREFAS DE UMA ÁREA
+ * ==========================================
+ */
 
-        });
+function obterTarefas(area) {
 
-    }
+    const tarefas = [];
 
+    if (area.numero === 1) {
 
-    /*
-     * ==========================================
-     * ABRIR ÁREA
-     * ==========================================
-     */
+        tarefasPlaneamentoInicial.forEach(
+            function(tarefa, index) {
 
-    function abrirArea(numero) {
+                tarefas.push({
 
-        const area =
-            areas.find(function(item) {
-                return item.numero === numero;
-            });
+                    numero: index + 1,
 
-
-        if (!area) {
-            return;
-        }
-
-
-        const section =
-            document.getElementById("tasksSection");
-
-        const title =
-            document.getElementById("tasksTitle");
-
-        const container =
-            document.getElementById("tasksContainer");
-
-
-        title.textContent =
-            area.numero + ". " + area.nome;
-
-
-        container.innerHTML = "";
-
-
-        /*
-         * Primeira área:
-         * mostrar as 10 tarefas reais.
-         */
-
-        if (numero === 1) {
-
-            tarefasPlaneamentoInicial.forEach(
-                function(tarefa, index) {
-
-                    criarTarefa(
-                        tarefa,
-                        index + 1,
-                        container
-                    );
-
-                }
-            );
-
-        }
-
-        /*
-         * Outras áreas:
-         * por enquanto mostramos a estrutura.
-         * As tarefas detalhadas serão acrescentadas
-         * sem alterar o funcionamento da página.
-         */
-
-        else {
-
-            for (
-                let i = 1;
-                i <= area.tarefas;
-                i++
-            ) {
-
-                const tarefa = {
-
-                    nome:
-                        "Tarefa " +
-                        i +
-                        " — " +
-                        area.nome,
+                    nome: tarefa.nome,
 
                     prioridade:
-                        "A definir",
+                        tarefa.prioridade,
 
                     checkpoint:
-                        false
+                        tarefa.checkpoint
 
-                };
-
-
-                criarTarefa(
-                    tarefa,
-                    i,
-                    container
-                );
+                });
 
             }
+        );
+
+    } else {
+
+        for (
+            let i = 1;
+            i <= area.tarefas;
+            i++
+        ) {
+
+            tarefas.push({
+
+                numero: i,
+
+                nome:
+                    "Tarefa " +
+                    i +
+                    " — " +
+                    area.nome,
+
+                prioridade: "Média",
+
+                checkpoint: false
+
+            });
 
         }
-
-
-        section.style.display = "block";
-
-
-        section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
 
     }
 
 
     /*
-     * ==========================================
-     * CRIAR TAREFA
-     * ==========================================
+     * Tarefas adicionadas manualmente
      */
 
-    function criarTarefa(
-        tarefa,
-        numero,
-        container
-    ) {
+    const extras =
+        estado["area_" + area.numero + "_extras"];
+
+
+    if (Array.isArray(extras)) {
+
+        extras.forEach(function(tarefa) {
+
+            tarefas.push(tarefa);
+
+        });
+
+    }
+
+
+    return tarefas;
+
+}
+
+
+/*
+ * ==========================================
+ * DADOS PADRÃO DE UMA TAREFA
+ * ==========================================
+ */
+
+function obterDadosTarefa(
+    areaNumero,
+    numero,
+    tarefa
+) {
+
+    const id =
+        criarIdTarefa(
+            areaNumero,
+            numero
+        );
+
+
+    if (!estado[id]) {
+
+        estado[id] = {
+
+            nome:
+                tarefa.nome,
+
+            prioridade:
+                tarefa.prioridade || "Média",
+
+            status:
+                "nao_iniciado",
+
+            dataExecucao:
+                "",
+
+            prazo:
+                "",
+
+            responsavel:
+                "Ambos",
+
+            fornecedor:
+                "",
+
+            contacto:
+                "",
+
+            orcamento:
+                "",
+
+            valorGasto:
+                "",
+
+            link:
+                "",
+
+            observacoes:
+                "",
+
+            motivoBloqueio:
+                "",
+
+            checkpoint:
+                tarefa.checkpoint || false,
+
+            checkpointStatus:
+                "pendente",
+
+            reason:
+                ""
+
+        };
+
+        guardarEstado();
+
+    }
+
+
+    return estado[id];
+
+}
+
+
+/*
+ * ==========================================
+ * MOSTRAR ÁREAS
+ * ==========================================
+ */
+
+function mostrarAreas() {
+
+    const container =
+        document.getElementById("areas");
+
+    container.innerHTML = "";
+
+
+    areas.forEach(function(area) {
 
         const div =
             document.createElement("div");
 
-        div.className = "task";
 
+        div.className =
+            "area";
 
-        const id =
-            "tarefa_" +
-            numero +
-            "_" +
-            tarefa.nome
-                .replace(/[^a-zA-Z0-9]/g, "")
-                .substring(0, 20);
 
+        if (area.numero === 1) {
 
-        div.innerHTML = `
-
-            <div class="task-name">
-                ${numero}. ${tarefa.nome}
-            </div>
-
-            <span class="task-priority">
-                Prioridade: ${tarefa.prioridade}
-            </span>
-
-        `;
-
-
-        /*
-         * Se tiver checkpoint,
-         * mostrar os três estados.
-         */
-
-        if (tarefa.checkpoint) {
-
-            const checkpoint =
-                document.createElement("div");
-
-            checkpoint.innerHTML = `
-
-                <div class="checkpoint-title">
-                    Estado do checkpoint:
-                </div>
-
-                <div class="checkpoint-buttons">
-
-                    <button
-                        type="button"
-                        class="btn-done"
-                        data-status="concluido">
-
-                        🟢 Concluído
-
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn-pending"
-                        data-status="pendente">
-
-                        🟠 Pendente
-
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn-stuck"
-                        data-status="mal_parado">
-
-                        🔴 Mal parado
-
-                    </button>
-
-                </div>
-
-                <div class="reason-box">
-
-                    <label>
-                        Indique o motivo do atraso ou problema:
-                    </label>
-
-                    <textarea
-                        placeholder="Descreva o que está a impedir a conclusão desta tarefa...">
-                    </textarea>
-
-                </div>
-
-            `;
-
-
-            div.appendChild(checkpoint);
-
-
-            const buttons =
-                checkpoint.querySelectorAll(
-                    ".checkpoint-buttons button"
-                );
-
-
-            const reasonBox =
-                checkpoint.querySelector(
-                    ".reason-box"
-                );
-
-
-            const textarea =
-                checkpoint.querySelector(
-                    "textarea"
-                );
-
-
-            let saved =
-                estado[id];
-
-
-            if (!saved) {
-
-                saved = {
-                    status: "pendente",
-                    reason: ""
-                };
-
-            }
-
-
-            buttons.forEach(function(button) {
-
-                if (
-                    button.dataset.status ===
-                    saved.status
-                ) {
-
-                    button.classList.add("active");
-
-                }
-
-
-                button.addEventListener(
-                    "click",
-                    function() {
-
-                        buttons.forEach(
-                            function(btn) {
-                                btn.classList.remove(
-                                    "active"
-                                );
-                            }
-                        );
-
-
-                        button.classList.add("active");
-
-
-                        saved.status =
-                            button.dataset.status;
-
-
-                        if (
-                            saved.status ===
-                            "mal_parado"
-                        ) {
-
-                            reasonBox.style.display =
-                                "block";
-
-                        } else {
-
-                            reasonBox.style.display =
-                                "none";
-
-                        }
-
-
-                        estado[id] = saved;
-
-                        guardarEstado();
-
-                        atualizarResumo();
-
-                    }
-                );
-
-            });
-
-
-            textarea.value =
-                saved.reason || "";
-
-
-            textarea.addEventListener(
-                "input",
-                function() {
-
-                    saved.reason =
-                        textarea.value;
-
-                    estado[id] = saved;
-
-                    guardarEstado();
-
-                }
-            );
-
-
-            if (
-                saved.status ===
-                "mal_parado"
-            ) {
-
-                reasonBox.style.display =
-                    "block";
-
-            }
-
-        }
-
-
-        container.appendChild(div);
-
-    }
-
-
-    /*
-     * ==========================================
-     * GUARDAR
-     * ==========================================
-     */
-
-    function guardarEstado() {
-
-        try {
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(estado)
-            );
-
-        } catch (erro) {
-
-            console.log(
-                "Não foi possível guardar os dados."
+            div.classList.add(
+                "area-destaque"
             );
 
         }
 
-    }
 
+        const tarefas =
+            obterTarefas(area);
 
-    /*
-     * ==========================================
-     * FECHAR TAREFAS
-     * ==========================================
-     */
-
-    function fecharTarefas() {
-
-        document.getElementById(
-            "tasksSection"
-        ).style.display = "none";
-
-    }
-
-
-    /*
-     * ==========================================
-     * ATUALIZAR RESUMO
-     * ==========================================
-     */
-
-    function atualizarResumo() {
 
         let concluidas = 0;
 
 
-        Object.keys(estado).forEach(
-            function(chave) {
+        tarefas.forEach(
+            function(tarefa) {
+
+                const dados =
+                    obterDadosTarefa(
+                        area.numero,
+                        tarefa.numero,
+                        tarefa
+                    );
+
 
                 if (
-                    estado[chave] &&
-                    estado[chave].status ===
+                    dados.status ===
                     "concluido"
                 ) {
 
@@ -1341,74 +1586,1679 @@
         );
 
 
-        /*
-         * Nesta primeira versão,
-         * o progresso considera os checkpoints
-         * existentes.
-         */
-
-        const totalCheckpoints =
-            tarefasPlaneamentoInicial
-                .filter(function(tarefa) {
-                    return tarefa.checkpoint;
-                })
-                .length;
+        const total =
+            tarefas.length;
 
 
-        let progresso = 0;
+        const progresso =
+            total > 0
+                ? Math.round(
+                    (concluidas / total) * 100
+                )
+                : 0;
 
 
-        if (totalCheckpoints > 0) {
+        div.innerHTML = `
 
-            progresso =
-                Math.round(
-                    (concluidas /
-                    totalCheckpoints) * 100
+            <div class="area-top">
+
+                <div class="area-number">
+                    ${area.numero}
+                </div>
+
+                <h3>
+                    ${area.nome}
+                </h3>
+
+                <span class="task-count">
+                    ${total} tarefas
+                </span>
+
+            </div>
+
+            <p>
+                ${area.descricao}
+            </p>
+
+            <div class="area-progress">
+
+                <div class="area-progress-header">
+
+                    <span>
+                        Progresso
+                    </span>
+
+                    <span>
+                        ${progresso}%
+                    </span>
+
+                </div>
+
+                <div class="area-progress-bar">
+
+                    <div
+                        class="area-progress-fill"
+                        style="width:${progresso}%">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button
+                type="button"
+                class="open-area"
+                onclick="abrirArea(${area.numero})">
+
+                Abrir área →
+
+            </button>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+
+    atualizarContagemAreas();
+
+}
+
+
+/*
+ * ==========================================
+ * ABRIR ÁREA
+ * ==========================================
+ */
+
+function abrirArea(numero) {
+
+    const area =
+        areas.find(function(item) {
+
+            return item.numero === numero;
+
+        });
+
+
+    if (!area) {
+
+        return;
+
+    }
+
+
+    areaAtual =
+        numero;
+
+
+    const section =
+        document.getElementById(
+            "tasksSection"
+        );
+
+
+    const title =
+        document.getElementById(
+            "tasksTitle"
+        );
+
+
+    title.textContent =
+        area.numero +
+        ". " +
+        area.nome;
+
+
+    document.getElementById(
+        "filterStatus"
+    ).value = "todos";
+
+
+    document.getElementById(
+        "filterPriority"
+    ).value = "todas";
+
+
+    renderizarTarefasDaArea();
+
+
+    section.style.display =
+        "block";
+
+
+    section.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
+
+}
+
+
+/*
+ * ==========================================
+ * RENDERIZAR TAREFAS
+ * ==========================================
+ */
+
+function renderizarTarefasDaArea() {
+
+    if (!areaAtual) {
+
+        return;
+
+    }
+
+
+    const area =
+        areas.find(function(item) {
+
+            return item.numero === areaAtual;
+
+        });
+
+
+    if (!area) {
+
+        return;
+
+    }
+
+
+    const container =
+        document.getElementById(
+            "tasksContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const filtroEstado =
+        document.getElementById(
+            "filterStatus"
+        ).value;
+
+
+    const filtroPrioridade =
+        document.getElementById(
+            "filterPriority"
+        ).value;
+
+
+    const tarefas =
+        obterTarefas(area);
+
+
+    let encontradas = 0;
+
+
+    tarefas.forEach(
+        function(tarefa) {
+
+            const dados =
+                obterDadosTarefa(
+                    area.numero,
+                    tarefa.numero,
+                    tarefa
                 );
+
+
+            if (
+                filtroEstado !== "todos" &&
+                dados.status !== filtroEstado
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                filtroPrioridade !== "todas" &&
+                dados.prioridade !== filtroPrioridade
+            ) {
+
+                return;
+
+            }
+
+
+            criarTarefa(
+                area.numero,
+                tarefa,
+                dados,
+                container
+            );
+
+
+            encontradas++;
+
+        }
+    );
+
+
+    if (encontradas === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-tasks">
+
+                Não existem tarefas para os filtros selecionados.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * CRIAR TAREFA NA INTERFACE
+ * ==========================================
+ */
+
+function criarTarefa(
+    areaNumero,
+    tarefa,
+    dados,
+    container
+) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "task";
+
+
+    if (
+        dados.status ===
+        "concluido"
+    ) {
+
+        div.classList.add(
+            "task-concluida"
+        );
+
+    }
+
+
+    if (
+        dados.prazo &&
+        dados.status !== "concluido"
+    ) {
+
+        const hoje =
+            new Date();
+
+        hoje.setHours(
+            0,
+            0,
+            0,
+            0
+        );
+
+
+        const prazo =
+            new Date(
+                dados.prazo +
+                "T00:00:00"
+            );
+
+
+        if (prazo < hoje) {
+
+            div.classList.add(
+                "task-atrasada"
+            );
 
         }
 
+    }
 
+
+    const id =
+        criarIdTarefa(
+            areaNumero,
+            tarefa.numero
+        );
+
+
+    div.innerHTML = `
+
+        <div class="task-header">
+
+            <div class="task-title-area">
+
+                <div class="task-name">
+
+                    <span class="task-number">
+                        ${tarefa.numero}.
+                    </span>
+
+                    ${escapeHtml(
+                        dados.nome
+                    )}
+
+                </div>
+
+                <div class="task-badges">
+
+                    <span
+                        class="badge ${classePrioridade(
+                            dados.prioridade
+                        )}">
+
+                        ${dados.prioridade}
+
+                    </span>
+
+                    <span
+                        class="badge ${classeEstado(
+                            dados.status
+                        )}">
+
+                        ${nomeEstado(
+                            dados.status
+                        )}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="task-edit-grid">
+
+
+            <div class="field full">
+
+                <label>
+                    Nome da tarefa
+                </label>
+
+                <input
+                    type="text"
+                    id="${id}_nome"
+                    value="${escapeAttr(
+                        dados.nome
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Prioridade
+                </label>
+
+                <select
+                    id="${id}_prioridade">
+
+                    ${criarOptions(
+                        PRIORIDADES,
+                        dados.prioridade
+                    )}
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Estado
+                </label>
+
+                <select
+                    id="${id}_status">
+
+                    <option
+                        value="nao_iniciado"
+                        ${dados.status === "nao_iniciado" ? "selected" : ""}>
+
+                        Não iniciado
+
+                    </option>
+
+                    <option
+                        value="em_andamento"
+                        ${dados.status === "em_andamento" ? "selected" : ""}>
+
+                        Em andamento
+
+                    </option>
+
+                    <option
+                        value="concluido"
+                        ${dados.status === "concluido" ? "selected" : ""}>
+
+                        Concluído
+
+                    </option>
+
+                    <option
+                        value="bloqueado"
+                        ${dados.status === "bloqueado" ? "selected" : ""}>
+
+                        Bloqueado
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Data de execução
+                </label>
+
+                <input
+                    type="date"
+                    id="${id}_dataExecucao"
+                    value="${escapeAttr(
+                        dados.dataExecucao
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Prazo
+                </label>
+
+                <input
+                    type="date"
+                    id="${id}_prazo"
+                    value="${escapeAttr(
+                        dados.prazo
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Responsável
+                </label>
+
+                <select
+                    id="${id}_responsavel">
+
+                    ${criarOptions(
+                        RESPONSAVEIS,
+                        dados.responsavel
+                    )}
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Fornecedor
+                </label>
+
+                <input
+                    type="text"
+                    id="${id}_fornecedor"
+                    placeholder="Nome do fornecedor"
+                    value="${escapeAttr(
+                        dados.fornecedor
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Contacto
+                </label>
+
+                <input
+                    type="text"
+                    id="${id}_contacto"
+                    placeholder="Telefone, email, etc."
+                    value="${escapeAttr(
+                        dados.contacto
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Orçamento previsto
+                </label>
+
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="${id}_orcamento"
+                    placeholder="0,00"
+                    value="${escapeAttr(
+                        dados.orcamento
+                    )}">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Valor pago / gasto
+                </label>
+
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="${id}_valorGasto"
+                    placeholder="0,00"
+                    value="${escapeAttr(
+                        dados.valorGasto
+                    )}">
+
+            </div>
+
+
+            <div class="field full">
+
+                <label>
+                    Link / documento
+                </label>
+
+                <input
+                    type="url"
+                    id="${id}_link"
+                    placeholder="https://..."
+                    value="${escapeAttr(
+                        dados.link
+                    )}">
+
+            </div>
+
+
+            <div class="field full">
+
+                <label>
+                    Observações
+                </label>
+
+                <textarea
+                    id="${id}_observacoes"
+                    placeholder="Adicione informações importantes sobre esta tarefa...">${escapeHtml(
+                        dados.observacoes
+                    )}</textarea>
+
+            </div>
+
+
+            <div
+                class="field full"
+                id="${id}_bloqueioArea"
+                style="display:${
+                    dados.status === "bloqueado"
+                        ? "flex"
+                        : "none"
+                };">
+
+                <label>
+                    Motivo do bloqueio / atraso
+                </label>
+
+                <textarea
+                    id="${id}_motivoBloqueio"
+                    placeholder="Explique o que está a impedir a conclusão...">${escapeHtml(
+                        dados.motivoBloqueio
+                    )}</textarea>
+
+            </div>
+
+
+        </div>
+
+
+        ${
+            tarefa.checkpoint
+                ? criarCheckpoint(
+                    id,
+                    dados
+                )
+                : ""
+        }
+
+
+        <div class="task-save-area">
+
+            <span
+                class="task-status-message"
+                id="${id}_saved">
+
+                ✓ Alterações guardadas
+
+            </span>
+
+            <button
+                type="button"
+                class="save-task"
+                onclick="guardarTarefa(
+                    ${areaNumero},
+                    ${tarefa.numero},
+                    '${id}'
+                )">
+
+                Guardar alterações
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+
+    const statusSelect =
         document.getElementById(
-            "completedCount"
-        ).textContent = concluidas;
+            id + "_status"
+        );
 
 
+    if (statusSelect) {
+
+        statusSelect.addEventListener(
+            "change",
+            function() {
+
+                const areaBloqueio =
+                    document.getElementById(
+                        id + "_bloqueioArea"
+                    );
+
+
+                if (
+                    this.value ===
+                    "bloqueado"
+                ) {
+
+                    areaBloqueio.style.display =
+                        "flex";
+
+                } else {
+
+                    areaBloqueio.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (tarefa.checkpoint) {
+
+        configurarCheckpoint(
+            id,
+            dados
+        );
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * CHECKPOINT
+ * ==========================================
+ */
+
+function criarCheckpoint(
+    id,
+    dados
+) {
+
+    return `
+
+        <div class="checkpoint-area">
+
+            <div class="checkpoint-title">
+
+                Estado do checkpoint:
+
+            </div>
+
+            <div class="checkpoint-buttons">
+
+                <button
+                    type="button"
+                    class="btn-done ${
+                        dados.checkpointStatus ===
+                        "concluido"
+                            ? "active"
+                            : ""
+                    }"
+                    onclick="alterarCheckpoint(
+                        '${id}',
+                        'concluido'
+                    )">
+
+                    🟢 Concluído
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-pending ${
+                        dados.checkpointStatus ===
+                        "pendente"
+                            ? "active"
+                            : ""
+                    }"
+                    onclick="alterarCheckpoint(
+                        '${id}',
+                        'pendente'
+                    )">
+
+                    🟠 Pendente
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-stuck ${
+                        dados.checkpointStatus ===
+                        "mal_parado"
+                            ? "active"
+                            : ""
+                    }"
+                    onclick="alterarCheckpoint(
+                        '${id}',
+                        'mal_parado'
+                    )">
+
+                    🔴 Mal parado
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="reason-box"
+                id="${id}_reasonBox"
+                style="display:${
+                    dados.checkpointStatus ===
+                    "mal_parado"
+                        ? "block"
+                        : "none"
+                };">
+
+                <label>
+                    Indique o motivo do atraso ou problema:
+                </label>
+
+                <textarea
+                    id="${id}_reason"
+                    oninput="guardarReasonCheckpoint('${id}')"
+                    placeholder="Descreva o que está a impedir a conclusão desta tarefa...">${escapeHtml(
+                        dados.reason || ""
+                    )}</textarea>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/*
+ * ==========================================
+ * CONFIGURAR CHECKPOINT
+ * ==========================================
+ */
+
+function configurarCheckpoint(
+    id,
+    dados
+) {
+
+    const reasonBox =
         document.getElementById(
-            "progressNumber"
-        ).textContent = progresso + "%";
+            id + "_reasonBox"
+        );
 
 
+    if (!reasonBox) {
+
+        return;
+
+    }
+
+
+    if (
+        dados.checkpointStatus ===
+        "mal_parado"
+    ) {
+
+        reasonBox.style.display =
+            "block";
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * ALTERAR CHECKPOINT
+ * ==========================================
+ */
+
+function alterarCheckpoint(
+    id,
+    status
+) {
+
+    if (!estado[id]) {
+
+        estado[id] = {};
+
+    }
+
+
+    estado[id].checkpointStatus =
+        status;
+
+
+    guardarEstado();
+
+
+    const reasonBox =
         document.getElementById(
-            "progressText"
-        ).textContent = progresso + "%";
+            id + "_reasonBox"
+        );
 
 
+    if (reasonBox) {
+
+        reasonBox.style.display =
+            status === "mal_parado"
+                ? "block"
+                : "none";
+
+    }
+
+
+    const task =
         document.getElementById(
-            "progressFill"
-        ).style.width = progresso + "%";
+            id + "_status"
+        );
+
+
+    if (status === "concluido") {
+
+        if (task) {
+
+            task.value =
+                "concluido";
+
+        }
+
+    }
+
+
+    const buttons =
+        document.querySelectorAll(
+            "#" +
+            id +
+            " .checkpoint-buttons button"
+        );
+
+
+    /*
+     * Atualiza visualmente os botões
+     */
+
+    document
+        .querySelectorAll(
+            ".checkpoint-buttons button"
+        )
+        .forEach(function(button) {
+
+            const onclick =
+                button.getAttribute(
+                    "onclick"
+                );
+
+
+            if (
+                onclick &&
+                onclick.includes(
+                    "'" + id + "'"
+                )
+            ) {
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll(
+            ".checkpoint-buttons button"
+        )
+        .forEach(function(button) {
+
+            const onclick =
+                button.getAttribute(
+                    "onclick"
+                );
+
+
+            if (
+                onclick &&
+                onclick.includes(
+                    "'" + id + "', '" +
+                    status +
+                    "'"
+                )
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+
+
+    atualizarResumo();
+
+}
+
+
+/*
+ * ==========================================
+ * GUARDAR MOTIVO DO CHECKPOINT
+ * ==========================================
+ */
+
+function guardarReasonCheckpoint(id) {
+
+    const textarea =
+        document.getElementById(
+            id + "_reason"
+        );
+
+
+    if (!estado[id]) {
+
+        estado[id] = {};
+
+    }
+
+
+    estado[id].reason =
+        textarea
+            ? textarea.value
+            : "";
+
+
+    guardarEstado();
+
+}
+
+
+/*
+ * ==========================================
+ * GUARDAR TAREFA
+ * ==========================================
+ */
+
+function guardarTarefa(
+    areaNumero,
+    numero,
+    id
+) {
+
+    if (!estado[id]) {
+
+        estado[id] = {};
+
+    }
+
+
+    estado[id].nome =
+        document.getElementById(
+            id + "_nome"
+        ).value.trim();
+
+
+    estado[id].prioridade =
+        document.getElementById(
+            id + "_prioridade"
+        ).value;
+
+
+    estado[id].status =
+        document.getElementById(
+            id + "_status"
+        ).value;
+
+
+    estado[id].dataExecucao =
+        document.getElementById(
+            id + "_dataExecucao"
+        ).value;
+
+
+    estado[id].prazo =
+        document.getElementById(
+            id + "_prazo"
+        ).value;
+
+
+    estado[id].responsavel =
+        document.getElementById(
+            id + "_responsavel"
+        ).value;
+
+
+    estado[id].fornecedor =
+        document.getElementById(
+            id + "_fornecedor"
+        ).value;
+
+
+    estado[id].contacto =
+        document.getElementById(
+            id + "_contacto"
+        ).value;
+
+
+    estado[id].orcamento =
+        document.getElementById(
+            id + "_orcamento"
+        ).value;
+
+
+    estado[id].valorGasto =
+        document.getElementById(
+            id + "_valorGasto"
+        ).value;
+
+
+    estado[id].link =
+        document.getElementById(
+            id + "_link"
+        ).value;
+
+
+    estado[id].observacoes =
+        document.getElementById(
+            id + "_observacoes"
+        ).value;
+
+
+    const motivo =
+        document.getElementById(
+            id + "_motivoBloqueio"
+        );
+
+
+    estado[id].motivoBloqueio =
+        motivo
+            ? motivo.value
+            : "";
+
+
+    guardarEstado();
+
+
+    const mensagem =
+        document.getElementById(
+            id + "_saved"
+        );
+
+
+    if (mensagem) {
+
+        mensagem.style.display =
+            "flex";
+
+
+        setTimeout(
+            function() {
+
+                mensagem.style.display =
+                    "none";
+
+            },
+            2500
+        );
 
     }
 
 
     /*
-     * ==========================================
-     * INICIAR PÁGINA
-     * ==========================================
+     * Atualiza tudo
      */
 
-    document.addEventListener(
-        "DOMContentLoaded",
+    atualizarResumo();
+
+    mostrarAreas();
+
+
+    /*
+     * Mantém a área aberta
+     */
+
+    setTimeout(
         function() {
 
-            mostrarAreas();
+            renderizarTarefasDaArea();
 
-            atualizarResumo();
-
-        }
+        },
+        50
     );
 
+}
+
+
+/*
+ * ==========================================
+ * ADICIONAR NOVA TAREFA
+ * ==========================================
+ */
+
+function adicionarTarefa() {
+
+    if (!areaAtual) {
+
+        return;
+
+    }
+
+
+    const chave =
+        "area_" +
+        areaAtual +
+        "_extras";
+
+
+    if (!Array.isArray(
+        estado[chave]
+    )) {
+
+        estado[chave] = [];
+
+    }
+
+
+    const area =
+        areas.find(function(item) {
+
+            return item.numero ===
+                areaAtual;
+
+        });
+
+
+    const tarefas =
+        obterTarefas(area);
+
+
+    const maiorNumero =
+        tarefas.reduce(
+            function(max, tarefa) {
+
+                return Math.max(
+                    max,
+                    tarefa.numero
+                );
+
+            },
+            0
+        );
+
+
+    estado[chave].push({
+
+        numero:
+            maiorNumero + 1,
+
+        nome:
+            "Nova tarefa",
+
+        prioridade:
+            "Média",
+
+        checkpoint:
+            false
+
+    });
+
+
+    guardarEstado();
+
+
+    renderizarTarefasDaArea();
+
+
+    mostrarAreas();
+
+
+    /*
+     * Desloca para a nova tarefa
+     */
+
+    setTimeout(
+        function() {
+
+            const container =
+                document.getElementById(
+                    "tasksContainer"
+                );
+
+
+            if (
+                container.lastElementChild
+            ) {
+
+                container.lastElementChild
+                    .scrollIntoView({
+
+                        behavior: "smooth",
+
+                        block: "center"
+
+                    });
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+/*
+ * ==========================================
+ * FECHAR TAREFAS
+ * ==========================================
+ */
+
+function fecharTarefas() {
+
+    document.getElementById(
+        "tasksSection"
+    ).style.display =
+        "none";
+
+
+    areaAtual =
+        null;
+
+}
+
+
+/*
+ * ==========================================
+ * ATUALIZAR RESUMO
+ * ==========================================
+ */
+
+function atualizarResumo() {
+
+    let totalTarefas = 0;
+
+    let concluidas = 0;
+
+
+    areas.forEach(function(area) {
+
+        const tarefas =
+            obterTarefas(area);
+
+
+        totalTarefas +=
+            tarefas.length;
+
+
+        tarefas.forEach(
+            function(tarefa) {
+
+                const dados =
+                    obterDadosTarefa(
+                        area.numero,
+                        tarefa.numero,
+                        tarefa
+                    );
+
+
+                if (
+                    dados.status ===
+                    "concluido"
+                ) {
+
+                    concluidas++;
+
+                }
+
+            }
+        );
+
+    });
+
+
+    let progresso = 0;
+
+
+    if (totalTarefas > 0) {
+
+        progresso =
+            Math.round(
+                (
+                    concluidas /
+                    totalTarefas
+                ) *
+                100
+            );
+
+    }
+
+
+    document.getElementById(
+        "tasksCount"
+    ).textContent =
+        totalTarefas;
+
+
+    document.getElementById(
+        "completedCount"
+    ).textContent =
+        concluidas;
+
+
+    document.getElementById(
+        "progressNumber"
+    ).textContent =
+        progresso + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        progresso + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progresso + "%";
+
+}
+
+
+/*
+ * ==========================================
+ * ATUALIZAR CONTAGEM DAS ÁREAS
+ * ==========================================
+ */
+
+function atualizarContagemAreas() {
+
+    document.getElementById(
+        "areasCount"
+    ).textContent =
+        areas.length;
+
+}
+
+
+/*
+ * ==========================================
+ * NOME DO ESTADO
+ * ==========================================
+ */
+
+function nomeEstado(status) {
+
+    switch (status) {
+
+        case "nao_iniciado":
+            return "Não iniciado";
+
+        case "em_andamento":
+            return "Em andamento";
+
+        case "concluido":
+            return "Concluído";
+
+        case "bloqueado":
+            return "Bloqueado";
+
+        default:
+            return "Não iniciado";
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * CLASSE DA PRIORIDADE
+ * ==========================================
+ */
+
+function classePrioridade(
+    prioridade
+) {
+
+    switch (prioridade) {
+
+        case "Urgente":
+            return "badge-urgente";
+
+        case "Alta":
+            return "badge-alta";
+
+        case "Média":
+            return "badge-media";
+
+        case "Baixa":
+            return "badge-baixa";
+
+        default:
+            return "";
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * CLASSE DO ESTADO
+ * ==========================================
+ */
+
+function classeEstado(status) {
+
+    switch (status) {
+
+        case "concluido":
+            return "badge-concluido";
+
+        case "em_andamento":
+            return "badge-andamento";
+
+        case "bloqueado":
+            return "badge-bloqueado";
+
+        default:
+            return "";
+
+    }
+
+}
+
+
+/*
+ * ==========================================
+ * CRIAR OPTIONS
+ * ==========================================
+ */
+
+function criarOptions(
+    lista,
+    selecionado
+) {
+
+    return lista.map(
+        function(item) {
+
+            return `
+
+                <option
+                    value="${escapeAttr(item)}"
+                    ${
+                        item === selecionado
+                            ? "selected"
+                            : ""
+                    }>
+
+                    ${escapeHtml(item)}
+
+                </option>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/*
+ * ==========================================
+ * ESCAPAR HTML
+ * ==========================================
+ */
+
+function escapeHtml(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(valor)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*
+ * ==========================================
+ * ESCAPAR ATRIBUTO
+ * ==========================================
+ */
+
+function escapeAttr(valor) {
+
+    return escapeHtml(valor);
+
+}
+
+
+/*
+ * ==========================================
+ * INICIAR PÁGINA
+ * ==========================================
+ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        mostrarAreas();
+
+        atualizarResumo();
+
+    }
+);
+
 </script>
+
 
 </body>
 </html>

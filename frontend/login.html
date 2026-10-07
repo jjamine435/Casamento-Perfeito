@@ -1,497 +1,264 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Entrar | Casamento Perfeito</title>
-
-<style>
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    min-height: 100vh;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: #f7e8ec;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 30px 20px;
-}
-
-
-/* CARTÃO */
-
-.login-card {
-
-    width: 920px;
-
-    max-width: 100%;
-
-    min-height: 580px;
-
-    background: #ffffff;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    border-radius: 22px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 20px 60px rgba(90, 50, 60, 0.20);
-}
-
-
-/* LADO ESQUERDO */
-
-.login-side {
-
-    padding: 40px 50px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-
-/* MENU */
-
-.menu {
-
-    display: flex;
-
-    gap: 28px;
-
-    margin-bottom: 25px;
-}
-
-.menu a {
-
-    color: #777;
-
-    text-decoration: none;
-
-    font-size: 12px;
-}
-
-.menu a:hover {
-
-    color: #b45d70;
-}
-
-.menu .active {
-
-    color: #b45d70;
-
-    font-weight: bold;
-}
-
-
-/* LOGO */
-
-.logo {
-
-    margin-bottom: 27px;
-}
-
-.logo h1 {
-
-    font-family: Georgia, serif;
-
-    color: #b45d70;
-
-    font-size: 25px;
-
-    font-weight: bold;
-}
-
-.logo span {
-
-    display: block;
-
-    margin-top: 5px;
-
-    color: #999;
-
-    font-size: 8px;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-}
-
-
-/* TÍTULO */
-
-.welcome {
-
-    margin-bottom: 24px;
-}
-
-.welcome h2 {
-
-    font-family: Georgia, serif;
-
-    color: #292929;
-
-    font-size: 30px;
-
-    font-weight: normal;
-
-    margin-bottom: 8px;
-}
-
-.welcome p {
-
-    color: #777;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-}
-
-
-/* CAMPOS */
-
-.campo {
-
-    margin-bottom: 17px;
-}
-
-.campo label {
-
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #444;
-
-    font-size: 10px;
-}
-
-.campo input {
-
-    width: 100%;
-
-    height: 44px;
-
-    padding: 0 14px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 5px;
-
-    background: white;
-
-    outline: none;
-
-    font-size: 12px;
-}
-
-.campo input:focus {
-
-    border-color: #b45d70;
-}
-
-
-/* OPÇÕES */
-
-.options {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 20px;
-
-    font-size: 9px;
-}
-
-.remember {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    color: #777;
-}
-
-.remember input {
-
-    accent-color: #b45d70;
-}
-
-.forgot {
-
-    color: #a85a6b;
-
-    text-decoration: none;
-}
-
-
-/* BOTÃO */
-
-.btn-login {
-
-    width: 100%;
-
-    height: 44px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    background: #b45d70;
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.btn-login:hover {
-
-    background: #9f4d60;
-}
-
-
-/* REGISTO */
-
-.register {
-
-    text-align: center;
-
-    margin-top: 20px;
-
-    padding-top: 16px;
-
-    border-top: 1px solid #eeeeee;
-
-    color: #777;
-
-    font-size: 10px;
-}
-
-.register a {
-
-    color: #a85a6b;
-
-    font-weight: bold;
-
-    text-decoration: none;
-}
-
-
-/* VOLTAR */
-
-.voltar {
-
-    display: block;
-
-    text-align: center;
-
-    margin-top: 13px;
-
-    color: #999;
-
-    font-size: 9px;
-
-    text-decoration: none;
-}
-
-
-/* =========================================
-   IMAGEM
-========================================= */
-
-.image-side {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 580px;
-
-    overflow: hidden;
-
-    background: #f1d8de;
-}
-
-
-/* A IMAGEM REAL */
-
-.image-side img {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    object-position: center;
-}
-
-
-/* TEXTO SOBRE A IMAGEM */
-
-.image-overlay {
-
-    position: absolute;
-
-    left: 0;
-
-    right: 0;
-
-    bottom: 0;
-
-    padding: 35px 20px;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(70,35,45,0.55)
-        );
-}
-
-.image-message {
-
-    color: white;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,0.35);
-}
-
-.image-message h3 {
-
-    font-family: Georgia, serif;
-
-    font-size: 25px;
-
-    font-weight: normal;
-
-    margin-bottom: 5px;
-}
-
-.image-message p {
-
-    font-size: 10px;
-}
-
-
-/* RESPONSIVO */
-
-@media (max-width: 750px) {
-
-    .login-card {
-
-        grid-template-columns: 1fr;
-
-        max-width: 450px;
-    }
-
-    .image-side {
-
-        order: -1;
-
-        height: 300px;
-    }
-
-    .login-side {
-
-        padding: 35px 28px;
-    }
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entrar | Casamento Perfeito</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff4f7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .login-card {
+            width: 920px;
+            max-width: 100%;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .login-side {
+            padding: 45px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #9b596f;
+            font-size: 14px;
+        }
+
+        .logo {
+            color: #c66b88;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            color: #4b3039;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #4b3039;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e4cbd3;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #c66b88;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #777;
+        }
+
+        .remember input {
+            width: auto;
+        }
+
+        .forgot {
+            color: #c66b88;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #c66b88;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #b45877;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .success {
+            background: #e9f8ee;
+            color: #26723d;
+        }
+
+        .error {
+            background: #fdebed;
+            color: #a33a48;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 22px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #c66b88;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #999;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .image-side {
+            min-height: 650px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 35px 30px;
+            color: white;
+            background: linear-gradient(
+                transparent,
+                rgba(0,0,0,0.65)
+            );
+        }
+
+        .image-overlay h2 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .image-overlay p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 750px) {
+
+            .login-card {
+                grid-template-columns: 1fr;
+            }
+
+            .image-side {
+                display: none;
+            }
+
+            .login-side {
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
 </head>
-
 
 <body>
 
-
 <div class="login-card">
-
-
-    <!-- LOGIN -->
 
     <section class="login-side">
 
-
-        <nav class="menu">
-
-            <a
-                href="login.html"
-                class="active"
-            >
-                Entrar
-            </a>
-
-            <a href="registo.html">
-                Criar conta
-            </a>
-
-        </nav>
-
+        <div class="menu">
+            <a href="login.html">Entrar</a>
+            <a href="registo.html">Criar conta</a>
+        </div>
 
         <div class="logo">
-
-            <h1>
-                Casamento Perfeito
-            </h1>
-
-            <span>
-                O seu grande dia começa aqui
-            </span>
-
+            💕 Casamento Perfeito
         </div>
 
+        <h1>Bem-vindo de volta</h1>
 
-        <div class="welcome">
-
-            <h2>
-                Bem-vindo de volta
-            </h2>
-
-            <p>
-                Entre na sua conta e continue
-                a planear o seu grande dia.
-            </p>
-
-        </div>
-
+        <p class="subtitle">
+            Entre na sua conta e continue a planear
+            o seu grande dia.
+        </p>
 
         <form id="loginForm">
 
-
-            <div class="campo">
+            <div class="form-group">
 
                 <label for="email">
                     E-mail
@@ -500,14 +267,13 @@ body {
                 <input
                     type="email"
                     id="email"
-                    placeholder="Introduza o seu e-mail"
+                    placeholder="exemplo@email.com"
                     required
                 >
 
             </div>
 
-
-            <div class="campo">
+            <div class="form-group">
 
                 <label for="password">
                     Palavra-passe
@@ -516,12 +282,11 @@ body {
                 <input
                     type="password"
                     id="password"
-                    placeholder="Introduza a sua palavra-passe"
+                    placeholder="Digite a sua palavra-passe"
                     required
                 >
 
             </div>
-
 
             <div class="options">
 
@@ -529,59 +294,53 @@ body {
 
                     <input
                         type="checkbox"
+                        id="remember"
                     >
 
                     Lembrar-me
 
                 </label>
 
-
                 <a
                     href="#"
                     class="forgot"
-                    onclick="recuperarPassword(event)"
+                    id="forgotPassword"
                 >
                     Esqueceu a palavra-passe?
                 </a>
 
             </div>
 
-
-            <button
-                type="submit"
-                class="btn-login"
-            >
+            <button type="submit">
                 Entrar
             </button>
 
-
-            <div class="register">
-
-                Ainda não tem uma conta?
-
-                <a href="registo.html">
-                    Criar conta
-                </a>
-
-            </div>
-
-
-            <a
-                href="index.html"
-                class="voltar"
-            >
-                ← Voltar à página inicial
-            </a>
-
+            <div
+                id="message"
+                class="message"
+            ></div>
 
         </form>
 
+        <div class="register-link">
+
+            Ainda não tem uma conta?
+
+            <a href="registo.html">
+                Criar conta
+            </a>
+
+        </div>
+
+        <a
+            class="back-home"
+            href="index.html"
+        >
+            ← Voltar à página inicial
+        </a>
+
     </section>
 
-
-    <!-- =================================
-         FOTOGRAFIA ROSINHA
-    ================================== -->
 
     <section class="image-side">
 
@@ -590,25 +349,19 @@ body {
             alt="Imagem romântica do Casamento Perfeito"
         >
 
-
         <div class="image-overlay">
 
-            <div class="image-message">
+            <h2>
+                O amor está nos detalhes
+            </h2>
 
-                <h3>
-                    O amor está nos detalhes
-                </h3>
-
-                <p>
-                    Planeie cada momento do seu grande dia.
-                </p>
-
-            </div>
+            <p>
+                Planeie cada momento do seu grande dia.
+            </p>
 
         </div>
 
     </section>
-
 
 </div>
 
@@ -617,32 +370,101 @@ body {
 
 document
 .getElementById("loginForm")
-.addEventListener(
-    "submit",
-    function(event) {
+.addEventListener("submit", function(event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        alert(
-            "Login preparado. A autenticação será activada numa próxima etapa."
-        );
+    const email =
+        document
+        .getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
 
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+    const message =
+        document.getElementById("message");
+
+    message.style.display = "none";
+    message.className = "message";
+
+
+    const utilizadores =
+        JSON.parse(
+            localStorage.getItem(
+                "casamentoPerfeitoUtilizadores"
+            )
+        ) || [];
+
+
+    const utilizador =
+        utilizadores.find(function(user) {
+
+            return (
+                user.email === email &&
+                user.password === password
+            );
+
+        });
+
+
+    if (!utilizador) {
+
+        message.textContent =
+            "E-mail ou palavra-passe incorrectos.";
+
+        message.classList.add("error");
+
+        message.style.display = "block";
+
+        return;
     }
-);
 
 
-function recuperarPassword(event) {
+    localStorage.setItem(
+        "casamentoPerfeitoSessao",
+        JSON.stringify({
+            nome: utilizador.nome,
+            email: utilizador.email
+        })
+    );
+
+
+    message.textContent =
+        "Login efectuado com sucesso! A entrar...";
+
+    message.classList.add("success");
+
+    message.style.display = "block";
+
+
+    setTimeout(function() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }, 1000);
+
+});
+
+
+document
+.getElementById("forgotPassword")
+.addEventListener("click", function(event) {
 
     event.preventDefault();
 
     alert(
-        "A recuperação da palavra-passe será disponibilizada numa próxima etapa."
+        "A recuperação da palavra-passe será implementada numa próxima etapa."
     );
 
-}
+});
 
 </script>
-
 
 </body>
 </html>

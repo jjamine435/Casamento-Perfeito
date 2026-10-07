@@ -260,7 +260,6 @@
 
 </section>
 
-
 <div class="section-header">
 
     <h2>
@@ -273,88 +272,99 @@
 
 </div>
 
-
 <section class="cards">
 
     <a href="#" class="card">
         <div class="card-icon">💍</div>
+
         <h3>Planeador</h3>
+
         <p>
             Organize todas as tarefas necessárias
             para preparar o seu casamento.
         </p>
+
         <span class="card-action">
             Abrir planeador →
         </span>
     </a>
 
-
     <a href="#" class="card">
         <div class="card-icon">👥</div>
+
         <h3>Convidados</h3>
+
         <p>
             Registe os convidados e acompanhe
             as confirmações.
         </p>
+
         <span class="card-action">
             Gerir convidados →
         </span>
     </a>
 
-
     <a href="#" class="card">
         <div class="card-icon">💰</div>
+
         <h3>Orçamento</h3>
+
         <p>
             Controle as despesas e mantenha
             o orçamento organizado.
         </p>
+
         <span class="card-action">
             Gerir orçamento →
         </span>
     </a>
 
-
     <a href="#" class="card">
         <div class="card-icon">🤝</div>
+
         <h3>Fornecedores</h3>
+
         <p>
             Organize fotógrafos, decoração,
             catering, música e outros serviços.
         </p>
+
         <span class="card-action">
             Ver fornecedores →
         </span>
     </a>
 
-
     <a href="#" class="card">
         <div class="card-icon">📅</div>
+
         <h3>Cronograma</h3>
+
         <p>
             Acompanhe datas e momentos importantes
             antes do casamento.
         </p>
+
         <span class="card-action">
             Ver cronograma →
         </span>
     </a>
 
-
     <a href="#" class="card">
         <div class="card-icon">❤️</div>
+
         <h3>Meu casamento</h3>
+
         <p>
             Consulte e personalize as informações
             do seu grande dia.
         </p>
+
         <span class="card-action">
             Ver casamento →
         </span>
     </a>
 
 </section>
-
 
 <section class="info-box">
 
@@ -378,108 +388,34 @@
 
 <script>
 
-    /*
-     * =====================================================
-     * CASAMENTO PERFEITO
-     * SISTEMA DE SESSÃO
-     * =====================================================
-     */
-
     document.addEventListener("DOMContentLoaded", function () {
 
         const chaveSessao = "casamentoPerfeitoSessao";
 
         const sessao = localStorage.getItem(chaveSessao);
 
-        /*
-         * NÃO EXISTE SESSÃO
-         */
-
         if (!sessao) {
-
             window.location.replace("login.html");
-
             return;
-
         }
-
-
-        /*
-         * LER A SESSÃO
-         */
 
         let utilizador;
 
         try {
-
             utilizador = JSON.parse(sessao);
-
         } catch (erro) {
 
             localStorage.removeItem(chaveSessao);
-
             window.location.replace("login.html");
-
             return;
 
         }
 
-
-        /*
-         * MOSTRAR O NOME
-         */
-
         const userWelcome =
             document.getElementById("userWelcome");
-
 
         if (userWelcome) {
 
             if (utilizador.nome) {
 
-                userWelcome.textContent =
-                    "💕 Olá, " +
-                    utilizador.nome +
-                    "! Bem-vindo ao seu espaço de planeamento.";
-
-            } else if (utilizador.email) {
-
-                userWelcome.textContent =
-                    "💕 Olá! Bem-vindo ao seu espaço de planeamento.";
-
-            } else {
-
-                userWelcome.textContent =
-                    "💕 Bem-vindo ao seu espaço de planeamento.";
-
-            }
-
-        }
-
-
-        /*
-         * BOTÃO TERMINAR SESSÃO
-         */
-
-        const logoutButton =
-            document.getElementById("logoutButton");
-
-
-        if (logoutButton) {
-
-            logoutButton.onclick = function () {
-
-                localStorage.removeItem(chaveSessao);
-
-                window.location.replace("login.html");
-
-            };
-
-        }
-
-    });
-
-</script>
-
-</body>
-</html>
+                userWelcome.textCon

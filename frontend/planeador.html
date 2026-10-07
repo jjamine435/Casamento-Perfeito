@@ -1,964 +1,1412 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Planeador do Casamento | Casamento Perfeito</title>
 
-<title>Planeador do Casamento | Casamento Perfeito</title>
-
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #fff7fa;
-        color: #4a3039;
-        min-height: 100vh;
-    }
-
-    header {
-        background: #ffffff;
-        min-height: 72px;
-        padding: 15px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #f2dfe6;
-    }
-
-    .logo {
-        font-size: 22px;
-        font-weight: bold;
-        color: #c45f7d;
-    }
-
-    .back-button {
-        text-decoration: none;
-        color: #c45f7d;
-        font-weight: bold;
-    }
-
-    main {
-        max-width: 1180px;
-        margin: auto;
-        padding: 40px 25px 60px;
-    }
-
-    .hero {
-        background: linear-gradient(135deg, #ffffff, #fff0f5);
-        border: 1px solid #f3dce4;
-        border-radius: 24px;
-        padding: 40px;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 30px rgba(100, 50, 70, 0.08);
-    }
-
-    .hero h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
-
-    .hero p {
-        color: #777;
-        line-height: 1.6;
-    }
-
-    .progress {
-        margin-top: 25px;
-    }
-
-    .progress-top {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .progress-bar {
-        height: 12px;
-        background: #f1e1e6;
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: #c45f7d;
-        border-radius: 20px;
-    }
-
-    .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-        margin-bottom: 35px;
-    }
-
-    .stat {
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 18px;
-        padding: 24px;
-        text-align: center;
-    }
-
-    .number {
-        display: block;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 6px;
-    }
-
-    .label {
-        color: #777;
-        font-size: 13px;
-    }
-
-    .green {
-        color: #2e9d59;
-    }
-
-    .orange {
-        color: #e59a23;
-    }
-
-    .red {
-        color: #d94848;
-    }
-
-    .section-title {
-        margin-bottom: 20px;
-    }
-
-    .section-title h2 {
-        font-size: 23px;
-        margin-bottom: 7px;
-    }
-
-    .section-title p {
-        color: #888;
-    }
-
-    .areas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-    }
-
-    .area {
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 20px;
-        padding: 25px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    .area:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 22px rgba(100, 50, 70, 0.1);
-    }
-
-    .icon {
-        font-size: 30px;
-        margin-bottom: 12px;
-    }
-
-    .area h3 {
-        margin-bottom: 8px;
-    }
-
-    .area p {
-        color: #777;
-        font-size: 13px;
-    }
-
-    .area-bar {
-        margin-top: 15px;
-        height: 7px;
-        background: #f1e1e6;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .area-fill {
-        height: 100%;
-        width: 0%;
-        background: #c45f7d;
-    }
-
-    .tasks-panel {
-        display: none;
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 22px;
-        margin-top: 30px;
-        overflow: hidden;
-    }
-
-    .tasks-panel.open {
-        display: block;
-    }
-
-    .tasks-header {
-        padding: 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #f1dfe5;
-    }
-
-    .close {
-        border: none;
-        background: #f8e8ed;
-        color: #c45f7d;
-        padding: 9px 14px;
-        border-radius: 9px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .tasks {
-        padding: 10px 25px 25px;
-    }
-
-    .task {
-        padding: 20px 0;
-        border-bottom: 1px solid #f3e8ec;
-    }
-
-    .task:last-child {
-        border-bottom: none;
-    }
-
-    .task-line {
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-    }
-
-    .task input {
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-        accent-color: #c45f7d;
-    }
-
-    .task-title {
-        font-weight: bold;
-        margin-bottom: 6px;
-    }
-
-    .task-info {
-        color: #888;
-        font-size: 12px;
-    }
-
-    .priority {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 4px 8px;
-        border-radius: 7px;
-        font-size: 11px;
-        font-weight: bold;
-    }
-
-    .high {
-        background: #fde5e5;
-        color: #c93636;
-    }
-
-    .medium {
-        background: #fff0d4;
-        color: #bd7712;
-    }
-
-    .checkpoint {
-        margin: 15px 0 0 34px;
-        padding: 16px;
-        background: #fffafc;
-        border: 1px solid #f1dfe5;
-        border-radius: 14px;
-    }
-
-    .checkpoint strong {
-        display: block;
-        margin-bottom: 12px;
-    }
-
-    .statuses {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .status {
-        border: 1px solid #ddd;
-        background: white;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .status.selected-green {
-        background: #e1f4e7;
-        border-color: #2e9d59;
-        color: #277943;
-    }
-
-    .status.selected-orange {
-        background: #fff0d4;
-        border-color: #e59a23;
-        color: #a9680d;
-    }
-
-    .status.selected-red {
-        background: #fde3e3;
-        border-color: #d94848;
-        color: #b33131;
-    }
-
-    .problem {
-        display: none;
-        margin-top: 12px;
-    }
-
-    .problem.show {
-        display: block;
-    }
-
-    .problem textarea {
-        width: 100%;
-        min-height: 70px;
-        padding: 10px;
-        border: 1px solid #ead6dd;
-        border-radius: 9px;
-        resize: vertical;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        color: #999;
-        font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-        .areas {
-            grid-template-columns: repeat(2, 1fr);
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .stats {
-            grid-template-columns: repeat(2, 1fr);
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff7fa;
+            color: #4a3039;
+            min-height: 100vh;
         }
-    }
 
-    @media (max-width: 600px) {
+        /* CABEÇALHO */
+
         header {
-            padding: 15px 18px;
+            background: #ffffff;
+            min-height: 72px;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1dce4;
         }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: #c45f7d;
+        }
+
+        .back-button {
+            text-decoration: none;
+            color: #c45f7d;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            text-decoration: underline;
+        }
+
+        /* CONTEÚDO */
 
         main {
-            padding: 30px 18px;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 40px 25px 60px;
         }
 
         .hero {
-            padding: 28px 22px;
+            background: linear-gradient(135deg, #ffffff, #fff0f5);
+            border: 1px solid #f2dce4;
+            border-radius: 24px;
+            padding: 38px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(100, 50, 70, 0.07);
+        }
+
+        .hero small {
+            display: block;
+            color: #c45f7d;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         .hero h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #777;
+            line-height: 1.6;
+            max-width: 750px;
+        }
+
+        /* RESUMO */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #f1dfe5;
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        .summary-card span {
+            display: block;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
             font-size: 25px;
+            color: #c45f7d;
+        }
+
+        /* PROGRESSO */
+
+        .progress-box {
+            background: #ffffff;
+            border: 1px solid #f1dfe5;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 13px;
+            background: #f3e3e8;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #c45f7d;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        /* ÁREAS */
+
+        .section-title {
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 23px;
+            margin-bottom: 6px;
+        }
+
+        .section-title p {
+            color: #888;
+            font-size: 14px;
         }
 
         .areas {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
         }
 
-        .statuses {
-            flex-direction: column;
+        .area {
+            background: #ffffff;
+            border: 1px solid #f1dfe5;
+            border-radius: 20px;
+            padding: 22px;
+            transition: 0.2s;
         }
 
-        .status {
+        .area:hover {
+            box-shadow: 0 8px 24px rgba(100, 50, 70, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .area-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .area-number {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff0f5;
+            color: #c45f7d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .area h3 {
+            flex: 1;
+            font-size: 17px;
+        }
+
+        .task-count {
+            color: #999;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .area p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .open-area {
             width: 100%;
+            border: none;
+            background: #c45f7d;
+            color: #ffffff;
+            padding: 11px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
         }
-    }
-</style>
-```
 
+        .open-area:hover {
+            background: #aa4e69;
+        }
+
+        /* PRIMEIRA ÁREA */
+
+        .area-destaque {
+            grid-column: 1 / -1;
+            border: 2px solid #e7b8c7;
+        }
+
+        .area-destaque .open-area {
+            background: #c45f7d;
+        }
+
+        /* TAREFAS */
+
+        #tasksSection {
+            display: none;
+            margin-top: 30px;
+            background: #ffffff;
+            border: 1px solid #f1dfe5;
+            border-radius: 22px;
+            padding: 28px;
+        }
+
+        .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .tasks-header h2 {
+            font-size: 22px;
+        }
+
+        .close-tasks {
+            border: none;
+            background: #f8e8ed;
+            color: #a64f69;
+            padding: 10px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .task {
+            border: 1px solid #eee0e5;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .task:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-name {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .task-priority {
+            display: inline-block;
+            font-size: 11px;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #f8e8ed;
+            color: #a64f69;
+            margin-bottom: 15px;
+        }
+
+        .checkpoint-title {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .checkpoint-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .checkpoint-buttons button {
+            border: none;
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .btn-done {
+            background: #dff3e5;
+            color: #28753e;
+        }
+
+        .btn-pending {
+            background: #fff0d8;
+            color: #9a6500;
+        }
+
+        .btn-stuck {
+            background: #f8dddd;
+            color: #a53232;
+        }
+
+        .checkpoint-buttons button.active {
+            outline: 3px solid rgba(196, 95, 125, 0.25);
+        }
+
+        .reason-box {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .reason-box label {
+            display: block;
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 6px;
+        }
+
+        .reason-box textarea {
+            width: 100%;
+            min-height: 75px;
+            border: 1px solid #e6d5dc;
+            border-radius: 10px;
+            padding: 10px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 850px) {
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .areas {
+                grid-template-columns: 1fr;
+            }
+
+            .area-destaque {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 15px 18px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            main {
+                padding: 25px 16px 45px;
+            }
+
+            .hero {
+                padding: 27px 22px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .summary-card {
+                padding: 17px;
+            }
+
+            .summary-card strong {
+                font-size: 21px;
+            }
+
+            .tasks-header {
+                display: block;
+            }
+
+            .close-tasks {
+                margin-top: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
 
-```
-<div class="logo">
-    💍 Casamento Perfeito
-</div>
+    <div class="logo">
+        💕 Casamento Perfeito
+    </div>
 
-<a href="dashboard.html" class="back-button">
-    ← Voltar ao Dashboard
-</a>
-
+    <a href="dashboard.html" class="back-button">
+        ← Voltar ao Dashboard
+    </a>
 
 </header>
 
+
 <main>
 
+    <section class="hero">
 
-<section class="hero">
+        <small>PLANEAMENTO DO CASAMENTO</small>
 
-    <h1>Planeador do Casamento</h1>
+        <h1>Planeador do Casamento 💍</h1>
 
-    <p>
-        Organize cada detalhe do seu grande dia,
-        passo a passo.
-    </p>
+        <p>
+            Organize cada etapa do seu casamento,
+            acompanhe as tarefas e mantenha tudo
+            sob controlo até ao grande dia.
+        </p>
 
-    <div class="progress">
+    </section>
 
-        <div class="progress-top">
-            <span>O seu casamento está a ser preparado</span>
-            <span id="percent">0%</span>
+
+    <!-- RESUMO -->
+
+    <section class="summary">
+
+        <div class="summary-card">
+            <span>Áreas</span>
+            <strong>25</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Tarefas</span>
+            <strong>322</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Concluídas</span>
+            <strong id="completedCount">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Progresso</span>
+            <strong id="progressNumber">0%</strong>
+        </div>
+
+    </section>
+
+
+    <!-- PROGRESSO -->
+
+    <section class="progress-box">
+
+        <div class="progress-header">
+
+            <span>Progresso geral</span>
+
+            <span id="progressText">0%</span>
+
         </div>
 
         <div class="progress-bar">
-            <div id="progressFill" class="progress-fill"></div>
+
+            <div
+                id="progressFill"
+                class="progress-fill">
+            </div>
+
         </div>
 
-    </div>
+    </section>
 
-</section>
 
-<section class="stats">
+    <!-- ÁREAS -->
 
-    <div class="stat">
-        <span id="total" class="number">322</span>
-        <span class="label">Tarefas</span>
-    </div>
+    <section>
 
-    <div class="stat">
-        <span id="completed" class="number green">0</span>
-        <span class="label">Concluídas</span>
-    </div>
+        <div class="section-title">
 
-    <div class="stat">
-        <span id="pending" class="number orange">322</span>
-        <span class="label">Pendentes</span>
-    </div>
+            <h2>As suas áreas de planeamento</h2>
 
-    <div class="stat">
-        <span id="stuck" class="number red">0</span>
-        <span class="label">Mal paradas</span>
-    </div>
+            <p>
+                Escolha uma área para consultar as tarefas.
+            </p>
 
-</section>
+        </div>
 
-<section>
 
-    <div class="section-title">
+        <div id="areas" class="areas"></div>
 
-        <h2>Organize o seu casamento</h2>
+    </section>
 
-        <p>
-            Escolha uma área para começar.
-        </p>
 
-    </div>
+    <!-- TAREFAS -->
 
-    <div id="areas" class="areas"></div>
+    <section id="tasksSection">
 
-</section>
+        <div class="tasks-header">
 
-<section id="tasksPanel" class="tasks-panel">
+            <h2 id="tasksTitle">
+                Tarefas
+            </h2>
 
-    <div class="tasks-header">
+            <button
+                type="button"
+                class="close-tasks"
+                onclick="fecharTarefas()">
+                Fechar
+            </button>
 
-        <h2 id="tasksTitle">Tarefas</h2>
+        </div>
 
-        <button
-            class="close"
-            onclick="fecharArea()">
-            ✕ Fechar
-        </button>
+        <div id="tasksContainer"></div>
 
-    </div>
-
-    <div id="tasks" class="tasks"></div>
-
-</section>
-
+    </section>
 
 </main>
 
+
 <footer>
-    Casamento Perfeito · Planeie hoje o casamento dos seus sonhos. 💍
+
+    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
+
 </footer>
+
 
 <script>
 
-const areas = [
-    ["📋", "Planeamento Inicial", 10],
-    ["📄", "Casamento Civil", 12],
-    ["⛪", "Cerimónia Religiosa", 12],
-    ["👰", "Noiva", 18],
-    ["🤵", "Noivo", 12],
-    ["🏛️", "Local / Salão", 15],
-    ["💐", "Decoração", 15],
-    ["🍽️", "Catering", 15],
-    ["📸", "Fotografia / Vídeo", 15],
-    ["🎶", "Música / DJ", 15],
-    ["💍", "Alianças", 10],
-    ["💌", "Convites", 12],
-    ["👨‍👩‍👧", "Família / Padrinhos", 12],
-    ["🚗", "Transporte", 10],
-    ["✈️", "Lua de Mel", 12],
-    ["💰", "Financeiro", 15],
-    ["👥", "Convidados", 15],
-    ["🪑", "Mesas / Lugares", 10],
-    ["🎂", "Bolo / Doces", 10],
-    ["🎁", "Lembranças", 8],
-    ["📝", "Programa do Dia", 12],
-    ["📅", "Últimas 4 Semanas", 15],
-    ["💒", "Semana do Casamento", 15],
-    ["❤️", "Dia do Casamento", 15],
-    ["🌙", "Pós-Casamento", 12]
-];
+    /*
+     * ==========================================
+     * DADOS DAS 25 ÁREAS
+     * ==========================================
+     */
 
-const tarefasIniciais = [
-    ["Definir se haverá casamento civil, religioso ou ambos", "Alta", true],
-    ["Definir a data do casamento", "Alta", true],
-    ["Definir o estilo do casamento", "Média", true],
-    ["Definir o número estimado de convidados", "Alta", true],
-    ["Definir o orçamento máximo", "Alta", true],
-    ["Definir quem contribuirá financeiramente", "Alta", false],
-    ["Criar lista inicial de convidados", "Alta", false],
-    ["Definir prioridades do casal", "Média", false],
-    ["Criar cronograma geral", "Média", false],
-    ["Definir responsáveis pelas principais tarefas", "Média", false]
-];
+    const areas = [
 
-let dados = JSON.parse(
-    localStorage.getItem("casamentoPerfeitoPlaneador")
-) || {};
+        {
+            numero: 1,
+            nome: "Planeamento Inicial",
+            tarefas: 10,
+            descricao: "Defina as principais decisões que dão início à organização."
+        },
 
-function chave(area, tarefa) {
-    return area + "-" + tarefa;
-}
+        {
+            numero: 2,
+            nome: "Casamento Civil",
+            tarefas: 12,
+            descricao: "Organize documentação, conservatória e procedimentos legais."
+        },
 
-function estado(area, tarefa) {
+        {
+            numero: 3,
+            nome: "Cerimónia Religiosa",
+            tarefas: 12,
+            descricao: "Prepare a cerimónia, celebração e todos os seus detalhes."
+        },
 
-    return dados[chave(area, tarefa)] || {
-        estado: "pendente",
-        problema: ""
-    };
+        {
+            numero: 4,
+            nome: "Noiva",
+            tarefas: 18,
+            descricao: "Vestido, acessórios, beleza, cabelo, maquilhagem e preparação."
+        },
 
-}
+        {
+            numero: 5,
+            nome: "Noivo",
+            tarefas: 12,
+            descricao: "Fato, acessórios, cuidados pessoais e preparação."
+        },
 
-function guardar() {
+        {
+            numero: 6,
+            nome: "Local / Salão",
+            tarefas: 15,
+            descricao: "Escolha, contratação e organização do espaço."
+        },
 
-    localStorage.setItem(
-        "casamentoPerfeitoPlaneador",
-        JSON.stringify(dados)
-    );
+        {
+            numero: 7,
+            nome: "Decoração",
+            tarefas: 15,
+            descricao: "Planeie flores, cores, mobiliário e ambiente."
+        },
 
-}
+        {
+            numero: 8,
+            nome: "Catering",
+            tarefas: 15,
+            descricao: "Menu, bebidas, serviço, quantidades e necessidades especiais."
+        },
 
-function construirAreas() {
+        {
+            numero: 9,
+            nome: "Fotografia / Vídeo",
+            tarefas: 15,
+            descricao: "Escolha profissionais e planeie os momentos a registar."
+        },
 
-    const container =
-        document.getElementById("areas");
+        {
+            numero: 10,
+            nome: "Música / DJ",
+            tarefas: 15,
+            descricao: "Música, DJ, banda, equipamentos e repertório."
+        },
 
-    container.innerHTML = "";
+        {
+            numero: 11,
+            nome: "Alianças",
+            tarefas: 10,
+            descricao: "Escolha, orçamento, gravação e preparação das alianças."
+        },
 
-    areas.forEach(function(area, index) {
+        {
+            numero: 12,
+            nome: "Convites",
+            tarefas: 12,
+            descricao: "Prepare, envie e acompanhe os convites."
+        },
 
-        const total = area[2];
+        {
+            numero: 13,
+            nome: "Família / Padrinhos",
+            tarefas: 12,
+            descricao: "Organize responsabilidades e participação da família e padrinhos."
+        },
 
-        let concluidas = 0;
+        {
+            numero: 14,
+            nome: "Transporte",
+            tarefas: 10,
+            descricao: "Planeie deslocações dos noivos, convidados e fornecedores."
+        },
 
-        for (let i = 0; i < total; i++) {
+        {
+            numero: 15,
+            nome: "Lua de Mel",
+            tarefas: 12,
+            descricao: "Destino, reservas, transporte, documentos e orçamento."
+        },
 
-            if (
-                estado(index, i).estado ===
-                "concluido"
+        {
+            numero: 16,
+            nome: "Financeiro",
+            tarefas: 15,
+            descricao: "Controle orçamento, pagamentos, depósitos e despesas."
+        },
+
+        {
+            numero: 17,
+            nome: "Convidados",
+            tarefas: 15,
+            descricao: "Lista de convidados, confirmações e informações importantes."
+        },
+
+        {
+            numero: 18,
+            nome: "Mesas / Lugares",
+            tarefas: 10,
+            descricao: "Organize mesas, lugares e distribuição dos convidados."
+        },
+
+        {
+            numero: 19,
+            nome: "Bolo / Doces",
+            tarefas: 10,
+            descricao: "Escolha bolo, doces, sabores, decoração e entrega."
+        },
+
+        {
+            numero: 20,
+            nome: "Lembranças",
+            tarefas: 8,
+            descricao: "Escolha e organize as lembranças para os convidados."
+        },
+
+        {
+            numero: 21,
+            nome: "Programa do Dia",
+            tarefas: 12,
+            descricao: "Defina horários, sequência e responsáveis."
+        },
+
+        {
+            numero: 22,
+            nome: "Últimas 4 Semanas",
+            tarefas: 15,
+            descricao: "Confirme fornecedores, convidados e últimos preparativos."
+        },
+
+        {
+            numero: 23,
+            nome: "Semana do Casamento",
+            tarefas: 15,
+            descricao: "Conclua os preparativos finais e confirme tudo."
+        },
+
+        {
+            numero: 24,
+            nome: "Dia do Casamento",
+            tarefas: 15,
+            descricao: "Acompanhe as tarefas e responsabilidades do grande dia."
+        },
+
+        {
+            numero: 25,
+            nome: "Pós-Casamento",
+            tarefas: 12,
+            descricao: "Organize pagamentos finais, fotografias, documentos e agradecimentos."
+        }
+
+    ];
+
+
+    /*
+     * ==========================================
+     * 10 TAREFAS REAIS DA PRIMEIRA ÁREA
+     * ==========================================
+     */
+
+    const tarefasPlaneamentoInicial = [
+
+        {
+            nome: "Definir se haverá casamento civil, religioso ou ambos",
+            prioridade: "Alta",
+            checkpoint: true
+        },
+
+        {
+            nome: "Definir a data do casamento",
+            prioridade: "Alta",
+            checkpoint: true
+        },
+
+        {
+            nome: "Definir o estilo do casamento",
+            prioridade: "Média",
+            checkpoint: true
+        },
+
+        {
+            nome: "Definir o número estimado de convidados",
+            prioridade: "Alta",
+            checkpoint: true
+        },
+
+        {
+            nome: "Definir o orçamento máximo",
+            prioridade: "Alta",
+            checkpoint: true
+        },
+
+        {
+            nome: "Definir quem contribuirá financeiramente",
+            prioridade: "Alta",
+            checkpoint: false
+        },
+
+        {
+            nome: "Criar lista inicial de convidados",
+            prioridade: "Alta",
+            checkpoint: false
+        },
+
+        {
+            nome: "Definir prioridades do casal",
+            prioridade: "Média",
+            checkpoint: false
+        },
+
+        {
+            nome: "Criar cronograma geral",
+            prioridade: "Média",
+            checkpoint: false
+        },
+
+        {
+            nome: "Definir responsáveis pelas principais tarefas",
+            prioridade: "Média",
+            checkpoint: false
+        }
+
+    ];
+
+
+    /*
+     * ==========================================
+     * ESTADO
+     * ==========================================
+     */
+
+    const STORAGE_KEY = "casamentoPerfeitoPlaneador";
+
+    let estado = {};
+
+    try {
+
+        const guardado =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (guardado) {
+            estado = JSON.parse(guardado);
+        }
+
+    } catch (erro) {
+
+        estado = {};
+
+    }
+
+
+    /*
+     * ==========================================
+     * MOSTRAR ÁREAS
+     * ==========================================
+     */
+
+    function mostrarAreas() {
+
+        const container =
+            document.getElementById("areas");
+
+        container.innerHTML = "";
+
+
+        areas.forEach(function(area) {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "area";
+
+            if (area.numero === 1) {
+                div.classList.add("area-destaque");
+            }
+
+
+            div.innerHTML = `
+
+                <div class="area-top">
+
+                    <div class="area-number">
+                        ${area.numero}
+                    </div>
+
+                    <h3>
+                        ${area.nome}
+                    </h3>
+
+                    <span class="task-count">
+                        ${area.tarefas} tarefas
+                    </span>
+
+                </div>
+
+                <p>
+                    ${area.descricao}
+                </p>
+
+                <button
+                    type="button"
+                    class="open-area"
+                    onclick="abrirArea(${area.numero})">
+
+                    Abrir área →
+
+                </button>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    /*
+     * ==========================================
+     * ABRIR ÁREA
+     * ==========================================
+     */
+
+    function abrirArea(numero) {
+
+        const area =
+            areas.find(function(item) {
+                return item.numero === numero;
+            });
+
+
+        if (!area) {
+            return;
+        }
+
+
+        const section =
+            document.getElementById("tasksSection");
+
+        const title =
+            document.getElementById("tasksTitle");
+
+        const container =
+            document.getElementById("tasksContainer");
+
+
+        title.textContent =
+            area.numero + ". " + area.nome;
+
+
+        container.innerHTML = "";
+
+
+        /*
+         * Primeira área:
+         * mostrar as 10 tarefas reais.
+         */
+
+        if (numero === 1) {
+
+            tarefasPlaneamentoInicial.forEach(
+                function(tarefa, index) {
+
+                    criarTarefa(
+                        tarefa,
+                        index + 1,
+                        container
+                    );
+
+                }
+            );
+
+        }
+
+        /*
+         * Outras áreas:
+         * por enquanto mostramos a estrutura.
+         * As tarefas detalhadas serão acrescentadas
+         * sem alterar o funcionamento da página.
+         */
+
+        else {
+
+            for (
+                let i = 1;
+                i <= area.tarefas;
+                i++
             ) {
-                concluidas++;
+
+                const tarefa = {
+
+                    nome:
+                        "Tarefa " +
+                        i +
+                        " — " +
+                        area.nome,
+
+                    prioridade:
+                        "A definir",
+
+                    checkpoint:
+                        false
+
+                };
+
+
+                criarTarefa(
+                    tarefa,
+                    i,
+                    container
+                );
+
             }
 
         }
 
-        const percentagem =
-            Math.round((concluidas / total) * 100);
 
-        const elemento =
-            document.createElement("div");
+        section.style.display = "block";
 
-        elemento.className = "area";
 
-        elemento.onclick = function() {
-            abrirArea(index);
-        };
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
-        elemento.innerHTML = `
-            <div class="icon">${area[0]}</div>
+    }
 
-            <h3>${area[1]}</h3>
 
-            <p>
-                ${concluidas}/${total} concluídas
-            </p>
+    /*
+     * ==========================================
+     * CRIAR TAREFA
+     * ==========================================
+     */
 
-            <div class="area-bar">
-                <div
-                    class="area-fill"
-                    style="width:${percentagem}%">
-                </div>
-            </div>
-
-            <p style="margin-top:8px;">
-                ${percentagem}% concluído
-            </p>
-        `;
-
-        container.appendChild(elemento);
-
-    });
-
-}
-
-function abrirArea(index) {
-
-    const area = areas[index];
-
-    document.getElementById("tasksTitle").textContent =
-        area[0] + " " + area[1];
-
-    const container =
-        document.getElementById("tasks");
-
-    container.innerHTML = "";
-
-    const quantidade = area[2];
-
-    for (let i = 0; i < quantidade; i++) {
-
-        let titulo;
-        let prioridade = "Média";
-        let checkpoint = false;
-
-        if (
-            index === 0 &&
-            tarefasIniciais[i]
-        ) {
-
-            titulo = tarefasIniciais[i][0];
-            prioridade = tarefasIniciais[i][1];
-            checkpoint = tarefasIniciais[i][2];
-
-        } else {
-
-            titulo =
-                "Tarefa " + (i + 1);
-
-        }
-
-        const atual =
-            estado(index, i);
-
-        const tarefa =
-            document.createElement("div");
-
-        tarefa.className = "task";
-
-        tarefa.innerHTML = `
-
-            <div class="task-line">
-
-                <input
-                    type="checkbox"
-                    ${
-                        atual.estado === "concluido"
-                        ? "checked"
-                        : ""
-                    }
-                    onchange="
-                        alterarTarefa(
-                            ${index},
-                            ${i},
-                            this.checked
-                        )
-                    "
-                >
-
-                <div>
-
-                    <div class="task-title">
-                        ${titulo}
-                    </div>
-
-                    <div class="task-info">
-                        👤 Casal · 📅 Sem prazo
-
-                        <span class="priority ${
-                            prioridade === "Alta"
-                            ? "high"
-                            : "medium"
-                        }">
-                            ${prioridade}
-                        </span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            ${
-                checkpoint
-                ? `
-                <div class="checkpoint">
-
-                    <strong>
-                        🔐 Checkpoint verificável
-                    </strong>
-
-                    <div class="statuses">
-
-                        <button
-                            class="status ${
-                                atual.estado === "concluido"
-                                ? "selected-green"
-                                : ""
-                            }"
-                            onclick="
-                                alterarEstado(
-                                    ${index},
-                                    ${i},
-                                    'concluido'
-                                )
-                            ">
-                            🟢 Concluído
-                        </button>
-
-                        <button
-                            class="status ${
-                                atual.estado === "pendente"
-                                ? "selected-orange"
-                                : ""
-                            }"
-                            onclick="
-                                alterarEstado(
-                                    ${index},
-                                    ${i},
-                                    'pendente'
-                                )
-                            ">
-                            🟠 Pendente
-                        </button>
-
-                        <button
-                            class="status ${
-                                atual.estado === "mal-parado"
-                                ? "selected-red"
-                                : ""
-                            }"
-                            onclick="
-                                alterarEstado(
-                                    ${index},
-                                    ${i},
-                                    'mal-parado'
-                                )
-                            ">
-                            🔴 Mal parado
-                        </button>
-
-                    </div>
-
-                    <div
-                        class="problem ${
-                            atual.estado === "mal-parado"
-                            ? "show"
-                            : ""
-                        }">
-
-                        <textarea
-                            placeholder="Descreva o que está a impedir esta tarefa..."
-                            oninput="
-                                guardarProblema(
-                                    ${index},
-                                    ${i},
-                                    this.value
-                                )
-                            "
-                        >${atual.problema}</textarea>
-
-```
-                </div>
-
-            </div>
-            `
-            : ""
-        }
-
-    `;
-
-    container.appendChild(tarefa);
-
-}
-
-document
-    .getElementById("tasksPanel")
-    .classList.add("open");
-
-document
-    .getElementById("tasksPanel")
-    .scrollIntoView({
-        behavior: "smooth"
-    });
-```
-
-}
-
-function alterarTarefa(
-area,
-tarefa,
-marcada
-) {
-
-```
-alterarEstado(
-    area,
-    tarefa,
-    marcada
-    ? "concluido"
-    : "pendente"
-);
-
-
-}
-
-function alterarEstado(
-area,
-tarefa,
-novoEstado
-) {
-
-
-dados[chave(area, tarefa)] = {
-    estado: novoEstado,
-    problema:
-        estado(area, tarefa).problema || ""
-};
-
-guardar();
-
-atualizar();
-
-abrirArea(area);
-```
-
-}
-
-function guardarProblema(
-area,
-tarefa,
-problema
-) {
-
-```
-dados[chave(area, tarefa)] = {
-    estado: "mal-parado",
-    problema: problema
-};
-
-guardar();
-```
-
-}
-
-function atualizar() {
-
-```
-let total = 0;
-let concluidas = 0;
-let malParadas = 0;
-
-areas.forEach(function(area, areaIndex) {
-
-    total += area[2];
-
-    for (
-        let i = 0;
-        i < area[2];
-        i++
+    function criarTarefa(
+        tarefa,
+        numero,
+        container
     ) {
 
-        const atual =
-            estado(areaIndex, i);
+        const div =
+            document.createElement("div");
 
-        if (atual.estado === "concluido") {
-            concluidas++;
+        div.className = "task";
+
+
+        const id =
+            "tarefa_" +
+            numero +
+            "_" +
+            tarefa.nome
+                .replace(/[^a-zA-Z0-9]/g, "")
+                .substring(0, 20);
+
+
+        div.innerHTML = `
+
+            <div class="task-name">
+                ${numero}. ${tarefa.nome}
+            </div>
+
+            <span class="task-priority">
+                Prioridade: ${tarefa.prioridade}
+            </span>
+
+        `;
+
+
+        /*
+         * Se tiver checkpoint,
+         * mostrar os três estados.
+         */
+
+        if (tarefa.checkpoint) {
+
+            const checkpoint =
+                document.createElement("div");
+
+            checkpoint.innerHTML = `
+
+                <div class="checkpoint-title">
+                    Estado do checkpoint:
+                </div>
+
+                <div class="checkpoint-buttons">
+
+                    <button
+                        type="button"
+                        class="btn-done"
+                        data-status="concluido">
+
+                        🟢 Concluído
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-pending"
+                        data-status="pendente">
+
+                        🟠 Pendente
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-stuck"
+                        data-status="mal_parado">
+
+                        🔴 Mal parado
+
+                    </button>
+
+                </div>
+
+                <div class="reason-box">
+
+                    <label>
+                        Indique o motivo do atraso ou problema:
+                    </label>
+
+                    <textarea
+                        placeholder="Descreva o que está a impedir a conclusão desta tarefa...">
+                    </textarea>
+
+                </div>
+
+            `;
+
+
+            div.appendChild(checkpoint);
+
+
+            const buttons =
+                checkpoint.querySelectorAll(
+                    ".checkpoint-buttons button"
+                );
+
+
+            const reasonBox =
+                checkpoint.querySelector(
+                    ".reason-box"
+                );
+
+
+            const textarea =
+                checkpoint.querySelector(
+                    "textarea"
+                );
+
+
+            let saved =
+                estado[id];
+
+
+            if (!saved) {
+
+                saved = {
+                    status: "pendente",
+                    reason: ""
+                };
+
+            }
+
+
+            buttons.forEach(function(button) {
+
+                if (
+                    button.dataset.status ===
+                    saved.status
+                ) {
+
+                    button.classList.add("active");
+
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        buttons.forEach(
+                            function(btn) {
+                                btn.classList.remove(
+                                    "active"
+                                );
+                            }
+                        );
+
+
+                        button.classList.add("active");
+
+
+                        saved.status =
+                            button.dataset.status;
+
+
+                        if (
+                            saved.status ===
+                            "mal_parado"
+                        ) {
+
+                            reasonBox.style.display =
+                                "block";
+
+                        } else {
+
+                            reasonBox.style.display =
+                                "none";
+
+                        }
+
+
+                        estado[id] = saved;
+
+                        guardarEstado();
+
+                        atualizarResumo();
+
+                    }
+                );
+
+            });
+
+
+            textarea.value =
+                saved.reason || "";
+
+
+            textarea.addEventListener(
+                "input",
+                function() {
+
+                    saved.reason =
+                        textarea.value;
+
+                    estado[id] = saved;
+
+                    guardarEstado();
+
+                }
+            );
+
+
+            if (
+                saved.status ===
+                "mal_parado"
+            ) {
+
+                reasonBox.style.display =
+                    "block";
+
+            }
+
         }
 
-        if (atual.estado === "mal-parado") {
-            malParadas++;
+
+        container.appendChild(div);
+
+    }
+
+
+    /*
+     * ==========================================
+     * GUARDAR
+     * ==========================================
+     */
+
+    function guardarEstado() {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(estado)
+            );
+
+        } catch (erro) {
+
+            console.log(
+                "Não foi possível guardar os dados."
+            );
+
         }
 
     }
 
-});
 
-const pendentes =
-    total - concluidas - malParadas;
+    /*
+     * ==========================================
+     * FECHAR TAREFAS
+     * ==========================================
+     */
 
-const percentagem =
-    Math.round((concluidas / total) * 100);
+    function fecharTarefas() {
 
-document.getElementById("total").textContent =
-    total;
+        document.getElementById(
+            "tasksSection"
+        ).style.display = "none";
 
-document.getElementById("completed").textContent =
-    concluidas;
+    }
 
-document.getElementById("pending").textContent =
-    pendentes;
 
-document.getElementById("stuck").textContent =
-    malParadas;
+    /*
+     * ==========================================
+     * ATUALIZAR RESUMO
+     * ==========================================
+     */
 
-document.getElementById("percent").textContent =
-    percentagem + "%";
+    function atualizarResumo() {
 
-document.getElementById("progressFill").style.width =
-    percentagem + "%";
+        let concluidas = 0;
 
-construirAreas();
-```
 
-}
+        Object.keys(estado).forEach(
+            function(chave) {
 
-function fecharArea() {
+                if (
+                    estado[chave] &&
+                    estado[chave].status ===
+                    "concluido"
+                ) {
 
-```
-document
-    .getElementById("tasksPanel")
-    .classList.remove("open");
-```
+                    concluidas++;
 
-}
+                }
 
-atualizar();
+            }
+        );
+
+
+        /*
+         * Nesta primeira versão,
+         * o progresso considera os checkpoints
+         * existentes.
+         */
+
+        const totalCheckpoints =
+            tarefasPlaneamentoInicial
+                .filter(function(tarefa) {
+                    return tarefa.checkpoint;
+                })
+                .length;
+
+
+        let progresso = 0;
+
+
+        if (totalCheckpoints > 0) {
+
+            progresso =
+                Math.round(
+                    (concluidas /
+                    totalCheckpoints) * 100
+                );
+
+        }
+
+
+        document.getElementById(
+            "completedCount"
+        ).textContent = concluidas;
+
+
+        document.getElementById(
+            "progressNumber"
+        ).textContent = progresso + "%";
+
+
+        document.getElementById(
+            "progressText"
+        ).textContent = progresso + "%";
+
+
+        document.getElementById(
+            "progressFill"
+        ).style.width = progresso + "%";
+
+    }
+
+
+    /*
+     * ==========================================
+     * INICIAR PÁGINA
+     * ==========================================
+     */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            mostrarAreas();
+
+            atualizarResumo();
+
+        }
+    );
 
 </script>
 

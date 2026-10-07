@@ -1,98 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Entrar | Casamento Perfeito</title>
 
+
     <style>
 
+        /* ==============================
+           CONFIGURAÇÕES GERAIS
+        ============================== */
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
 
         body {
+
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(255,255,255,.9), transparent 35%),
-                radial-gradient(circle at 90% 80%, rgba(255,180,200,.35), transparent 40%),
-                #f7eeee;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f7e8ec;
 
             display: flex;
-            align-items: center;
+
             justify-content: center;
-            padding: 40px 20px;
+
+            align-items: center;
+
+            padding: 30px 20px;
         }
 
-        /* CONTAINER PRINCIPAL */
 
-        .login-container {
-            width: min(1000px, 95vw);
-            min-height: 560px;
+        /* ==============================
+           CARTÃO PRINCIPAL
+        ============================== */
+
+        .login-card {
+
+            width: 920px;
+
+            max-width: 100%;
+
+            min-height: 580px;
+
+            background: #ffffff;
 
             display: grid;
+
             grid-template-columns: 1fr 1fr;
 
-            background: white;
-
-            border-radius: 20px;
+            border-radius: 22px;
 
             overflow: hidden;
 
             box-shadow:
-                0 25px 70px rgba(80, 40, 40, .15);
+                0 20px 60px
+                rgba(90, 50, 60, 0.20);
         }
 
 
-        /* =========================
-           LADO DA FOTOGRAFIA
-        ========================= */
-
-        .photo-side {
-
-            position: relative;
-
-            min-height: 560px;
-
-            background-image: url("https://images.openai.com/static-rsc-4/gyEF_huyo9G13Jewi0V_kWAL2R3tije8Q_CJfJ1SqiwjU-EQnSOX3sKAdR5OhuGSJuIShQ5vU66wnNyg2XdhxacN_gu6BwoCeSfsjutBDxz1XPruOu5wJmNHpJnyOu9GvF5SOYnwUWgAXaPjrcxtaluqtXql-RBU1Sbx9uN3Pts?purpose=inline");
-
-            background-size: cover;
-
-            background-position: center;
-        }
-
-
-        /* ligeiro efeito sobre a fotografia */
-
-        .photo-side::after {
-
-            content: "";
-
-            position: absolute;
-
-            inset: 0;
-
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,.03),
-                rgba(255,255,255,.08)
-            );
-        }
-
-
-        /* =========================
+        /* ==============================
            LADO DO LOGIN
-        ========================= */
+        ============================== */
 
-        .form-side {
+        .login-side {
 
-            background: #ffffff;
-
-            padding: 38px 60px;
+            padding: 40px 50px;
 
             display: flex;
 
@@ -102,509 +87,674 @@
         }
 
 
-        /* =========================
+        /* ==============================
            MENU
-        ========================= */
+        ============================== */
 
-        .top-menu {
+        .menu {
 
             display: flex;
 
-            gap: 32px;
+            gap: 28px;
 
-            margin-bottom: 62px;
-
-            font-size: 14px;
+            margin-bottom: 25px;
         }
 
-        .top-menu a {
+
+        .menu a {
+
+            color: #777;
 
             text-decoration: none;
 
-            color: #333;
+            font-size: 12px;
 
-            padding-bottom: 8px;
-
-            position: relative;
-        }
-
-        .top-menu a.active {
-
-            font-weight: 600;
-        }
-
-        .top-menu a.active::after {
-
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-
-            right: 0;
-
-            bottom: 0;
-
-            height: 2px;
-
-            background: #e7b8b0;
+            transition: 0.2s;
         }
 
 
-        /* =========================
-           LOGO
-        ========================= */
+        .menu a:hover {
 
-        .logo {
-
-            text-align: center;
-
-            margin-bottom: 13px;
+            color: #b45d70;
         }
 
-        .logo h1 {
 
-            font-family: Georgia, "Times New Roman", serif;
+        .menu .active {
 
-            font-size: 27px;
+            color: #b45d70;
 
             font-weight: bold;
-
-            color: #c44f65;
-
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-
-            color: #777;
-
-            font-size: 11px;
-
-            letter-spacing: 1px;
         }
 
 
-        /* =========================
-           TEXTO
-        ========================= */
+        /* ==============================
+           LOGO
+        ============================== */
 
-        .intro {
-
-            text-align: center;
-
-            color: #777;
-
-            font-size: 10px;
-
-            line-height: 1.6;
+        .logo {
 
             margin-bottom: 27px;
         }
 
 
-        /* =========================
-           FORMULÁRIO
-        ========================= */
+        .logo h1 {
 
-        .form-group {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
-            margin-bottom: 14px;
+            color: #b45d70;
+
+            font-size: 25px;
+
+            font-weight: bold;
         }
 
-        .form-group label {
+
+        .logo span {
 
             display: block;
 
-            font-size: 9px;
+            margin-top: 5px;
 
-            font-weight: bold;
+            color: #999;
 
-            color: #555;
+            font-size: 8px;
 
-            margin-bottom: 7px;
+            letter-spacing: 1.5px;
 
             text-transform: uppercase;
         }
 
-        .form-group input {
 
-            width: 100%;
+        /* ==============================
+           TÍTULO
+        ============================== */
 
-            height: 40px;
+        .welcome {
 
-            border: 1px solid #e4e4e4;
-
-            border-radius: 5px;
-
-            padding: 0 12px;
-
-            font-size: 11px;
-
-            outline: none;
-
-            background: #fff;
-        }
-
-        .form-group input:focus {
-
-            border-color: #e8b6ae;
-
-            box-shadow: 0 0 0 2px rgba(232,182,174,.12);
+            margin-bottom: 24px;
         }
 
 
-        /* =========================
-           ESQUECEU PASSWORD
-        ========================= */
+        .welcome h2 {
 
-        .forgot {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
-            text-align: right;
+            color: #292929;
 
-            margin-top: -4px;
+            font-size: 30px;
 
-            margin-bottom: 18px;
+            font-weight: normal;
+
+            margin-bottom: 8px;
         }
 
-        .forgot a {
+
+        .welcome p {
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==============================
+           CAMPOS
+        ============================== */
+
+        .campo {
+
+            margin-bottom: 17px;
+        }
+
+
+        .campo label {
+
+            display: block;
+
+            margin-bottom: 7px;
 
             color: #444;
 
+            font-size: 10px;
+        }
+
+
+        .campo input {
+
+            width: 100%;
+
+            height: 44px;
+
+            padding:
+                0 14px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 5px;
+
+            background: #fff;
+
+            outline: none;
+
+            color: #333;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+
+        .campo input::placeholder {
+
+            color: #aaa;
+        }
+
+
+        .campo input:focus {
+
+            border-color: #b45d70;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(180, 93, 112, 0.10);
+        }
+
+
+        /* ==============================
+           OPÇÕES
+        ============================== */
+
+        .options {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-top: -3px;
+
+            margin-bottom: 20px;
+
             font-size: 9px;
+        }
+
+
+        .remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color: #777;
+        }
+
+
+        .remember input {
+
+            accent-color: #b45d70;
+        }
+
+
+        .forgot {
+
+            color: #a85a6b;
 
             text-decoration: none;
         }
 
 
-        /* =========================
-           BOTÃO LOGIN
-        ========================= */
+        .forgot:hover {
 
-        .login-button {
+            text-decoration: underline;
+        }
+
+
+        /* ==============================
+           BOTÃO ENTRAR
+        ============================== */
+
+        .btn-login {
 
             width: 100%;
 
-            height: 40px;
+            height: 44px;
 
             border: none;
 
             border-radius: 5px;
 
-            background: #f2c9c1;
+            background: #b45d70;
 
-            color: #513b37;
+            color: #ffffff;
 
-            font-size: 11px;
+            font-size: 12px;
+
+            font-weight: bold;
 
             cursor: pointer;
 
-            transition: .2s;
-        }
-
-        .login-button:hover {
-
-            background: #eab6ad;
+            transition: all 0.25s ease;
         }
 
 
-        /* =========================
-           OR
-        ========================= */
+        .btn-login:hover {
 
-        .or {
+            background: #9f4d60;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(165, 83, 99, 0.20);
+        }
+
+
+        /* ==============================
+           REGISTO
+        ============================== */
+
+        .register {
 
             text-align: center;
 
-            margin: 16px 0;
+            margin-top: 20px;
+
+            padding-top: 16px;
+
+            border-top:
+                1px solid #eeeeee;
+
+            color: #777;
+
+            font-size: 10px;
+        }
+
+
+        .register a {
+
+            color: #a85a6b;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .register a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* ==============================
+           VOLTAR
+        ============================== */
+
+        .voltar {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 13px;
 
             color: #999;
 
             font-size: 9px;
+
+            text-decoration: none;
         }
 
 
-        /* =========================
-           FACEBOOK
-        ========================= */
+        .voltar:hover {
 
-        .facebook {
+            color: #a85a6b;
+        }
+
+
+        /* ==============================
+           IMAGEM
+        ============================== */
+
+        .image-side {
+
+            position: relative;
 
             width: 100%;
 
-            height: 38px;
+            min-height: 580px;
 
-            border: 1px solid #dedede;
+            overflow: hidden;
 
-            background: white;
-
-            border-radius: 5px;
-
-            font-size: 9px;
-
-            color: #444;
-
-            cursor: pointer;
-        }
-
-        .facebook:hover {
-
-            background: #fafafa;
+            background: #f1d8de;
         }
 
 
-        /* =========================
-           TERMOS
-        ========================= */
+        .image-side img {
 
-        .terms {
+            width: 100%;
+
+            height: 100%;
+
+            min-height: 580px;
+
+            display: block;
+
+            object-fit: cover;
+
+            object-position: center;
+        }
+
+
+        /* ==============================
+           EFEITO SOBRE A IMAGEM
+        ============================== */
+
+        .image-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: center;
+
+            padding: 35px;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(70, 35, 45, 0.35),
+                    transparent 45%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .image-message {
+
+            color: #ffffff;
 
             text-align: center;
 
-            font-size: 8px;
-
-            color: #888;
-
-            line-height: 1.5;
-
-            margin-top: 15px;
-        }
-
-        .terms a {
-
-            color: #555;
-
-            text-decoration: none;
-
-            font-weight: bold;
+            text-shadow:
+                0 2px 8px
+                rgba(0,0,0,0.30);
         }
 
 
-        /* =========================
-           REGISTO
-        ========================= */
+        .image-message h3 {
 
-        .signup {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
-            text-align: center;
+            font-size: 25px;
 
-            border-top: 1px solid #eeeeee;
+            font-weight: normal;
 
-            margin-top: 18px;
-
-            padding-top: 18px;
-
-            font-size: 9px;
-
-            color: #777;
-        }
-
-        .signup a {
-
-            color: #444;
-
-            text-decoration: none;
-
-            font-weight: bold;
+            margin-bottom: 5px;
         }
 
 
-        /* =========================
+        .image-message p {
+
+            font-size: 10px;
+
+            letter-spacing: 0.5px;
+
+            opacity: 0.95;
+        }
+
+
+        /* ==============================
            RESPONSIVO
-        ========================= */
+        ============================== */
 
         @media (max-width: 750px) {
 
             body {
-                padding: 20px;
+
+                padding: 15px;
             }
 
-            .login-container {
+
+            .login-card {
 
                 grid-template-columns: 1fr;
-
-                width: 100%;
 
                 max-width: 450px;
             }
 
-            .photo-side {
 
-                min-height: 280px;
+            .image-side {
 
-                height: 280px;
+                order: -1;
+
+                min-height: 300px;
             }
 
-            .form-side {
 
-                padding: 35px 30px 40px;
+            .image-side img {
+
+                min-height: 300px;
             }
 
-            .top-menu {
 
-                margin-bottom: 35px;
+            .login-side {
+
+                padding: 35px 28px;
             }
         }
 
 
         @media (max-width: 450px) {
 
-            .photo-side {
+            .image-side {
 
-                min-height: 220px;
-
-                height: 220px;
+                min-height: 240px;
             }
 
-            .form-side {
 
-                padding: 30px 24px;
+            .image-side img {
+
+                min-height: 240px;
             }
 
-            .top-menu {
 
-                gap: 24px;
+            .login-side {
+
+                padding:
+                    30px 22px;
+            }
+
+
+            .welcome h2 {
+
+                font-size: 25px;
             }
         }
 
     </style>
+
 </head>
 
 
 <body>
 
-    <div class="login-container">
+
+    <!-- =================================
+         CARTÃO DE LOGIN
+    ================================== -->
+
+    <div class="login-card">
 
 
-        <!-- =========================
-             FOTOGRAFIA
-        ========================== -->
+        <!-- =================================
+             ÁREA DO LOGIN
+        ================================== -->
 
-        <div class="photo-side"></div>
-
-
-        <!-- =========================
-             FORMULÁRIO
-        ========================== -->
-
-        <div class="form-side">
+        <section class="login-side">
 
 
-            <div class="top-menu">
+            <!-- MENU -->
 
-                <a href="login.html" class="active">
-                    Login
+            <nav class="menu">
+
+                <a
+                    href="login.html"
+                    class="active"
+                >
+                    Entrar
                 </a>
+
 
                 <a href="registo.html">
-                    Signup
+                    Criar conta
                 </a>
 
-            </div>
+            </nav>
 
+
+            <!-- LOGO -->
 
             <div class="logo">
 
-                <h1>Casamento Perfeito</h1>
+                <h1>
+                    Casamento Perfeito
+                </h1>
 
-                <span>O seu grande dia começa aqui</span>
+
+                <span>
+                    O seu grande dia começa aqui
+                </span>
 
             </div>
 
 
-            <p class="intro">
+            <!-- TÍTULO -->
 
-                Introduza os seus dados abaixo para<br>
-                entrar na sua conta.
+            <div class="welcome">
 
-            </p>
-
-
-            <form>
+                <h2>
+                    Bem-vindo de volta
+                </h2>
 
 
-                <div class="form-group">
+                <p>
+                    Entre na sua conta e continue
+                    a planear o seu grande dia.
+                </p>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="campo">
 
                     <label for="email">
                         E-mail
                     </label>
 
+
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="Digite o seu e-mail"
+                        placeholder="Introduza o seu e-mail"
                         required
                     >
 
                 </div>
 
 
-                <div class="form-group">
+                <!-- PALAVRA-PASSE -->
+
+                <div class="campo">
 
                     <label for="password">
                         Palavra-passe
                     </label>
 
+
                     <input
                         type="password"
                         id="password"
                         name="password"
-                        placeholder="A sua palavra-passe"
+                        placeholder="Introduza a sua palavra-passe"
                         required
                     >
 
                 </div>
 
 
-                <div class="forgot">
+                <!-- OPÇÕES -->
 
-                    <a href="#">
-                        Esqueceu-se da palavra-passe?
+                <div class="options">
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        Lembrar-me
+
+                    </label>
+
+
+                    <a
+                        href="#"
+                        class="forgot"
+                        onclick="recuperarPassword(event)"
+                    >
+                        Esqueceu a palavra-passe?
                     </a>
+
 
                 </div>
 
 
+                <!-- BOTÃO -->
+
                 <button
                     type="submit"
-                    class="login-button"
+                    class="btn-login"
                 >
                     Entrar
                 </button>
 
 
-                <div class="or">
-                    OU
-                </div>
+                <!-- REGISTO -->
 
-
-                <button
-                    type="button"
-                    class="facebook"
-                >
-                    🔵 &nbsp; Entrar com Facebook
-                </button>
-
-
-                <div class="terms">
-
-                    Ao continuar, aceita os nossos
-
-                    <a href="#">
-                        Termos de Serviço
-                    </a>
-
-                    e
-
-                    <a href="#">
-                        Política de Privacidade
-                    </a>.
-
-                </div>
-
-
-                <div class="signup">
+                <div class="register">
 
                     Ainda não tem uma conta?
 
@@ -615,11 +765,122 @@
                 </div>
 
 
+                <!-- VOLTAR -->
+
+                <a
+                    href="index.html"
+                    class="voltar"
+                >
+                    ← Voltar à página inicial
+                </a>
+
+
             </form>
 
-        </div>
+        </section>
+
+
+        <!-- =================================
+             FOTOGRAFIA
+        ================================== -->
+
+        <section class="image-side">
+
+
+            <img
+                src="images/ROSA%20BEBE.jpg"
+                alt="Casamento Perfeito"
+            >
+
+
+            <div class="image-overlay">
+
+                <div class="image-message">
+
+                    <h3>
+                        O amor está nos detalhes
+                    </h3>
+
+                    <p>
+                        Planeie cada momento do seu grande dia.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
 
     </div>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script>
+
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const email =
+                        document
+                            .getElementById("email")
+                            .value;
+
+                    const password =
+                        document
+                            .getElementById("password")
+                            .value;
+
+
+                    if (
+                        email.trim() === "" ||
+                        password.trim() === ""
+                    ) {
+
+                        alert(
+                            "Por favor, preencha todos os campos."
+                        );
+
+                        return;
+                    }
+
+
+                    /*
+                     * Nesta fase, o formulário é apenas visual.
+                     * A autenticação real será ligada à base
+                     * de dados numa etapa posterior.
+                     */
+
+                    alert(
+                        "Login preparado. A autenticação será activada na próxima etapa."
+                    );
+
+                }
+            );
+
+
+        function recuperarPassword(event) {
+
+            event.preventDefault();
+
+            alert(
+                "A recuperação da palavra-passe será disponibilizada numa próxima etapa."
+            );
+
+        }
+
+    </script>
+
 
 </body>
 </html>

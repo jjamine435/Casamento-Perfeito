@@ -1,495 +1,343 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Criar conta | Casamento Perfeito</title>
+    <title>Criar conta | Casamento Perfeito</title>
 
-<style>
+    <style>
 
-/* ==============================
-   CONFIGURAÇÕES GERAIS
-============================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
 
-body {
-    min-height: 100vh;
+            background: #f7e8ec;
 
-    font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f9edef,
-            #f5e1e6
-        );
+            padding: 30px 20px;
+        }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    padding: 35px 20px;
-}
+        /* CARTÃO */
 
+        .register-card {
+            width: 920px;
+            max-width: 100%;
 
-/* ==============================
-   CARTÃO PRINCIPAL
-============================== */
+            min-height: 580px;
 
-.register-card {
+            background: white;
 
-    width: 920px;
-    max-width: 95vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
 
-    min-height: 580px;
+            border-radius: 22px;
 
-    display: grid;
+            overflow: hidden;
 
-    grid-template-columns: 1fr 1fr;
+            box-shadow:
+                0 20px 60px rgba(90, 50, 60, 0.20);
+        }
 
-    background: #ffffff;
 
-    border-radius: 22px;
+        /* FORMULÁRIO */
 
-    overflow: hidden;
+        .form-side {
+            padding: 40px 50px;
 
-    box-shadow:
-        0 25px 70px rgba(80, 40, 50, 0.20);
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
 
-/* ==============================
-   LADO DO FORMULÁRIO
-============================== */
+        /* MENU */
 
-.form-side {
+        .menu {
+            display: flex;
+            gap: 28px;
 
-    padding: 40px 50px;
+            margin-bottom: 25px;
+        }
 
-    display: flex;
+        .menu a {
+            color: #777;
+            text-decoration: none;
 
-    flex-direction: column;
+            font-size: 12px;
+        }
 
-    justify-content: center;
+        .menu a:hover {
+            color: #b35d70;
+        }
 
-    background: #ffffff;
-}
+        .menu .active {
+            color: #b35d70;
+            font-weight: bold;
+        }
 
 
-/* ==============================
-   MENU
-============================== */
+        /* LOGO */
 
-.menu {
+        .logo {
+            margin-bottom: 25px;
+        }
 
-    display: flex;
+        .logo h1 {
+            font-family: Georgia, serif;
 
-    gap: 28px;
+            color: #b45d70;
 
-    margin-bottom: 25px;
-}
+            font-size: 25px;
+        }
 
-.menu a {
+        .logo span {
+            display: block;
 
-    text-decoration: none;
+            margin-top: 5px;
 
-    font-size: 12px;
+            color: #999;
 
-    color: #777;
-}
+            font-size: 8px;
 
-.menu a:hover {
+            letter-spacing: 1.5px;
 
-    color: #b56876;
-}
+            text-transform: uppercase;
+        }
 
-.menu a.active {
 
-    color: #b56876;
+        /* TÍTULO */
 
-    font-weight: bold;
-}
+        .welcome {
+            margin-bottom: 22px;
+        }
 
+        .welcome h2 {
+            font-family: Georgia, serif;
 
-/* ==============================
-   LOGO
-============================== */
+            color: #292929;
 
-.logo {
+            font-size: 29px;
 
-    margin-bottom: 27px;
-}
+            font-weight: normal;
 
-.logo h1 {
+            margin-bottom: 7px;
+        }
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+        .welcome p {
+            color: #777;
 
-    font-size: 24px;
+            font-size: 13px;
 
-    color: #b55f70;
+            line-height: 1.5;
+        }
 
-    font-weight: bold;
-}
 
-.logo span {
+        /* CAMPOS */
 
-    display: block;
+        .campo {
+            margin-bottom: 13px;
+        }
 
-    margin-top: 4px;
+        .campo label {
+            display: block;
 
-    font-size: 8px;
+            margin-bottom: 6px;
 
-    letter-spacing: 1.6px;
+            color: #444;
 
-    color: #999;
+            font-size: 10px;
+        }
 
-    text-transform: uppercase;
-}
+        .campo input {
+            width: 100%;
 
+            height: 42px;
 
-/* ==============================
-   TÍTULO
-============================== */
+            padding: 0 13px;
 
-.welcome {
+            border: 1px solid #ddd;
 
-    margin-bottom: 22px;
-}
+            border-radius: 5px;
 
-.welcome h2 {
+            outline: none;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+            font-size: 12px;
+        }
 
-    font-size: 28px;
+        .campo input:focus {
+            border-color: #b45d70;
+        }
 
-    font-weight: normal;
 
-    color: #292929;
+        /* TERMOS */
 
-    margin-bottom: 7px;
-}
+        .terms {
+            display: flex;
 
-.welcome p {
+            align-items: flex-start;
 
-    font-size: 13px;
+            gap: 7px;
 
-    color: #777;
+            margin: 4px 0 17px;
 
-    line-height: 1.5;
-}
+            color: #777;
 
+            font-size: 9px;
 
-/* ==============================
-   CAMPOS
-============================== */
+            line-height: 1.5;
+        }
 
-.campo {
+        .terms input {
+            margin-top: 2px;
+        }
 
-    margin-bottom: 13px;
-}
+        .terms a {
+            color: #a85a6b;
 
-.campo label {
+            font-weight: bold;
 
-    display: block;
+            text-decoration: none;
+        }
 
-    font-size: 10px;
 
-    color: #444;
+        /* BOTÃO */
 
-    margin-bottom: 6px;
-}
+        .btn-criar {
+            width: 100%;
 
-.campo input {
+            height: 43px;
 
-    width: 100%;
+            border: none;
 
-    height: 42px;
+            border-radius: 5px;
 
-    padding: 0 13px;
+            background: #b45d70;
 
-    border: 1px solid #dedede;
+            color: white;
 
-    border-radius: 5px;
+            font-size: 12px;
 
-    background: #ffffff;
+            font-weight: bold;
 
-    color: #333;
+            cursor: pointer;
+        }
 
-    font-size: 12px;
+        .btn-criar:hover {
+            background: #9f4d60;
+        }
 
-    outline: none;
 
-    transition: all 0.2s ease;
-}
+        /* LOGIN */
 
-.campo input::placeholder {
+        .login {
+            text-align: center;
 
-    color: #aaa;
-}
+            margin-top: 18px;
+            padding-top: 15px;
 
-.campo input:focus {
+            border-top: 1px solid #eee;
 
-    border-color: #b56876;
+            color: #777;
 
-    box-shadow:
-        0 0 0 2px rgba(181,104,118,0.10);
-}
+            font-size: 10px;
+        }
 
+        .login a {
+            color: #a85a6b;
 
-/* ==============================
-   TERMOS
-============================== */
+            font-weight: bold;
 
-.terms {
+            text-decoration: none;
+        }
 
-    display: flex;
 
-    align-items: flex-start;
+        /* VOLTAR */
 
-    gap: 7px;
+        .voltar {
+            display: block;
 
-    margin-top: 3px;
+            text-align: center;
 
-    margin-bottom: 17px;
+            margin-top: 12px;
 
-    font-size: 9px;
+            color: #999;
 
-    color: #777;
+            font-size: 9px;
 
-    line-height: 1.5;
-}
+            text-decoration: none;
+        }
 
-.terms input {
 
-    margin-top: 2px;
+        /* =================================
+           FOTOGRAFIA
+        ================================= */
 
-    accent-color: #b56876;
-}
+        .flower-side {
+            position: relative;
 
-.terms label {
+            width: 100%;
+            min-height: 580px;
 
-    cursor: pointer;
-}
+            overflow: hidden;
 
-.terms a {
+            background: #f1d8de;
+        }
 
-    color: #a65a6b;
+        .flower-side img {
+            width: 100%;
+            height: 100%;
 
-    text-decoration: none;
+            min-height: 580px;
 
-    font-weight: bold;
-}
+            display: block;
 
-.terms a:hover {
+            object-fit: cover;
 
-    text-decoration: underline;
-}
+            object-position: center;
+        }
 
 
-/* ==============================
-   BOTÃO
-============================== */
+        /* RESPONSIVO */
 
-.btn-criar {
+        @media (max-width: 750px) {
 
-    width: 100%;
+            body {
+                padding: 15px;
+            }
 
-    height: 43px;
+            .register-card {
+                grid-template-columns: 1fr;
 
-    border: none;
+                max-width: 450px;
+            }
 
-    border-radius: 5px;
+            .flower-side {
+                order: -1;
 
-    background: #b56876;
+                min-height: 300px;
+            }
 
-    color: #ffffff;
+            .flower-side img {
+                min-height: 300px;
+            }
 
-    font-size: 12px;
+            .form-side {
+                padding: 35px 28px;
+            }
+        }
 
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: all 0.25s ease;
-}
-
-.btn-criar:hover {
-
-    background: #a45363;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 15px rgba(165,83,99,0.20);
-}
-
-
-/* ==============================
-   LOGIN
-============================== */
-
-.login {
-
-    text-align: center;
-
-    margin-top: 18px;
-
-    padding-top: 15px;
-
-    border-top: 1px solid #eeeeee;
-
-    font-size: 10px;
-
-    color: #777;
-}
-
-.login a {
-
-    color: #a85d6d;
-
-    text-decoration: none;
-
-    font-weight: bold;
-}
-
-.login a:hover {
-
-    text-decoration: underline;
-}
-
-
-/* ==============================
-   VOLTAR
-============================== */
-
-.voltar {
-
-    display: block;
-
-    text-align: center;
-
-    margin-top: 12px;
-
-    font-size: 9px;
-
-    color: #999;
-
-    text-decoration: none;
-}
-
-.voltar:hover {
-
-    color: #a85d6d;
-}
-
-
-/* ==============================
-   IMAGEM À DIREITA
-============================== */
-
-.flower-side {
-
-    position: relative;
-
-    min-height: 580px;
-
-    background-image:
-        url("./images/images.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-}
-
-
-/* Pequeno efeito sobre a fotografia */
-
-.flower-side::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,0.04),
-            rgba(255,255,255,0)
-        );
-
-    pointer-events: none;
-}
-
-
-/* ==============================
-   RESPONSIVO
-============================== */
-
-@media (max-width: 750px) {
-
-    body {
-
-        padding: 20px;
-    }
-
-    .register-card {
-
-        width: 100%;
-
-        max-width: 450px;
-
-        grid-template-columns: 1fr;
-    }
-
-    .flower-side {
-
-        min-height: 260px;
-
-        order: -1;
-    }
-
-    .form-side {
-
-        padding: 35px 28px;
-    }
-}
-
-
-@media (max-width: 450px) {
-
-    .flower-side {
-
-        min-height: 220px;
-    }
-
-    .form-side {
-
-        padding: 30px 22px;
-    }
-
-    .welcome h2 {
-
-        font-size: 24px;
-    }
-}
-
-</style>
+    </style>
 
 </head>
 
@@ -497,266 +345,230 @@ body {
 <body>
 
 
-<!-- =====================================
-     CARTÃO DE REGISTO
-====================================== -->
+    <div class="register-card">
 
-<div class="register-card">
 
+        <!-- ==========================
+             FORMULÁRIO
+        =========================== -->
 
-    <!-- =================================
-         FORMULÁRIO
-    ================================== -->
+        <section class="form-side">
 
-    <section class="form-side">
 
-
-        <!-- MENU -->
-
-        <nav class="menu">
-
-            <a href="login.html">
-                Entrar
-            </a>
-
-            <a
-                href="registo.html"
-                class="active"
-            >
-                Criar conta
-            </a>
-
-        </nav>
-
-
-        <!-- LOGO -->
-
-        <div class="logo">
-
-            <h1>
-                Casamento Perfeito
-            </h1>
-
-            <span>
-                O seu grande dia começa aqui
-            </span>
-
-        </div>
-
-
-        <!-- TÍTULO -->
-
-        <div class="welcome">
-
-            <h2>
-                Criar a sua conta
-            </h2>
-
-            <p>
-                Comece a organizar o casamento dos seus sonhos.
-            </p>
-
-        </div>
-
-
-        <!-- FORMULÁRIO -->
-
-        <form id="registerForm">
-
-
-            <!-- NOME -->
-
-            <div class="campo">
-
-                <label for="nome">
-                    Nome
-                </label>
-
-                <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    placeholder="Introduza o seu nome"
-                    required
-                >
-
-            </div>
-
-
-            <!-- EMAIL -->
-
-            <div class="campo">
-
-                <label for="email">
-                    E-mail
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Introduza o seu e-mail"
-                    required
-                >
-
-            </div>
-
-
-            <!-- PASSWORD -->
-
-            <div class="campo">
-
-                <label for="password">
-                    Palavra-passe
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Crie a sua palavra-passe"
-                    minlength="6"
-                    required
-                >
-
-            </div>
-
-
-            <!-- CONFIRMAR PASSWORD -->
-
-            <div class="campo">
-
-                <label for="confirmPassword">
-                    Confirmar palavra-passe
-                </label>
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Repita a sua palavra-passe"
-                    minlength="6"
-                    required
-                >
-
-            </div>
-
-
-            <!-- TERMOS -->
-
-            <div class="terms">
-
-                <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                >
-
-                <label for="terms">
-
-                    Aceito os
-
-                    <a href="termos.html">
-                        Termos de Serviço
-                    </a>
-
-                    e a
-
-                    <a href="privacidade.html">
-                        Política de Privacidade
-                    </a>.
-
-                </label>
-
-            </div>
-
-
-            <!-- BOTÃO -->
-
-            <button
-                type="submit"
-                class="btn-criar"
-            >
-                Criar conta
-            </button>
-
-
-            <!-- LOGIN -->
-
-            <div class="login">
-
-                Já tem uma conta?
+            <nav class="menu">
 
                 <a href="login.html">
                     Entrar
                 </a>
 
+                <a href="registo.html" class="active">
+                    Criar conta
+                </a>
+
+            </nav>
+
+
+            <div class="logo">
+
+                <h1>
+                    Casamento Perfeito
+                </h1>
+
+                <span>
+                    O seu grande dia começa aqui
+                </span>
+
             </div>
 
 
-            <!-- VOLTAR -->
+            <div class="welcome">
 
-            <a
-                href="index.html"
-                class="voltar"
+                <h2>
+                    Criar a sua conta
+                </h2>
+
+                <p>
+                    Comece a organizar o casamento dos seus sonhos.
+                </p>
+
+            </div>
+
+
+            <form id="registerForm">
+
+
+                <div class="campo">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Introduza o seu nome"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Introduza o seu e-mail"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="password">
+                        Palavra-passe
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Crie a sua palavra-passe"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="confirmPassword">
+                        Confirmar palavra-passe
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Repita a sua palavra-passe"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <label for="terms">
+
+                        Aceito os
+
+                        <a href="termos.html">
+                            Termos de Serviço
+                        </a>
+
+                        e a
+
+                        <a href="privacidade.html">
+                            Política de Privacidade
+                        </a>.
+
+                    </label>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-criar"
+                >
+                    Criar conta
+                </button>
+
+
+                <div class="login">
+
+                    Já tem uma conta?
+
+                    <a href="login.html">
+                        Entrar
+                    </a>
+
+                </div>
+
+
+                <a
+                    href="index.html"
+                    class="voltar"
+                >
+                    ← Voltar à página inicial
+                </a>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- ==========================
+             FOTOGRAFIA
+        =========================== -->
+
+        <section class="flower-side">
+
+            <img
+                src="images/images.jpg"
+                alt="Rosas de casamento"
             >
-                ← Voltar à página inicial
-            </a>
+
+        </section>
 
 
-        </form>
-
-    </section>
+    </div>
 
 
-    <!-- =================================
-         FOTOGRAFIA
-    ================================== -->
+    <script>
 
-    <section class="flower-side">
-    </section>
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", function(event) {
 
+                const password =
+                    document.getElementById("password").value;
 
-</div>
-
-
-<!-- =====================================
-     JAVASCRIPT
-====================================== -->
-
-<script>
-
-document
-    .getElementById("registerForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            const password =
-                document
-                    .getElementById("password")
-                    .value;
-
-            const confirmPassword =
-                document
-                    .getElementById("confirmPassword")
-                    .value;
+                const confirmPassword =
+                    document.getElementById("confirmPassword").value;
 
 
-            if (password !== confirmPassword) {
+                if (password !== confirmPassword) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                alert(
-                    "As palavras-passe não coincidem."
-                );
+                    alert(
+                        "As palavras-passe não coincidem."
+                    );
 
-            }
+                }
 
-        }
-    );
+            });
 
-</script>
+    </script>
 
 
 </body>

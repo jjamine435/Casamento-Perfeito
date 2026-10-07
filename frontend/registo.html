@@ -3,573 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Criar conta | Casamento Perfeito</title>
 
     <style>
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
+            font-family: Arial, sans-serif;
+            background: #fff4f7;
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-
-            background: #f7e8ec;
-
             display: flex;
-            justify-content: center;
             align-items: center;
-
-            padding: 30px 20px;
+            justify-content: center;
+            padding: 30px;
         }
-
-
-        /* CARTÃO */
 
         .register-card {
             width: 920px;
             max-width: 100%;
-
-            min-height: 580px;
-
             background: white;
-
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
             display: grid;
             grid-template-columns: 1fr 1fr;
-
-            border-radius: 22px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 20px 60px rgba(90, 50, 60, 0.20);
         }
 
-
-        /* FORMULÁRIO */
-
-        .form-side {
-            padding: 40px 50px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .register-side {
+            padding: 45px;
         }
-
-
-        /* MENU */
 
         .menu {
             display: flex;
-            gap: 28px;
-
-            margin-bottom: 25px;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 35px;
         }
 
         .menu a {
-            color: #777;
             text-decoration: none;
-
-            font-size: 12px;
+            color: #9b596f;
+            font-size: 14px;
         }
-
-        .menu a:hover {
-            color: #b35d70;
-        }
-
-        .menu .active {
-            color: #b35d70;
-            font-weight: bold;
-        }
-
-
-        /* LOGO */
 
         .logo {
-            margin-bottom: 25px;
-        }
-
-        .logo h1 {
-            font-family: Georgia, serif;
-
-            color: #b45d70;
-
+            color: #c66b88;
             font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 35px;
         }
 
-        .logo span {
-            display: block;
-
-            margin-top: 5px;
-
-            color: #999;
-
-            font-size: 8px;
-
-            letter-spacing: 1.5px;
-
-            text-transform: uppercase;
+        h1 {
+            color: #4b3039;
+            font-size: 32px;
+            margin-bottom: 10px;
         }
 
-
-        /* TÍTULO */
-
-        .welcome {
-            margin-bottom: 22px;
-        }
-
-        .welcome h2 {
-            font-family: Georgia, serif;
-
-            color: #292929;
-
-            font-size: 29px;
-
-            font-weight: normal;
-
-            margin-bottom: 7px;
-        }
-
-        .welcome p {
+        .subtitle {
             color: #777;
-
-            font-size: 13px;
-
+            margin-bottom: 28px;
             line-height: 1.5;
         }
 
-
-        /* CAMPOS */
-
-        .campo {
-            margin-bottom: 13px;
+        .form-group {
+            margin-bottom: 18px;
         }
 
-        .campo label {
+        label {
             display: block;
-
-            margin-bottom: 6px;
-
-            color: #444;
-
-            font-size: 10px;
+            margin-bottom: 7px;
+            color: #4b3039;
+            font-size: 14px;
+            font-weight: bold;
         }
 
-        .campo input {
+        input {
             width: 100%;
-
-            height: 42px;
-
-            padding: 0 13px;
-
-            border: 1px solid #ddd;
-
-            border-radius: 5px;
-
+            padding: 14px;
+            border: 1px solid #e4cbd3;
+            border-radius: 10px;
+            font-size: 15px;
             outline: none;
-
-            font-size: 12px;
         }
 
-        .campo input:focus {
-            border-color: #b45d70;
+        input:focus {
+            border-color: #c66b88;
         }
-
-
-        /* TERMOS */
 
         .terms {
             display: flex;
-
             align-items: flex-start;
-
-            gap: 7px;
-
-            margin: 4px 0 17px;
-
+            gap: 8px;
+            margin: 18px 0;
+            font-size: 13px;
             color: #777;
-
-            font-size: 9px;
-
-            line-height: 1.5;
         }
 
         .terms input {
-            margin-top: 2px;
+            width: auto;
+            margin-top: 3px;
         }
 
         .terms a {
-            color: #a85a6b;
-
-            font-weight: bold;
-
-            text-decoration: none;
+            color: #c66b88;
         }
 
-
-        /* BOTÃO */
-
-        .btn-criar {
+        button {
             width: 100%;
-
-            height: 43px;
-
+            padding: 15px;
             border: none;
-
-            border-radius: 5px;
-
-            background: #b45d70;
-
+            border-radius: 10px;
+            background: #c66b88;
             color: white;
-
-            font-size: 12px;
-
+            font-size: 16px;
             font-weight: bold;
-
             cursor: pointer;
         }
 
-        .btn-criar:hover {
-            background: #9f4d60;
+        button:hover {
+            background: #b45877;
         }
 
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
+        }
 
-        /* LOGIN */
+        .success {
+            background: #e9f8ee;
+            color: #26723d;
+        }
 
-        .login {
+        .error {
+            background: #fdebed;
+            color: #a33a48;
+        }
+
+        .login-link {
             text-align: center;
-
-            margin-top: 18px;
-            padding-top: 15px;
-
-            border-top: 1px solid #eee;
-
+            margin-top: 20px;
             color: #777;
-
-            font-size: 10px;
+            font-size: 14px;
         }
 
-        .login a {
-            color: #a85a6b;
-
+        .login-link a {
+            color: #c66b88;
+            text-decoration: none;
             font-weight: bold;
-
-            text-decoration: none;
         }
 
-
-        /* VOLTAR */
-
-        .voltar {
+        .back-home {
             display: block;
-
             text-align: center;
-
-            margin-top: 12px;
-
+            margin-top: 18px;
             color: #999;
-
-            font-size: 9px;
-
             text-decoration: none;
+            font-size: 13px;
         }
-
-
-        /* =================================
-           FOTOGRAFIA
-        ================================= */
 
         .flower-side {
-            position: relative;
-
-            width: 100%;
-            min-height: 580px;
-
+            min-height: 650px;
             overflow: hidden;
-
-            background: #f1d8de;
         }
 
         .flower-side img {
             width: 100%;
             height: 100%;
-
-            min-height: 580px;
-
-            display: block;
-
             object-fit: cover;
-
-            object-position: center;
+            display: block;
         }
 
-
-        /* RESPONSIVO */
-
         @media (max-width: 750px) {
-
-            body {
-                padding: 15px;
-            }
-
             .register-card {
                 grid-template-columns: 1fr;
-
-                max-width: 450px;
             }
 
             .flower-side {
-                order: -1;
-
-                min-height: 300px;
+                display: none;
             }
 
-            .flower-side img {
-                min-height: 300px;
-            }
-
-            .form-side {
-                padding: 35px 28px;
+            .register-side {
+                padding: 30px 25px;
             }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<div class="register-card">
 
-    <div class="register-card">
+    <section class="register-side">
 
+        <div class="menu">
+            <a href="login.html">Entrar</a>
+            <a href="registo.html">Criar conta</a>
+        </div>
 
-        <!-- ==========================
-             FORMULÁRIO
-        =========================== -->
+        <div class="logo">
+            💕 Casamento Perfeito
+        </div>
 
-        <section class="form-side">
+        <h1>Criar a sua conta</h1>
 
+        <p class="subtitle">
+            Comece a planear o seu grande dia de forma simples,
+            organizada e especial.
+        </p>
 
-            <nav class="menu">
+        <form id="registerForm">
 
-                <a href="login.html">
-                    Entrar
-                </a>
-
-                <a href="registo.html" class="active">
-                    Criar conta
-                </a>
-
-            </nav>
-
-
-            <div class="logo">
-
-                <h1>
-                    Casamento Perfeito
-                </h1>
-
-                <span>
-                    O seu grande dia começa aqui
-                </span>
-
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite o seu nome"
+                    required
+                >
             </div>
 
-
-            <div class="welcome">
-
-                <h2>
-                    Criar a sua conta
-                </h2>
-
-                <p>
-                    Comece a organizar o casamento dos seus sonhos.
-                </p>
-
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="exemplo@email.com"
+                    required
+                >
             </div>
 
-
-            <form id="registerForm">
-
-
-                <div class="campo">
-
-                    <label for="nome">
-                        Nome
-                    </label>
-
-                    <input
-                        type="text"
-                        id="nome"
-                        name="nome"
-                        placeholder="Introduza o seu nome"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="email">
-                        E-mail
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Introduza o seu e-mail"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="password">
-                        Palavra-passe
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Crie a sua palavra-passe"
-                        minlength="6"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="confirmPassword">
-                        Confirmar palavra-passe
-                    </label>
-
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        placeholder="Repita a sua palavra-passe"
-                        minlength="6"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="terms">
-
-                    <input
-                        type="checkbox"
-                        id="terms"
-                        required
-                    >
-
-                    <label for="terms">
-
-                        Aceito os
-
-                        <a href="termos.html">
-                            Termos de Serviço
-                        </a>
-
-                        e a
-
-                        <a href="privacidade.html">
-                            Política de Privacidade
-                        </a>.
-
-                    </label>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="btn-criar"
+            <div class="form-group">
+                <label for="password">Palavra-passe</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Crie uma palavra-passe"
+                    required
                 >
-                    Criar conta
-                </button>
+            </div>
 
-
-                <div class="login">
-
-                    Já tem uma conta?
-
-                    <a href="login.html">
-                        Entrar
-                    </a>
-
-                </div>
-
-
-                <a
-                    href="index.html"
-                    class="voltar"
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar palavra-passe</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Repita a palavra-passe"
+                    required
                 >
-                    ← Voltar à página inicial
-                </a>
+            </div>
 
+            <div class="terms">
+                <input type="checkbox" id="terms" required>
 
-            </form>
+                <label for="terms">
+                    Aceito os termos de utilização e a política de privacidade.
+                </label>
+            </div>
 
-        </section>
+            <button type="submit">
+                Criar conta
+            </button>
 
+            <div id="message" class="message"></div>
 
-        <!-- ==========================
-             FOTOGRAFIA
-        =========================== -->
+        </form>
 
-        <section class="flower-side">
+        <div class="login-link">
+            Já tem uma conta?
+            <a href="login.html">Entrar</a>
+        </div>
 
-            <img
-                src="images/images.jpg"
-                alt="Rosas de casamento"
-            >
+        <a class="back-home" href="index.html">
+            ← Voltar à página inicial
+        </a>
 
-        </section>
+    </section>
 
+    <section class="flower-side">
 
-    </div>
+        <img
+            src="./images/images.jpg"
+            alt="Rosas de casamento"
+        >
 
+    </section>
 
-    <script>
+</div>
 
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", function(event) {
+<script>
 
-                const password =
-                    document.getElementById("password").value;
+document.getElementById("registerForm").addEventListener("submit", function(event) {
 
-                const confirmPassword =
-                    document.getElementById("confirmPassword").value;
+    event.preventDefault();
 
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const message = document.getElementById("message");
 
-                if (password !== confirmPassword) {
+    message.style.display = "none";
+    message.className = "message";
 
-                    event.preventDefault();
+    if (password !== confirmPassword) {
 
-                    alert(
-                        "As palavras-passe não coincidem."
-                    );
+        message.textContent = "As palavras-passe não coincidem.";
+        message.classList.add("error");
+        message.style.display = "block";
 
-                }
+        return;
+    }
 
-            });
+    if (password.length < 6) {
 
-    </script>
+        message.textContent =
+            "A palavra-passe deve ter pelo menos 6 caracteres.";
 
+        message.classList.add("error");
+        message.style.display = "block";
+
+        return;
+    }
+
+    const utilizadores =
+        JSON.parse(localStorage.getItem("casamentoPerfeitoUtilizadores")) || [];
+
+    const utilizadorExistente =
+        utilizadores.find(user => user.email === email);
+
+    if (utilizadorExistente) {
+
+        message.textContent =
+            "Já existe uma conta registada com este e-mail.";
+
+        message.classList.add("error");
+        message.style.display = "block";
+
+        return;
+    }
+
+    const novoUtilizador = {
+        nome: nome,
+        email: email,
+        password: password
+    };
+
+    utilizadores.push(novoUtilizador);
+
+    localStorage.setItem(
+        "casamentoPerfeitoUtilizadores",
+        JSON.stringify(utilizadores)
+    );
+
+    message.textContent =
+        "Conta criada com sucesso! Será encaminhado para o login.";
+
+    message.classList.add("success");
+    message.style.display = "block";
+
+    document.getElementById("registerForm").reset();
+
+    setTimeout(function() {
+        window.location.href = "login.html";
+    }, 1500);
+
+});
+
+</script>
 
 </body>
 </html>

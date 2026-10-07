@@ -8,131 +8,200 @@
 
 <style>
 
+/* ==============================
+   CONFIGURAÇÕES GERAIS
+============================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     min-height: 100vh;
+
     font-family: Arial, Helvetica, sans-serif;
-    background: #f7e9ec;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f9edef,
+            #f5e1e6
+        );
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    padding: 40px 20px;
+    padding: 35px 20px;
 }
 
-/* CARTÃO PRINCIPAL */
+
+/* ==============================
+   CARTÃO PRINCIPAL
+============================== */
 
 .register-card {
-    width: min(920px, 95vw);
-    min-height: 570px;
+
+    width: 920px;
+    max-width: 95vw;
+
+    min-height: 580px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
 
     background: #ffffff;
 
-    border-radius: 24px;
+    border-radius: 22px;
+
     overflow: hidden;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+    box-shadow:
+        0 25px 70px rgba(80, 40, 50, 0.20);
 }
 
-/* LADO DO FORMULÁRIO */
+
+/* ==============================
+   LADO DO FORMULÁRIO
+============================== */
 
 .form-side {
-    padding: 42px 50px;
+
+    padding: 40px 50px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
 
     background: #ffffff;
 }
 
-/* MENU */
+
+/* ==============================
+   MENU
+============================== */
 
 .menu {
-    display: flex;
-    gap: 25px;
 
-    margin-bottom: 30px;
+    display: flex;
+
+    gap: 28px;
+
+    margin-bottom: 25px;
 }
 
 .menu a {
-    color: #777;
+
     text-decoration: none;
 
     font-size: 12px;
+
+    color: #777;
+}
+
+.menu a:hover {
+
+    color: #b56876;
 }
 
 .menu a.active {
+
     color: #b56876;
+
     font-weight: bold;
 }
 
-/* LOGO */
+
+/* ==============================
+   LOGO
+============================== */
 
 .logo {
-    margin-bottom: 28px;
+
+    margin-bottom: 27px;
 }
 
 .logo h1 {
-    font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 23px;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 24px;
 
     color: #b55f70;
+
+    font-weight: bold;
 }
 
 .logo span {
+
     display: block;
 
     margin-top: 4px;
 
     font-size: 8px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
 
     color: #999;
 
     text-transform: uppercase;
 }
 
-/* TÍTULO */
+
+/* ==============================
+   TÍTULO
+============================== */
 
 .welcome {
+
     margin-bottom: 22px;
 }
 
 .welcome h2 {
-    font-size: 27px;
 
-    color: #222;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 28px;
+
+    font-weight: normal;
+
+    color: #292929;
 
     margin-bottom: 7px;
 }
 
 .welcome p {
-    color: #777;
 
     font-size: 13px;
+
+    color: #777;
 
     line-height: 1.5;
 }
 
-/* CAMPOS */
+
+/* ==============================
+   CAMPOS
+============================== */
 
 .campo {
-    margin-bottom: 14px;
+
+    margin-bottom: 13px;
 }
 
 .campo label {
+
     display: block;
 
     font-size: 10px;
@@ -143,44 +212,57 @@ body {
 }
 
 .campo input {
+
     width: 100%;
 
     height: 42px;
 
+    padding: 0 13px;
+
     border: 1px solid #dedede;
 
-    border-radius: 6px;
+    border-radius: 5px;
 
-    padding: 0 12px;
+    background: #ffffff;
+
+    color: #333;
 
     font-size: 12px;
 
-    color: #444;
-
     outline: none;
 
-    background: #fff;
+    transition: all 0.2s ease;
+}
 
-    transition: 0.2s;
+.campo input::placeholder {
+
+    color: #aaa;
 }
 
 .campo input:focus {
-    border-color: #b56a78;
+
+    border-color: #b56876;
 
     box-shadow:
-        0 0 0 2px rgba(181,106,120,0.10);
+        0 0 0 2px rgba(181,104,118,0.10);
 }
 
-/* TERMOS */
+
+/* ==============================
+   TERMOS
+============================== */
 
 .terms {
+
     display: flex;
 
     align-items: flex-start;
 
     gap: 7px;
 
-    margin: 3px 0 18px;
+    margin-top: 3px;
+
+    margin-bottom: 17px;
 
     font-size: 9px;
 
@@ -190,12 +272,19 @@ body {
 }
 
 .terms input {
+
     margin-top: 2px;
 
-    accent-color: #b56a78;
+    accent-color: #b56876;
+}
+
+.terms label {
+
+    cursor: pointer;
 }
 
 .terms a {
+
     color: #a65a6b;
 
     text-decoration: none;
@@ -203,9 +292,18 @@ body {
     font-weight: bold;
 }
 
-/* BOTÃO */
+.terms a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   BOTÃO
+============================== */
 
 .btn-criar {
+
     width: 100%;
 
     height: 43px;
@@ -216,7 +314,7 @@ body {
 
     background: #b56876;
 
-    color: white;
+    color: #ffffff;
 
     font-size: 12px;
 
@@ -224,25 +322,33 @@ body {
 
     cursor: pointer;
 
-    transition: 0.25s;
+    transition: all 0.25s ease;
 }
 
 .btn-criar:hover {
+
     background: #a45363;
 
     transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(165,83,99,0.20);
 }
 
-/* LOGIN */
+
+/* ==============================
+   LOGIN
+============================== */
 
 .login {
+
     text-align: center;
 
-    margin-top: 19px;
+    margin-top: 18px;
 
-    padding-top: 16px;
+    padding-top: 15px;
 
-    border-top: 1px solid #eee;
+    border-top: 1px solid #eeeeee;
 
     font-size: 10px;
 
@@ -250,6 +356,7 @@ body {
 }
 
 .login a {
+
     color: #a85d6d;
 
     text-decoration: none;
@@ -257,39 +364,62 @@ body {
     font-weight: bold;
 }
 
-/* VOLTAR */
+.login a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   VOLTAR
+============================== */
 
 .voltar {
+
     display: block;
 
     text-align: center;
 
     margin-top: 12px;
 
-    color: #999;
-
     font-size: 9px;
+
+    color: #999;
 
     text-decoration: none;
 }
 
 .voltar:hover {
+
     color: #a85d6d;
 }
 
-/* IMAGEM DAS ROSAS */
+
+/* ==============================
+   IMAGEM À DIREITA
+============================== */
 
 .flower-side {
+
     position: relative;
-    background-image: url("./images/rosas.jpg");
+
+    min-height: 580px;
+
+    background-image:
+        url("./images/images.jpg");
+
     background-size: cover;
+
     background-position: center;
-    min-height: 570px;
+
+    background-repeat: no-repeat;
 }
 
-/* EFEITO SUAVE SOBRE A IMAGEM */
+
+/* Pequeno efeito sobre a fotografia */
 
 .flower-side::after {
+
     content: "";
 
     position: absolute;
@@ -299,48 +429,63 @@ body {
     background:
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.04),
             rgba(255,255,255,0)
         );
+
+    pointer-events: none;
 }
 
-/* RESPONSIVO */
+
+/* ==============================
+   RESPONSIVO
+============================== */
 
 @media (max-width: 750px) {
 
     body {
+
         padding: 20px;
     }
 
     .register-card {
-        grid-template-columns: 1fr;
+
+        width: 100%;
 
         max-width: 450px;
+
+        grid-template-columns: 1fr;
     }
 
     .flower-side {
-        min-height: 250px;
+
+        min-height: 260px;
 
         order: -1;
     }
 
     .form-side {
+
         padding: 35px 28px;
     }
 }
 
+
 @media (max-width: 450px) {
 
     .flower-side {
-        min-height: 210px;
+
+        min-height: 220px;
     }
 
     .form-side {
+
         padding: 30px 22px;
     }
 
     .welcome h2 {
-        font-size: 23px;
+
+        font-size: 24px;
     }
 }
 
@@ -348,13 +493,25 @@ body {
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================
+     CARTÃO DE REGISTO
+====================================== -->
 
 <div class="register-card">
 
-    <!-- FORMULÁRIO -->
+
+    <!-- =================================
+         FORMULÁRIO
+    ================================== -->
 
     <section class="form-side">
+
+
+        <!-- MENU -->
 
         <nav class="menu">
 
@@ -362,12 +519,17 @@ body {
                 Entrar
             </a>
 
-            <a href="registo.html" class="active">
+            <a
+                href="registo.html"
+                class="active"
+            >
                 Criar conta
             </a>
 
         </nav>
 
+
+        <!-- LOGO -->
 
         <div class="logo">
 
@@ -382,6 +544,8 @@ body {
         </div>
 
 
+        <!-- TÍTULO -->
+
         <div class="welcome">
 
             <h2>
@@ -395,7 +559,12 @@ body {
         </div>
 
 
+        <!-- FORMULÁRIO -->
+
         <form id="registerForm">
+
+
+            <!-- NOME -->
 
             <div class="campo">
 
@@ -414,6 +583,8 @@ body {
             </div>
 
 
+            <!-- EMAIL -->
+
             <div class="campo">
 
                 <label for="email">
@@ -430,6 +601,8 @@ body {
 
             </div>
 
+
+            <!-- PASSWORD -->
 
             <div class="campo">
 
@@ -449,6 +622,8 @@ body {
             </div>
 
 
+            <!-- CONFIRMAR PASSWORD -->
+
             <div class="campo">
 
                 <label for="confirmPassword">
@@ -467,6 +642,8 @@ body {
             </div>
 
 
+            <!-- TERMOS -->
+
             <div class="terms">
 
                 <input
@@ -478,13 +655,14 @@ body {
                 <label for="terms">
 
                     Aceito os
-                    <a href="#">
+
+                    <a href="termos.html">
                         Termos de Serviço
                     </a>
 
                     e a
 
-                    <a href="#">
+                    <a href="privacidade.html">
                         Política de Privacidade
                     </a>.
 
@@ -493,6 +671,8 @@ body {
             </div>
 
 
+            <!-- BOTÃO -->
+
             <button
                 type="submit"
                 class="btn-criar"
@@ -500,6 +680,8 @@ body {
                 Criar conta
             </button>
 
+
+            <!-- LOGIN -->
 
             <div class="login">
 
@@ -512,6 +694,8 @@ body {
             </div>
 
 
+            <!-- VOLTAR -->
+
             <a
                 href="index.html"
                 class="voltar"
@@ -519,45 +703,61 @@ body {
                 ← Voltar à página inicial
             </a>
 
+
         </form>
 
     </section>
 
 
-    <!-- IMAGEM -->
+    <!-- =================================
+         FOTOGRAFIA
+    ================================== -->
 
     <section class="flower-side">
     </section>
 
+
 </div>
 
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
 
 <script>
 
 document
     .getElementById("registerForm")
-    .addEventListener("submit", function(event) {
+    .addEventListener(
+        "submit",
+        function(event) {
 
-        const password =
-            document.getElementById("password").value;
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
 
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
+            const confirmPassword =
+                document
+                    .getElementById("confirmPassword")
+                    .value;
 
-        if (password !== confirmPassword) {
 
-            event.preventDefault();
+            if (password !== confirmPassword) {
 
-            alert(
-                "As palavras-passe não coincidem."
-            );
+                event.preventDefault();
+
+                alert(
+                    "As palavras-passe não coincidem."
+                );
+
+            }
 
         }
-
-    });
+    );
 
 </script>
 
-</body>
 
+</body>
 </html>

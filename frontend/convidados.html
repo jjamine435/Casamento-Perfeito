@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convidados e Mesas | Casamento Perfeito</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff7fa;
+    color:#4a3039;
+    min-height:100vh
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #f2dfe6;
+    padding:15px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:10
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#c45f7d
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px
+}
+
+.primary{
+    background:#c45f7d;
+    color:#fff
+}
+
+.secondary{
+    background:#fff;
+    color:#c45f7d;
+    border:1px solid #e9c9d4
+}
+
+.danger{
+    background:#fff0f2;
+    color:#b6425e;
+    border:1px solid #efc5cf
+}
+
+main{
+    max-width:1250px;
+    margin:auto;
+    padding:35px 25px 60px
+}
+
+.hero{
+    background:linear-gradient(135deg,#fff,#fff0f5);
+    border:1px solid #f3dce4;
+    border-radius:24px;
+    padding:32px;
+    margin-bottom:25px
+}
+
+.hero small{
+    color:#c45f7d;
+    font-weight:bold
+}
+
+.hero h1{
+    font-size:30px;
+    margin:8px 0
+}
+
+.hero p,
+.muted{
+    color:#777;
+    line-height:1.6
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:14px;
+    margin-bottom:25px
+}
+
+.stat,
+.box{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 5px 18px rgba(100,50,70,.05)
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:#c45f7d
+}
+
+.stat span{
+    font-size:13px;
+    color:#777
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap
+}
+
+.tab{
+    background:#fff;
+    border:1px solid #ebd3db;
+    color:#76545f;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.tab.active{
+    background:#c45f7d;
+    color:#fff
+}
+
+.panel{
+    display:none
+}
+
+.panel.active{
+    display:block
+}
+
+.toolbar{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:18px;
+    display:grid;
+    grid-template-columns:2fr repeat(4,1fr) auto;
+    gap:10px;
+    margin-bottom:18px
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #dfcbd3;
+    border-radius:9px;
+    padding:11px;
+    background:#fff;
+    color:#4a3039;
+    font:inherit
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical
+}
+
+.list{
+    display:grid;
+    gap:14px
+}
+
+.guest{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:20px
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px
+}
+
+.name{
+    font-size:18px;
+    font-weight:bold
+}
+
+.badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-top:8px
+}
+
+.badge{
+    padding:5px 9px;
+    border-radius:999px;
+    background:#f8eaf0;
+    font-size:11px;
+    font-weight:bold
+}
+
+.ok{
+    background:#e8f6ed;
+    color:#267347
+}
+
+.pending{
+    background:#fff5d8;
+    color:#8a6a16
+}
+
+.no{
+    background:#fde9ed;
+    color:#a03f55
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:16px
+}
+
+.info label{
+    display:block;
+    font-size:11px;
+    color:#999;
+    margin-bottom:4px
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px
+}
+
+.tables{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px
+}
+
+.table-card{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:20px
+}
+
+.table-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px
+}
+
+.seats{
+    display:grid;
+    gap:7px
+}
+
+.seat{
+    padding:9px;
+    border-radius:9px;
+    background:#faf4f6;
+    border:1px solid #f0e0e5;
+    display:flex;
+    justify-content:space-between;
+    font-size:13px
+}
+
+.occupied{
+    background:#f5e8ee
+}
+
+.empty{
+    background:#fff;
+    border:1px dashed #dcbcc8;
+    border-radius:18px;
+    padding:35px;
+    text-align:center;
+    color:#777
+}
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    background:rgba(45,25,35,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:50
+}
+
+.modal-bg.open{
+    display:flex
+}
+
+.modal{
+    background:#fff;
+    border-radius:22px;
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    padding:25px
+}
+
+.form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px
+}
+
+.full{
+    grid-column:1/-1
+}
+
+.field label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:20px
+}
+
+.map{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    justify-content:center;
+    padding:25px
+}
+
+.map-table{
+    width:180px;
+    min-height:130px;
+    border:2px solid #d9b5c2;
+    border-radius:50%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:#fff8fb;
+    text-align:center
+}
+
+.map-table strong{
+    font-size:16px
+}
+
+.map-table span{
+    font-size:12px;
+    color:#777;
+    margin-top:5px
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#999;
+    font-size:13px
+}
+
+@media(max-width:1050px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr)
+    }
+
+    .toolbar{
+        grid-template-columns:repeat(2,1fr)
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr)
+    }
+
+    .tables{
+        grid-template-columns:repeat(2,1fr)
+    }
+}
+
+@media(max-width:650px){
+
+    header{
+        padding:14px 18px
+    }
+
+    .logo{
+        font-size:18px
+    }
+
+    main{
+        padding:25px 15px
+    }
+
+    .stats,
+    .toolbar,
+    .form{
+        grid-template-columns:1fr
+    }
+
+    .grid,
+    .tables{
+        grid-template-columns:1fr
+    }
+
+    .full{
+        grid-column:auto
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        💕 Casamento Perfeito
+    </div>
+
+    <div>
+        <a class="btn secondary" href="dashboard.html">
+            ← Painel
+        </a>
+
+        <a class="btn secondary" href="planeador.html">
+            Planeador
+        </a>
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+    <small>GESTÃO DO CASAMENTO</small>
+
+    <h1>
+        👥 Convidados e Mesas
+    </h1>
+
+    <p>
+        Registe convidados, acompanhe confirmações
+        e organize a distribuição pelas mesas.
+    </p>
+
+</section>
+
+
+<section class="stats">
+
+    <div class="stat">
+        <strong id="total">0</strong>
+        <span>Total</span>
+    </div>
+
+    <div class="stat">
+        <strong id="confirmed">0</strong>
+        <span>Confirmados</span>
+    </div>
+
+    <div class="stat">
+        <strong id="pending">0</strong>
+        <span>Pendentes</span>
+    </div>
+
+    <div class="stat">
+        <strong id="declined">0</strong>
+        <span>Não vão</span>
+    </div>
+
+    <div class="stat">
+        <strong id="adults">0</strong>
+        <span>Adultos</span>
+    </div>
+
+    <div class="stat">
+        <strong id="children">0</strong>
+        <span>Crianças</span>
+    </div>
+
+</section>
+
+
+<div class="tabs">
+
+    <button class="tab active" data-panel="guests">
+        👥 Convidados
+    </button>
+
+    <button class="tab" data-panel="tables">
+        🪑 Mesas
+    </button>
+
+    <button class="tab" data-panel="map">
+        🗺️ Mapa
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     CONVIDADOS
+===================================================== -->
+
+<section id="guests" class="panel active">
+
+    <div class="toolbar">
+
+        <input
+            id="search"
+            placeholder="Pesquisar nome, telefone ou grupo"
+        >
+
+        <select id="rsvp">
+            <option value="">Todos os estados</option>
+            <option>Confirmado</option>
+            <option>Pendente</option>
+            <option>Não vai</option>
+        </select>
+
+        <select id="side">
+            <option value="">Todos os lados</option>
+            <option>Noiva</option>
+            <option>Noivo</option>
+            <option>Ambos</option>
+        </select>
+
+        <select id="type">
+            <option value="">Adultos e crianças</option>
+            <option>Adulto</option>
+            <option>Criança</option>
+        </select>
+
+        <select id="tableFilter">
+            <option value="">Todas as mesas</option>
+            <option value="none">Sem mesa</option>
+        </select>
+
+        <button class="btn primary" id="newGuest">
+            + Convidado
+        </button>
+
+    </div>
+
+    <div id="guestList" class="list"></div>
+
+</section>
+
+
+<!-- =====================================================
+     MESAS
+===================================================== -->
+
+<section id="tables" class="panel">
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:18px;
+        gap:10px;
+    ">
+
+        <div>
+
+            <h2>
+                Gestão de mesas
+            </h2>
+
+            <p class="muted">
+                Crie mesas e defina a capacidade de cada uma.
+            </p>
+
+        </div>
+
+        <button class="btn primary" id="newTable">
+            + Nova mesa
+        </button>
+
+    </div>
+
+    <div id="tableList" class="tables"></div>
+
+</section>
+
+
+<!-- =====================================================
+     MAPA
+===================================================== -->
+
+<section id="map" class="panel">
+
+    <div class="box">
+
+        <h2>
+            Mapa das mesas
+        </h2>
+
+        <p class="muted">
+            Visão geral da distribuição.
+        </p>
+
+        <div id="mapList" class="map"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    © 2026 Casamento Perfeito —
+    Planeie o seu grande dia ❤️
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL CONVIDADO
+===================================================== -->
+
+<div class="modal-bg" id="guestModal">
+
+<div class="modal">
+
+<h2 id="guestTitle">
+    Adicionar convidado
+</h2>
+
+<form id="guestForm">
+
+<input type="hidden" id="guestId">
+
+<div class="form">
+
+<div class="field">
+
+<label>
+    Nome completo *
+</label>
+
+<input
+    id="name"
+    required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Grupo / Família
+</label>
+
+<input id="group">
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Lado
+</label>
+
+<select id="guestSide">
+
+<option>Noiva</option>
+<option>Noivo</option>
+<option>Ambos</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Relação
+</label>
+
+<input
+    id="relation"
+    placeholder="Família, amigo, trabalho..."
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Telefone
+</label>
+
+<input id="phone">
+
+</div>
+
+
+<div class="field">
+
+<label>
+    WhatsApp
+</label>
+
+<input id="whatsapp">
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Email
+</label>
+
+<input
+    id="email"
+    type="email"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Tipo
+</label>
+
+<select id="guestType">
+
+<option>Adulto</option>
+<option>Criança</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    RSVP
+</label>
+
+<select id="guestRsvp">
+
+<option>Pendente</option>
+<option>Confirmado</option>
+<option>Não vai</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Acompanhante
+</label>
+
+<select id="companion">
+
+<option>Não</option>
+<option>Sim</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Nome do acompanhante
+</label>
+
+<input id="companionName">
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Restrição alimentar
+</label>
+
+<input
+    id="food"
+    placeholder="Ex.: Vegetariano, sem lactose"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Mesa
+</label>
+
+<select id="guestTable">
+
+<option value="">
+    Sem mesa
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Lugar
+</label>
+
+<input
+    id="seat"
+    type="number"
+    min="1"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+    Observações
+</label>
+
+<textarea id="notes"></textarea>
+
+</div>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+    type="button"
+    class="btn secondary close"
+>
+    Cancelar
+</button>
+
+<button
+    class="btn primary"
+>
+    Guardar convidado
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL MESA
+===================================================== -->
+
+<div class="modal-bg" id="tableModal">
+
+<div class="modal">
+
+<h2 id="tableTitle">
+    Nova mesa
+</h2>
+
+<form id="tableForm">
+
+<input type="hidden" id="tableId">
+
+<div class="form">
+
+<div class="field">
+
+<label>
+    Nome / número *
+</label>
+
+<input
+    id="tableName"
+    placeholder="Mesa 01"
+    required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Formato
+</label>
+
+<select id="shape">
+
+<option>Redonda</option>
+<option>Retangular</option>
+<option>Quadrada</option>
+<option>Imperial</option>
+<option>Personalizada</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Capacidade *
+</label>
+
+<input
+    id="capacity"
+    type="number"
+    min="1"
+    value="10"
+    required
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Localização
+</label>
+
+<input
+    id="location"
+    placeholder="Salão principal"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+    Observações
+</label>
+
+<textarea id="tableNotes"></textarea>
+
+</div>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+    type="button"
+    class="btn secondary close"
+>
+    Cancelar
+</button>
+
+<button class="btn primary">
+    Guardar mesa
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURAÇÃO
+===================================================== */
+
+const SESSION_KEY = "casamentoPerfeitoSessao";
+
+const KEY = "casamentoPerfeitoConvidados_v1";
+
+
+/* =====================================================
+   PROTEÇÃO DE SESSÃO
+===================================================== */
+
+if(!localStorage.getItem(SESSION_KEY)){
+
+    window.location.replace("login.html");
+
+    throw new Error("Sessão não encontrada");
+
+}
+
+
+/* =====================================================
+   BASE DE DADOS LOCAL
+===================================================== */
+
+let db = JSON.parse(
+    localStorage.getItem(KEY) ||
+    '{"convidados":[],"mesas":[]}'
+);
+
+
+/* =====================================================
+   FUNÇÕES
+===================================================== */
+
+const save = () => {
+
+    localStorage.setItem(
+        KEY,
+        JSON.stringify(db)
+    );
+
+    render();
+
+};
+
+
+const esc = s => {
+
+    return String(s ?? "").replace(
+        /[&<>"']/g,
+        c => ({
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[c])
+    );
+
+};
+
+
+const gid = () => {
+
+    return "conv_" +
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2,6);
+
+};
+
+
+const tid = () => {
+
+    return "mesa_" +
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2,6);
+
+};
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+    const c = db.convidados;
+
+
+    /* RESUMO */
+
+    total.textContent =
+        c.length;
+
+    confirmed.textContent =
+        c.filter(x => x.rsvp === "Confirmado").length;
+
+    pending.textContent =
+        c.filter(x => x.rsvp === "Pendente").length;
+
+    declined.textContent =
+        c.filter(x => x.rsvp === "Não vai").length;
+
+    adults.textContent =
+        c.filter(x => x.tipo === "Adulto").length;
+
+    children.textContent =
+        c.filter(x => x.tipo === "Criança").length;
+
+
+    /* MESAS NO FORMULÁRIO */
+
+    guestTable.innerHTML =
+        '<option value="">Sem mesa</option>' +
+
+        db.mesas.map(t =>
+
+            `<option value="${t.id}">
+                ${esc(t.nome)} —
+                ${t.capacidade} lugares
+            </option>`
+
+        ).join("");
+
+
+    /* FILTROS */
+
+    const q =
+        search.value.toLowerCase().trim();
+
+    const rv =
+        rsvp.value;
+
+    const sd =
+        side.value;
+
+    const tp =
+        type.value;
+
+    const tf =
+        tableFilter.value;
+
+
+    const arr =
+        c.filter(g => {
+
+            let text =
+                [
+                    g.nome,
+                    g.grupo,
+                    g.telefone,
+                    g.whatsapp
+                ]
+                .join(" ")
+                .toLowerCase();
+
+
+            return (
+
+                (!q || text.includes(q)) &&
+
+                (!rv || g.rsvp === rv) &&
+
+                (!sd || g.lado === sd) &&
+
+                (!tp || g.tipo === tp) &&
+
+                (
+                    !tf ||
+
+                    (
+                        tf === "none"
+                        ? !g.mesa
+                        : g.mesa === tf
+                    )
+                )
+
+            );
+
+        });
+
+
+    /* LISTA DE CONVIDADOS */
+
+    if(arr.length){
+
+        guestList.innerHTML =
+            arr.map(g => {
+
+                let t =
+                    db.mesas.find(
+                        x => x.id === g.mesa
+                    );
+
+
+                let cls =
+                    g.rsvp === "Confirmado"
+                    ? "ok"
+                    : g.rsvp === "Não vai"
+                    ? "no"
+                    : "pending";
+
+
+                return `
+
+<article class="guest">
+
+<div class="top">
+
+<div>
+
+<div class="name">
+    ${esc(g.nome)}
+</div>
+
+<div class="muted">
+    ${esc(g.grupo || "Sem grupo")}
+    ·
+    ${esc(g.relacao || "Relação não definida")}
+</div>
+
+
+<div class="badges">
+
+<span class="badge ${cls}">
+    ${esc(g.rsvp)}
+</span>
+
+<span class="badge">
+    ${esc(g.tipo)}
+</span>
+
+<span class="badge">
+    ${esc(g.lado)}
+</span>
+
+${
+
+g.acompanhante === "Sim"
+
+?
+
+'<span class="badge">+ acompanhante</span>'
+
+:
+
+""
+
+}
+
+</div>
+
+</div>
+
+
+<div class="muted">
+
+${
+    t
+    ? esc(t.nome)
+    : "Sem mesa"
+}
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="info">
+
+<label>
+    Telefone
+</label>
+
+<div>
+    ${esc(g.telefone || "—")}
+</div>
+
+</div>
+
+
+<div class="info">
+
+<label>
+    WhatsApp
+</label>
+
+<div>
+    ${esc(g.whatsapp || "—")}
+</div>
+
+</div>
+
+
+<div class="info">
+
+<label>
+    RSVP
+</label>
+
+<div>
+    ${esc(g.rsvp)}
+</div>
+
+</div>
+
+
+<div class="info">
+
+<label>
+    Acompanhante
+</label>
+
+<div>
+    ${esc(g.nomeAcompanhante || "Não")}
+</div>
+
+</div>
+
+
+<div class="info">
+
+<label>
+    Lugar
+</label>
+
+<div>
+    ${esc(g.lugar || "—")}
+</div>
+
+</div>
+
+</div>
+
+
+${
+    g.alimentacao
+    ?
+    `<div class="muted" style="margin-top:10px">
+        🍽 ${esc(g.alimentacao)}
+    </div>`
+    :
+    ""
+}
+
+
+<div class="actions">
+
+<button
+    class="btn secondary"
+    onclick="editGuest('${g.id}')"
+>
+    Editar
+</button>
+
+
+<button
+    class="btn danger"
+    onclick="delGuest('${g.id}')"
+>
+    Eliminar
+</button>
+
+</div>
+
+</article>
+
+`;
+
+            }).join("");
+
+    }
+
+    else{
+
+        guestList.innerHTML = `
+
+<div class="empty">
+
+<h3>
+    Nenhum convidado encontrado
+</h3>
+
+<p style="margin-top:7px">
+    Adicione o primeiro convidado.
+</p>
+
+</div>
+
+`;
+
+    }
+
+
+    /* =================================================
+       MESAS
+    ================================================= */
+
+    if(db.mesas.length){
+
+        tableList.innerHTML =
+
+            db.mesas.map(t => {
+
+                let gs =
+                    c.filter(
+                        g => g.mesa === t.id
+                    );
+
+
+                return `
+
+<article class="table-card">
+
+<div class="table-head">
+
+<div>
+
+<h3>
+    🪑 ${esc(t.nome)}
+</h3>
+
+<div class="muted">
+
+    ${esc(t.formato)}
+    ·
+    ${esc(t.localizacao || "Local não definido")}
+
+</div>
+
+</div>
+
+
+<strong>
+    ${gs.length}/${t.capacidade}
+</strong>
+
+</div>
+
+
+<div class="seats">
+
+${
+
+Array.from(
+    {length:t.capacidade},
+    (_,i) => {
+
+        let g =
+            gs.find(
+                x => Number(x.lugar) === i + 1
+            );
+
+
+        return `
+
+<div class="seat ${g ? "occupied" : ""}">
+
+<span>
+    ${
+        g
+        ? esc(g.nome)
+        : "Lugar livre"
+    }
+</span>
+
+<small>
+    ${i + 1}
+</small>
+
+</div>
+
+`;
+
+    }
+).join("")
+
+}
+
+</div>
+
+
+<div class="actions">
+
+<button
+    class="btn secondary"
+    onclick="editTable('${t.id}')"
+>
+    Editar
+</button>
+
+
+<button
+    class="btn danger"
+    onclick="delTable('${t.id}')"
+>
+    Eliminar
+</button>
+
+</div>
+
+</article>
+
+`;
+
+            }).join("");
+
+    }
+
+    else{
+
+        tableList.innerHTML = `
+
+<div
+    class="empty"
+    style="grid-column:1/-1"
+>
+
+<h3>
+    Ainda não existem mesas
+</h3>
+
+<p style="margin-top:7px">
+    Crie a primeira mesa.
+</p>
+
+</div>
+
+`;
+
+    }
+
+
+    /* =================================================
+       MAPA
+    ================================================= */
+
+    if(db.mesas.length){
+
+        mapList.innerHTML =
+
+            db.mesas.map(t => {
+
+                let n =
+                    c.filter(
+                        g => g.mesa === t.id
+                    ).length;
+
+
+                return `
+
+<div class="map-table">
+
+<strong>
+    ${esc(t.nome)}
+</strong>
+
+<span>
+    ${n}/${t.capacidade} convidados
+</span>
+
+<span>
+    ${esc(t.formato)}
+</span>
+
+</div>
+
+`;
+
+            }).join("");
+
+    }
+
+    else{
+
+        mapList.innerHTML = `
+
+<div
+    class="empty"
+    style="width:100%"
+>
+
+Crie mesas para visualizar o mapa.
+
+</div>
+
+`;
+
+    }
+
+}
+
+
+/* =====================================================
+   CONVIDADOS
+===================================================== */
+
+function openGuest(id = ""){
+
+    guestForm.reset();
+
+    guestId.value =
+        id;
+
+    guestTitle.textContent =
+        id
+        ? "Editar convidado"
+        : "Adicionar convidado";
+
+
+    guestTable.innerHTML =
+        '<option value="">Sem mesa</option>' +
+
+        db.mesas.map(t =>
+
+            `<option value="${t.id}">
+                ${esc(t.nome)} —
+                ${t.capacidade} lugares
+            </option>`
+
+        ).join("");
+
+
+    if(id){
+
+        let g =
+            db.convidados.find(
+                x => x.id === id
+            );
+
+
+        if(!g) return;
+
+
+        name.value =
+            g.nome || "";
+
+        group.value =
+            g.grupo || "";
+
+        guestSide.value =
+            g.lado || "Noiva";
+
+        relation.value =
+            g.relacao || "";
+
+        phone.value =
+            g.telefone || "";
+
+        whatsapp.value =
+            g.whatsapp || "";
+
+        email.value =
+            g.email || "";
+
+        guestType.value =
+            g.tipo || "Adulto";
+
+        guestRsvp.value =
+            g.rsvp || "Pendente";
+
+        companion.value =
+            g.acompanhante || "Não";
+
+        companionName.value =
+            g.nomeAcompanhante || "";
+
+        food.value =
+            g.alimentacao || "";
+
+        guestTable.value =
+            g.mesa || "";
+
+        seat.value =
+            g.lugar || "";
+
+        notes.value =
+            g.notas || "";
+
+    }
+
+
+    guestModal.classList.add("open");
+
+}
+
+
+function editGuest(id){
+
+    openGuest(id);
+
+}
+
+
+function delGuest(id){
+
+    let g =
+        db.convidados.find(
+            x => x.id === id
+        );
+
+
+    if(
+        g &&
+        confirm(
+            'Eliminar o convidado "' +
+            g.nome +
+            '"?'
+        )
+    ){
+
+        db.convidados =
+            db.convidados.filter(
+                x => x.id !== id
+            );
+
+        save();
+
+    }
+
+}
+
+
+/* =====================================================
+   MESAS
+===================================================== */
+
+function openTable(id = ""){
+
+    tableForm.reset();
+
+    tableId.value =
+        id;
+
+    tableTitle.textContent =
+        id
+        ? "Editar mesa"
+        : "Nova mesa";
+
+
+    capacity.value =
+        10;
+
+
+    if(id){
+
+        let t =
+            db.mesas.find(
+                x => x.id === id
+            );
+
+
+        if(!t) return;
+
+
+        tableName.value =
+            t.nome || "";
+
+        shape.value =
+            t.formato || "Redonda";
+
+        capacity.value =
+            t.capacidade || 10;
+
+        location.value =
+            t.localizacao || "";
+
+        tableNotes.value =
+            t.notas || "";
+
+    }
+
+
+    tableModal.classList.add("open");
+
+}
+
+
+function editTable(id){
+
+    openTable(id);
+
+}
+
+
+function delTable(id){
+
+    let t =
+        db.mesas.find(
+            x => x.id === id
+        );
+
+
+    if(
+        t &&
+        confirm(
+            "Eliminar a " +
+            t.nome +
+            "? Os convidados ficarão sem mesa."
+        )
+    ){
+
+        db.convidados.forEach(g => {
+
+            if(g.mesa === id){
+
+                g.mesa = "";
+                g.lugar = "";
+
+            }
+
+        });
+
+
+        db.mesas =
+            db.mesas.filter(
+                x => x.id !== id
+            );
+
+
+        save();
+
+    }
+
+}
+
+
+/* =====================================================
+   ABAS
+===================================================== */
+
+document
+.querySelectorAll(".tab")
+.forEach(button => {
+
+    button.onclick = () => {
+
+        document
+        .querySelectorAll(".tab")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+
+        document
+        .querySelectorAll(".panel")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+
+        button.classList.add("active");
+
+
+        document
+        .getElementById(
+            button.dataset.panel
+        )
+        .classList.add("active");
+
+    };
+
+});
+
+
+/* =====================================================
+   FILTROS
+===================================================== */
+
+[
+    "search",
+    "rsvp",
+    "side",
+    "type",
+    "tableFilter"
+]
+.forEach(x => {
+
+    document
+    .getElementById(x)
+    .addEventListener(
+        "input",
+        render
+    );
+
+});
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+newGuest.onclick =
+    () => openGuest();
+
+
+newTable.onclick =
+    () => openTable();
+
+
+/* =====================================================
+   GUARDAR CONVIDADO
+===================================================== */
+
+guestForm.onsubmit = e => {
+
+    e.preventDefault();
+
+
+    let o = {
+
+        id:
+            guestId.value ||
+            gid(),
+
+        nome:
+            name.value.trim(),
+
+        grupo:
+            group.value.trim(),
+
+        lado:
+            guestSide.value,
+
+        relacao:
+            relation.value.trim(),
+
+        telefone:
+            phone.value.trim(),
+
+        whatsapp:
+            whatsapp.value.trim(),
+
+        email:
+            email.value.trim(),
+
+        tipo:
+            guestType.value,
+
+        rsvp:
+            guestRsvp.value,
+
+        acompanhante:
+            companion.value,
+
+        nomeAcompanhante:
+            companionName.value.trim(),
+
+        alimentacao:
+            food.value.trim(),
+
+        mesa:
+            guestTable.value,
+
+        lugar:
+            seat.value,
+
+        notas:
+            notes.value.trim()
+
+    };
+
+
+    let i =
+        db.convidados.findIndex(
+            x => x.id === o.id
+        );
+
+
+    if(i >= 0){
+
+        db.convidados[i] =
+            o;
+
+    }
+    else{
+
+        db.convidados.push(o);
+
+    }
+
+
+    guestModal.classList.remove("open");
+
+    save();
+
+};
+
+
+/* =====================================================
+   GUARDAR MESA
+===================================================== */
+
+tableForm.onsubmit = e => {
+
+    e.preventDefault();
+
+
+    let o = {
+
+        id:
+            tableId.value ||
+            tid(),
+
+        nome:
+            tableName.value.trim(),
+
+        formato:
+            shape.value,
+
+        capacidade:
+            Number(capacity.value) || 10,
+
+        localizacao:
+            location.value.trim(),
+
+        notas:
+            tableNotes.value.trim()
+
+    };
+
+
+    let i =
+        db.mesas.findIndex(
+            x => x.id === o.id
+        );
+
+
+    if(i >= 0){
+
+        db.mesas[i] =
+            o;
+
+    }
+    else{
+
+        db.mesas.push(o);
+
+    }
+
+
+    tableModal.classList.remove("open");
+
+    save();
+
+};
+
+
+/* =====================================================
+   FECHAR MODAIS
+===================================================== */
+
+document
+.querySelectorAll(".close")
+.forEach(button => {
+
+    button.onclick = () => {
+
+        button
+        .closest(".modal-bg")
+        .classList.remove("open");
+
+    };
+
+});
+
+
+document
+.querySelectorAll(".modal-bg")
+.forEach(modal => {
+
+    modal.onclick = e => {
+
+        if(e.target === modal){
+
+            modal.classList.remove("open");
+
+        }
+
+    };
+
+});
+
+
+/* =====================================================
+   INICIALIZAR
+===================================================== */
+
+render();
+
+</script>
+
+</body>
+</html>

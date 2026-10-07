@@ -2,374 +2,478 @@
 
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Planeador | Casamento Perfeito</title>
+<title>Planeador do Casamento | Casamento Perfeito</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #fff7fa;
-        color: #4a3039;
-        min-height: 100vh;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    header {
-        background: #ffffff;
-        min-height: 72px;
-        padding: 15px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #f2dfe6;
-    }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff7fa;
+    color: #4a3039;
+    min-height: 100vh;
+}
 
-    .logo {
-        font-size: 22px;
-        font-weight: bold;
-        color: #c45f7d;
-    }
+header {
+    background: #ffffff;
+    min-height: 72px;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f2dfe6;
+}
 
-    .back-button {
-        text-decoration: none;
-        color: #c45f7d;
-        font-weight: bold;
-        font-size: 14px;
-    }
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #c45f7d;
+}
 
-    .back-button:hover {
-        color: #aa4e69;
-    }
+.back-button {
+    text-decoration: none;
+    color: #c45f7d;
+    font-weight: bold;
+    font-size: 14px;
+}
 
-    main {
-        max-width: 1180px;
-        margin: auto;
-        padding: 40px 25px 60px;
-    }
+.back-button:hover {
+    color: #aa4e69;
+}
 
-    .hero {
-        background: linear-gradient(135deg, #ffffff, #fff0f5);
-        border: 1px solid #f3dce4;
-        border-radius: 24px;
-        padding: 38px;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 30px rgba(100, 50, 70, 0.08);
-    }
+main {
+    max-width: 1180px;
+    margin: auto;
+    padding: 40px 25px 60px;
+}
 
-    .hero h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
+.hero {
+    background: linear-gradient(135deg, #ffffff, #fff0f5);
+    border: 1px solid #f3dce4;
+    border-radius: 24px;
+    padding: 38px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 30px rgba(100,50,70,.08);
+}
 
-    .hero p {
-        color: #777;
-        line-height: 1.6;
-    }
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
 
-    .progress-area {
-        margin-top: 28px;
-    }
+.hero p {
+    color: #777;
+    line-height: 1.6;
+}
 
-    .progress-info {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 9px;
-        font-size: 14px;
-        font-weight: bold;
-    }
+.progress-area {
+    margin-top: 28px;
+}
 
-    .progress-bar {
-        width: 100%;
-        height: 12px;
-        background: #f3e3e8;
-        border-radius: 20px;
-        overflow: hidden;
-    }
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9px;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-    .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: #c45f7d;
-        border-radius: 20px;
-        transition: width 0.3s ease;
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #f3e3e8;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #c45f7d;
+    border-radius: 20px;
+    transition: width .3s ease;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #f1dfe5;
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #777;
+    font-size: 13px;
+}
+
+.completed-number {
+    color: #2e9d59;
+}
+
+.pending-number {
+    color: #e59a23;
+}
+
+.stuck-number {
+    color: #d94848;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.section-title h2 {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.section-title p {
+    color: #888;
+    font-size: 14px;
+}
+
+.areas {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 18px;
+}
+
+.area-card {
+    background: #ffffff;
+    border: 1px solid #f1dfe5;
+    border-radius: 20px;
+    padding: 24px;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 6px 22px rgba(100,50,70,.05);
+}
+
+.area-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 26px rgba(100,50,70,.10);
+}
+
+.area-icon {
+    font-size: 31px;
+    margin-bottom: 14px;
+}
+
+.area-card h3 {
+    font-size: 17px;
+    margin-bottom: 9px;
+}
+
+.area-count {
+    color: #777;
+    font-size: 13px;
+}
+
+.area-progress {
+    margin-top: 15px;
+    height: 7px;
+    background: #f3e3e8;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.area-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #c45f7d;
+    border-radius: 10px;
+}
+
+.area-percent {
+    display: block;
+    margin-top: 8px;
+    color: #c45f7d;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.task-panel {
+    display: none;
+    background: white;
+    border: 1px solid #f1dfe5;
+    border-radius: 22px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.task-panel.active {
+    display: block;
+}
+
+.task-header {
+    padding: 25px;
+    border-bottom: 1px solid #f1dfe5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-header h2 {
+    font-size: 21px;
+}
+
+.close-button {
+    border: none;
+    background: #f8e8ed;
+    color: #c45f7d;
+    padding: 9px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tasks {
+    padding: 10px 25px 25px;
+}
+
+.task {
+    padding: 20px 0;
+    border-bottom: 1px solid #f3e8ec;
+}
+
+.task:last-child {
+    border-bottom: none;
+}
+
+.task-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    accent-color: #c45f7d;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.task-meta {
+    color: #888;
+    font-size: 12px;
+}
+
+.priority {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 4px 8px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.high {
+    background: #fde5e5;
+    color: #c93636;
+}
+
+.medium {
+    background: #fff0d4;
+    color: #bd7712;
+}
+
+.low {
+    background: #e4f5e9;
+    color: #31834b;
+}
+
+.checkpoint {
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 15px;
+    background: #fffafc;
+    border: 1px solid #f1dfe5;
+}
+
+.checkpoint-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.status-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.status-button {
+    border: 1px solid #ddd;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-button:hover {
+    opacity: .85;
+}
+
+.status-button.active.completed {
+    background: #dff3e5;
+    border-color: #2e9d59;
+    color: #267a45;
+}
+
+.status-button.active.pending {
+    background: #fff0d4;
+    border-color: #e59a23;
+    color: #a9680d;
+}
+
+.status-button.active.stuck {
+    background: #fde1e1;
+    border-color: #d94848;
+    color: #b52f2f;
+}
+
+.stuck-fields {
+    display: none;
+    margin-top: 14px;
+}
+
+.stuck-fields.active {
+    display: block;
+}
+
+.stuck-fields label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.stuck-fields textarea {
+    width: 100%;
+    min-height: 75px;
+    resize: vertical;
+    border: 1px solid #ead6dd;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: inherit;
+}
+
+.verify-box {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.verify-box.completed {
+    background: #e7f6eb;
+    color: #277943;
+}
+
+.verify-box.pending {
+    background: #fff3dc;
+    color: #a86d13;
+}
+
+.verify-box.stuck {
+    background: #fde7e7;
+    color: #b33131;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #999;
+    font-size: 13px;
+}
+
+@media(max-width:900px) {
+
+    .areas {
+        grid-template-columns: repeat(2,1fr);
     }
 
     .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        margin-bottom: 35px;
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px) {
+
+    header {
+        padding: 15px 18px;
     }
 
-    .stat {
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 18px;
-        padding: 22px;
-        text-align: center;
+    .logo {
+        font-size: 18px;
     }
 
-    .stat-number {
-        display: block;
-        font-size: 27px;
-        font-weight: bold;
-        margin-bottom: 5px;
+    main {
+        padding: 30px 18px;
     }
 
-    .stat-label {
-        color: #777;
-        font-size: 13px;
+    .hero {
+        padding: 28px 22px;
     }
 
-    .stat.completed .stat-number {
-        color: #2e9d59;
-    }
-
-    .stat.pending .stat-number {
-        color: #e59a23;
-    }
-
-    .stat.late .stat-number {
-        color: #d94848;
-    }
-
-    .section-title {
-        margin-bottom: 20px;
-    }
-
-    .section-title h2 {
-        font-size: 23px;
-        margin-bottom: 5px;
-    }
-
-    .section-title p {
-        color: #888;
-        font-size: 14px;
+    .hero h1 {
+        font-size: 25px;
     }
 
     .areas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
+        grid-template-columns: 1fr;
     }
 
-    .area-card {
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 20px;
-        padding: 24px;
-        cursor: pointer;
-        transition: 0.25s;
-        box-shadow: 0 6px 22px rgba(100, 50, 70, 0.05);
+    .stats {
+        grid-template-columns: repeat(2,1fr);
     }
 
-    .area-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 26px rgba(100, 50, 70, 0.10);
+    .status-buttons {
+        flex-direction: column;
     }
 
-    .area-icon {
-        font-size: 31px;
-        margin-bottom: 14px;
+    .status-button {
+        width: 100%;
+        text-align: left;
     }
+}
 
-    .area-card h3 {
-        font-size: 17px;
-        margin-bottom: 9px;
-    }
-
-    .area-count {
-        color: #777;
-        font-size: 13px;
-    }
-
-    .area-progress {
-        margin-top: 15px;
-        height: 7px;
-        background: #f3e3e8;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .area-progress-fill {
-        height: 100%;
-        width: 0%;
-        background: #c45f7d;
-        border-radius: 10px;
-    }
-
-    .area-percent {
-        display: block;
-        margin-top: 8px;
-        color: #c45f7d;
-        font-size: 12px;
-        font-weight: bold;
-    }
-
-    .task-panel {
-        display: none;
-        background: #ffffff;
-        border: 1px solid #f1dfe5;
-        border-radius: 22px;
-        margin-top: 30px;
-        overflow: hidden;
-    }
-
-    .task-panel.active {
-        display: block;
-    }
-
-    .task-header {
-        padding: 25px;
-        border-bottom: 1px solid #f1dfe5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .task-header h2 {
-        font-size: 21px;
-    }
-
-    .close-button {
-        border: none;
-        background: #f8e8ed;
-        color: #c45f7d;
-        padding: 9px 14px;
-        border-radius: 9px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .tasks {
-        padding: 10px 25px 25px;
-    }
-
-    .task {
-        padding: 20px 0;
-        border-bottom: 1px solid #f3e8ec;
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .task:last-child {
-        border-bottom: none;
-    }
-
-    .task-checkbox {
-        width: 20px;
-        height: 20px;
-        margin-top: 3px;
-        accent-color: #c45f7d;
-        cursor: pointer;
-        flex-shrink: 0;
-    }
-
-    .task-content {
-        flex: 1;
-    }
-
-    .task-title {
-        font-weight: bold;
-        margin-bottom: 7px;
-    }
-
-    .task.completed .task-title {
-        text-decoration: line-through;
-        color: #999;
-    }
-
-    .task-meta {
-        color: #888;
-        font-size: 12px;
-    }
-
-    .priority {
-        display: inline-block;
-        margin-left: 10px;
-        padding: 4px 8px;
-        border-radius: 7px;
-        font-size: 11px;
-        font-weight: bold;
-    }
-
-    .priority.high {
-        background: #fde5e5;
-        color: #c93636;
-    }
-
-    .priority.medium {
-        background: #fff0d4;
-        color: #bd7712;
-    }
-
-    .priority.low {
-        background: #e4f5e9;
-        color: #31834b;
-    }
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        color: #999;
-        font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-        .areas {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 600px) {
-        header {
-            padding: 15px 18px;
-        }
-
-        .logo {
-            font-size: 18px;
-        }
-
-        main {
-            padding: 30px 18px;
-        }
-
-        .hero {
-            padding: 28px 22px;
-        }
-
-        .hero h1 {
-            font-size: 25px;
-        }
-
-        .areas {
-            grid-template-columns: 1fr;
-        }
-
-        .stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .task-header {
-            align-items: flex-start;
-            gap: 15px;
-        }
-    }
 </style>
-```
 
 </head>
 
@@ -391,104 +495,166 @@
 
 <main>
 
-```
 <section class="hero">
 
-    <h1>
-        Planeador do Casamento
-    </h1>
+```
+<h1>
+    Planeador do Casamento
+</h1>
 
-    <p>
-        Organize cada detalhe do seu grande dia,
-        passo a passo.
-    </p>
+<p>
+    Organize cada detalhe do seu grande dia,
+    passo a passo.
+</p>
 
-    <div class="progress-area">
+<div class="progress-area">
 
-        <div class="progress-info">
-            <span>O seu casamento está a ser preparado</span>
-            <span id="progressPercent">0%</span>
-        </div>
+    <div class="progress-info">
+        <span>
+            O seu casamento está a ser preparado
+        </span>
 
-        <div class="progress-bar">
-            <div
-                id="progressFill"
-                class="progress-fill">
-            </div>
-        </div>
-
+        <span id="progressPercent">
+            0%
+        </span>
     </div>
+
+    <div class="progress-bar">
+        <div
+            id="progressFill"
+            class="progress-fill">
+        </div>
+    </div>
+
+</div>
+```
 
 </section>
 
 <section class="stats">
 
-    <div class="stat">
-        <span id="totalTasks" class="stat-number">322</span>
-        <span class="stat-label">Tarefas</span>
-    </div>
+```
+<div class="stat">
 
-    <div class="stat completed">
-        <span id="completedTasks" class="stat-number">0</span>
-        <span class="stat-label">Concluídas</span>
-    </div>
+    <span
+        id="totalTasks"
+        class="stat-number">
+        322
+    </span>
 
-    <div class="stat pending">
-        <span id="pendingTasks" class="stat-number">322</span>
-        <span class="stat-label">Pendentes</span>
-    </div>
+    <span class="stat-label">
+        Tarefas
+    </span>
 
-    <div class="stat late">
-        <span id="lateTasks" class="stat-number">0</span>
-        <span class="stat-label">Mal paradas</span>
-    </div>
+</div>
+
+<div class="stat">
+
+    <span
+        id="completedTasks"
+        class="stat-number completed-number">
+        0
+    </span>
+
+    <span class="stat-label">
+        Concluídas
+    </span>
+
+</div>
+
+<div class="stat">
+
+    <span
+        id="pendingTasks"
+        class="stat-number pending-number">
+        322
+    </span>
+
+    <span class="stat-label">
+        Pendentes
+    </span>
+
+</div>
+
+<div class="stat">
+
+    <span
+        id="stuckTasks"
+        class="stat-number stuck-number">
+        0
+    </span>
+
+    <span class="stat-label">
+        Mal paradas
+    </span>
+
+</div>
+```
 
 </section>
 
 <section>
 
-    <div class="section-title">
-
-        <h2>
-            Organize o seu casamento
-        </h2>
-
-        <p>
-            Escolha uma área para começar.
-        </p>
-
-    </div>
-
-    <div id="areas" class="areas"></div>
-
-</section>
-
-<section id="taskPanel" class="task-panel">
-
-    <div class="task-header">
-
-        <h2 id="taskPanelTitle">
-            Tarefas
-        </h2>
-
-        <button
-            type="button"
-            class="close-button"
-            onclick="fecharTarefas()">
-            ✕ Fechar
-        </button>
-
-    </div>
-
-    <div id="tasks" class="tasks"></div>
-
-</section>
 ```
+<div class="section-title">
+
+    <h2>
+        Organize o seu casamento
+    </h2>
+
+    <p>
+        Escolha uma área para começar.
+    </p>
+
+</div>
+
+<div
+    id="areas"
+    class="areas">
+</div>
+```
+
+</section>
+
+<section
+    id="taskPanel"
+    class="task-panel">
+
+```
+<div class="task-header">
+
+    <h2 id="taskPanelTitle">
+        Tarefas
+    </h2>
+
+    <button
+        type="button"
+        class="close-button"
+        onclick="fecharTarefas()">
+
+        ✕ Fechar
+
+    </button>
+
+</div>
+
+<div
+    id="tasks"
+    class="tasks">
+</div>
+```
+
+</section>
 
 </main>
 
 <footer>
-    Casamento Perfeito · Planeie hoje o casamento dos seus sonhos. 💍
+
+```
+Casamento Perfeito ·
+Planeie hoje o casamento dos seus sonhos. 💍
+```
+
 </footer>
 
 <script>
@@ -499,16 +665,67 @@ const areas = [
         nome: "Planeamento Inicial",
         icone: "📋",
         tarefas: [
-            ["Definir se haverá casamento civil, religioso ou ambos", "Alta"],
-            ["Definir a data do casamento", "Alta"],
-            ["Definir o estilo do casamento", "Média"],
-            ["Definir o número estimado de convidados", "Alta"],
-            ["Definir o orçamento máximo", "Alta"],
-            ["Definir quem contribuirá financeiramente", "Alta"],
-            ["Criar lista inicial de convidados", "Alta"],
-            ["Definir prioridades do casal", "Média"],
-            ["Criar cronograma geral", "Média"],
-            ["Definir responsáveis pelas principais tarefas", "Média"]
+
+            {
+                titulo: "Definir se haverá casamento civil, religioso ou ambos",
+                prioridade: "Alta",
+                checkpoint: true
+            },
+
+            {
+                titulo: "Definir a data do casamento",
+                prioridade: "Alta",
+                checkpoint: true
+            },
+
+            {
+                titulo: "Definir o estilo do casamento",
+                prioridade: "Média",
+                checkpoint: true
+            },
+
+            {
+                titulo: "Definir o número estimado de convidados",
+                prioridade: "Alta",
+                checkpoint: true
+            },
+
+            {
+                titulo: "Definir o orçamento máximo",
+                prioridade: "Alta",
+                checkpoint: true
+            },
+
+            {
+                titulo: "Definir quem contribuirá financeiramente",
+                prioridade: "Alta",
+                checkpoint: false
+            },
+
+            {
+                titulo: "Criar lista inicial de convidados",
+                prioridade: "Alta",
+                checkpoint: false
+            },
+
+            {
+                titulo: "Definir prioridades do casal",
+                prioridade: "Média",
+                checkpoint: false
+            },
+
+            {
+                titulo: "Criar cronograma geral",
+                prioridade: "Média",
+                checkpoint: false
+            },
+
+            {
+                titulo: "Definir responsáveis pelas principais tarefas",
+                prioridade: "Média",
+                checkpoint: false
+            }
+
         ]
     },
 
@@ -658,80 +875,207 @@ const areas = [
 
 ];
 
-const estado = JSON.parse(
-    localStorage.getItem("casamentoPerfeitoPlaneador")
+let estado = JSON.parse(
+    localStorage.getItem(
+        "casamentoPerfeitoPlaneador"
+    )
 ) || {};
 
-function totalDeTarefas() {
+function guardarEstado() {
 
-    return areas.reduce(function(total, area) {
-
-        return total + (
-            area.tarefas
-            ? area.tarefas.length
-            : area.total
-        );
-
-    }, 0);
+    localStorage.setItem(
+        "casamentoPerfeitoPlaneador",
+        JSON.stringify(estado)
+    );
 
 }
 
-function obterEstadoTarefa(areaIndex, tarefaIndex) {
+function obterTarefa(areaIndex, tarefaIndex) {
 
-    return estado[areaIndex + "-" + tarefaIndex] || "pendente";
+    const area = areas[areaIndex];
+
+    if (area.tarefas) {
+        return area.tarefas[tarefaIndex];
+    }
+
+    return {
+        titulo: "Tarefa " + (tarefaIndex + 1),
+        prioridade: "Média",
+        checkpoint: false
+    };
+
+}
+
+function obterEstado(areaIndex, tarefaIndex) {
+
+    const chave =
+        areaIndex + "-" + tarefaIndex;
+
+    return estado[chave] || {
+        status: "pendente",
+        motivo: ""
+    };
+
+}
+
+function definirEstado(
+    areaIndex,
+    tarefaIndex,
+    status
+) {
+
+    const chave =
+        areaIndex + "-" + tarefaIndex;
+
+    if (!estado[chave]) {
+        estado[chave] = {};
+    }
+
+    estado[chave].status = status;
+
+    if (status !== "mal-parado") {
+        estado[chave].motivo = "";
+    }
+
+    guardarEstado();
+
+    atualizarTudo();
+
+    abrirTarefas(areaIndex);
+
+}
+
+function guardarMotivo(
+    areaIndex,
+    tarefaIndex,
+    valor
+) {
+
+    const chave =
+        areaIndex + "-" + tarefaIndex;
+
+    if (!estado[chave]) {
+        estado[chave] = {
+            status: "mal-parado",
+            motivo: ""
+        };
+    }
+
+    estado[chave].motivo = valor;
+
+    guardarEstado();
+
+}
+
+function totalDeTarefas() {
+
+    return areas.reduce(
+        (total, area) =>
+            total +
+            (
+                area.tarefas
+                ? area.tarefas.length
+                : area.total
+            ),
+        0
+    );
+
+}
+
+function obterEstatisticas() {
+
+    let concluidas = 0;
+    let pendentes = 0;
+    let malParadas = 0;
+
+    areas.forEach(
+        function(area, areaIndex) {
+
+            const total =
+                area.tarefas
+                ? area.tarefas.length
+                : area.total;
+
+            for (
+                let i = 0;
+                i < total;
+                i++
+            ) {
+
+                const situacao =
+                    obterEstado(
+                        areaIndex,
+                        i
+                    ).status;
+
+                if (situacao === "concluido") {
+                    concluidas++;
+                }
+
+                else if (
+                    situacao === "mal-parado"
+                ) {
+                    malParadas++;
+                }
+
+                else {
+                    pendentes++;
+                }
+
+            }
+
+        }
+    );
+
+    return {
+        total: totalDeTarefas(),
+        concluidas,
+        pendentes,
+        malParadas
+    };
 
 }
 
 function atualizarEstatisticas() {
 
-    const total = totalDeTarefas();
-
-    let concluidas = 0;
-    let malParadas = 0;
-
-    areas.forEach(function(area, areaIndex) {
-
-        const quantidade = area.tarefas
-            ? area.tarefas.length
-            : area.total;
-
-        for (let i = 0; i < quantidade; i++) {
-
-            const situacao =
-                obterEstadoTarefa(areaIndex, i);
-
-            if (situacao === "concluido") {
-                concluidas++;
-            }
-
-            if (situacao === "mal-parado") {
-                malParadas++;
-            }
-
-        }
-
-    });
-
-    const pendentes =
-        total - concluidas - malParadas;
+    const dados =
+        obterEstatisticas();
 
     const percentagem =
-        total === 0
+        dados.total === 0
         ? 0
-        : Math.round((concluidas / total) * 100);
+        : Math.round(
+            (
+                dados.concluidas /
+                dados.total
+            ) * 100
+        );
 
-    document.getElementById("totalTasks").textContent = total;
-    document.getElementById("completedTasks").textContent = concluidas;
-    document.getElementById("pendingTasks").textContent = pendentes;
-    document.getElementById("lateTasks").textContent = malParadas;
+    document.getElementById(
+        "totalTasks"
+    ).textContent = dados.total;
 
-    document.getElementById("progressPercent").textContent =
+    document.getElementById(
+        "completedTasks"
+    ).textContent = dados.concluidas;
+
+    document.getElementById(
+        "pendingTasks"
+    ).textContent = dados.pendentes;
+
+    document.getElementById(
+        "stuckTasks"
+    ).textContent = dados.malParadas;
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
         percentagem + "%";
 
-    document.getElementById("progressFill").style.width =
+    document.getElementById(
+        "progressFill"
+    ).style.width =
         percentagem + "%";
-
-    atualizarAreas();
 
 }
 
@@ -742,69 +1086,417 @@ function atualizarAreas() {
 
     container.innerHTML = "";
 
-    areas.forEach(function(area, areaIndex) {
+    areas.forEach(
+        function(area, areaIndex) {
 
-        const total =
-            area.tarefas
-            ? area.tarefas.length
-            : area.total;
+            const total =
+                area.tarefas
+                ? area.tarefas.length
+                : area.total;
 
-        let concluidas = 0;
+            let concluidas = 0;
 
-        for (let i = 0; i < total; i++) {
-
-            if (
-                obterEstadoTarefa(areaIndex, i)
-                === "concluido"
+            for (
+                let i = 0;
+                i < total;
+                i++
             ) {
-                concluidas++;
+
+                if (
+                    obterEstado(
+                        areaIndex,
+                        i
+                    ).status === "concluido"
+                ) {
+                    concluidas++;
+                }
+
             }
 
-        }
+            const percentagem =
+                Math.round(
+                    (
+                        concluidas /
+                        total
+                    ) * 100
+                );
 
-        const percentagem =
-            Math.round((concluidas / total) * 100);
+            const card =
+                document.createElement("div");
 
-        const card =
-            document.createElement("div");
+            card.className =
+                "area-card";
 
-        card.className = "area-card";
+            card.onclick =
+                function() {
+                    abrirTarefas(areaIndex);
+                };
 
-        card.onclick = function() {
-            abrirTarefas(areaIndex);
-        };
+            card.innerHTML = `
 
-        card.innerHTML = `
-
-            <div class="area-icon">
-                ${area.icone}
-            </div>
-
-            <h3>
-                ${area.nome}
-            </h3>
-
-            <div class="area-count">
-                ${concluidas}/${total} concluídas
-            </div>
-
-            <div class="area-progress">
-                <div
-                    class="area-progress-fill"
-                    style="width:${percentagem}%">
+                <div class="area-icon">
+                    ${area.icone}
                 </div>
-            </div>
 
-            <span class="area-percent">
-                ${percentagem}% concluído
-            </span>
+                <h3>
+                    ${area.nome}
+                </h3>
 
-        `;
+                <div class="area-count">
+                    ${concluidas}/${total}
+                    concluídas
+                </div>
 
-        container.appendChild(card);
+                <div class="area-progress">
 
-    });
+                    <div
+                        class="area-progress-fill"
+                        style="width:${percentagem}%">
+                    </div>
+
+                </div>
+
+                <span class="area-percent">
+                    ${percentagem}% concluído
+                </span>
+
+            `;
+
+            container.appendChild(card);
+
+        }
+    );
 
 }
 
-function abr
+function atualizarTudo() {
+
+    atualizarEstatisticas();
+    atualizarAreas();
+
+}
+
+function abrirTarefas(areaIndex) {
+
+    const area =
+        areas[areaIndex];
+
+    const panel =
+        document.getElementById(
+            "taskPanel"
+        );
+
+    const title =
+        document.getElementById(
+            "taskPanelTitle"
+        );
+
+    const tasks =
+        document.getElementById(
+            "tasks"
+        );
+
+    title.textContent =
+        area.icone + " " + area.nome;
+
+    tasks.innerHTML = "";
+
+    const quantidade =
+        area.tarefas
+        ? area.tarefas.length
+        : area.total;
+
+    for (
+        let i = 0;
+        i < quantidade;
+        i++
+    ) {
+
+        const tarefa =
+            obterTarefa(
+                areaIndex,
+                i
+            );
+
+        const situacao =
+            obterEstado(
+                areaIndex,
+                i
+            );
+
+        const task =
+            document.createElement("div");
+
+        task.className =
+            "task";
+
+        const prioridadeClass =
+            tarefa.prioridade === "Alta"
+            ? "high"
+            : tarefa.prioridade === "Média"
+            ? "medium"
+            : "low";
+
+        let html = `
+
+            <div class="task-main">
+
+                <input
+                    type="checkbox"
+                    class="task-checkbox"
+                    ${
+                        situacao.status ===
+                        "concluido"
+                        ? "checked"
+                        : ""
+                    }
+                    onchange="
+                        marcarTarefa(
+                            ${areaIndex},
+                            ${i},
+                            this.checked
+                        )
+                    "
+                >
+
+                <div class="task-content">
+
+                    <div class="task-title">
+
+                        ${tarefa.titulo}
+
+                    </div>
+
+                    <div class="task-meta">
+
+                        👤 Casal
+                        · 📅 Sem prazo
+
+                        <span
+                            class="priority
+                            ${prioridadeClass}">
+
+                            ${tarefa.prioridade}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        if (tarefa.checkpoint) {
+
+            html += `
+
+                <div class="checkpoint">
+
+                    <div class="checkpoint-title">
+
+                        🔐 Checkpoint verificável
+
+                    </div>
+
+                    <div class="status-buttons">
+
+                        <button
+                            type="button"
+                            class="status-button
+                            completed
+                            ${
+                                situacao.status ===
+                                "concluido"
+                                ? "active"
+                                : ""
+                            }"
+                            onclick="
+                                definirEstado(
+                                    ${areaIndex},
+                                    ${i},
+                                    'concluido'
+                                )
+                            ">
+
+                            🟢 Concluído
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="status-button
+                            pending
+                            ${
+                                situacao.status ===
+                                "pendente"
+                                ? "active"
+                                : ""
+                            }"
+                            onclick="
+                                definirEstado(
+                                    ${areaIndex},
+                                    ${i},
+                                    'pendente'
+                                )
+                            ">
+
+                            🟠 Pendente
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="status-button
+                            stuck
+                            ${
+                                situacao.status ===
+                                "mal-parado"
+                                ? "active"
+                                : ""
+                            }"
+                            onclick="
+                                definirEstado(
+                                    ${areaIndex},
+                                    ${i},
+                                    'mal-parado'
+                                )
+                            ">
+
+                            🔴 Mal parado
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="stuck-fields
+                        ${
+                            situacao.status ===
+                            "mal-parado"
+                            ? "active"
+                            : ""
+                        }">
+
+                        <label>
+                            O que está a impedir
+                            esta tarefa?
+                        </label>
+
+                        <textarea
+                            placeholder="Descreva o problema..."
+                            oninput="
+                                guardarMotivo(
+                                    ${areaIndex},
+                                    ${i},
+                                    this.value
+                                )
+                            "
+                        >${situacao.motivo || ""}</textarea>
+
+```
+                </div>
+
+                <div
+                    class="verify-box
+                    ${
+                        situacao.status ===
+                        "concluido"
+                        ? "completed"
+                        : situacao.status ===
+                        "mal-parado"
+                        ? "stuck"
+                        : "pending"
+                    }">
+
+                    ${
+                        situacao.status ===
+                        "concluido"
+
+                        ? "✓ Checkpoint verificado"
+
+                        : situacao.status ===
+                        "mal-parado"
+
+                        ? "⚠ Checkpoint mal parado"
+
+                        : "○ Checkpoint pendente"
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    task.innerHTML = html;
+
+    tasks.appendChild(task);
+
+}
+
+panel.classList.add("active");
+
+panel.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+});
+```
+
+}
+
+function marcarTarefa(
+areaIndex,
+tarefaIndex,
+marcada
+) {
+
+```
+const tarefa =
+    obterTarefa(
+        areaIndex,
+        tarefaIndex
+    );
+
+if (tarefa.checkpoint) {
+
+    definirEstado(
+        areaIndex,
+        tarefaIndex,
+        marcada
+        ? "concluido"
+        : "pendente"
+    );
+
+    return;
+}
+
+definirEstado(
+    areaIndex,
+    tarefaIndex,
+    marcada
+    ? "concluido"
+    : "pendente"
+);
+```
+
+}
+
+function fecharTarefas() {
+
+```
+document
+    .getElementById("taskPanel")
+    .classList.remove("active");
+```
+
+}
+
+atualizarTudo();
+
+</script>
+
+</body>
+</html>

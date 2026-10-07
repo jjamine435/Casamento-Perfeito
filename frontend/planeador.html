@@ -1,3311 +1,1971 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Planeador | Casamento Perfeito</title>
-
-    <!-- Biblioteca para Excel -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        :root {
-            --primary: #8b5e5e;
-            --primary-dark: #704848;
-            --primary-light: #f5ebe8;
-
-            --background: #faf8f6;
-            --white: #ffffff;
-
-            --border: #e6ded8;
-
-            --text: #333333;
-            --muted: #777777;
-
-            --success: #397348;
-            --success-light: #e1f0e4;
-
-            --danger: #a33a3a;
-            --danger-light: #f7dddd;
-
-            --warning: #8a6b20;
-            --warning-light: #f7efd5;
-        }
-
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--background);
-            color: var(--text);
-        }
-
-
-        /* ==============================
-           HEADER
-        ============================== */
-
-        header {
-            background: var(--white);
-
-            border-bottom: 1px solid var(--border);
-
-            padding: 18px 30px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 20px;
-        }
-
-
-        .logo {
-            color: var(--primary);
-
-            font-size: 22px;
-
-            font-weight: bold;
-        }
-
-
-        .back-link {
-            color: var(--primary);
-
-            text-decoration: none;
-
-            font-weight: bold;
-        }
-
-
-        .back-link:hover {
-            color: var(--primary-dark);
-        }
-
-
-        /* ==============================
-           CONTAINER
-        ============================== */
-
-        .container {
-            max-width: 1400px;
-
-            margin: 30px auto;
-
-            padding: 0 20px;
-        }
-
-
-        .page-title {
-            margin-bottom: 25px;
-        }
-
-
-        .page-title h1 {
-            font-size: 32px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .page-title p {
-            color: var(--muted);
-
-            font-size: 15px;
-        }
-
-
-        /* ==============================
-           RESUMO
-        ============================== */
-
-        .summary {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 25px;
-        }
-
-
-        .summary-card {
-            background: var(--white);
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            padding: 20px;
-        }
-
-
-        .summary-card span {
-            display: block;
-
-            color: var(--muted);
-
-            font-size: 14px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .summary-card strong {
-            color: var(--primary);
-
-            font-size: 28px;
-        }
-
-
-        .progress-container {
-            background: #e8e2dd;
-
-            height: 9px;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            margin-top: 10px;
-        }
-
-
-        .progress-bar {
-            height: 100%;
-
-            width: 0%;
-
-            background: var(--primary);
-
-            transition: width .3s ease;
-        }
-
-
-        /* ==============================
-           LAYOUT
-        ============================== */
-
-        .layout {
-            display: grid;
-
-            grid-template-columns: 270px 1fr;
-
-            gap: 20px;
-        }
-
-
-        .categories,
-        .tasks-panel {
-            background: var(--white);
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-        }
-
-
-        /* ==============================
-           CATEGORIAS
-        ============================== */
-
-        .categories {
-            padding: 15px;
-
-            height: fit-content;
-        }
-
-
-        .categories h3 {
-            margin-bottom: 12px;
-
-            padding: 5px;
-        }
-
-
-        .category-btn {
-            width: 100%;
-
-            border: none;
-
-            background: transparent;
-
-            color: var(--text);
-
-            padding: 11px 12px;
-
-            text-align: left;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            margin-bottom: 3px;
-
-            font-size: 14px;
-        }
-
-
-        .category-btn:hover,
-        .category-btn.active {
-            background: var(--primary-light);
-
-            color: var(--primary);
-
-            font-weight: bold;
-        }
-
-
-        /* ==============================
-           PAINEL
-        ============================== */
-
-        .tasks-panel {
-            padding: 20px;
-        }
-
-
-        .toolbar {
-            display: flex;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-
-            margin-bottom: 20px;
-        }
-
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-
-            border: 1px solid #dcd3cd;
-
-            border-radius: 8px;
-
-            padding: 11px 12px;
-
-            font-size: 14px;
-
-            font-family: inherit;
-
-            background: white;
-        }
-
-
-        #search {
-            flex: 1;
-
-            min-width: 220px;
-        }
-
-
-        .toolbar select {
-            width: auto;
-
-            min-width: 170px;
-        }
-
-
-        button {
-            font-family: inherit;
-        }
-
-
-        .primary-btn {
-            border: none;
-
-            background: var(--primary);
-
-            color: white;
-
-            padding: 11px 17px;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-        }
-
-
-        .primary-btn:hover {
-            background: var(--primary-dark);
-        }
-
-
-        .secondary-btn {
-            border: 1px solid #dcd3cd;
-
-            background: white;
-
-            color: var(--text);
-
-            padding: 11px 17px;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-        }
-
-
-        .secondary-btn:hover {
-            background: #faf7f5;
-        }
-
-
-        /* ==============================
-           PROGRESSO CATEGORIA
-        ============================== */
-
-        .category-progress {
-            background: #fcfaf9;
-
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .category-progress-header {
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            margin-bottom: 8px;
-
-            font-size: 14px;
-        }
-
-
-        .mini-progress {
-            height: 7px;
-
-            background: #e8e2dd;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-        }
-
-
-        .mini-progress div {
-            height: 100%;
-
-            background: var(--primary);
-        }
-
-
-        /* ==============================
-           TAREFAS
-        ============================== */
-
-        .task {
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-bottom: 10px;
-
-            display: flex;
-
-            gap: 12px;
-
-            align-items: flex-start;
-
-            transition: .2s;
-        }
-
-
-        .task:hover {
-            border-color: #d2c4bc;
-        }
-
-
-        .task.completed {
-            background: #f8f8f8;
-        }
-
-
-        .task.completed .task-title {
-            text-decoration: line-through;
-
-            color: #999999;
-        }
-
-
-        .task-checkbox {
-            width: 18px;
-
-            height: 18px;
-
-            margin-top: 3px;
-
-            cursor: pointer;
-        }
-
-
-        .task-info {
-            flex: 1;
-        }
-
-
-        .task-title {
-            font-weight: bold;
-
-            margin-bottom: 8px;
-        }
-
-
-        .task-meta {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 7px;
-        }
-
-
-        .badge {
-            display: inline-block;
-
-            padding: 4px 8px;
-
-            border-radius: 20px;
-
-            background: #f1eeec;
-
-            color: #666;
-
-            font-size: 12px;
-        }
-
-
-        .priority-alta {
-            background: var(--danger-light);
-
-            color: var(--danger);
-        }
-
-
-        .priority-media {
-            background: var(--warning-light);
-
-            color: var(--warning);
-        }
-
-
-        .priority-baixa {
-            background: var(--success-light);
-
-            color: var(--success);
-        }
-
-
-        .task-actions {
-            display: flex;
-
-            gap: 5px;
-        }
-
-
-        .delete-btn {
-            border: none;
-
-            background: transparent;
-
-            cursor: pointer;
-
-            font-size: 17px;
-
-            padding: 5px;
-        }
-
-
-        .delete-btn:hover {
-            color: var(--danger);
-        }
-
-
-        .empty {
-            padding: 50px 20px;
-
-            text-align: center;
-
-            color: var(--muted);
-        }
-
-
-        .empty h3 {
-            margin-bottom: 8px;
-
-            color: var(--text);
-        }
-
-
-        /* ==============================
-           RELATÓRIOS
-        ============================== */
-
-        .reports {
-            margin-top: 25px;
-
-            padding-top: 20px;
-
-            border-top: 1px solid #eee;
-        }
-
-
-        .reports h3 {
-            margin-bottom: 12px;
-        }
-
-
-        .report-buttons {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-        }
-
-
-        /* ==============================
-           MODAL
-        ============================== */
-
-        .modal {
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            background: rgba(0, 0, 0, .45);
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px;
-
-            z-index: 1000;
-        }
-
-
-        .modal.show {
-            display: flex;
-        }
-
-
-        .modal-content {
-            background: white;
-
-            width: 100%;
-
-            max-width: 680px;
-
-            max-height: 90vh;
-
-            overflow-y: auto;
-
-            border-radius: 14px;
-
-            padding: 25px;
-        }
-
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-        }
-
-
-        .form-grid {
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 15px;
-        }
-
-
-        .form-group {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 6px;
-        }
-
-
-        .form-group label {
-            font-size: 13px;
-
-            font-weight: bold;
-
-            color: #555;
-        }
-
-
-        .full {
-            grid-column: 1 / -1;
-        }
-
-
-        .modal-actions {
-            display: flex;
-
-            justify-content: flex-end;
-
-            gap: 10px;
-
-            margin-top: 20px;
-        }
-
-
-        .help-text {
-            font-size: 12px;
-
-            color: var(--muted);
-
-            margin-top: 4px;
-        }
-
-
-        /* ==============================
-           RESPONSIVO
-        ============================== */
-
-        @media (max-width: 950px) {
-
-            .summary {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            header {
-                padding: 15px;
-            }
-
-
-            .container {
-                padding: 0 12px;
-            }
-
-
-            .summary {
-                grid-template-columns: 1fr;
-            }
-
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            .full {
-                grid-column: auto;
-            }
-
-
-            .toolbar select {
-                width: 100%;
-            }
-
-
-            .page-title h1 {
-                font-size: 26px;
-            }
-
-        }
-
-
-        /* ==============================
-           IMPRESSÃO
-        ============================== */
-
-        @media print {
-
-            header,
-            .categories,
-            .toolbar,
-            .reports,
-            .task-actions {
-                display: none !important;
-            }
-
-
-            body {
-                background: white;
-            }
-
-
-            .layout {
-                display: block;
-            }
-
-
-            .tasks-panel {
-                border: none;
-            }
-
-
-            .category-progress {
-                display: none;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planeador | Casamento Perfeito</title>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+:root{
+    --primary:#9b6b78;
+    --primary-dark:#7d4f5e;
+    --soft:#f8f1f3;
+    --cream:#fffaf7;
+    --text:#40383a;
+    --muted:#817578;
+    --border:#eadfe2;
+    --white:#ffffff;
+    --green:#5d9275;
+    --red:#b65d68;
+    --orange:#c58b50;
+    --shadow:0 8px 25px rgba(91,61,70,.08);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--text);
+    background:linear-gradient(135deg,#fffaf8,#f8f1f3);
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.header{
+    background:rgba(255,255,255,.94);
+    border-bottom:1px solid var(--border);
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:20;
+    backdrop-filter:blur(10px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:bold;
+    color:var(--primary-dark);
+    font-size:18px;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:var(--soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.back-btn{
+    border:1px solid var(--border);
+    background:white;
+    color:var(--primary-dark);
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:0 auto;
+    padding:38px 0 60px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.hero h1{
+    margin:0 0 10px;
+    font-family:Georgia,serif;
+    font-size:38px;
+    color:var(--primary-dark);
+}
+
+.hero p{
+    color:var(--muted);
+    margin:0;
+    font-size:16px;
+}
+
+.progress-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    margin-bottom:28px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.progress-title{
+    font-family:Georgia,serif;
+    font-size:22px;
+    color:var(--primary-dark);
+}
+
+.progress-percent{
+    font-size:30px;
+    font-weight:bold;
+    color:var(--primary);
+}
+
+.progress-bar{
+    height:13px;
+    background:#f0e8ea;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--primary),#c796a3);
+    border-radius:20px;
+    transition:.3s;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:20px;
+}
+
+.stat{
+    background:var(--cream);
+    border:1px solid var(--border);
+    padding:17px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:var(--primary-dark);
+    margin-bottom:5px;
+}
+
+.stat span{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.section-title{
+    text-align:center;
+    margin:38px 0 20px;
+}
+
+.section-title h2{
+    font-family:Georgia,serif;
+    margin:0 0 7px;
+    color:var(--primary-dark);
+}
+
+.section-title p{
+    margin:0;
+    color:var(--muted);
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.category-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    text-align:left;
+    box-shadow:var(--shadow);
+    transition:.2s;
+    position:relative;
+    overflow:hidden;
+}
+
+.category-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 13px 30px rgba(91,61,70,.12);
+    border-color:#d9bcc4;
+}
+
+.category-icon{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.category-name{
+    font-weight:bold;
+    color:var(--primary-dark);
+    font-size:16px;
+    min-height:38px;
+}
+
+.category-count{
+    font-size:13px;
+    color:var(--muted);
+    margin:7px 0 10px;
+}
+
+.mini-bar{
+    height:6px;
+    background:#eee5e7;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.mini-fill{
+    height:100%;
+    background:var(--green);
+    width:0%;
+    transition:.3s;
+}
+
+.category-percent{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:7px;
+}
+
+.workspace{
+    margin-top:35px;
+    display:none;
+}
+
+.workspace.active{
+    display:block;
+}
+
+.workspace-header{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px 20px 0 0;
+    padding:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.workspace-title{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.workspace-title .icon{
+    font-size:32px;
+}
+
+.workspace-title h2{
+    margin:0;
+    font-family:Georgia,serif;
+    color:var(--primary-dark);
+}
+
+.workspace-title p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.close-workspace{
+    border:0;
+    background:var(--soft);
+    color:var(--primary-dark);
+    padding:10px 14px;
+    border-radius:10px;
+}
+
+.tools{
+    background:#fff;
+    border-left:1px solid var(--border);
+    border-right:1px solid var(--border);
+    padding:15px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    border:1px solid var(--border);
+    padding:11px 14px;
+    border-radius:10px;
+    outline:none;
+}
+
+.filter{
+    border:1px solid var(--border);
+    background:white;
+    padding:10px 12px;
+    border-radius:10px;
+}
+
+.add-btn{
+    border:0;
+    background:var(--primary);
+    color:white;
+    padding:11px 16px;
+    border-radius:10px;
+}
+
+.add-btn:hover{
+    background:var(--primary-dark);
+}
+
+.tasks{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:0 0 20px 20px;
+    overflow:hidden;
+}
+
+.task{
+    display:grid;
+    grid-template-columns:auto 1fr auto auto auto;
+    gap:15px;
+    align-items:center;
+    padding:17px 20px;
+    border-bottom:1px solid #f0e8ea;
+    transition:.2s;
+}
+
+.task:last-child{
+    border-bottom:0;
+}
+
+.task:hover{
+    background:#fffbfc;
+}
+
+.task.completed{
+    opacity:.65;
+}
+
+.task.completed .task-name{
+    text-decoration:line-through;
+}
+
+.check{
+    width:22px;
+    height:22px;
+    accent-color:var(--green);
+}
+
+.task-name{
+    font-weight:600;
+}
+
+.task-meta{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-top:6px;
+}
+
+.meta{
+    font-size:11px;
+    padding:4px 7px;
+    border-radius:7px;
+    background:#f6eff1;
+    color:var(--muted);
+}
+
+.priority{
+    font-size:11px;
+    padding:5px 9px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.priority-Alta{
+    background:#f8e3e6;
+    color:var(--red);
+}
+
+.priority-Média{
+    background:#f8eedf;
+    color:var(--orange);
+}
+
+.priority-Baixa{
+    background:#e6f1ea;
+    color:var(--green);
+}
+
+.delete{
+    border:0;
+    background:transparent;
+    color:#b18d94;
+    font-size:17px;
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    color:var(--muted);
+}
+
+.reports{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.report-btn{
+    border:1px solid var(--border);
+    background:white;
+    padding:11px 16px;
+    border-radius:10px;
+    color:var(--primary-dark);
+}
+
+.report-btn:hover{
+    background:var(--soft);
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(50,35,40,.45);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:min(560px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 25px 60px rgba(0,0,0,.2);
+}
+
+.modal-box h2{
+    font-family:Georgia,serif;
+    color:var(--primary-dark);
+    margin-top:0;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+    color:var(--text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:11px;
+    outline:none;
+    background:white;
+}
+
+.form-group textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.cancel{
+    border:1px solid var(--border);
+    background:white;
+    padding:10px 15px;
+    border-radius:10px;
+}
+
+.save{
+    border:0;
+    background:var(--primary);
+    color:white;
+    padding:10px 17px;
+    border-radius:10px;
+}
+
+.footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:40px;
+}
+
+@media(max-width:950px){
+    .categories{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:700px){
+    .header{
+        padding:13px 4%;
+    }
+
+    .container{
+        width:94%;
+        padding-top:25px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .task{
+        grid-template-columns:auto 1fr auto;
+    }
+
+    .task .meta-extra{
+        display:none;
+    }
+
+    .priority{
+        grid-column:2;
+        justify-self:start;
+    }
+
+    .delete{
+        grid-column:3;
+        grid-row:1;
+    }
+
+    .workspace-header{
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:480px){
+    .categories{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .progress-top{
+        align-items:flex-start;
+    }
+
+    .back-btn{
+        font-size:12px;
+        padding:8px 10px;
+    }
+
+    .brand{
+        font-size:15px;
+    }
+}
+
+@media print{
+    .header,
+    .tools,
+    .reports,
+    .close-workspace,
+    .delete,
+    .add-btn{
+        display:none !important;
+    }
+
+    body{
+        background:white;
+    }
+
+    .container{
+        width:100%;
+    }
+
+    .workspace{
+        display:block !important;
+    }
+
+    .categories{
+        display:none;
+    }
+
+    .task{
+        break-inside:avoid;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<header>
-
-    <div class="logo">
-        💍 Casamento Perfeito
+<header class="header">
+    <div class="brand">
+        <div class="brand-icon">💍</div>
+        <span>Casamento Perfeito</span>
     </div>
 
-
-    <a
-        href="dashboard.html"
-        class="back-link"
-    >
+    <a class="back-btn" href="dashboard.html">
         ← Voltar ao Dashboard
     </a>
-
 </header>
-
-
 
 <main class="container">
 
-
-    <div class="page-title">
-
-        <h1>
-            Planeador do Casamento
-        </h1>
-
-        <p>
-            Organize cada detalhe do seu grande dia num único lugar.
-        </p>
-
-    </div>
-
-
-
-    <!-- =====================================
-         RESUMO
-    ====================================== -->
-
-    <section class="summary">
-
-
-        <div class="summary-card">
-
-            <span>
-                Total de tarefas
-            </span>
-
-            <strong id="totalTasks">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <span>
-                Concluídas
-            </span>
-
-            <strong id="completedTasks">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <span>
-                Pendentes
-            </span>
-
-            <strong id="pendingTasks">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <span>
-                Progresso
-            </span>
-
-            <strong id="progressText">
-                0%
-            </strong>
-
-
-            <div class="progress-container">
-
-                <div
-                    id="progressBar"
-                    class="progress-bar"
-                ></div>
-
-            </div>
-
-        </div>
-
+    <section class="hero">
+        <h1>Planeador do Casamento</h1>
+        <p>Organize cada detalhe do seu grande dia, passo a passo.</p>
     </section>
 
-
-
-    <!-- =====================================
-         LAYOUT
-    ====================================== -->
-
-    <section class="layout">
-
-
-        <!-- =================================
-             CATEGORIAS
-        ================================== -->
-
-        <aside class="categories">
-
-
-            <h3>
-                Categorias
-            </h3>
-
-
-            <button
-                class="category-btn active"
-                data-category="Todas"
-            >
-                📋 Todas
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Geral"
-            >
-                📌 Geral
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Noivo"
-            >
-                🤵 Noivo
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Noiva"
-            >
-                👰 Noiva
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Notarial"
-            >
-                📄 Notarial / Civil
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Religioso"
-            >
-                ⛪ Religioso
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Salao"
-            >
-                🏛️ Salão / Local
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Decoracao"
-            >
-                💐 Decoração
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Catering"
-            >
-                🍽️ Catering
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Fotografia"
-            >
-                📸 Fotografia / Vídeo
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Musica"
-            >
-                🎶 Música / DJ
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Aliancas"
-            >
-                💍 Alianças
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Convites"
-            >
-                💌 Convites
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Familia"
-            >
-                👨‍👩‍👧 Família / Padrinhos
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Transporte"
-            >
-                🚗 Transporte
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Lua"
-            >
-                ✈️ Lua de Mel
-            </button>
-
-
-            <button
-                class="category-btn"
-                data-category="Financeiro"
-            >
-                💰 Financeiro
-            </button>
-
-
-        </aside>
-
-
-
-        <!-- =================================
-             TAREFAS
-        ================================== -->
-
-        <section class="tasks-panel">
-
-
-            <div class="toolbar">
-
-
-                <input
-                    type="search"
-                    id="search"
-                    placeholder="🔎 Pesquisar tarefa..."
-                >
-
-
-                <select id="statusFilter">
-
-                    <option value="todos">
-                        Todos os estados
-                    </option>
-
-                    <option value="pendente">
-                        Pendentes
-                    </option>
-
-                    <option value="concluida">
-                        Concluídas
-                    </option>
-
-                </select>
-
-
-                <select id="priorityFilter">
-
-                    <option value="todas">
-                        Todas as prioridades
-                    </option>
-
-                    <option value="Alta">
-                        Alta
-                    </option>
-
-                    <option value="Média">
-                        Média
-                    </option>
-
-                    <option value="Baixa">
-                        Baixa
-                    </option>
-
-                </select>
-
-
-                <button
-                    class="primary-btn"
-                    id="addTask"
-                >
-                    + Nova tarefa
-                </button>
-
-
-            </div>
-
-
-
-            <!-- PROGRESSO -->
-
-            <div
-                id="categoryProgress"
-                class="category-progress"
-            ></div>
-
-
-
-            <!-- LISTA DE TAREFAS -->
-
-            <div id="taskList"></div>
-
-
-
-            <!-- RELATÓRIOS -->
-
-            <div class="reports">
-
-
-                <h3>
-                    📊 Relatórios
-                </h3>
-
-
-                <div class="report-buttons">
-
-
-                    <button
-                        class="secondary-btn"
-                        id="excelBtn"
-                    >
-                        📗 Excel
-                    </button>
-
-
-                    <button
-                        class="secondary-btn"
-                        id="csvBtn"
-                    >
-                        📄 CSV
-                    </button>
-
-
-                    <button
-                        class="secondary-btn"
-                        id="pdfBtn"
-                    >
-                        📕 PDF
-                    </button>
-
-
-                    <button
-                        class="secondary-btn"
-                        id="printBtn"
-                    >
-                        🖨️ Imprimir
-                    </button>
-
-
+    <section class="progress-card">
+
+        <div class="progress-top">
+            <div>
+                <div class="progress-title">O seu casamento está a ser preparado</div>
+                <div style="color:var(--muted);font-size:13px;margin-top:5px;">
+                    Complete as tarefas para acompanhar o seu progresso.
                 </div>
-
             </div>
 
+            <div class="progress-percent" id="globalPercent">0%</div>
+        </div>
 
-        </section>
+        <div class="progress-bar">
+            <div class="progress-fill" id="globalProgress"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <strong id="totalTasks">0</strong>
+                <span>Tarefas</span>
+            </div>
+
+            <div class="stat">
+                <strong id="completedTasks">0</strong>
+                <span>Concluídas</span>
+            </div>
+
+            <div class="stat">
+                <strong id="pendingTasks">0</strong>
+                <span>Pendentes</span>
+            </div>
+
+            <div class="stat">
+                <strong id="overdueTasks">0</strong>
+                <span>Atrasadas</span>
+            </div>
+        </div>
 
     </section>
+
+    <section class="section-title">
+        <h2>Organize o seu casamento</h2>
+        <p>Escolha uma área para começar.</p>
+    </section>
+
+    <section class="categories" id="categories"></section>
+
+    <section class="workspace" id="workspace">
+
+        <div class="workspace-header">
+
+            <div class="workspace-title">
+                <div class="icon" id="workspaceIcon">👰</div>
+
+                <div>
+                    <h2 id="workspaceTitle">Noiva</h2>
+                    <p id="workspaceProgress">0 de 18 tarefas concluídas</p>
+                </div>
+            </div>
+
+            <button class="close-workspace" onclick="closeWorkspace()">
+                ✕ Fechar
+            </button>
+
+        </div>
+
+        <div class="tools">
+
+            <input
+                type="text"
+                class="search"
+                id="searchInput"
+                placeholder="🔎 Procurar tarefa..."
+                oninput="renderTasks()"
+            >
+
+            <select class="filter" id="statusFilter" onchange="renderTasks()">
+                <option value="all">Todas</option>
+                <option value="pending">Pendentes</option>
+                <option value="completed">Concluídas</option>
+                <option value="overdue">Atrasadas</option>
+            </select>
+
+            <select class="filter" id="priorityFilter" onchange="renderTasks()">
+                <option value="all">Todas as prioridades</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
+
+            <button class="add-btn" onclick="openModal()">
+                ＋ Adicionar tarefa
+            </button>
+
+        </div>
+
+        <div class="tasks" id="tasks"></div>
+
+    </section>
+
+    <section class="reports">
+
+        <button class="report-btn" onclick="exportExcel()">
+            📊 Excel
+        </button>
+
+        <button class="report-btn" onclick="exportCSV()">
+            📄 CSV
+        </button>
+
+        <button class="report-btn" onclick="window.print()">
+            🖨️ Imprimir / PDF
+        </button>
+
+    </section>
+
+    <div class="footer">
+        Casamento Perfeito · Planeie hoje o casamento dos seus sonhos. 💍
+    </div>
 
 </main>
 
+<!-- MODAL -->
 
+<div class="modal" id="taskModal">
 
-<!-- ==========================================
-     MODAL NOVA TAREFA
-=========================================== -->
+    <div class="modal-box">
 
-<div
-    class="modal"
-    id="taskModal"
->
+        <h2>Adicionar tarefa</h2>
 
+        <div class="form-group">
+            <label>Categoria</label>
 
-    <div class="modal-content">
+            <select id="taskCategory" onchange="populateTaskOptions()"></select>
+        </div>
 
+        <div class="form-group">
+            <label>Tarefa</label>
 
-        <h2>
-            Nova tarefa
-        </h2>
+            <select id="taskTitle" onchange="fillTaskDefaults()"></select>
+        </div>
 
+        <div class="form-group">
+            <label>Responsável</label>
 
-        <form id="taskForm">
+            <input id="taskResponsible" type="text" placeholder="Ex.: Noiva, Noivo, Casal">
+        </div>
 
+        <div class="form-group">
+            <label>Prazo</label>
 
-            <div class="form-grid">
+            <input id="taskDate" type="date">
+        </div>
 
+        <div class="form-group">
+            <label>Prioridade</label>
 
-                <!-- TAREFA -->
+            <select id="taskPriority">
+                <option value="Alta">Alta</option>
+                <option value="Média" selected>Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
+        </div>
 
-                <div class="form-group full">
+        <div class="form-group">
+            <label>Notas</label>
 
-                    <label for="taskName">
-                        Tarefa
-                    </label>
+            <textarea id="taskNotes" placeholder="Observações adicionais..."></textarea>
+        </div>
 
+        <div class="modal-actions">
 
-                    <select
-                        id="taskName"
-                        required
-                    >
+            <button class="cancel" onclick="closeModal()">
+                Cancelar
+            </button>
 
-                        <option value="">
-                            Seleccione primeiro uma categoria
-                        </option>
+            <button class="save" onclick="saveTask()">
+                Guardar tarefa
+            </button>
 
-                    </select>
-
-
-                    <div class="help-text">
-                        A tarefa será apresentada automaticamente de acordo com a categoria escolhida.
-                    </div>
-
-                </div>
-
-
-
-                <!-- CATEGORIA -->
-
-                <div class="form-group">
-
-                    <label for="taskCategory">
-                        Categoria
-                    </label>
-
-
-                    <select
-                        id="taskCategory"
-                        required
-                    >
-
-                        <option value="Geral">
-                            Geral
-                        </option>
-
-                        <option value="Noivo">
-                            Noivo
-                        </option>
-
-                        <option value="Noiva">
-                            Noiva
-                        </option>
-
-                        <option value="Notarial">
-                            Notarial / Civil
-                        </option>
-
-                        <option value="Religioso">
-                            Religioso
-                        </option>
-
-                        <option value="Salao">
-                            Salão / Local
-                        </option>
-
-                        <option value="Decoracao">
-                            Decoração
-                        </option>
-
-                        <option value="Catering">
-                            Catering
-                        </option>
-
-                        <option value="Fotografia">
-                            Fotografia / Vídeo
-                        </option>
-
-                        <option value="Musica">
-                            Música / DJ
-                        </option>
-
-                        <option value="Aliancas">
-                            Alianças
-                        </option>
-
-                        <option value="Convites">
-                            Convites
-                        </option>
-
-                        <option value="Familia">
-                            Família / Padrinhos
-                        </option>
-
-                        <option value="Transporte">
-                            Transporte
-                        </option>
-
-                        <option value="Lua">
-                            Lua de Mel
-                        </option>
-
-                        <option value="Financeiro">
-                            Financeiro
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- RESPONSÁVEL -->
-
-                <div class="form-group">
-
-                    <label for="taskResponsible">
-                        Responsável
-                    </label>
-
-
-                    <select
-                        id="taskResponsible"
-                    >
-
-                        <option>
-                            Casal
-                        </option>
-
-                        <option>
-                            Noivo
-                        </option>
-
-                        <option>
-                            Noiva
-                        </option>
-
-                        <option>
-                            Família
-                        </option>
-
-                        <option>
-                            Padrinhos
-                        </option>
-
-                        <option>
-                            Fornecedor
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- PRAZO -->
-
-                <div class="form-group">
-
-                    <label for="taskDate">
-                        Prazo
-                    </label>
-
-
-                    <input
-                        type="date"
-                        id="taskDate"
-                    >
-
-                </div>
-
-
-
-                <!-- PRIORIDADE -->
-
-                <div class="form-group">
-
-                    <label for="taskPriority">
-                        Prioridade
-                    </label>
-
-
-                    <select
-                        id="taskPriority"
-                    >
-
-                        <option value="Alta">
-                            Alta
-                        </option>
-
-                        <option value="Média">
-                            Média
-                        </option>
-
-                        <option value="Baixa">
-                            Baixa
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- NOTAS -->
-
-                <div class="form-group full">
-
-                    <label for="taskNotes">
-                        Notas
-                    </label>
-
-
-                    <textarea
-                        id="taskNotes"
-                        rows="4"
-                        placeholder="Observações adicionais..."
-                    ></textarea>
-
-                </div>
-
-
-            </div>
-
-
-
-            <div class="modal-actions">
-
-
-                <button
-                    type="button"
-                    class="secondary-btn"
-                    id="cancelTask"
-                >
-                    Cancelar
-                </button>
-
-
-                <button
-                    type="submit"
-                    class="primary-btn"
-                >
-                    Adicionar tarefa
-                </button>
-
-
-            </div>
-
-
-        </form>
+        </div>
 
     </div>
 
 </div>
 
-
-
 <script>
 
-/* =========================================================
-   BASE DE TAREFAS PREDEFINIDAS
-========================================================= */
-
-const predefinedTasks = {
-
-    Geral: [
-
-        {
-            title: "Definir a data do casamento",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir o estilo do casamento",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir o número aproximado de convidados",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir o orçamento geral",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Criar lista geral de tarefas",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Definir prioridades do casamento",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Confirmar todos os fornecedores",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar horário da cerimónia",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar horário da receção",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar programa completo do casamento",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Noivo: [
-
-        {
-            title: "Escolher o fato do noivo",
-            responsible: "Noivo",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher a camisa",
-            responsible: "Noivo",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher os sapatos",
-            responsible: "Noivo",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher gravata ou acessório",
-            responsible: "Noivo",
-            priority: "Baixa"
-        },
-
-        {
-            title: "Escolher acessórios do noivo",
-            responsible: "Noivo",
-            priority: "Baixa"
-        },
-
-        {
-            title: "Fazer prova do fato",
-            responsible: "Noivo",
-            priority: "Alta"
-        },
-
-        {
-            title: "Fazer prova final do fato",
-            responsible: "Noivo",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Noiva: [
-
-        {
-            title: "Escolher o vestido da noiva",
-            responsible: "Noiva",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher os sapatos da noiva",
-            responsible: "Noiva",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher o véu",
-            responsible: "Noiva",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher acessórios e joias",
-            responsible: "Noiva",
-            priority: "Baixa"
-        },
-
-        {
-            title: "Marcar maquilhagem",
-            responsible: "Noiva",
-            priority: "Alta"
-        },
-
-        {
-            title: "Marcar penteado",
-            responsible: "Noiva",
-            priority: "Alta"
-        },
-
-        {
-            title: "Fazer prova do vestido",
-            responsible: "Noiva",
-            priority: "Alta"
-        },
-
-        {
-            title: "Fazer prova final do vestido",
-            responsible: "Noiva",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Notarial: [
-
-        {
-            title: "Verificar requisitos legais para o casamento",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Reunir documentos necessários",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar disponibilidade da conservatória",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Submeter documentação",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar data do casamento civil",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Religioso: [
-
-        {
-            title: "Escolher a igreja ou local da cerimónia",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Contactar responsável religioso",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar requisitos da cerimónia",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Marcar preparação matrimonial",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Definir leituras e momentos da cerimónia",
-            responsible: "Casal",
-            priority: "Média"
-        }
-
-    ],
-
-
-    Salao: [
-
-        {
-            title: "Pesquisar locais para a receção",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Visitar os locais selecionados",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Comparar preços dos salões",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher o salão",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Assinar contrato do salão",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar capacidade e disposição das mesas",
-            responsible: "Casal",
-            priority: "Média"
-        }
-
-    ],
-
-
-    Decoracao: [
-
-        {
-            title: "Definir estilo da decoração",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher cores do casamento",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Pesquisar decoradores",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher decoração",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir decoração da mesa dos noivos",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Definir decoração das mesas dos convidados",
-            responsible: "Fornecedor",
-            priority: "Média"
-        }
-
-    ],
-
-
-    Catering: [
-
-        {
-            title: "Definir tipo de serviço de catering",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Pesquisar fornecedores de catering",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Solicitar orçamentos",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher menu",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir bebidas",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Confirmar número final de convidados",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Fotografia: [
-
-        {
-            title: "Pesquisar fotógrafos",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Pesquisar equipas de vídeo",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Comparar portfólios",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher fotógrafo",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher videógrafo",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir momentos importantes para fotografar",
-            responsible: "Casal",
-            priority: "Baixa"
-        }
-
-    ],
-
-
-    Musica: [
-
-        {
-            title: "Pesquisar DJs ou grupos musicais",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher DJ ou grupo musical",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir música de entrada dos noivos",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher música para a primeira dança",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Preparar lista de músicas",
-            responsible: "Casal",
-            priority: "Baixa"
-        },
-
-        {
-            title: "Confirmar equipamento de som",
-            responsible: "Fornecedor",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Aliancas: [
-
-        {
-            title: "Pesquisar alianças",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher modelo das alianças",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar tamanhos das alianças",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Encomendar alianças",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Levantar as alianças",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Convites: [
-
-        {
-            title: "Definir modelo dos convites",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Preparar lista de convidados",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Escolher fornecedor dos convites",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Aprovar texto dos convites",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Enviar ou entregar os convites",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar presença dos convidados",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Familia: [
-
-        {
-            title: "Escolher padrinhos",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Convidar padrinhos",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir responsabilidades dos padrinhos",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Informar famílias sobre o programa do casamento",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Organizar lugares da família",
-            responsible: "Casal",
-            priority: "Baixa"
-        }
-
-    ],
-
-
-    Transporte: [
-
-        {
-            title: "Definir transporte dos noivos",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Pesquisar empresas de transporte",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Escolher veículo dos noivos",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Confirmar motorista",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Definir transporte de familiares ou convidados",
-            responsible: "Casal",
-            priority: "Baixa"
-        }
-
-    ],
-
-
-    Lua: [
-
-        {
-            title: "Escolher destino da lua de mel",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Definir orçamento da lua de mel",
-            responsible: "Casal",
-            priority: "Média"
-        },
-
-        {
-            title: "Reservar alojamento",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Reservar transporte",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Preparar documentos de viagem",
-            responsible: "Casal",
-            priority: "Alta"
-        }
-
-    ],
-
-
-    Financeiro: [
-
-        {
-            title: "Definir orçamento máximo",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Distribuir orçamento por categorias",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Registar pagamentos já realizados",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Registar valores em dívida",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Confirmar pagamentos aos fornecedores",
-            responsible: "Casal",
-            priority: "Alta"
-        },
-
-        {
-            title: "Reservar valor para despesas imprevistas",
-            responsible: "Casal",
-            priority: "Média"
-        }
-
+const categoriesData = [
+
+{
+    id:"planeamento",
+    name:"Planeamento Inicial",
+    icon:"📋",
+    tasks:[
+        ["Definir se haverá casamento civil, religioso ou ambos","Casal","Alta"],
+        ["Definir a data do casamento","Casal","Alta"],
+        ["Definir o estilo do casamento","Casal","Média"],
+        ["Definir o número estimado de convidados","Casal","Alta"],
+        ["Definir o orçamento máximo","Casal","Alta"],
+        ["Definir quem contribuirá financeiramente","Casal","Alta"],
+        ["Criar lista inicial de convidados","Casal","Alta"],
+        ["Definir prioridades do casal","Casal","Média"],
+        ["Criar cronograma geral","Casal","Média"],
+        ["Definir responsáveis pelas principais tarefas","Casal","Média"]
     ]
+},
 
-};
+{
+    id:"civil",
+    name:"Casamento Civil",
+    icon:"📄",
+    tasks:[
+        ["Verificar requisitos legais","Casal","Alta"],
+        ["Identificar documentos necessários","Casal","Alta"],
+        ["Confirmar requisitos para o noivo","Noivo","Alta"],
+        ["Confirmar requisitos para a noiva","Noiva","Alta"],
+        ["Confirmar requisitos das testemunhas","Casal","Alta"],
+        ["Escolher conservatória","Casal","Alta"],
+        ["Confirmar disponibilidade da data","Casal","Alta"],
+        ["Solicitar ou obter documentos necessários","Casal","Alta"],
+        ["Entregar documentação","Casal","Alta"],
+        ["Pagar taxas aplicáveis","Casal","Média"],
+        ["Confirmar processo","Casal","Alta"],
+        ["Preparar documentos para o dia do casamento","Casal","Alta"]
+    ]
+},
 
+{
+    id:"religioso",
+    name:"Cerimónia Religiosa",
+    icon:"⛪",
+    tasks:[
+        ["Escolher igreja ou local religioso","Casal","Alta"],
+        ["Contactar responsável religioso","Casal","Alta"],
+        ["Confirmar disponibilidade da data","Casal","Alta"],
+        ["Verificar requisitos religiosos","Casal","Alta"],
+        ["Participar na preparação matrimonial","Casal","Alta"],
+        ["Entregar documentos exigidos","Casal","Alta"],
+        ["Escolher celebrante","Casal","Média"],
+        ["Definir programa da cerimónia","Casal","Média"],
+        ["Escolher leituras","Casal","Baixa"],
+        ["Escolher músicas da cerimónia","Casal","Média"],
+        ["Definir entrada dos noivos","Casal","Média"],
+        ["Realizar ensaio da cerimónia","Casal","Alta"]
+    ]
+},
 
+{
+    id:"noiva",
+    name:"Noiva",
+    icon:"👰",
+    tasks:[
+        ["Definir orçamento do vestido","Noiva","Alta"],
+        ["Pesquisar vestidos","Noiva","Média"],
+        ["Escolher vestido","Noiva","Alta"],
+        ["Comprar ou alugar vestido","Noiva","Alta"],
+        ["Fazer primeira prova","Noiva","Alta"],
+        ["Fazer ajustes","Noiva","Alta"],
+        ["Fazer prova final","Noiva","Alta"],
+        ["Escolher véu","Noiva","Média"],
+        ["Escolher sapatos","Noiva","Média"],
+        ["Escolher lingerie","Noiva","Baixa"],
+        ["Escolher joias","Noiva","Baixa"],
+        ["Escolher acessórios","Noiva","Baixa"],
+        ["Escolher bouquet","Noiva","Média"],
+        ["Marcar maquilhagem","Noiva","Alta"],
+        ["Fazer teste de maquilhagem","Noiva","Média"],
+        ["Marcar penteado","Noiva","Alta"],
+        ["Fazer teste de penteado","Noiva","Média"],
+        ["Preparar kit de emergência da noiva","Noiva","Média"]
+    ]
+},
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+{
+    id:"noivo",
+    name:"Noivo",
+    icon:"🤵",
+    tasks:[
+        ["Definir orçamento do fato","Noivo","Alta"],
+        ["Escolher fato","Noivo","Alta"],
+        ["Escolher camisa","Noivo","Média"],
+        ["Escolher gravata ou laço","Noivo","Média"],
+        ["Escolher sapatos","Noivo","Média"],
+        ["Escolher cinto e acessórios","Noivo","Baixa"],
+        ["Fazer primeira prova","Noivo","Alta"],
+        ["Fazer ajustes","Noivo","Alta"],
+        ["Fazer prova final","Noivo","Alta"],
+        ["Marcar corte de cabelo","Noivo","Média"],
+        ["Marcar barba","Noivo","Média"],
+        ["Preparar kit pessoal do noivo","Noivo","Média"]
+    ]
+},
 
-const taskList =
-    document.getElementById("taskList");
+{
+    id:"local",
+    name:"Local / Salão",
+    icon:"🏛️",
+    tasks:[
+        ["Definir tipo de local","Casal","Alta"],
+        ["Pesquisar salões e espaços","Casal","Alta"],
+        ["Visitar locais","Casal","Alta"],
+        ["Comparar preços","Casal","Alta"],
+        ["Verificar capacidade","Casal","Alta"],
+        ["Verificar estacionamento","Casal","Média"],
+        ["Verificar casas de banho","Casal","Média"],
+        ["Verificar cozinha","Casal","Média"],
+        ["Verificar energia eléctrica","Casal","Alta"],
+        ["Verificar segurança","Casal","Alta"],
+        ["Escolher local","Casal","Alta"],
+        ["Negociar preço","Casal","Alta"],
+        ["Assinar contrato","Casal","Alta"],
+        ["Pagar sinal","Casal","Alta"],
+        ["Confirmar horários de montagem e desmontagem","Casal","Alta"]
+    ]
+},
 
-const search =
-    document.getElementById("search");
+{
+    id:"decoracao",
+    name:"Decoração",
+    icon:"💐",
+    tasks:[
+        ["Definir tema","Casal","Média"],
+        ["Definir cores","Casal","Média"],
+        ["Criar referências de decoração","Casal","Baixa"],
+        ["Pesquisar decoradores","Casal","Alta"],
+        ["Solicitar orçamentos","Casal","Alta"],
+        ["Escolher decorador","Casal","Alta"],
+        ["Definir decoração da entrada","Decorador","Média"],
+        ["Definir decoração da cerimónia","Decorador","Média"],
+        ["Definir decoração da mesa dos noivos","Decorador","Média"],
+        ["Definir decoração das mesas","Decorador","Média"],
+        ["Definir flores","Casal","Média"],
+        ["Definir iluminação","Decorador","Média"],
+        ["Definir backdrop ou painel","Decorador","Baixa"],
+        ["Definir mesa do bolo","Decorador","Baixa"],
+        ["Confirmar montagem e desmontagem","Decorador","Alta"]
+    ]
+},
 
-const statusFilter =
-    document.getElementById("statusFilter");
+{
+    id:"catering",
+    name:"Catering",
+    icon:"🍽️",
+    tasks:[
+        ["Definir orçamento por convidado","Casal","Alta"],
+        ["Pesquisar fornecedores","Casal","Alta"],
+        ["Solicitar orçamentos","Casal","Alta"],
+        ["Comparar propostas","Casal","Alta"],
+        ["Escolher fornecedor","Casal","Alta"],
+        ["Definir menu","Casal","Alta"],
+        ["Definir entradas","Catering","Média"],
+        ["Definir pratos principais","Catering","Alta"],
+        ["Definir sobremesas","Catering","Média"],
+        ["Definir bebidas","Casal","Alta"],
+        ["Definir opções para crianças","Casal","Baixa"],
+        ["Definir necessidades alimentares especiais","Casal","Média"],
+        ["Fazer degustação","Casal","Média"],
+        ["Confirmar número final de convidados","Casal","Alta"],
+        ["Confirmar quantidade e horário de serviço","Catering","Alta"]
+    ]
+},
 
-const priorityFilter =
-    document.getElementById("priorityFilter");
+{
+    id:"fotografia",
+    name:"Fotografia / Vídeo",
+    icon:"📸",
+    tasks:[
+        ["Definir orçamento","Casal","Alta"],
+        ["Pesquisar fotógrafos","Casal","Alta"],
+        ["Pesquisar videógrafos","Casal","Alta"],
+        ["Analisar portfólios","Casal","Média"],
+        ["Solicitar orçamentos","Casal","Alta"],
+        ["Escolher fotógrafo","Casal","Alta"],
+        ["Escolher videógrafo","Casal","Alta"],
+        ["Assinar contrato","Casal","Alta"],
+        ["Definir horas de cobertura","Casal","Média"],
+        ["Definir fotografias obrigatórias","Casal","Média"],
+        ["Definir fotografias com família","Casal","Média"],
+        ["Definir fotografias com padrinhos","Casal","Média"],
+        ["Definir sessão dos noivos","Casal","Média"],
+        ["Confirmar horário de chegada","Fotógrafo","Alta"],
+        ["Confirmar entrega das fotografias e vídeo","Fotógrafo","Alta"]
+    ]
+},
 
-const taskModal =
-    document.getElementById("taskModal");
+{
+    id:"musica",
+    name:"Música / DJ",
+    icon:"🎶",
+    tasks:[
+        ["Definir orçamento","Casal","Alta"],
+        ["Pesquisar DJs","Casal","Alta"],
+        ["Pesquisar bandas","Casal","Média"],
+        ["Comparar propostas","Casal","Alta"],
+        ["Escolher fornecedor","Casal","Alta"],
+        ["Assinar contrato","Casal","Alta"],
+        ["Definir música da entrada da noiva","Casal","Média"],
+        ["Definir música da entrada do noivo","Casal","Média"],
+        ["Definir música da primeira dança","Casal","Alta"],
+        ["Definir músicas especiais","Casal","Média"],
+        ["Criar lista de músicas","DJ","Média"],
+        ["Criar lista de músicas proibidas","Casal","Baixa"],
+        ["Confirmar sistema de som","DJ","Alta"],
+        ["Confirmar iluminação","DJ","Média"],
+        ["Confirmar montagem","DJ","Alta"]
+    ]
+},
 
-const taskForm =
-    document.getElementById("taskForm");
+{
+    id:"aliancas",
+    name:"Alianças",
+    icon:"💍",
+    tasks:[
+        ["Definir orçamento","Casal","Alta"],
+        ["Pesquisar modelos","Casal","Média"],
+        ["Escolher material","Casal","Média"],
+        ["Escolher modelo","Casal","Alta"],
+        ["Confirmar tamanho do noivo","Noivo","Alta"],
+        ["Confirmar tamanho da noiva","Noiva","Alta"],
+        ["Definir gravação","Casal","Baixa"],
+        ["Encomendar alianças","Casal","Alta"],
+        ["Confirmar prazo de entrega","Casal","Alta"],
+        ["Conferir gravação e guardar alianças","Casal","Alta"]
+    ]
+},
 
-const taskName =
-    document.getElementById("taskName");
+{
+    id:"convites",
+    name:"Convites",
+    icon:"💌",
+    tasks:[
+        ["Definir modelo","Casal","Média"],
+        ["Definir identidade visual","Casal","Média"],
+        ["Preparar texto","Casal","Alta"],
+        ["Rever texto","Casal","Alta"],
+        ["Confirmar informações","Casal","Alta"],
+        ["Escolher fornecedor","Casal","Média"],
+        ["Solicitar orçamento","Casal","Média"],
+        ["Aprovar design","Casal","Alta"],
+        ["Produzir convites","Fornecedor","Alta"],
+        ["Conferir convites","Casal","Alta"],
+        ["Preparar lista de entrega","Casal","Média"],
+        ["Enviar ou entregar convites","Casal","Alta"]
+    ]
+},
 
-const taskCategory =
-    document.getElementById("taskCategory");
+{
+    id:"familia",
+    name:"Família / Padrinhos",
+    icon:"👨‍👩‍👧",
+    tasks:[
+        ["Escolher padrinhos","Casal","Alta"],
+        ["Convidar padrinhos","Casal","Alta"],
+        ["Confirmar padrinhos","Casal","Alta"],
+        ["Definir responsabilidades","Casal","Média"],
+        ["Informar programa do casamento","Casal","Média"],
+        ["Organizar roupa dos padrinhos","Padrinhos","Média"],
+        ["Organizar roupa das madrinhas","Madrinhas","Média"],
+        ["Definir entrada dos padrinhos","Casal","Média"],
+        ["Definir lugares","Casal","Baixa"],
+        ["Organizar ensaio","Casal","Alta"],
+        ["Confirmar presença dos padrinhos","Casal","Alta"],
+        ["Preparar instruções para o dia","Casal","Média"]
+    ]
+},
 
-const taskResponsible =
-    document.getElementById("taskResponsible");
+{
+    id:"transporte",
+    name:"Transporte",
+    icon:"🚗",
+    tasks:[
+        ["Definir transporte dos noivos","Casal","Alta"],
+        ["Pesquisar fornecedores","Casal","Média"],
+        ["Solicitar orçamentos","Casal","Média"],
+        ["Escolher veículo","Casal","Alta"],
+        ["Reservar veículo","Casal","Alta"],
+        ["Confirmar motorista","Casal","Alta"],
+        ["Definir transporte da noiva","Noiva","Alta"],
+        ["Definir transporte do noivo","Noivo","Alta"],
+        ["Definir transporte dos convidados","Casal","Média"],
+        ["Confirmar rotas e horários","Casal","Alta"]
+    ]
+},
 
-const taskDate =
-    document.getElementById("taskDate");
+{
+    id:"lua",
+    name:"Lua de Mel",
+    icon:"✈️",
+    tasks:[
+        ["Definir orçamento","Casal","Alta"],
+        ["Escolher destino","Casal","Alta"],
+        ["Verificar documentos","Casal","Alta"],
+        ["Verificar necessidade de visto","Casal","Alta"],
+        ["Pesquisar alojamento","Casal","Média"],
+        ["Comparar preços","Casal","Média"],
+        ["Reservar alojamento","Casal","Alta"],
+        ["Reservar transporte","Casal","Alta"],
+        ["Definir actividades","Casal","Baixa"],
+        ["Preparar bagagem","Casal","Média"],
+        ["Confirmar reservas","Casal","Alta"],
+        ["Preparar documentos de viagem","Casal","Alta"]
+    ]
+},
 
-const taskPriority =
-    document.getElementById("taskPriority");
+{
+    id:"financeiro",
+    name:"Financeiro",
+    icon:"💰",
+    tasks:[
+        ["Definir orçamento total","Casal","Alta"],
+        ["Dividir orçamento por categorias","Casal","Alta"],
+        ["Definir limite para cada fornecedor","Casal","Alta"],
+        ["Registar todos os pagamentos","Casal","Alta"],
+        ["Registar valores pagos","Casal","Alta"],
+        ["Registar valores em dívida","Casal","Alta"],
+        ["Controlar sinais e adiantamentos","Casal","Alta"],
+        ["Controlar parcelas","Casal","Alta"],
+        ["Controlar pagamentos finais","Casal","Alta"],
+        ["Criar reserva para imprevistos","Casal","Média"],
+        ["Rever orçamento mensalmente","Casal","Média"],
+        ["Calcular total gasto","Casal","Média"],
+        ["Comparar orçamento com gasto real","Casal","Alta"],
+        ["Confirmar todas as dívidas","Casal","Alta"],
+        ["Liquidar fornecedores","Casal","Alta"]
+    ]
+},
 
-const taskNotes =
-    document.getElementById("taskNotes");
+{
+    id:"convidados",
+    name:"Convidados",
+    icon:"👥",
+    tasks:[
+        ["Criar lista inicial","Casal","Alta"],
+        ["Separar família do noivo","Casal","Média"],
+        ["Separar família da noiva","Casal","Média"],
+        ["Adicionar amigos","Casal","Média"],
+        ["Adicionar colegas","Casal","Baixa"],
+        ["Adicionar convidados especiais","Casal","Média"],
+        ["Registar contactos","Casal","Média"],
+        ["Enviar convites","Casal","Alta"],
+        ["Registar confirmações","Casal","Alta"],
+        ["Registar acompanhantes","Casal","Média"],
+        ["Registar crianças","Casal","Média"],
+        ["Registar necessidades alimentares","Casal","Média"],
+        ["Criar lista final","Casal","Alta"],
+        ["Distribuir mesas","Casal","Alta"],
+        ["Confirmar número final de convidados","Casal","Alta"]
+    ]
+},
 
+{
+    id:"mesas",
+    name:"Mesas / Lugares",
+    icon:"🪑",
+    tasks:[
+        ["Definir número de mesas","Casal","Alta"],
+        ["Definir capacidade por mesa","Casal","Média"],
+        ["Criar mapa das mesas","Casal","Alta"],
+        ["Distribuir familiares","Casal","Média"],
+        ["Distribuir padrinhos","Casal","Média"],
+        ["Distribuir amigos","Casal","Média"],
+        ["Distribuir convidados especiais","Casal","Média"],
+        ["Criar identificação das mesas","Casal","Baixa"],
+        ["Confirmar mapa final","Casal","Alta"],
+        ["Entregar mapa ao salão e catering","Casal","Alta"]
+    ]
+},
 
+{
+    id:"bolo",
+    name:"Bolo / Doces",
+    icon:"🎂",
+    tasks:[
+        ["Definir orçamento","Casal","Média"],
+        ["Pesquisar fornecedores","Casal","Média"],
+        ["Escolher bolo","Casal","Alta"],
+        ["Escolher sabores","Casal","Média"],
+        ["Definir tamanho","Fornecedor","Média"],
+        ["Definir decoração","Casal","Média"],
+        ["Escolher doces","Casal","Média"],
+        ["Fazer degustação","Casal","Baixa"],
+        ["Encomendar","Casal","Alta"],
+        ["Confirmar entrega e montagem","Fornecedor","Alta"]
+    ]
+},
 
-/* =========================================================
-   ARMAZENAMENTO
-========================================================= */
+{
+    id:"lembrancas",
+    name:"Lembranças",
+    icon:"🎁",
+    tasks:[
+        ["Definir se haverá lembranças","Casal","Baixa"],
+        ["Definir orçamento","Casal","Baixa"],
+        ["Escolher lembrança","Casal","Média"],
+        ["Pesquisar fornecedores","Casal","Média"],
+        ["Encomendar","Casal","Média"],
+        ["Confirmar quantidade","Casal","Alta"],
+        ["Conferir entrega","Casal","Média"],
+        ["Preparar distribuição","Casal","Média"]
+    ]
+},
 
-/*
-   A versão "v2" garante que os dados antigos
-   de testes não impeçam o novo sistema.
-*/
+{
+    id:"programa",
+    name:"Programa do Dia",
+    icon:"📝",
+    tasks:[
+        ["Definir horário de preparação da noiva","Casal","Alta"],
+        ["Definir horário de preparação do noivo","Casal","Alta"],
+        ["Definir horário da cerimónia","Casal","Alta"],
+        ["Definir horário das fotografias","Casal","Média"],
+        ["Definir horário da recepção","Casal","Alta"],
+        ["Definir entrada dos noivos","Casal","Média"],
+        ["Definir discursos","Casal","Média"],
+        ["Definir corte do bolo","Casal","Média"],
+        ["Definir primeira dança","Casal","Média"],
+        ["Definir lançamento do bouquet","Casal","Baixa"],
+        ["Definir encerramento","Casal","Média"],
+        ["Criar programa final","Casal","Alta"]
+    ]
+},
 
-const STORAGE_KEY =
-    "casamento_perfeito_planeador_v2";
+{
+    id:"ultimas",
+    name:"Últimas 4 Semanas",
+    icon:"📅",
+    tasks:[
+        ["Confirmar lista final de convidados","Casal","Alta"],
+        ["Confirmar fornecedores","Casal","Alta"],
+        ["Confirmar salão","Casal","Alta"],
+        ["Confirmar decoração","Casal","Alta"],
+        ["Confirmar catering","Casal","Alta"],
+        ["Confirmar fotógrafo","Casal","Alta"],
+        ["Confirmar videógrafo","Casal","Alta"],
+        ["Confirmar DJ ou banda","Casal","Alta"],
+        ["Confirmar transporte","Casal","Alta"],
+        ["Confirmar maquilhagem","Noiva","Alta"],
+        ["Confirmar penteado","Noiva","Alta"],
+        ["Confirmar vestido","Noiva","Alta"],
+        ["Confirmar fato","Noivo","Alta"],
+        ["Confirmar alianças","Casal","Alta"],
+        ["Confirmar documentos e pagamentos","Casal","Alta"]
+    ]
+},
 
+{
+    id:"semana",
+    name:"Semana do Casamento",
+    icon:"💒",
+    tasks:[
+        ["Confirmar todos os fornecedores","Casal","Alta"],
+        ["Confirmar horários","Casal","Alta"],
+        ["Confirmar transporte","Casal","Alta"],
+        ["Confirmar decoração","Casal","Alta"],
+        ["Confirmar catering","Casal","Alta"],
+        ["Confirmar número final de convidados","Casal","Alta"],
+        ["Preparar documentos","Casal","Alta"],
+        ["Separar alianças","Casal","Alta"],
+        ["Separar vestido","Noiva","Alta"],
+        ["Separar fato","Noivo","Alta"],
+        ["Separar acessórios","Casal","Média"],
+        ["Preparar dinheiro para pagamentos finais","Casal","Alta"],
+        ["Entregar responsabilidades aos padrinhos","Casal","Alta"],
+        ["Preparar kit de emergência","Casal","Média"],
+        ["Confirmar lua de mel","Casal","Alta"]
+    ]
+},
+
+{
+    id:"dia",
+    name:"Dia do Casamento",
+    icon:"❤️",
+    tasks:[
+        ["Acordar conforme o horário planeado","Casal","Média"],
+        ["Tomar pequeno-almoço","Casal","Baixa"],
+        ["Preparação da noiva","Noiva","Alta"],
+        ["Preparação do noivo","Noivo","Alta"],
+        ["Maquilhagem","Noiva","Alta"],
+        ["Penteado","Noiva","Alta"],
+        ["Fotografias de preparação","Fotógrafo","Média"],
+        ["Transporte para a cerimónia","Motorista","Alta"],
+        ["Realizar cerimónia","Casal","Alta"],
+        ["Realizar fotografias oficiais","Fotógrafo","Alta"],
+        ["Transporte para a recepção","Motorista","Alta"],
+        ["Entrada dos noivos","Casal","Alta"],
+        ["Recepção dos convidados","Casal","Média"],
+        ["Realizar refeição e programa","Catering","Alta"],
+        ["Corte do bolo e primeira dança","Casal","Alta"]
+    ]
+},
+
+{
+    id:"pos",
+    name:"Pós-Casamento",
+    icon:"🌙",
+    tasks:[
+        ["Confirmar viagem da lua de mel","Casal","Alta"],
+        ["Fazer check-out do local","Casal","Alta"],
+        ["Recolher objectos pessoais","Casal","Alta"],
+        ["Recolher decoração pessoal","Casal","Média"],
+        ["Devolver itens alugados","Casal","Alta"],
+        ["Liquidar últimos pagamentos","Casal","Alta"],
+        ["Confirmar entrega das fotografias","Casal","Média"],
+        ["Confirmar entrega do vídeo","Casal","Média"],
+        ["Seleccionar fotografias","Casal","Baixa"],
+        ["Preparar álbum","Casal","Baixa"],
+        ["Agradecer aos convidados","Casal","Média"],
+        ["Agradecer aos padrinhos","Casal","Média"]
+    ]
+}
+
+];
 
 let tasks = [];
+let currentCategory = null;
 
+const STORAGE_KEY = "casamento_perfeito_planeador_v3";
 
-function createInitialTasks() {
+function init(){
 
-    const initialTasks = [];
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-    Object.keys(predefinedTasks).forEach(
-        category => {
+    if(saved){
+        tasks = JSON.parse(saved);
+    }else{
+        tasks = [];
 
-            predefinedTasks[category]
-                .forEach(item => {
+        categoriesData.forEach(category => {
 
-                    initialTasks.push({
+            category.tasks.forEach((item,index) => {
 
-                        id:
-                            crypto.randomUUID
-                            ? crypto.randomUUID()
-                            : Date.now() +
-                              Math.random(),
-
-                        title:
-                            item.title,
-
-                        category:
-                            category,
-
-                        responsible:
-                            item.responsible,
-
-                        date:
-                            "",
-
-                        priority:
-                            item.priority,
-
-                        notes:
-                            "",
-
-                        completed:
-                            false,
-
-                        custom:
-                            false
-
-                    });
-
+                tasks.push({
+                    id: category.id + "_" + index,
+                    category: category.id,
+                    title: item[0],
+                    responsible: item[1],
+                    date: "",
+                    priority: item[2],
+                    notes: "",
+                    completed:false,
+                    custom:false
                 });
 
-        }
-    );
+            });
 
-    return initialTasks;
+        });
+
+        save();
+    }
+
+    renderCategories();
+    updateGlobalStats();
 
 }
 
+function save(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));
+}
 
-function loadTasks() {
+function getCategory(id){
+    return categoriesData.find(c => c.id === id);
+}
 
-    const saved =
-        localStorage.getItem(
-            STORAGE_KEY
+function renderCategories(){
+
+    const container = document.getElementById("categories");
+
+    container.innerHTML = "";
+
+    categoriesData.forEach(category => {
+
+        const categoryTasks = tasks.filter(t => t.category === category.id);
+
+        const completed = categoryTasks.filter(t => t.completed).length;
+
+        const percent = categoryTasks.length
+            ? Math.round((completed/categoryTasks.length)*100)
+            : 0;
+
+        const card = document.createElement("div");
+
+        card.className = "category-card";
+
+        card.onclick = () => openCategory(category.id);
+
+        card.innerHTML = `
+            <div class="category-icon">${category.icon}</div>
+
+            <div class="category-name">${category.name}</div>
+
+            <div class="category-count">
+                ${completed}/${categoryTasks.length} concluídas
+            </div>
+
+            <div class="mini-bar">
+                <div class="mini-fill" style="width:${percent}%"></div>
+            </div>
+
+            <div class="category-percent">
+                ${percent}% concluído
+            </div>
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+function openCategory(id){
+
+    currentCategory = id;
+
+    const category = getCategory(id);
+
+    document.getElementById("workspace").classList.add("active");
+
+    document.getElementById("workspaceIcon").textContent = category.icon;
+
+    document.getElementById("workspaceTitle").textContent = category.name;
+
+    document.getElementById("searchInput").value = "";
+
+    document.getElementById("statusFilter").value = "all";
+
+    document.getElementById("priorityFilter").value = "all";
+
+    updateWorkspaceProgress();
+
+    renderTasks();
+
+    document.getElementById("workspace").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+function closeWorkspace(){
+
+    currentCategory = null;
+
+    document.getElementById("workspace").classList.remove("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+function updateWorkspaceProgress(){
+
+    if(!currentCategory) return;
+
+    const categoryTasks = tasks.filter(
+        t => t.category === currentCategory
+    );
+
+    const completed = categoryTasks.filter(
+        t => t.completed
+    ).length;
+
+    document.getElementById("workspaceProgress").textContent =
+        `${completed} de ${categoryTasks.length} tarefas concluídas`;
+
+}
+
+function renderTasks(){
+
+    if(!currentCategory) return;
+
+    const container = document.getElementById("tasks");
+
+    const search = document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const status = document.getElementById("statusFilter").value;
+
+    const priority = document.getElementById("priorityFilter").value;
+
+    let list = tasks.filter(
+        t => t.category === currentCategory
+    );
+
+    if(search){
+        list = list.filter(
+            t => t.title.toLowerCase().includes(search)
+        );
+    }
+
+    if(status === "pending"){
+        list = list.filter(t => !t.completed);
+    }
+
+    if(status === "completed"){
+        list = list.filter(t => t.completed);
+    }
+
+    if(status === "overdue"){
+        list = list.filter(t => isOverdue(t));
+    }
+
+    if(priority !== "all"){
+        list = list.filter(
+            t => t.priority === priority
+        );
+    }
+
+    container.innerHTML = "";
+
+    if(list.length === 0){
+
+        container.innerHTML = `
+            <div class="empty">
+                Nenhuma tarefa encontrada.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.forEach(task => {
+
+        const row = document.createElement("div");
+
+        row.className = "task" + (
+            task.completed ? " completed" : ""
         );
 
+        row.innerHTML = `
 
-    if (!saved) {
+            <input
+                class="check"
+                type="checkbox"
+                ${task.completed ? "checked" : ""}
+                onchange="toggleTask('${task.id}')"
+            >
 
-        return createInitialTasks();
+            <div>
 
-    }
+                <div class="task-name">
+                    ${escapeHtml(task.title)}
+                </div>
 
+                <div class="task-meta">
 
-    try {
+                    <span class="meta">
+                        👤 ${escapeHtml(task.responsible || "Casal")}
+                    </span>
 
-        return JSON.parse(saved);
+                    <span class="meta">
+                        📅 ${task.date ? formatDate(task.date) : "Sem prazo"}
+                    </span>
 
-    } catch {
+                    ${task.notes ? `
+                    <span class="meta">
+                        📝 Nota
+                    </span>
+                    ` : ""}
 
-        return createInitialTasks();
+                </div>
 
-    }
+            </div>
 
-}
+            <span class="priority priority-${task.priority}">
+                ${task.priority}
+            </span>
 
+            <button
+                class="delete"
+                onclick="deleteTask('${task.id}')"
+                title="Eliminar"
+            >
+                🗑️
+            </button>
+        `;
 
-tasks = loadTasks();
+        container.appendChild(row);
 
-
-
-function saveTasks() {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(tasks)
-    );
-
-}
-
-
-
-/* =========================================================
-   UTILITÁRIOS
-========================================================= */
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-function priorityClass(priority) {
-
-    if (priority === "Alta") {
-
-        return "priority-alta";
-
-    }
-
-
-    if (priority === "Média") {
-
-        return "priority-media";
-
-    }
-
-
-    return "priority-baixa";
+    });
 
 }
 
+function toggleTask(id){
 
+    const task = tasks.find(t => t.id === id);
 
-/* =========================================================
-   PREENCHER LISTA DE TAREFAS
-========================================================= */
+    if(!task) return;
 
-function populateTaskOptions() {
+    task.completed = !task.completed;
+
+    save();
+
+    renderCategories();
+
+    updateGlobalStats();
+
+    updateWorkspaceProgress();
+
+    renderTasks();
+
+}
+
+function deleteTask(id){
+
+    const task = tasks.find(t => t.id === id);
+
+    if(!task) return;
+
+    if(!confirm(`Eliminar a tarefa "${task.title}"?`)){
+        return;
+    }
+
+    tasks = tasks.filter(t => t.id !== id);
+
+    save();
+
+    renderCategories();
+
+    updateGlobalStats();
+
+    updateWorkspaceProgress();
+
+    renderTasks();
+
+}
+
+function updateGlobalStats(){
+
+    const total = tasks.length;
+
+    const completed = tasks.filter(
+        t => t.completed
+    ).length;
+
+    const pending = total - completed;
+
+    const overdue = tasks.filter(
+        t => isOverdue(t)
+    ).length;
+
+    const percent = total
+        ? Math.round((completed/total)*100)
+        : 0;
+
+    document.getElementById("totalTasks").textContent = total;
+
+    document.getElementById("completedTasks").textContent = completed;
+
+    document.getElementById("pendingTasks").textContent = pending;
+
+    document.getElementById("overdueTasks").textContent = overdue;
+
+    document.getElementById("globalPercent").textContent =
+        percent + "%";
+
+    document.getElementById("globalProgress").style.width =
+        percent + "%";
+
+}
+
+function isOverdue(task){
+
+    if(task.completed || !task.date){
+        return false;
+    }
+
+    const today = new Date();
+
+    today.setHours(0,0,0,0);
+
+    const date = new Date(task.date + "T00:00:00");
+
+    return date < today;
+
+}
+
+function openModal(){
+
+    document.getElementById("taskModal").classList.add("active");
+
+    const categorySelect =
+        document.getElementById("taskCategory");
+
+    categorySelect.innerHTML = "";
+
+    categoriesData.forEach(category => {
+
+        const option = document.createElement("option");
+
+        option.value = category.id;
+
+        option.textContent =
+            category.icon + " " + category.name;
+
+        categorySelect.appendChild(option);
+
+    });
+
+    if(currentCategory){
+        categorySelect.value = currentCategory;
+    }
+
+    populateTaskOptions();
+
+}
+
+function closeModal(){
+
+    document.getElementById("taskModal").classList.remove("active");
+
+}
+
+function populateTaskOptions(){
+
+    const categoryId =
+        document.getElementById("taskCategory").value;
 
     const category =
-        taskCategory.value;
+        getCategory(categoryId);
 
+    const select =
+        document.getElementById("taskTitle");
 
-    const availableTasks =
-        predefinedTasks[category] || [];
+    select.innerHTML = "";
 
+    category.tasks.forEach((task,index) => {
 
-    taskName.innerHTML = "";
+        const option = document.createElement("option");
 
+        option.value = index;
 
-    const firstOption =
-        document.createElement("option");
+        option.textContent = task[0];
 
+        select.appendChild(option);
 
-    firstOption.value = "";
-
-    firstOption.textContent =
-        "Seleccione uma tarefa";
-
-
-    taskName.appendChild(
-        firstOption
-    );
-
-
-    availableTasks.forEach(
-        (task, index) => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                task.title;
-
-
-            option.textContent =
-                task.title;
-
-
-            option.dataset.index =
-                index;
-
-
-            taskName.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    /* Opção para tarefa personalizada */
+    });
 
     const customOption =
-        document.createElement(
-            "option"
-        );
+        document.createElement("option");
 
-
-    customOption.value =
-        "__CUSTOM__";
-
+    customOption.value = "custom";
 
     customOption.textContent =
         "✏️ Outra tarefa personalizada";
 
+    select.appendChild(customOption);
 
-    taskName.appendChild(
-        customOption
-    );
-
-
-    taskResponsible.value =
-        "Casal";
-
-
-    taskPriority.value =
-        "Média";
-
-
-    taskDate.value =
-        "";
-
-
-    taskNotes.value =
-        "";
+    fillTaskDefaults();
 
 }
 
+function fillTaskDefaults(){
 
+    const categoryId =
+        document.getElementById("taskCategory").value;
 
-/* =========================================================
-   QUANDO ESCOLHE A TAREFA
-========================================================= */
+    const category =
+        getCategory(categoryId);
 
-taskName.addEventListener(
-    "change",
-    () => {
+    const selected =
+        document.getElementById("taskTitle").value;
 
-        const selected =
-            taskName.options[
-                taskName.selectedIndex
-            ];
+    if(selected === "custom"){
 
+        document.getElementById("taskResponsible").value =
+            "Casal";
 
-        if (!selected) {
+        document.getElementById("taskPriority").value =
+            "Média";
 
-            return;
-
-        }
-
-
-        /* Tarefa personalizada */
-
-        if (
-            selected.value ===
-            "__CUSTOM__"
-        ) {
-
-            taskResponsible.value =
-                "Casal";
-
-            taskPriority.value =
-                "Média";
-
-            return;
-
-        }
-
-
-        const index =
-            selected.dataset.index;
-
-
-        const category =
-            taskCategory.value;
-
-
-        const task =
-            predefinedTasks[
-                category
-            ][index];
-
-
-        if (!task) {
-
-            return;
-
-        }
-
-
-        taskResponsible.value =
-            task.responsible;
-
-
-        taskPriority.value =
-            task.priority;
-
+        return;
     }
-);
 
+    const item =
+        category.tasks[Number(selected)];
 
+    if(!item) return;
 
-/* =========================================================
-   QUANDO ESCOLHE A CATEGORIA
-========================================================= */
+    document.getElementById("taskResponsible").value =
+        item[1];
 
-taskCategory.addEventListener(
-    "change",
-    () => {
+    document.getElementById("taskPriority").value =
+        item[2];
 
-        populateTaskOptions();
+}
 
-    }
-);
+function saveTask(){
 
+    const categoryId =
+        document.getElementById("taskCategory").value;
 
+    const category =
+        getCategory(categoryId);
 
-/* =========================================================
-   ABRIR NOVA TAREFA
-========================================================= */
+    const selected =
+        document.getElementById("taskTitle").value;
 
-document
-    .getElementById("addTask")
-    .addEventListener(
-        "click",
-        () => {
+    let title = "";
 
-            taskForm.reset();
+    if(selected === "custom"){
 
-
-            taskCategory.value =
-                "Geral";
-
-
-            populateTaskOptions();
-
-
-            taskModal.classList.add(
-                "show"
-            );
-
-        }
-    );
-
-
-
-/* =========================================================
-   FECHAR MODAL
-========================================================= */
-
-document
-    .getElementById("cancelTask")
-    .addEventListener(
-        "click",
-        () => {
-
-            taskModal.classList.remove(
-                "show"
-            );
-
-        }
-    );
-
-
-taskModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            taskModal
-        ) {
-
-            taskModal.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-
-
-
-/* =========================================================
-   ADICIONAR TAREFA
-========================================================= */
-
-taskForm.addEventListener(
-    "submit",
-    event => {
-
-        event.preventDefault();
-
-
-        let title =
-            taskName.value;
-
-
-        /* =========================
-           TAREFA PERSONALIZADA
-        ========================== */
-
-        if (
-            title ===
-            "__CUSTOM__"
-        ) {
-
-            const customTitle =
-                prompt(
-                    "Escreva o nome da nova tarefa:"
-                );
-
-
-            if (
-                !customTitle ||
-                !customTitle.trim()
-            ) {
-
-                return;
-
-            }
-
-
-            title =
-                customTitle.trim();
-
-        }
-
-
-        if (!title) {
-
-            alert(
-                "Seleccione uma tarefa."
-            );
-
-            return;
-
-        }
-
-
-        const newTask = {
-
-            id:
-                crypto.randomUUID
-                ? crypto.randomUUID()
-                : Date.now() +
-                  Math.random(),
-
-            title:
-                title,
-
-            category:
-                taskCategory.value,
-
-            responsible:
-                taskResponsible.value,
-
-            date:
-                taskDate.value,
-
-            priority:
-                taskPriority.value,
-
-            notes:
-                taskNotes.value.trim(),
-
-            completed:
-                false,
-
-            custom:
-                title !==
-                "__CUSTOM__"
-
-        };
-
-
-        tasks.push(
-            newTask
+        title = prompt(
+            "Escreva o nome da tarefa personalizada:"
         );
 
+        if(!title){
+            return;
+        }
 
-        saveTasks();
+    }else{
 
+        title =
+            category.tasks[Number(selected)][0];
 
-        taskModal.classList.remove(
-            "show"
-        );
+    }
 
+    const task = {
 
-        updateSummary();
+        id:"custom_" + Date.now(),
 
+        category:categoryId,
+
+        title:title,
+
+        responsible:
+            document.getElementById("taskResponsible").value ||
+            "Casal",
+
+        date:
+            document.getElementById("taskDate").value,
+
+        priority:
+            document.getElementById("taskPriority").value,
+
+        notes:
+            document.getElementById("taskNotes").value,
+
+        completed:false,
+
+        custom:true
+
+    };
+
+    tasks.push(task);
+
+    save();
+
+    closeModal();
+
+    renderCategories();
+
+    updateGlobalStats();
+
+    if(currentCategory === categoryId){
+
+        updateWorkspaceProgress();
 
         renderTasks();
 
     }
-);
-
-
-
-/* =========================================================
-   CATEGORIA ACTUAL
-========================================================= */
-
-let currentCategory =
-    "Todas";
-
-
-
-/* =========================================================
-   RENDERIZAR TAREFAS
-========================================================= */
-
-function renderTasks() {
-
-    const searchText =
-        search.value
-            .toLowerCase()
-            .trim();
-
-
-    const status =
-        statusFilter.value;
-
-
-    const priority =
-        priorityFilter.value;
-
-
-    const filtered =
-        tasks.filter(
-            task => {
-
-                const categoryMatch =
-                    currentCategory ===
-                    "Todas" ||
-                    task.category ===
-                    currentCategory;
-
-
-                const searchMatch =
-                    task.title
-                        .toLowerCase()
-                        .includes(
-                            searchText
-                        );
-
-
-                const statusMatch =
-                    status ===
-                    "todos" ||
-
-                    (
-                        status ===
-                        "pendente" &&
-                        !task.completed
-                    ) ||
-
-                    (
-                        status ===
-                        "concluida" &&
-                        task.completed
-                    );
-
-
-                const priorityMatch =
-                    priority ===
-                    "todas" ||
-                    task.priority ===
-                    priority;
-
-
-                return (
-                    categoryMatch &&
-                    searchMatch &&
-                    statusMatch &&
-                    priorityMatch
-                );
-
-            }
-        );
-
-
-    if (
-        filtered.length ===
-        0
-    ) {
-
-        taskList.innerHTML = `
-
-            <div class="empty">
-
-                <h3>
-                    Nenhuma tarefa encontrada
-                </h3>
-
-                <p>
-                    Altere os filtros ou adicione uma nova tarefa.
-                </p>
-
-            </div>
-
-        `;
-
-
-        renderCategoryProgress();
-
-        return;
-
-    }
-
-
-    taskList.innerHTML =
-        filtered
-            .map(
-                task => `
-
-                <div
-                    class="task ${
-                        task.completed
-                            ? "completed"
-                            : ""
-                    }"
-                >
-
-
-                    <input
-                        type="checkbox"
-                        class="task-checkbox"
-
-                        ${
-                            task.completed
-                                ? "checked"
-                                : ""
-                        }
-
-                        onchange=
-                        "toggleTask('${task.id}')"
-                    >
-
-
-                    <div class="task-info">
-
-
-                        <div class="task-title">
-
-                            ${escapeHTML(
-                                task.title
-                            )}
-
-                        </div>
-
-
-                        <div class="task-meta">
-
-
-                            <span class="badge">
-
-                                📁
-                                ${escapeHTML(
-                                    task.category
-                                )}
-
-                            </span>
-
-
-                            <span class="badge">
-
-                                👤
-                                ${escapeHTML(
-                                    task.responsible
-                                )}
-
-                            </span>
-
-
-                            <span class="badge">
-
-                                📅
-                                ${
-                                    task.date
-                                        ? escapeHTML(
-                                            task.date
-                                          )
-                                        : "Sem prazo"
-                                }
-
-                            </span>
-
-
-                            <span
-                                class="badge ${
-                                    priorityClass(
-                                        task.priority
-                                    )
-                                }"
-                            >
-
-                                ${escapeHTML(
-                                    task.priority
-                                )}
-
-                            </span>
-
-
-                            ${
-                                task.completed
-                                    ? `
-                                        <span class="badge">
-                                            ✅ Concluída
-                                        </span>
-                                      `
-                                    : `
-                                        <span class="badge">
-                                            ⏳ Pendente
-                                        </span>
-                                      `
-                            }
-
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="task-actions">
-
-
-                        <button
-                            class="delete-btn"
-                            title="Eliminar tarefa"
-                            onclick=
-                            "deleteTask('${task.id}')"
-                        >
-                            🗑️
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-            `
-            )
-            .join("");
-
-
-    renderCategoryProgress();
 
 }
 
+function formatDate(date){
 
+    const parts = date.split("-");
 
-/* =========================================================
-   PROGRESSO
-========================================================= */
-
-function updateSummary() {
-
-    const total =
-        tasks.length;
-
-
-    const completed =
-        tasks.filter(
-            task =>
-                task.completed
-        ).length;
-
-
-    const pending =
-        total -
-        completed;
-
-
-    const progress =
-        total === 0
-            ? 0
-            : Math.round(
-                completed /
-                total *
-                100
-            );
-
-
-    document.getElementById(
-        "totalTasks"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "completedTasks"
-    ).textContent =
-        completed;
-
-
-    document.getElementById(
-        "pendingTasks"
-    ).textContent =
-        pending;
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        progress + "%";
-
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
-        progress + "%";
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
 
 }
 
+function escapeHtml(text){
 
+    const div = document.createElement("div");
 
-/* =========================================================
-   PROGRESSO DA CATEGORIA
-========================================================= */
+    div.textContent = text;
 
-function renderCategoryProgress() {
-
-    const categoryTasks =
-        currentCategory ===
-        "Todas"
-
-            ? tasks
-
-            : tasks.filter(
-                task =>
-                    task.category ===
-                    currentCategory
-            );
-
-
-    const total =
-        categoryTasks.length;
-
-
-    const completed =
-        categoryTasks.filter(
-            task =>
-                task.completed
-        ).length;
-
-
-    const percentage =
-        total === 0
-            ? 0
-            : Math.round(
-                completed /
-                total *
-                100
-            );
-
-
-    document.getElementById(
-        "categoryProgress"
-    ).innerHTML = `
-
-        <div
-            class="category-progress-header"
-        >
-
-            <strong>
-
-                Progresso
-                ${
-                    currentCategory ===
-                    "Todas"
-
-                        ? "geral"
-
-                        : escapeHTML(
-                            currentCategory
-                          )
-                }
-
-            </strong>
-
-
-            <span>
-
-                ${completed}/${total}
-
-                (${percentage}%)
-
-            </span>
-
-        </div>
-
-
-        <div
-            class="mini-progress"
-        >
-
-            <div
-                style="
-                    width:${percentage}%;
-                "
-            ></div>
-
-        </div>
-
-    `;
+    return div.innerHTML;
 
 }
 
+function exportCSV(){
 
-
-/* =========================================================
-   CONCLUIR TAREFA
-========================================================= */
-
-function toggleTask(id) {
-
-    const task =
-        tasks.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
-
-
-    if (!task) {
-
-        return;
-
-    }
-
-
-    task.completed =
-        !task.completed;
-
-
-    saveTasks();
-
-
-    updateSummary();
-
-    renderTasks();
-
-}
-
-
-
-/* =========================================================
-   ELIMINAR TAREFA
-========================================================= */
-
-function deleteTask(id) {
-
-    const task =
-        tasks.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
-
-
-    if (!task) {
-
-        return;
-
-    }
-
-
-    const confirmed =
-        confirm(
-            `Tem a certeza que deseja eliminar a tarefa "${task.title}"?`
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    tasks =
-        tasks.filter(
-            item =>
-                String(item.id) !==
-                String(id)
-        );
-
-
-    saveTasks();
-
-
-    updateSummary();
-
-    renderTasks();
-
-}
-
-
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".category-btn"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-
-                    document
-                        .querySelectorAll(
-                            ".category-btn"
-                        )
-                        .forEach(
-                            btn =>
-                                btn.classList
-                                    .remove(
-                                        "active"
-                                    )
-                        );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    currentCategory =
-                        button.dataset
-                            .category;
-
-
-                    renderTasks();
-
-                }
-            );
-
-        }
-    );
-
-
-
-/* =========================================================
-   FILTROS
-========================================================= */
-
-search.addEventListener(
-    "input",
-    renderTasks
-);
-
-
-statusFilter.addEventListener(
-    "change",
-    renderTasks
-);
-
-
-priorityFilter.addEventListener(
-    "change",
-    renderTasks
-);
-
-
-
-/* =========================================================
-   CSV
-========================================================= */
-
-function exportCSV() {
-
-    const header = [
-
+    const headers = [
         "Categoria",
         "Tarefa",
         "Responsável",
@@ -3313,265 +1973,155 @@ function exportCSV() {
         "Prioridade",
         "Estado",
         "Notas"
-
     ];
 
+    const rows = tasks.map(task => {
 
-    const rows =
-        tasks.map(
-            task => [
+        const category =
+            getCategory(task.category);
 
-                task.category,
+        return [
+            category ? category.name : task.category,
+            task.title,
+            task.responsible,
+            task.date,
+            task.priority,
+            task.completed ? "Concluída" : "Pendente",
+            task.notes
+        ];
 
-                task.title,
+    });
 
-                task.responsible,
+    let csv =
+        headers.join(";") + "\n";
 
-                task.date,
+    rows.forEach(row => {
 
-                task.priority,
+        csv += row.map(value =>
+            `"${String(value || "")
+                .replace(/"/g,'""')}"`
+        ).join(";") + "\n";
 
-                task.completed
-                    ? "Concluída"
-                    : "Pendente",
+    });
 
-                task.notes
-
-            ]
+    const blob =
+        new Blob(
+            ["\ufeff" + csv],
+            {type:"text/csv;charset=utf-8;"}
         );
 
+    const url =
+        URL.createObjectURL(blob);
 
-    const csv =
-        [
-            header,
-            ...rows
-        ]
-        .map(
-            row =>
-                row
-                    .map(
-                        value =>
-                            `"${String(
-                                value ?? ""
-                            ).replace(
-                                /"/g,
-                                '""'
-                            )}"`
-                    )
-                    .join(",")
-        )
-        .join("\n");
+    const link =
+        document.createElement("a");
 
+    link.href = url;
 
-    downloadFile(
+    link.download =
+        "planeador-casamento-perfeito.csv";
 
-        "\ufeff" + csv,
+    link.click();
 
-        "planeador-casamento.csv",
-
-        "text/csv;charset=utf-8;"
-
-    );
+    URL.revokeObjectURL(url);
 
 }
 
+function exportExcel(){
 
-
-/* =========================================================
-   EXCEL
-========================================================= */
-
-function exportExcel() {
-
-    if (
-        typeof XLSX ===
-        "undefined"
-    ) {
+    if(typeof XLSX === "undefined"){
 
         alert(
-            "A biblioteca Excel não foi carregada. Verifique a ligação à Internet."
+            "Não foi possível carregar o módulo Excel. Verifique a ligação à Internet."
         );
 
         return;
 
     }
 
+    const data = tasks.map(task => {
 
-    const data =
-        tasks.map(
-            task => ({
+        const category =
+            getCategory(task.category);
 
-                "Categoria":
-                    task.category,
+        return {
 
-                "Tarefa":
-                    task.title,
+            Categoria:
+                category ? category.name : task.category,
 
-                "Responsável":
-                    task.responsible,
+            Tarefa:task.title,
 
-                "Prazo":
-                    task.date,
+            Responsável:task.responsible,
 
-                "Prioridade":
-                    task.priority,
+            Prazo:task.date
+                ? formatDate(task.date)
+                : "",
 
-                "Estado":
-                    task.completed
-                        ? "Concluída"
-                        : "Pendente",
+            Prioridade:task.priority,
 
-                "Notas":
-                    task.notes
+            Estado:task.completed
+                ? "Concluída"
+                : "Pendente",
 
-            })
-        );
+            Notas:task.notes
 
+        };
 
-    const worksheet =
-        XLSX.utils.json_to_sheet(
-            data
-        );
-
+    });
 
     const workbook =
         XLSX.utils.book_new();
 
+    const sheet =
+        XLSX.utils.json_to_sheet(data);
 
     XLSX.utils.book_append_sheet(
         workbook,
-
-        worksheet,
-
-        "Planeador"
+        sheet,
+        "Todas as tarefas"
     );
 
+    const completed =
+        data.filter(
+            row => row.Estado === "Concluída"
+        );
+
+    const pending =
+        data.filter(
+            row => row.Estado === "Pendente"
+        );
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.json_to_sheet(completed),
+        "Concluídas"
+    );
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.json_to_sheet(pending),
+        "Pendentes"
+    );
 
     XLSX.writeFile(
-
         workbook,
-
-        "planeador-casamento.xlsx"
-
+        "Planeador-Casamento-Perfeito.xlsx"
     );
 
 }
 
+document.getElementById("taskModal")
+    .addEventListener("click",function(e){
 
-
-/* =========================================================
-   DOWNLOAD
-========================================================= */
-
-function downloadFile(
-    content,
-    filename,
-    type
-) {
-
-    const blob =
-        new Blob(
-            [content],
-            {
-                type: type
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const link =
-        document.createElement(
-            "a"
-        );
-
-
-    link.href =
-        url;
-
-
-    link.download =
-        filename;
-
-
-    document.body.appendChild(
-        link
-    );
-
-
-    link.click();
-
-
-    link.remove();
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
-}
-
-
-
-/* =========================================================
-   BOTÕES
-========================================================= */
-
-document
-    .getElementById("csvBtn")
-    .addEventListener(
-        "click",
-        exportCSV
-    );
-
-
-document
-    .getElementById("excelBtn")
-    .addEventListener(
-        "click",
-        exportExcel
-    );
-
-
-document
-    .getElementById("pdfBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            window.print();
-
+        if(e.target === this){
+            closeModal();
         }
-    );
 
+    });
 
-document
-    .getElementById("printBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            window.print();
-
-        }
-    );
-
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-updateSummary();
-
-renderTasks();
+init();
 
 </script>
-
 
 </body>
 </html>

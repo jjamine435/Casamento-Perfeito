@@ -1,218 +1,289 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+```
+<title>Dashboard | Casamento Perfeito</title>
 
-    <title>Dashboard | Casamento Perfeito</title>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-    <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fff7fa;
+        color: #4a3039;
+        min-height: 100vh;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    /* =========================
+       CABEÇALHO
+    ========================= */
+
+    header {
+        background: #ffffff;
+        height: 72px;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #f2dfe6;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: 700;
+        color: #c45f7d;
+    }
+
+    .logout {
+        border: none;
+        background: #c45f7d;
+        color: white;
+        padding: 11px 18px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .logout:hover {
+        background: #aa4e69;
+    }
+
+    /* =========================
+       CONTEÚDO
+    ========================= */
+
+    main {
+        max-width: 1180px;
+        margin: auto;
+        padding: 45px 25px 60px;
+    }
+
+    .welcome {
+        background: linear-gradient(135deg, #ffffff, #fff0f5);
+        border-radius: 24px;
+        padding: 40px;
+        margin-bottom: 35px;
+        border: 1px solid #f3dce4;
+        box-shadow: 0 8px 30px rgba(130, 70, 90, 0.08);
+    }
+
+    .welcome small {
+        display: block;
+        color: #c45f7d;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+        margin-bottom: 12px;
+        color: #4a3039;
+    }
+
+    .welcome p {
+        color: #777;
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 700px;
+    }
+
+    #userWelcome {
+        margin-top: 20px;
+        color: #c45f7d;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    /* =========================
+       TÍTULO
+    ========================= */
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 23px;
+        color: #4a3039;
+    }
+
+    .section-header span {
+        color: #999;
+        font-size: 14px;
+    }
+
+    /* =========================
+       CARTÕES
+    ========================= */
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .card {
+        background: white;
+        border: 1px solid #f1dfe5;
+        border-radius: 20px;
+        padding: 28px;
+        text-decoration: none;
+        color: inherit;
+        transition: 0.25s ease;
+        box-shadow: 0 6px 22px rgba(100, 50, 70, 0.06);
+        display: block;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(100, 50, 70, 0.12);
+        border-color: #e7bdca;
+    }
+
+    .card-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: #fff0f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .card h3 {
+        font-size: 19px;
+        margin-bottom: 9px;
+        color: #4a3039;
+    }
+
+    .card p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #777;
+    }
+
+    .card-action {
+        display: inline-block;
+        margin-top: 18px;
+        color: #c45f7d;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    /* =========================
+       INFORMAÇÃO DO CASAMENTO
+    ========================= */
+
+    .info-box {
+        margin-top: 35px;
+        background: white;
+        border: 1px solid #f1dfe5;
+        border-radius: 20px;
+        padding: 30px;
+    }
+
+    .info-box h2 {
+        margin-bottom: 10px;
+        font-size: 21px;
+    }
+
+    .info-box p {
+        color: #777;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* =========================
+       RODAPÉ
+    ========================= */
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #999;
+        font-size: 13px;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media (max-width: 900px) {
+        .cards {
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff5f8;
-            color: #4b3039;
-            min-height: 100vh;
-        }
-
-        /* CABEÇALHO */
-
+    @media (max-width: 600px) {
         header {
-            background: white;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            height: 65px;
+            padding: 0 18px;
         }
 
         .logo {
-            color: #c66b88;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 18px;
         }
 
-        #logoutButton {
-            border: none;
-            background: #c66b88;
-            color: white;
-            padding: 11px 20px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
+        .logout {
+            padding: 9px 12px;
+            font-size: 12px;
         }
-
-        #logoutButton:hover {
-            background: #b45877;
-        }
-
-
-        /* CONTEÚDO */
 
         main {
-            max-width: 1150px;
-            margin: 0 auto;
-            padding: 45px 25px 60px;
+            padding: 30px 18px 45px;
         }
 
-
-        /* BOAS-VINDAS */
-
         .welcome {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            margin-bottom: 35px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+            padding: 28px 22px;
+            border-radius: 18px;
         }
 
         .welcome h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
-            color: #4b3039;
+            font-size: 25px;
         }
 
-        .welcome p {
-            color: #777;
-            line-height: 1.6;
+        .cards {
+            grid-template-columns: 1fr;
         }
 
-        #userWelcome {
-            margin-top: 15px;
-            color: #c66b88;
-            font-size: 17px;
-            font-weight: bold;
+        .section-header {
+            display: block;
         }
 
-
-        /* TÍTULO */
-
-        .section-title {
-            margin-bottom: 20px;
-            font-size: 23px;
-            color: #4b3039;
+        .section-header span {
+            display: block;
+            margin-top: 6px;
         }
-
-
-        /* CARTÕES */
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        .dashboard-card {
-            background: white;
-            padding: 28px;
-            border-radius: 18px;
-            text-decoration: none;
-            color: #4b3039;
-            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
-            border: 1px solid #f3e1e7;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
-        }
-
-        .icon {
-            font-size: 38px;
-            margin-bottom: 17px;
-        }
-
-        .dashboard-card h3 {
-            font-size: 19px;
-            margin-bottom: 9px;
-        }
-
-        .dashboard-card p {
-            color: #777;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-
-        /* RODAPÉ */
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #999;
-            font-size: 13px;
-        }
-
-
-        /* TELEMÓVEL */
-
-        @media (max-width: 850px) {
-
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            header {
-                padding: 16px 20px;
-            }
-
-            .logo {
-                font-size: 19px;
-            }
-
-            #logoutButton {
-                padding: 9px 13px;
-                font-size: 12px;
-            }
-
-            main {
-                padding: 30px 18px 45px;
-            }
-
-            .welcome {
-                padding: 25px;
-            }
-
-            .welcome h1 {
-                font-size: 25px;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
+    }
+</style>
+```
 
 </head>
 
-
 <body>
 
-
-<!-- CABEÇALHO -->
+```
+<!-- =========================
+     CABEÇALHO
+========================= -->
 
 <header>
 
@@ -222,6 +293,7 @@
 
     <button
         id="logoutButton"
+        class="logout"
         type="button"
     >
         Terminar sessão
@@ -230,22 +302,27 @@
 </header>
 
 
-<!-- CONTEÚDO PRINCIPAL -->
+<!-- =========================
+     CONTEÚDO
+========================= -->
 
 <main>
 
-
-    <!-- ÁREA DE BOAS-VINDAS -->
+    <!-- BOAS-VINDAS -->
 
     <section class="welcome">
+
+        <small>O SEU GRANDE DIA</small>
 
         <h1>
             Bem-vindo ao seu painel ❤️
         </h1>
 
         <p>
-            Aqui poderá organizar todos os detalhes
-            do seu grande dia.
+            Tenha tudo o que precisa para organizar
+            o seu casamento num único lugar.
+            Planeie, acompanhe e transforme os seus
+            preparativos numa experiência mais simples.
         </p>
 
         <div id="userWelcome"></div>
@@ -255,22 +332,26 @@
 
     <!-- FUNCIONALIDADES -->
 
-    <h2 class="section-title">
-        O seu casamento
-    </h2>
+    <div class="section-header">
+
+        <h2>
+            Organize o seu casamento
+        </h2>
+
+        <span>
+            Tudo num só lugar
+        </span>
+
+    </div>
 
 
-    <section class="dashboard-grid">
-
+    <section class="cards">
 
         <!-- PLANEADOR -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
+            <div class="card-icon">
                 💍
             </div>
 
@@ -279,21 +360,22 @@
             </h3>
 
             <p>
-                Organize as tarefas e os preparativos
-                do seu casamento.
+                Organize todas as tarefas necessárias
+                para preparar o seu casamento.
             </p>
+
+            <span class="card-action">
+                Abrir planeador →
+            </span>
 
         </a>
 
 
         <!-- CONVIDADOS -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
+            <div class="card-icon">
                 👥
             </div>
 
@@ -302,21 +384,22 @@
             </h3>
 
             <p>
-                Registe e acompanhe a sua lista
-                de convidados.
+                Registe os convidados, acompanhe
+                confirmações e organize a sua lista.
             </p>
+
+            <span class="card-action">
+                Gerir convidados →
+            </span>
 
         </a>
 
 
         <!-- ORÇAMENTO -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
+            <div class="card-icon">
                 💰
             </div>
 
@@ -325,22 +408,23 @@
             </h3>
 
             <p>
-                Controle os custos e mantenha
-                o orçamento organizado.
+                Controle despesas, orçamento disponível
+                e custos previstos para o grande dia.
             </p>
+
+            <span class="card-action">
+                Gerir orçamento →
+            </span>
 
         </a>
 
 
         <!-- FORNECEDORES -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
-                📋
+            <div class="card-icon">
+                🤝
             </div>
 
             <h3>
@@ -348,21 +432,22 @@
             </h3>
 
             <p>
-                Organize os fornecedores necessários
-                para o seu casamento.
+                Organize fotógrafos, decoração,
+                catering, música e outros serviços.
             </p>
+
+            <span class="card-action">
+                Ver fornecedores →
+            </span>
 
         </a>
 
 
         <!-- CRONOGRAMA -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
+            <div class="card-icon">
                 📅
             </div>
 
@@ -371,21 +456,22 @@
             </h3>
 
             <p>
-                Acompanhe as datas e os momentos
-                importantes do seu casamento.
+                Acompanhe datas, prazos e os momentos
+                importantes antes do casamento.
             </p>
+
+            <span class="card-action">
+                Ver cronograma →
+            </span>
 
         </a>
 
 
         <!-- MEU CASAMENTO -->
 
-        <a
-            href="#"
-            class="dashboard-card"
-        >
+        <a href="#" class="card">
 
-            <div class="icon">
+            <div class="card-icon">
                 ❤️
             </div>
 
@@ -394,118 +480,43 @@
             </h3>
 
             <p>
-                Consulte e personalize as informações
-                do seu grande dia.
+                Guarde as informações principais
+                e personalize o seu espaço.
             </p>
 
-        </a>
+            <span class="card-action">
+                Ver casamento →
+            </span>
 
+        </a>
 
     </section>
 
 
+    <!-- INFORMAÇÃO -->
+
+    <section class="info-box">
+
+        <h2>
+            💕 O seu casamento começa aqui
+        </h2>
+
+        <p>
+            Utilize o painel para organizar cada etapa
+            do seu casamento. Em breve poderá gerir
+            convidados, orçamento, fornecedores,
+            tarefas e cronograma directamente nesta
+            plataforma.
+        </p>
+
+    </section>
+
 </main>
 
 
+<!-- RODAPÉ -->
+
 <footer>
 
-    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
-
-</footer>
-
-
-<!-- SISTEMA DE SESSÃO -->
-
-<script>
-
-    /*
-       VERIFICAR SE O UTILIZADOR ESTÁ AUTENTICADO
-    */
-
-    const sessao = localStorage.getItem(
-        "casamentoPerfeitoSessao"
-    );
-
-
-    /*
-       SE NÃO EXISTIR SESSÃO,
-       VOLTAR PARA O LOGIN
-    */
-
-    if (!sessao) {
-
-        window.location.href = "login.html";
-
-    }
-
-
-    /*
-       OBTER DADOS DO UTILIZADOR
-    */
-
-    let dadosSessao = null;
-
-    try {
-
-        dadosSessao = JSON.parse(sessao);
-
-    } catch (erro) {
-
-        localStorage.removeItem(
-            "casamentoPerfeitoSessao"
-        );
-
-        window.location.href = "login.html";
-
-    }
-
-
-    /*
-       MOSTRAR NOME DO UTILIZADOR
-    */
-
-    const userWelcome =
-        document.getElementById("userWelcome");
-
-
-    if (dadosSessao && userWelcome) {
-
-        userWelcome.textContent =
-            "💕 Olá, " +
-            dadosSessao.nome +
-            "! Bem-vindo ao seu espaço de planeamento.";
-
-    }
-
-
-    /*
-       TERMINAR SESSÃO
-    */
-
-    const logoutButton =
-        document.getElementById("logoutButton");
-
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            function() {
-
-                localStorage.removeItem(
-                    "casamentoPerfeitoSessao"
-                );
-
-                window.location.href =
-                    "login.html";
-
-            }
-        );
-
-    }
-
-</script>
-
-
-</body>
-</html>
+    © 2026 Casamento Perfeito —
+```

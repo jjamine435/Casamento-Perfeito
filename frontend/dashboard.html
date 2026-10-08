@@ -21,10 +21,6 @@
             min-height: 100vh;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
-
         header {
             background: #ffffff;
             min-height: 72px;
@@ -73,19 +69,11 @@
             transform: translateY(0);
         }
 
-        /* =========================
-           MAIN
-        ========================= */
-
         main {
             max-width: 1180px;
             margin: auto;
             padding: 45px 25px 60px;
         }
-
-        /* =========================
-           WELCOME
-        ========================= */
 
         .welcome {
             background: linear-gradient(
@@ -138,10 +126,6 @@
             font-weight: bold;
         }
 
-        /* =========================
-           RESUMO
-        ========================= */
-
         .summary {
             display: grid;
 
@@ -185,10 +169,6 @@
             font-size: 13px;
         }
 
-        /* =========================
-           SECTION HEADER
-        ========================= */
-
         .section-header {
             display: flex;
 
@@ -206,10 +186,6 @@
             color: #999;
             font-size: 14px;
         }
-
-        /* =========================
-           CARDS
-        ========================= */
 
         .cards {
             display: grid;
@@ -300,10 +276,6 @@
             color: #aaa;
         }
 
-        /* =========================
-           INFO BOX
-        ========================= */
-
         .info-box {
             background: white;
 
@@ -328,10 +300,6 @@
             font-size: 14px;
         }
 
-        /* =========================
-           STATUS
-        ========================= */
-
         .status-message {
             margin-top: 18px;
 
@@ -348,10 +316,6 @@
             font-size: 13px;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
-
         footer {
             text-align: center;
 
@@ -361,10 +325,6 @@
 
             font-size: 13px;
         }
-
-        /* =========================
-           MOBILE
-        ========================= */
 
         @media (max-width: 1000px) {
 
@@ -467,7 +427,6 @@
     <button
         id="logoutButton"
         type="button"
-        onclick="terminarSessao()"
     >
         Terminar sessão
     </button>
@@ -476,10 +435,6 @@
 
 
 <main>
-
-    <!-- =========================
-         BOAS-VINDAS
-    ========================== -->
 
     <section class="welcome">
 
@@ -503,10 +458,6 @@
     </section>
 
 
-    <!-- =========================
-         RESUMO
-    ========================== -->
-
     <section class="summary">
 
         <div class="summary-card">
@@ -523,7 +474,7 @@
             </div>
 
             <div class="summary-label">
-                Convidados
+                Convidados estimados
             </div>
 
         </div>
@@ -591,10 +542,6 @@
     </section>
 
 
-    <!-- =========================
-         MÓDULOS
-    ========================== -->
-
     <div class="section-header">
 
         <h2>
@@ -609,9 +556,6 @@
 
 
     <section class="cards">
-
-
-        <!-- PLANEADOR -->
 
         <a
             href="planeador.html"
@@ -638,10 +582,8 @@
         </a>
 
 
-        <!-- CONVIDADOS -->
-
         <a
-            href="frontend/convidados.html"
+            href="convidados.html"
             class="card"
         >
 
@@ -665,8 +607,6 @@
 
         </a>
 
-
-        <!-- ORÇAMENTO -->
 
         <a
             href="#"
@@ -695,8 +635,6 @@
         </a>
 
 
-        <!-- FORNECEDORES -->
-
         <a
             href="#"
             class="card disabled"
@@ -722,8 +660,6 @@
 
         </a>
 
-
-        <!-- CRONOGRAMA -->
 
         <a
             href="#"
@@ -751,8 +687,6 @@
         </a>
 
 
-        <!-- MEU CASAMENTO -->
-
         <a
             href="#"
             class="card disabled"
@@ -778,13 +712,8 @@
 
         </a>
 
-
     </section>
 
-
-    <!-- =========================
-         INFORMAÇÃO
-    ========================== -->
 
     <section class="info-box">
 
@@ -803,13 +732,12 @@
                 Próximos módulos:
             </strong>
 
-            Orçamento, Fornecedores, Cronograma
-            e Meu Casamento.
+            Convidados, Mesas, Orçamento, Fornecedores,
+            Cronograma e Meu Casamento.
 
         </div>
 
     </section>
-
 
 </main>
 
@@ -822,99 +750,30 @@
 </footer>
 
 
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
     /* =====================================================
-       CONFIGURAÇÃO DA SESSÃO
+       CONFIGURAÇÃO SUPABASE
     ===================================================== */
 
-    const CHAVE_SESSAO =
-        "casamentoPerfeitoSessao";
+    const SUPABASE_URL =
+        "https://yucymctjoqbxpipmpzir.supabase.co";
 
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_dyhLNw_TpWigMqYjxlPktA_vwW0aUBH";
 
-    /* =====================================================
-       VERIFICAR SESSÃO
-    ===================================================== */
-
-    function verificarSessao() {
-
-        let sessao =
-            localStorage.getItem(CHAVE_SESSAO);
-
-        /*
-         * Se não existir no localStorage,
-         * tentamos verificar também o sessionStorage.
-         */
-
-        if (!sessao) {
-
-            sessao =
-                sessionStorage.getItem(CHAVE_SESSAO);
-
-        }
-
-
-        /*
-         * Não existe sessão.
-         */
-
-        if (!sessao) {
-
-            redirecionarParaLogin();
-
-            return null;
-
-        }
-
-
-        /*
-         * Tentar interpretar os dados.
-         */
-
-        try {
-
-            const utilizador =
-                JSON.parse(sessao);
-
-            /*
-             * Verificação básica.
-             */
-
-            if (
-                !utilizador ||
-                typeof utilizador !== "object"
-            ) {
-
-                throw new Error(
-                    "Sessão inválida."
-                );
-
-            }
-
-            return utilizador;
-
-        } catch (erro) {
-
-            console.error(
-                "Sessão inválida:",
-                erro
-            );
-
-            localStorage.removeItem(
-                CHAVE_SESSAO
-            );
-
-            sessionStorage.removeItem(
-                CHAVE_SESSAO
-            );
-
-            redirecionarParaLogin();
-
-            return null;
-
-        }
-
-    }
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
 
     /* =====================================================
@@ -922,67 +781,6 @@
     ===================================================== */
 
     function redirecionarParaLogin() {
-
-        /*
-         * Como dashboard.html está no mesmo nível
-         * que login.html, usamos simplesmente:
-         */
-
-        window.location.replace(
-            "login.html"
-        );
-
-    }
-
-
-    /* =====================================================
-       TERMINAR SESSÃO
-    ===================================================== */
-
-    function terminarSessao() {
-
-        const confirmar =
-            confirm(
-                "Tem a certeza de que deseja terminar a sessão?"
-            );
-
-
-        if (!confirmar) {
-
-            return;
-
-        }
-
-
-        /*
-         * Remover sessão do localStorage.
-         */
-
-        localStorage.removeItem(
-            CHAVE_SESSAO
-        );
-
-
-        /*
-         * Remover também do sessionStorage.
-         */
-
-        sessionStorage.removeItem(
-            CHAVE_SESSAO
-        );
-
-
-        /*
-         * Limpar possíveis dados temporários
-         * relacionados com a sessão.
-         */
-
-        sessionStorage.clear();
-
-
-        /*
-         * Redirecionar para login.
-         */
 
         window.location.replace(
             "login.html"
@@ -996,7 +794,8 @@
     ===================================================== */
 
     function mostrarUtilizador(
-        utilizador
+        utilizador,
+        perfil
     ) {
 
         const userWelcome =
@@ -1006,22 +805,14 @@
 
 
         if (!userWelcome) {
-
             return;
-
         }
 
 
-        /*
-         * Tentar obter o nome
-         * através de diferentes propriedades.
-         */
-
         const nome =
-            utilizador.nome ||
-            utilizador.name ||
-            utilizador.nomeCompleto ||
-            utilizador.email ||
+            perfil?.nome ||
+            utilizador?.user_metadata?.nome ||
+            utilizador?.email ||
             "Utilizador";
 
 
@@ -1032,32 +823,270 @@
 
 
     /* =====================================================
-       CARREGAR ESTATÍSTICAS
+       FORMATAR MOEDA
     ===================================================== */
 
-    function carregarEstatisticas() {
+    function formatarMoeda(
+        valor,
+        moeda
+    ) {
 
-        /*
-         * Convidados
-         */
+        const numero =
+            Number(valor || 0);
 
-        let convidados = [];
+
+        if (!numero) {
+            return "—";
+        }
+
 
         try {
 
-            convidados =
-                JSON.parse(
-                    localStorage.getItem(
-                        "casamentoPerfeitoConvidados_v1"
-                    )
-                ) || [];
+            return new Intl.NumberFormat(
+                "pt-PT",
+                {
+                    style: "currency",
+                    currency: moeda || "MZN",
+                    maximumFractionDigits: 2
+                }
+            ).format(numero);
 
         } catch (erro) {
 
-            convidados = [];
+            return (
+                numero.toLocaleString("pt-PT") +
+                " " +
+                (moeda || "MZN")
+            );
 
         }
 
+    }
+
+
+    /* =====================================================
+       CRIAR CASAMENTO A PARTIR DOS DADOS DO REGISTO
+    ===================================================== */
+
+    async function criarCasamentoInicial(
+        utilizador
+    ) {
+
+        const metadata =
+            utilizador.user_metadata || {};
+
+
+        const noivo =
+            metadata.noivo || {};
+
+        const noiva =
+            metadata.noiva || {};
+
+        const casamento =
+            metadata.casamento || {};
+
+        const preferencias =
+            metadata.preferencias || {};
+
+
+        /*
+         * A data é obrigatória na tabela weddings.
+         *
+         * Como o formulário de registo exige a data,
+         * normalmente este valor estará presente.
+         */
+
+        if (!casamento.data) {
+
+            throw new Error(
+                "Os dados do casamento não possuem uma data válida."
+            );
+
+        }
+
+
+        const novoCasamento = {
+
+            user_id:
+                utilizador.id,
+
+            nome_noivo:
+                noivo.nome || "Noivo",
+
+            telefone_noivo:
+                noivo.telefone || null,
+
+            whatsapp_noivo:
+                noivo.whatsapp || null,
+
+            email_noivo:
+                noivo.email || null,
+
+            nome_noiva:
+                noiva.nome || "Noiva",
+
+            telefone_noiva:
+                noiva.telefone || null,
+
+            whatsapp_noiva:
+                noiva.whatsapp || null,
+
+            email_noiva:
+                noiva.email || null,
+
+            data_casamento:
+                casamento.data,
+
+            hora_casamento:
+                casamento.hora || null,
+
+            cidade:
+                casamento.cidade || null,
+
+            local_cerimonia:
+                casamento.localCerimonia || null,
+
+            local_festa:
+                casamento.localFesta || null,
+
+            convidados_estimados:
+                Number(
+                    casamento.convidadosEstimados || 0
+                ),
+
+            tipo_casamento:
+                casamento.tipo || null,
+
+            estilo:
+                casamento.estilo || null,
+
+            moeda:
+                preferencias.moeda || "MZN",
+
+            orcamento_estimado:
+                Number(
+                    preferencias.orcamentoEstimado || 0
+                ),
+
+            observacoes:
+                preferencias.observacoes || null
+
+        };
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .from("weddings")
+            .insert(novoCasamento)
+            .select()
+            .single();
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao criar casamento:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        return data;
+
+    }
+
+
+    /* =====================================================
+       CARREGAR OU CRIAR CASAMENTO
+    ===================================================== */
+
+    async function carregarCasamento(
+        utilizador
+    ) {
+
+        /*
+         * Primeiro procuramos um casamento
+         * pertencente ao utilizador autenticado.
+         */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .from("weddings")
+            .select("*")
+            .eq(
+                "user_id",
+                utilizador.id
+            )
+            .order(
+                "criado_em",
+                {
+                    ascending: true
+                }
+            )
+            .limit(1);
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao carregar casamento:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        /*
+         * Já existe.
+         */
+
+        if (data && data.length > 0) {
+
+            return data[0];
+
+        }
+
+
+        /*
+         * Ainda não existe.
+         *
+         * Criamos o primeiro casamento
+         * usando os dados recolhidos no registo.
+         */
+
+        return await criarCasamentoInicial(
+            utilizador
+        );
+
+    }
+
+
+    /* =====================================================
+       CARREGAR ESTATÍSTICAS DO DASHBOARD
+    ===================================================== */
+
+    function carregarEstatisticas(
+        casamento
+    ) {
+
+        /*
+         * Convidados estimados
+         *
+         * Ainda não estamos a contar convidados
+         * da tabela de convidados porque esse módulo
+         * ainda não foi migrado para o Supabase.
+         */
 
         const totalConvidados =
             document.getElementById(
@@ -1065,76 +1094,21 @@
             );
 
 
-        const totalConfirmados =
-            document.getElementById(
-                "totalConfirmados"
-            );
-
-
         if (totalConvidados) {
 
             totalConvidados.textContent =
-                convidados.length;
-
-        }
-
-
-        /*
-         * Contar convidados confirmados.
-         */
-
-        const confirmados =
-            convidados.filter(
-                convidado => {
-
-                    const estado =
-                        String(
-                            convidado.rsvp ||
-                            convidado.estadoRSVP ||
-                            convidado.confirmacao ||
-                            ""
-                        ).toLowerCase();
-
-                    return (
-                        estado === "confirmado" ||
-                        estado === "confirmada" ||
-                        estado === "sim" ||
-                        estado === "yes"
-                    );
-
-                }
-            );
-
-
-        if (totalConfirmados) {
-
-            totalConfirmados.textContent =
-                confirmados.length;
+                Number(
+                    casamento?.convidados_estimados || 0
+                );
 
         }
 
 
         /*
          * Mesas
+         *
+         * A tabela de mesas ainda será criada.
          */
-
-        let mesas = [];
-
-        try {
-
-            mesas =
-                JSON.parse(
-                    localStorage.getItem(
-                        "casamentoPerfeitoMesas_v1"
-                    )
-                ) || [];
-
-        } catch (erro) {
-
-            mesas = [];
-
-        }
-
 
         const totalMesas =
             document.getElementById(
@@ -1145,16 +1119,34 @@
         if (totalMesas) {
 
             totalMesas.textContent =
-                mesas.length;
+                "0";
 
         }
 
 
         /*
-         * Orçamento
+         * Confirmados
          *
-         * Este módulo ainda não foi criado,
-         * portanto deixamos "—".
+         * Será ligado ao módulo de convidados
+         * numa próxima etapa.
+         */
+
+        const totalConfirmados =
+            document.getElementById(
+                "totalConfirmados"
+            );
+
+
+        if (totalConfirmados) {
+
+            totalConfirmados.textContent =
+                "0";
+
+        }
+
+
+        /*
+         * Orçamento estimado
          */
 
         const totalOrcamento =
@@ -1166,7 +1158,10 @@
         if (totalOrcamento) {
 
             totalOrcamento.textContent =
-                "—";
+                formatarMoeda(
+                    casamento?.orcamento_estimado,
+                    casamento?.moeda
+                );
 
         }
 
@@ -1174,7 +1169,101 @@
 
 
     /* =====================================================
-       MÓDULOS AINDA NÃO DISPONÍVEIS
+       MOSTRAR ERRO
+    ===================================================== */
+
+    function mostrarErroDashboard(
+        erro
+    ) {
+
+        console.error(
+            "Erro no dashboard:",
+            erro
+        );
+
+
+        const userWelcome =
+            document.getElementById(
+                "userWelcome"
+            );
+
+
+        if (userWelcome) {
+
+            userWelcome.textContent =
+                "Não foi possível carregar os dados da sua conta.";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       TERMINAR SESSÃO
+    ===================================================== */
+
+    async function terminarSessao() {
+
+        const confirmar =
+            confirm(
+                "Tem a certeza de que deseja terminar a sessão?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao terminar sessão:",
+                error
+            );
+
+            alert(
+                "Não foi possível terminar a sessão. Tente novamente."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Limpar a antiga sessão local criada
+         * pela versão anterior da aplicação.
+         *
+         * Isto não interfere com a sessão segura
+         * do Supabase.
+         */
+
+        localStorage.removeItem(
+            "casamentoPerfeitoSessao"
+        );
+
+
+        sessionStorage.removeItem(
+            "casamentoPerfeitoSessao"
+        );
+
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+
+    /* =====================================================
+       MÓDULOS EM DESENVOLVIMENTO
     ===================================================== */
 
     function mostrarModuloEmBreve(
@@ -1182,14 +1271,8 @@
         nomeModulo
     ) {
 
-        /*
-         * Impedir o href="#"
-         */
-
         if (evento) {
-
             evento.preventDefault();
-
         }
 
 
@@ -1206,63 +1289,150 @@
        INICIALIZAÇÃO
     ===================================================== */
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
+    async function inicializarDashboard() {
+
+        try {
 
             /*
-             * Verificar se existe sessão.
+             * Obter sessão atual do Supabase.
              */
 
-            const utilizador =
-                verificarSessao();
+            const {
+                data: sessionData,
+                error: sessionError
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (sessionError) {
+
+                throw sessionError;
+
+            }
+
+
+            const session =
+                sessionData?.session;
 
 
             /*
-             * Se não houver utilizador,
-             * parar aqui.
+             * Não existe sessão.
              */
 
-            if (!utilizador) {
+            if (!session) {
+
+                redirecionarParaLogin();
 
                 return;
 
             }
 
 
+            const utilizador =
+                session.user;
+
+
             /*
-             * Mostrar nome.
+             * Carregar perfil.
+             */
+
+            const {
+                data: perfil,
+                error: perfilError
+            } =
+                await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "id",
+                    utilizador.id
+                )
+                .maybeSingle();
+
+
+            if (perfilError) {
+
+                console.error(
+                    "Erro ao carregar perfil:",
+                    perfilError
+                );
+
+            }
+
+
+            /*
+             * Mostrar utilizador.
              */
 
             mostrarUtilizador(
-                utilizador
+                utilizador,
+                perfil
             );
 
 
             /*
-             * Carregar estatísticas.
+             * Carregar ou criar casamento.
              */
 
-            carregarEstatisticas();
+            const casamento =
+                await carregarCasamento(
+                    utilizador
+                );
 
 
             /*
-             * Garantir que o botão
-             * está funcional.
+             * Mostrar estatísticas.
              */
 
-            const logoutButton =
-                document.getElementById(
-                    "logoutButton"
-                );
+            carregarEstatisticas(
+                casamento
+            );
 
 
-            if (logoutButton) {
+        } catch (erro) {
 
-                logoutButton.addEventListener(
-                    "click",
-                    terminarSessao
-                );
+            mostrarErroDashboard(
+                erro
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       BOTÃO DE LOGOUT
+    ===================================================== */
+
+    document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        terminarSessao
+    );
+
+
+    /* =====================================================
+       DETECTAR ALTERAÇÕES NA AUTENTICAÇÃO
+    ===================================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        function(event, session) {
+
+            if (
+                event === "SIGNED_OUT" ||
+                !session
+            ) {
+
+                if (
+                    !window.location.pathname
+                    .toLowerCase()
+                    .includes("login.html")
+                ) {
+
+                    redirecionarParaLogin();
+
+                }
 
             }
 
@@ -1271,40 +1441,14 @@
 
 
     /* =====================================================
-       PROTEÇÃO CONTRA PÁGINA EM CACHE
+       INICIAR
     ===================================================== */
 
-    window.addEventListener(
-        "pageshow",
-        function () {
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
 
-            const sessao =
-                localStorage.getItem(
-                    CHAVE_SESSAO
-                ) ||
-                sessionStorage.getItem(
-                    CHAVE_SESSAO
-                );
-
-
-            if (!sessao) {
-
-                /*
-                 * Só redirecionar se não estivermos
-                 * já no login.
-                 */
-
-                if (
-                    !window.location.pathname
-                        .toLowerCase()
-                        .includes("login.html")
-                ) {
-
-                    redirecionarParaLogin();
-
-                }
-
-            }
+            inicializarDashboard();
 
         }
     );

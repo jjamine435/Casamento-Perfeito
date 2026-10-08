@@ -222,11 +222,6 @@
             color: #9a3434;
         }
 
-        .badge-gray {
-            background: #eee;
-            color: #666;
-        }
-
         .actions {
             display: flex;
             gap: 6px;
@@ -345,12 +340,6 @@
             margin-top: 22px;
         }
 
-        .loading {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-        }
-
         .message {
             padding: 12px 15px;
             border-radius: 10px;
@@ -430,7 +419,7 @@
             margin-top: 5px;
         }
 
-        @media (max-width: 1000px) {
+        @media(max-width:1000px) {
             .stats {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -444,7 +433,7 @@
             }
         }
 
-        @media (max-width: 650px) {
+        @media(max-width:650px) {
             .topbar {
                 padding: 14px;
             }
@@ -496,12 +485,15 @@
 
     <section class="hero">
         <h1>👥 Convidados e Mesas</h1>
-        <p>Organize os seus convidados, confirmações e lugares do casamento.</p>
+        <p>
+            Organize os seus convidados, confirmações e lugares do casamento.
+        </p>
     </section>
 
     <div id="message" class="message"></div>
 
     <section class="stats">
+
         <div class="stat">
             <div class="stat-label">Total</div>
             <div class="stat-value" id="statTotal">0</div>
@@ -531,11 +523,13 @@
             <div class="stat-label">Crianças</div>
             <div class="stat-value" id="statCriancas">0</div>
         </div>
+
     </section>
 
     <section class="card">
 
         <div class="tabs">
+
             <button type="button" class="tab active" data-tab="convidados">
                 👥 Convidados
             </button>
@@ -547,9 +541,9 @@
             <button type="button" class="tab" data-tab="mapa">
                 🗺️ Mapa
             </button>
+
         </div>
 
-        <!-- CONVIDADOS -->
         <div id="tab-convidados">
 
             <div class="toolbar">
@@ -585,7 +579,11 @@
                     <option value="">Todas as mesas</option>
                 </select>
 
-                <button type="button" class="btn btn-primary" onclick="abrirConvidado()">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="abrirConvidado()"
+                >
                     + Convidado
                 </button>
 
@@ -594,6 +592,7 @@
             <div class="table-wrapper">
 
                 <table>
+
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -606,28 +605,32 @@
                         </tr>
                     </thead>
 
-                    <tbody id="guestTableBody">
-                    </tbody>
+                    <tbody id="guestTableBody"></tbody>
+
                 </table>
 
             </div>
 
         </div>
 
-        <!-- MESAS -->
         <div id="tab-mesas" style="display:none;">
 
             <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
-                <button type="button" class="btn btn-primary" onclick="abrirMesa()">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="abrirMesa()"
+                >
                     + Nova mesa
                 </button>
+
             </div>
 
             <div id="tablesContainer" class="table-grid"></div>
 
         </div>
 
-        <!-- MAPA -->
         <div id="tab-mapa" style="display:none;">
 
             <div id="mapContainer" class="map"></div>
@@ -639,11 +642,14 @@
 </main>
 
 <!-- MODAL CONVIDADO -->
+
 <div id="guestModal" class="modal-overlay">
 
     <div class="modal">
 
-        <h2 id="guestModalTitle">Adicionar convidado</h2>
+        <h2 id="guestModalTitle">
+            Adicionar convidado
+        </h2>
 
         <form id="guestForm">
 
@@ -652,18 +658,25 @@
             <div class="form-grid">
 
                 <div class="form-group full">
-                    <label for="nome">Nome completo *</label>
+
+                    <label for="nome">
+                        Nome completo *
+                    </label>
+
                     <input
                         id="nome"
                         class="input"
                         required
                         autocomplete="off"
                     >
+
                 </div>
 
                 <div class="form-group">
 
-                    <label for="grupo">Grupo / Família</label>
+                    <label for="grupo">
+                        Grupo / Família
+                    </label>
 
                     <input
                         id="grupo"
@@ -672,6 +685,7 @@
                     >
 
                     <div class="suggestions" data-for="grupo">
+
                         <button type="button" class="suggestion">Família</button>
                         <button type="button" class="suggestion">Amigos</button>
                         <button type="button" class="suggestion">Trabalho</button>
@@ -679,13 +693,16 @@
                         <button type="button" class="suggestion">Escola</button>
                         <button type="button" class="suggestion">Vizinhos</button>
                         <button type="button" class="suggestion">Padrinhos</button>
+
                     </div>
 
                 </div>
 
                 <div class="form-group">
 
-                    <label for="relacao">Relação</label>
+                    <label for="relacao">
+                        Relação
+                    </label>
 
                     <input
                         id="relacao"
@@ -694,6 +711,7 @@
                     >
 
                     <div class="suggestions" data-for="relacao">
+
                         <button type="button" class="suggestion">Pai</button>
                         <button type="button" class="suggestion">Mãe</button>
                         <button type="button" class="suggestion">Irmão</button>
@@ -708,13 +726,16 @@
                         <button type="button" class="suggestion">Vizinho</button>
                         <button type="button" class="suggestion">Padrinho</button>
                         <button type="button" class="suggestion">Madrinha</button>
+
                     </div>
 
                 </div>
 
                 <div class="form-group">
 
-                    <label for="lado">Lado</label>
+                    <label for="lado">
+                        Lado
+                    </label>
 
                     <select id="lado" class="select">
                         <option value="Noiva">Noiva</option>
@@ -726,7 +747,9 @@
 
                 <div class="form-group">
 
-                    <label for="tipo">Tipo</label>
+                    <label for="tipo">
+                        Tipo
+                    </label>
 
                     <select id="tipo" class="select">
                         <option value="Adulto">Adulto</option>
@@ -737,7 +760,9 @@
 
                 <div class="form-group">
 
-                    <label for="telefone">Telefone</label>
+                    <label for="telefone">
+                        Telefone
+                    </label>
 
                     <input
                         id="telefone"
@@ -749,7 +774,9 @@
 
                 <div class="form-group">
 
-                    <label for="whatsapp">WhatsApp</label>
+                    <label for="whatsapp">
+                        WhatsApp
+                    </label>
 
                     <input
                         id="whatsapp"
@@ -761,7 +788,9 @@
 
                 <div class="form-group">
 
-                    <label for="email">Email</label>
+                    <label for="email">
+                        Email
+                    </label>
 
                     <input
                         id="email"
@@ -773,7 +802,9 @@
 
                 <div class="form-group">
 
-                    <label for="rsvp">RSVP</label>
+                    <label for="rsvp">
+                        RSVP
+                    </label>
 
                     <select id="rsvp" class="select">
                         <option value="Pendente">Pendente</option>
@@ -785,7 +816,9 @@
 
                 <div class="form-group">
 
-                    <label for="acompanhante">Acompanhante</label>
+                    <label for="acompanhante">
+                        Acompanhante
+                    </label>
 
                     <select id="acompanhante" class="select">
                         <option value="Não">Não</option>
@@ -796,7 +829,9 @@
 
                 <div class="form-group">
 
-                    <label for="nomeAcompanhante">Nome do acompanhante</label>
+                    <label for="nomeAcompanhante">
+                        Nome do acompanhante
+                    </label>
 
                     <input
                         id="nomeAcompanhante"
@@ -807,7 +842,9 @@
 
                 <div class="form-group">
 
-                    <label for="alimentacao">Restrição alimentar</label>
+                    <label for="alimentacao">
+                        Restrição alimentar
+                    </label>
 
                     <input
                         id="alimentacao"
@@ -816,29 +853,37 @@
                     >
 
                     <div class="suggestions" data-for="alimentacao">
+
                         <button type="button" class="suggestion">Normal</button>
                         <button type="button" class="suggestion">Vegetariana</button>
                         <button type="button" class="suggestion">Sem glúten</button>
                         <button type="button" class="suggestion">Sem lactose</button>
                         <button type="button" class="suggestion">Vegana</button>
                         <button type="button" class="suggestion">Outra</button>
+
                     </div>
 
                 </div>
 
                 <div class="form-group">
 
-                    <label for="mesa">Mesa</label>
+                    <label for="mesa">
+                        Mesa
+                    </label>
 
                     <select id="mesa" class="select">
-                        <option value="">Sem mesa</option>
+                        <option value="">
+                            Sem mesa
+                        </option>
                     </select>
 
                 </div>
 
                 <div class="form-group">
 
-                    <label for="lugar">Lugar</label>
+                    <label for="lugar">
+                        Lugar
+                    </label>
 
                     <input
                         id="lugar"
@@ -851,7 +896,9 @@
 
                 <div class="form-group full">
 
-                    <label for="notas">Observações</label>
+                    <label for="notas">
+                        Observações
+                    </label>
 
                     <input
                         id="notas"
@@ -860,6 +907,7 @@
                     >
 
                     <div class="suggestions" data-for="notas">
+
                         <button type="button" class="suggestion">
                             Precisa de transporte
                         </button>
@@ -879,6 +927,7 @@
                         <button type="button" class="suggestion">
                             Padrinho/Madrinha
                         </button>
+
                     </div>
 
                 </div>
@@ -911,18 +960,24 @@
 </div>
 
 <!-- MODAL MESA -->
+
 <div id="tableModal" class="modal-overlay">
 
     <div class="modal">
 
-        <h2 id="tableModalTitle">Nova mesa</h2>
+        <h2 id="tableModalTitle">
+            Nova mesa
+        </h2>
 
         <form id="tableForm">
 
             <input type="hidden" id="tableId">
 
             <div class="form-group">
-                <label for="tableName">Nome / Número da mesa *</label>
+
+                <label for="tableName">
+                    Nome / Número da mesa *
+                </label>
 
                 <input
                     id="tableName"
@@ -930,10 +985,14 @@
                     required
                     placeholder="Ex.: Mesa 1"
                 >
+
             </div>
 
             <div class="form-group" style="margin-top:15px;">
-                <label for="tableSeats">Número de lugares</label>
+
+                <label for="tableSeats">
+                    Número de lugares
+                </label>
 
                 <input
                     id="tableSeats"
@@ -942,6 +1001,7 @@
                     min="1"
                     value="8"
                 >
+
             </div>
 
             <div class="modal-footer">
@@ -972,9 +1032,9 @@
 <script>
 "use strict";
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://yucymctjoqbxpipmpzir.supabase.co";
@@ -989,38 +1049,53 @@ const supabaseClient =
     );
 
 
-/* =========================================================
+/* =====================================================
    ESTADO
-========================================================= */
+===================================================== */
 
 let utilizadorAtual = null;
+
 let casamentoAtual = null;
+
 let convidados = [];
+
 let mesas = [];
+
+
+/* =====================================================
+   LOCALSTORAGE ANTIGO
+   Mantido apenas para migração
+===================================================== */
 
 const STORAGE_TABLES =
     "casamentoPerfeitoMesas_v1";
 
 
-/* =========================================================
+/* =====================================================
    INICIALIZAÇÃO
-========================================================= */
+===================================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
-    configurarTabs();
-    configurarSugestoes();
-    configurarFormularios();
-    configurarFiltros();
+        configurarTabs();
 
-    await verificarSessao();
+        configurarSugestoes();
 
-});
+        configurarFormularios();
+
+        configurarFiltros();
+
+        await verificarSessao();
+
+    }
+);
 
 
-/* =========================================================
-   SESSÃO SUPABASE
-========================================================= */
+/* =====================================================
+   SESSÃO
+===================================================== */
 
 async function verificarSessao() {
 
@@ -1029,13 +1104,14 @@ async function verificarSessao() {
         const {
             data,
             error
-        } = await supabaseClient.auth.getSession();
+        } =
+            await supabaseClient.auth.getSession();
 
-        if (error) {
+        if (error)
             throw error;
-        }
 
-        const session = data.session;
+        const session =
+            data.session;
 
         if (!session) {
 
@@ -1063,43 +1139,46 @@ async function verificarSessao() {
 }
 
 
-/* =========================================================
+/* =====================================================
    CARREGAR DADOS
-========================================================= */
+===================================================== */
 
 async function carregarDados() {
 
     try {
 
-        if (!utilizadorAtual) {
+        if (!utilizadorAtual)
             return;
-        }
+
 
         const {
             data: casamento,
             error: erroCasamento
-        } = await supabaseClient
-            .from("weddings")
-            .select("*")
-            .eq(
-                "user_id",
-                utilizadorAtual.id
-            )
-            .order(
-                "criado_em",
-                {
-                    ascending: true
-                }
-            )
-            .limit(1)
-            .maybeSingle();
+        } =
+            await supabaseClient
+                .from("weddings")
+                .select("*")
+                .eq(
+                    "user_id",
+                    utilizadorAtual.id
+                )
+                .order(
+                    "criado_em",
+                    {
+                        ascending: true
+                    }
+                )
+                .limit(1)
+                .maybeSingle();
 
-        if (erroCasamento) {
+
+        if (erroCasamento)
             throw erroCasamento;
-        }
+
 
         casamentoAtual =
             casamento;
+
 
         if (!casamentoAtual) {
 
@@ -1113,10 +1192,17 @@ async function carregarDados() {
             return;
         }
 
+
         await carregarConvidados();
-        carregarMesas();
+
+        await carregarMesasSupabase();
+
+        await migrarMesasAntigas();
+
+        await carregarConvidados();
 
         renderizarTudo();
+
 
     } catch (error) {
 
@@ -1133,48 +1219,111 @@ async function carregarDados() {
 }
 
 
-/* =========================================================
+/* =====================================================
    CONVIDADOS
-========================================================= */
+===================================================== */
 
 async function carregarConvidados() {
 
     if (!casamentoAtual) {
+
         convidados = [];
+
         return;
     }
+
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("guests")
-        .select("*")
-        .eq(
-            "wedding_id",
-            casamentoAtual.id
-        )
-        .order(
-            "nome",
-            {
-                ascending: true
-            }
-        );
+    } =
+        await supabaseClient
+            .from("guests")
+            .select("*")
+            .eq(
+                "wedding_id",
+                casamentoAtual.id
+            )
+            .order(
+                "nome",
+                {
+                    ascending: true
+                }
+            );
 
-    if (error) {
+
+    if (error)
         throw error;
-    }
+
 
     convidados =
         data || [];
 }
 
 
-/* =========================================================
-   MESAS
-========================================================= */
+/* =====================================================
+   MESAS — SUPABASE
+===================================================== */
 
-function carregarMesas() {
+async function carregarMesasSupabase() {
+
+    if (!casamentoAtual) {
+
+        mesas = [];
+
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("tables")
+            .select("*")
+            .eq(
+                "wedding_id",
+                casamentoAtual.id
+            )
+            .order(
+                "criado_em",
+                {
+                    ascending: true
+                }
+            );
+
+
+    if (error)
+        throw error;
+
+
+    mesas =
+        data || [];
+}
+
+
+/* =====================================================
+   MIGRAÇÃO DAS MESAS ANTIGAS
+===================================================== */
+
+async function migrarMesasAntigas() {
+
+    if (!casamentoAtual)
+        return;
+
+
+    /*
+       Se já existem mesas no Supabase,
+       não fazemos migração automática.
+    */
+
+    if (mesas.length > 0)
+        return;
+
+
+    let mesasAntigas = [];
+
 
     try {
 
@@ -1183,118 +1332,259 @@ function carregarMesas() {
                 STORAGE_TABLES
             );
 
-        if (!dados) {
-            mesas = [];
-            return;
-        }
 
-        const parsed =
+        if (!dados)
+            return;
+
+
+        mesasAntigas =
             JSON.parse(dados);
 
-        mesas =
-            Array.isArray(parsed)
-                ? parsed
-                : [];
 
     } catch (error) {
 
         console.error(
-            "Erro ao carregar mesas:",
+            "Erro ao ler mesas antigas:",
             error
         );
 
-        mesas = [];
+        return;
     }
-}
 
 
-function guardarMesas() {
+    if (
+        !Array.isArray(mesasAntigas) ||
+        mesasAntigas.length === 0
+    ) {
 
-    localStorage.setItem(
-        STORAGE_TABLES,
-        JSON.stringify(mesas)
+        return;
+    }
+
+
+    mostrarMensagem(
+        "A migrar as mesas antigas para o Supabase...",
+        "success"
+    );
+
+
+    const mapaMesas =
+        {};
+
+
+    for (
+        const mesaAntiga
+        of mesasAntigas
+    ) {
+
+        try {
+
+            const {
+                data: novaMesa,
+                error
+            } =
+                await supabaseClient
+                    .from("tables")
+                    .insert({
+                        wedding_id:
+                            casamentoAtual.id,
+
+                        nome:
+                            mesaAntiga.nome ||
+                            "Mesa",
+
+                        lugares:
+                            Number(
+                                mesaAntiga.lugares
+                            ) || 8
+                    })
+                    .select()
+                    .single();
+
+
+            if (error)
+                throw error;
+
+
+            mapaMesas[
+                mesaAntiga.id
+            ] =
+                novaMesa.id;
+
+
+        } catch (error) {
+
+            console.error(
+                "Erro ao migrar mesa:",
+                mesaAntiga,
+                error
+            );
+
+            throw error;
+        }
+    }
+
+
+    /*
+       Atualizar convidados que tinham
+       mesa_id antigo.
+    */
+
+    for (
+        const convidado
+        of convidados
+    ) {
+
+        const novoMesaId =
+            mapaMesas[
+                convidado.mesa_id
+            ];
+
+
+        if (!novoMesaId)
+            continue;
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("guests")
+                .update({
+                    mesa_id:
+                        novoMesaId
+                })
+                .eq(
+                    "id",
+                    convidado.id
+                )
+                .eq(
+                    "wedding_id",
+                    casamentoAtual.id
+                );
+
+
+        if (error)
+            throw error;
+    }
+
+
+    /*
+       Recarregar mesas.
+    */
+
+    await carregarMesasSupabase();
+
+
+    mostrarMensagem(
+        `${mesasAntigas.length} mesa(s) migrada(s) para o Supabase.`,
+        "success"
     );
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDERIZAÇÃO
-========================================================= */
+===================================================== */
 
 function renderizarTudo() {
 
     atualizarEstatisticas();
-    renderizarConvidados();
-    renderizarMesas();
-    atualizarSelectMesas();
-    renderizarMapa();
 
+    renderizarConvidados();
+
+    renderizarMesas();
+
+    atualizarSelectMesas();
+
+    renderizarMapa();
 }
 
 
-/* =========================================================
+/* =====================================================
    ESTATÍSTICAS
-========================================================= */
+===================================================== */
 
 function atualizarEstatisticas() {
 
     const total =
         convidados.length;
 
+
     const confirmados =
         convidados.filter(
-            c => c.rsvp === "Confirmado"
+            c =>
+                c.rsvp === "Confirmado"
         ).length;
+
 
     const pendentes =
         convidados.filter(
-            c => c.rsvp === "Pendente"
+            c =>
+                c.rsvp === "Pendente"
         ).length;
+
 
     const naoVai =
         convidados.filter(
-            c => c.rsvp === "Não vai"
+            c =>
+                c.rsvp === "Não vai"
         ).length;
+
 
     const adultos =
         convidados.filter(
-            c => c.tipo === "Adulto"
+            c =>
+                c.tipo === "Adulto"
         ).length;
+
 
     const criancas =
         convidados.filter(
-            c => c.tipo === "Criança"
+            c =>
+                c.tipo === "Criança"
         ).length;
+
 
     document.getElementById(
         "statTotal"
-    ).textContent = total;
+    ).textContent =
+        total;
+
 
     document.getElementById(
         "statConfirmados"
-    ).textContent = confirmados;
+    ).textContent =
+        confirmados;
+
 
     document.getElementById(
         "statPendentes"
-    ).textContent = pendentes;
+    ).textContent =
+        pendentes;
+
 
     document.getElementById(
         "statNaoVai"
-    ).textContent = naoVai;
+    ).textContent =
+        naoVai;
+
 
     document.getElementById(
         "statAdultos"
-    ).textContent = adultos;
+    ).textContent =
+        adultos;
+
 
     document.getElementById(
         "statCriancas"
-    ).textContent = criancas;
+    ).textContent =
+        criancas;
 }
 
 
-/* =========================================================
-   LISTA DE CONVIDADOS
-========================================================= */
+/* =====================================================
+   CONVIDADOS — TABELA
+===================================================== */
 
 function renderizarConvidados() {
 
@@ -1303,32 +1593,38 @@ function renderizarConvidados() {
             "guestTableBody"
         );
 
+
     const pesquisa =
-        document.getElementById(
-            "search"
-        ).value
-        .toLowerCase()
-        .trim();
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
 
     const rsvp =
-        document.getElementById(
-            "filterRsvp"
-        ).value;
+        document
+            .getElementById("filterRsvp")
+            .value;
+
 
     const lado =
-        document.getElementById(
-            "filterLado"
-        ).value;
+        document
+            .getElementById("filterLado")
+            .value;
+
 
     const tipo =
-        document.getElementById(
-            "filterTipo"
-        ).value;
+        document
+            .getElementById("filterTipo")
+            .value;
+
 
     const mesa =
-        document.getElementById(
-            "filterMesa"
-        ).value;
+        document
+            .getElementById("filterMesa")
+            .value;
+
 
     const filtrados =
         convidados.filter(
@@ -1346,54 +1642,56 @@ function renderizarConvidados() {
                     .join(" ")
                     .toLowerCase();
 
+
                 if (
                     pesquisa &&
                     !texto.includes(pesquisa)
-                ) {
+                )
                     return false;
-                }
+
 
                 if (
                     rsvp &&
                     convidado.rsvp !== rsvp
-                ) {
+                )
                     return false;
-                }
+
 
                 if (
                     lado &&
                     convidado.lado !== lado
-                ) {
+                )
                     return false;
-                }
+
 
                 if (
                     tipo &&
                     convidado.tipo !== tipo
-                ) {
+                )
                     return false;
-                }
+
 
                 if (mesa) {
 
                     if (
                         mesa === "sem-mesa" &&
                         convidado.mesa_id
-                    ) {
+                    )
                         return false;
-                    }
+
 
                     if (
                         mesa !== "sem-mesa" &&
                         convidado.mesa_id !== mesa
-                    ) {
+                    )
                         return false;
-                    }
                 }
+
 
                 return true;
             }
         );
+
 
     if (!filtrados.length) {
 
@@ -1401,8 +1699,12 @@ function renderizarConvidados() {
             <tr>
                 <td colspan="7">
                     <div class="empty">
-                        <strong>Nenhum convidado encontrado</strong>
-                        Adicione um convidado ou altere os filtros.
+                        <strong>
+                            Nenhum convidado encontrado
+                        </strong>
+
+                        Adicione um convidado
+                        ou altere os filtros.
                     </div>
                 </td>
             </tr>
@@ -1411,86 +1713,114 @@ function renderizarConvidados() {
         return;
     }
 
+
     tbody.innerHTML =
         filtrados
-            .map(convidado => {
+            .map(
+                convidado => {
 
-                const mesa =
-                    mesas.find(
-                        m =>
-                            String(m.id) ===
-                            String(convidado.mesa_id)
-                    );
+                    const mesaAtual =
+                        mesas.find(
+                            m =>
+                                String(m.id) ===
+                                String(
+                                    convidado.mesa_id
+                                )
+                        );
 
-                return `
-                    <tr>
 
-                        <td>
-                            <strong>
-                                ${esc(convidado.nome)}
-                            </strong>
-                        </td>
+                    return `
+                        <tr>
 
-                        <td>
-                            ${esc(convidado.grupo || "—")}
-                        </td>
+                            <td>
+                                <strong>
+                                    ${esc(
+                                        convidado.nome
+                                    )}
+                                </strong>
+                            </td>
 
-                        <td>
-                            ${esc(convidado.lado || "—")}
-                        </td>
+                            <td>
+                                ${esc(
+                                    convidado.grupo ||
+                                    "—"
+                                )}
+                            </td>
 
-                        <td>
-                            ${esc(convidado.tipo || "—")}
-                        </td>
+                            <td>
+                                ${esc(
+                                    convidado.lado ||
+                                    "—"
+                                )}
+                            </td>
 
-                        <td>
-                            ${badgeRsvp(convidado.rsvp)}
-                        </td>
+                            <td>
+                                ${esc(
+                                    convidado.tipo ||
+                                    "—"
+                                )}
+                            </td>
 
-                        <td>
-                            ${
-                                mesa
-                                    ? esc(mesa.nome)
-                                    : "Sem mesa"
-                            }
-                        </td>
+                            <td>
+                                ${badgeRsvp(
+                                    convidado.rsvp
+                                )}
+                            </td>
 
-                        <td>
+                            <td>
+                                ${
+                                    mesaAtual
+                                        ? esc(
+                                            mesaAtual.nome
+                                        )
+                                        : "Sem mesa"
+                                }
+                            </td>
 
-                            <div class="actions">
+                            <td>
 
-                                <button
-                                    type="button"
-                                    class="icon-btn"
-                                    onclick="editarConvidado('${convidado.id}')"
-                                    title="Editar"
-                                >
-                                    ✏️
-                                </button>
+                                <div class="actions">
 
-                                <button
-                                    type="button"
-                                    class="icon-btn"
-                                    onclick="eliminarConvidado('${convidado.id}')"
-                                    title="Eliminar"
-                                >
-                                    🗑️
-                                </button>
+                                    <button
+                                        type="button"
+                                        class="icon-btn"
+                                        onclick="editarConvidado('${convidado.id}')"
+                                        title="Editar"
+                                    >
+                                        ✏️
+                                    </button>
 
-                            </div>
+                                    <button
+                                        type="button"
+                                        class="icon-btn"
+                                        onclick="eliminarConvidado('${convidado.id}')"
+                                        title="Eliminar"
+                                    >
+                                        🗑️
+                                    </button>
 
-                        </td>
+                                </div>
 
-                    </tr>
-                `;
-            })
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            )
             .join("");
 }
 
 
+/* =====================================================
+   BADGE RSVP
+===================================================== */
+
 function badgeRsvp(rsvp) {
 
-    if (rsvp === "Confirmado") {
+    if (
+        rsvp === "Confirmado"
+    ) {
+
         return `
             <span class="badge badge-green">
                 Confirmado
@@ -1498,13 +1828,18 @@ function badgeRsvp(rsvp) {
         `;
     }
 
-    if (rsvp === "Não vai") {
+
+    if (
+        rsvp === "Não vai"
+    ) {
+
         return `
             <span class="badge badge-red">
                 Não vai
             </span>
         `;
     }
+
 
     return `
         <span class="badge badge-yellow">
@@ -1514,9 +1849,9 @@ function badgeRsvp(rsvp) {
 }
 
 
-/* =========================================================
+/* =====================================================
    FILTROS
-========================================================= */
+===================================================== */
 
 function configurarFiltros() {
 
@@ -1526,27 +1861,32 @@ function configurarFiltros() {
         "filterLado",
         "filterTipo",
         "filterMesa"
-    ].forEach(id => {
+    ]
+        .forEach(
+            id => {
 
-        document.getElementById(id)
-            .addEventListener(
-                "input",
-                renderizarConvidados
-            );
+                document
+                    .getElementById(id)
+                    .addEventListener(
+                        "input",
+                        renderizarConvidados
+                    );
 
-        document.getElementById(id)
-            .addEventListener(
-                "change",
-                renderizarConvidados
-            );
 
-    });
+                document
+                    .getElementById(id)
+                    .addEventListener(
+                        "change",
+                        renderizarConvidados
+                    );
+            }
+        );
 }
 
 
-/* =========================================================
-   SELECT DE MESAS
-========================================================= */
+/* =====================================================
+   SELECT MESAS
+===================================================== */
 
 function atualizarSelectMesas() {
 
@@ -1555,31 +1895,51 @@ function atualizarSelectMesas() {
             "mesa"
         );
 
+
     const filtro =
         document.getElementById(
             "filterMesa"
         );
 
+
     select.innerHTML =
-        `<option value="">Sem mesa</option>`;
+        `
+            <option value="">
+                Sem mesa
+            </option>
+        `;
+
 
     filtro.innerHTML =
-        `<option value="">Todas as mesas</option>`;
-
-    mesas.forEach(mesa => {
-
-        select.innerHTML += `
-            <option value="${escAttr(mesa.id)}">
-                ${esc(mesa.nome)}
+        `
+            <option value="">
+                Todas as mesas
             </option>
         `;
 
-        filtro.innerHTML += `
-            <option value="${escAttr(mesa.id)}">
-                ${esc(mesa.nome)}
-            </option>
-        `;
-    });
+
+    mesas.forEach(
+        mesa => {
+
+            select.innerHTML += `
+                <option
+                    value="${escAttr(mesa.id)}"
+                >
+                    ${esc(mesa.nome)}
+                </option>
+            `;
+
+
+            filtro.innerHTML += `
+                <option
+                    value="${escAttr(mesa.id)}"
+                >
+                    ${esc(mesa.nome)}
+                </option>
+            `;
+        }
+    );
+
 
     filtro.innerHTML += `
         <option value="sem-mesa">
@@ -1589,22 +1949,25 @@ function atualizarSelectMesas() {
 }
 
 
-/* =========================================================
-   MODAL CONVIDADO
-========================================================= */
+/* =====================================================
+   FORMULÁRIO CONVIDADO
+===================================================== */
 
 function abrirConvidado() {
 
     limparFormularioConvidado();
+
 
     document.getElementById(
         "guestModalTitle"
     ).textContent =
         "Adicionar convidado";
 
+
     document.getElementById(
         "guestModal"
-    ).classList.add("open");
+    )
+        .classList.add("open");
 }
 
 
@@ -1617,162 +1980,202 @@ function editarConvidado(id) {
                 String(id)
         );
 
-    if (!convidado) {
+
+    if (!convidado)
         return;
-    }
+
 
     document.getElementById(
         "guestModalTitle"
     ).textContent =
         "Editar convidado";
 
+
     document.getElementById(
         "guestId"
     ).value =
         convidado.id || "";
+
 
     document.getElementById(
         "nome"
     ).value =
         convidado.nome || "";
 
+
     document.getElementById(
         "grupo"
     ).value =
         convidado.grupo || "";
+
 
     document.getElementById(
         "relacao"
     ).value =
         convidado.relacao || "";
 
+
     document.getElementById(
         "lado"
     ).value =
         convidado.lado || "Noiva";
+
 
     document.getElementById(
         "tipo"
     ).value =
         convidado.tipo || "Adulto";
 
+
     document.getElementById(
         "telefone"
     ).value =
         convidado.telefone || "";
+
 
     document.getElementById(
         "whatsapp"
     ).value =
         convidado.whatsapp || "";
 
+
     document.getElementById(
         "email"
     ).value =
         convidado.email || "";
+
 
     document.getElementById(
         "rsvp"
     ).value =
         convidado.rsvp || "Pendente";
 
+
     document.getElementById(
         "acompanhante"
     ).value =
         convidado.acompanhante || "Não";
+
 
     document.getElementById(
         "nomeAcompanhante"
     ).value =
         convidado.nome_acompanhante || "";
 
+
     document.getElementById(
         "alimentacao"
     ).value =
         convidado.alimentacao || "Normal";
+
 
     document.getElementById(
         "mesa"
     ).value =
         convidado.mesa_id || "";
 
+
     document.getElementById(
         "lugar"
     ).value =
         convidado.lugar || "";
+
 
     document.getElementById(
         "notas"
     ).value =
         convidado.notas || "";
 
+
     document.getElementById(
         "guestModal"
-    ).classList.add("open");
+    )
+        .classList.add("open");
 }
 
 
 function limparFormularioConvidado() {
 
-    document.getElementById(
-        "guestForm"
-    ).reset();
+    document
+        .getElementById("guestForm")
+        .reset();
+
 
     document.getElementById(
         "guestId"
     ).value = "";
 
+
     document.getElementById(
         "lado"
-    ).value = "Noiva";
+    ).value =
+        "Noiva";
+
 
     document.getElementById(
         "tipo"
-    ).value = "Adulto";
+    ).value =
+        "Adulto";
+
 
     document.getElementById(
         "rsvp"
-    ).value = "Pendente";
+    ).value =
+        "Pendente";
+
 
     document.getElementById(
         "acompanhante"
-    ).value = "Não";
+    ).value =
+        "Não";
+
 
     document.getElementById(
         "alimentacao"
-    ).value = "Normal";
+    ).value =
+        "Normal";
+
 
     document.getElementById(
         "mesa"
-    ).value = "";
+    ).value =
+        "";
 }
 
+
+/* =====================================================
+   FORMULÁRIOS
+===================================================== */
 
 function configurarFormularios() {
 
-    document.getElementById(
-        "guestForm"
-    ).addEventListener(
-        "submit",
-        guardarConvidado
-    );
+    document
+        .getElementById("guestForm")
+        .addEventListener(
+            "submit",
+            guardarConvidado
+        );
 
-    document.getElementById(
-        "tableForm"
-    ).addEventListener(
-        "submit",
-        guardarMesa
-    );
+
+    document
+        .getElementById("tableForm")
+        .addEventListener(
+            "submit",
+            guardarMesa
+        );
 }
 
 
-/* =========================================================
+/* =====================================================
    GUARDAR CONVIDADO
-========================================================= */
+===================================================== */
 
-async function guardarConvidado(event) {
+async function guardarConvidado(
+    event
+) {
 
     event.preventDefault();
+
 
     if (!casamentoAtual) {
 
@@ -1784,10 +2187,12 @@ async function guardarConvidado(event) {
         return;
     }
 
+
     const id =
         document.getElementById(
             "guestId"
         ).value;
+
 
     const dados = {
 
@@ -1795,19 +2200,24 @@ async function guardarConvidado(event) {
             casamentoAtual.id,
 
         nome:
-            document.getElementById(
-                "nome"
-            ).value.trim(),
+            document
+                .getElementById("nome")
+                .value
+                .trim(),
 
         grupo:
-            document.getElementById(
-                "grupo"
-            ).value.trim() || null,
+            document
+                .getElementById("grupo")
+                .value
+                .trim() ||
+            null,
 
         relacao:
-            document.getElementById(
-                "relacao"
-            ).value.trim() || null,
+            document
+                .getElementById("relacao")
+                .value
+                .trim() ||
+            null,
 
         lado:
             document.getElementById(
@@ -1820,19 +2230,25 @@ async function guardarConvidado(event) {
             ).value,
 
         telefone:
-            document.getElementById(
-                "telefone"
-            ).value.trim() || null,
+            document
+                .getElementById("telefone")
+                .value
+                .trim() ||
+            null,
 
         whatsapp:
-            document.getElementById(
-                "whatsapp"
-            ).value.trim() || null,
+            document
+                .getElementById("whatsapp")
+                .value
+                .trim() ||
+            null,
 
         email:
-            document.getElementById(
-                "email"
-            ).value.trim() || null,
+            document
+                .getElementById("email")
+                .value
+                .trim() ||
+            null,
 
         rsvp:
             document.getElementById(
@@ -1845,19 +2261,28 @@ async function guardarConvidado(event) {
             ).value,
 
         nome_acompanhante:
-            document.getElementById(
-                "nomeAcompanhante"
-            ).value.trim() || null,
+            document
+                .getElementById(
+                    "nomeAcompanhante"
+                )
+                .value
+                .trim() ||
+            null,
 
         alimentacao:
-            document.getElementById(
-                "alimentacao"
-            ).value.trim() || "Normal",
+            document
+                .getElementById(
+                    "alimentacao"
+                )
+                .value
+                .trim() ||
+            "Normal",
 
         mesa_id:
             document.getElementById(
                 "mesa"
-            ).value || null,
+            ).value ||
+            null,
 
         lugar:
             document.getElementById(
@@ -1871,10 +2296,13 @@ async function guardarConvidado(event) {
                 : null,
 
         notas:
-            document.getElementById(
-                "notas"
-            ).value.trim() || null
+            document
+                .getElementById("notas")
+                .value
+                .trim() ||
+            null
     };
+
 
     if (!dados.nome) {
 
@@ -1886,9 +2314,11 @@ async function guardarConvidado(event) {
         return;
     }
 
+
     try {
 
         let resultado;
+
 
         if (id) {
 
@@ -1910,22 +2340,23 @@ async function guardarConvidado(event) {
             resultado =
                 await supabaseClient
                     .from("guests")
-                    .insert(
-                        dados
-                    );
+                    .insert(dados);
         }
 
-        if (resultado.error) {
+
+        if (resultado.error)
             throw resultado.error;
-        }
+
 
         fecharModal(
             "guestModal"
         );
 
+
         await carregarConvidados();
 
         renderizarTudo();
+
 
         mostrarMensagem(
             id
@@ -1934,9 +2365,11 @@ async function guardarConvidado(event) {
             "success"
         );
 
+
     } catch (error) {
 
         console.error(error);
+
 
         mostrarMensagem(
             "Não foi possível guardar o convidado: " +
@@ -1947,11 +2380,13 @@ async function guardarConvidado(event) {
 }
 
 
-/* =========================================================
+/* =====================================================
    ELIMINAR CONVIDADO
-========================================================= */
+===================================================== */
 
-async function eliminarConvidado(id) {
+async function eliminarConvidado(
+    id
+) {
 
     const convidado =
         convidados.find(
@@ -1960,51 +2395,58 @@ async function eliminarConvidado(id) {
                 String(id)
         );
 
-    if (!convidado) {
+
+    if (!convidado)
         return;
-    }
+
 
     const confirmar =
         confirm(
             `Deseja eliminar o convidado "${convidado.nome}"?`
         );
 
-    if (!confirmar) {
+
+    if (!confirmar)
         return;
-    }
+
 
     try {
 
         const {
             error
-        } = await supabaseClient
-            .from("guests")
-            .delete()
-            .eq(
-                "id",
-                id
-            )
-            .eq(
-                "wedding_id",
-                casamentoAtual.id
-            );
+        } =
+            await supabaseClient
+                .from("guests")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                )
+                .eq(
+                    "wedding_id",
+                    casamentoAtual.id
+                );
 
-        if (error) {
+
+        if (error)
             throw error;
-        }
+
 
         await carregarConvidados();
 
         renderizarTudo();
+
 
         mostrarMensagem(
             "Convidado eliminado.",
             "success"
         );
 
+
     } catch (error) {
 
         console.error(error);
+
 
         mostrarMensagem(
             "Não foi possível eliminar o convidado.",
@@ -2014,9 +2456,9 @@ async function eliminarConvidado(id) {
 }
 
 
-/* =========================================================
-   MESAS
-========================================================= */
+/* =====================================================
+   MESAS — RENDER
+===================================================== */
 
 function renderizarMesas() {
 
@@ -2025,99 +2467,143 @@ function renderizarMesas() {
             "tablesContainer"
         );
 
+
     if (!mesas.length) {
 
         container.innerHTML = `
-            <div class="empty" style="grid-column:1/-1;">
-                <strong>Nenhuma mesa criada</strong>
-                Crie a primeira mesa para começar a organizar os lugares.
+            <div
+                class="empty"
+                style="grid-column:1/-1;"
+            >
+
+                <strong>
+                    Nenhuma mesa criada
+                </strong>
+
+                Crie a primeira mesa
+                para começar a organizar
+                os lugares.
+
             </div>
         `;
 
         return;
     }
 
+
     container.innerHTML =
-        mesas.map(mesa => {
+        mesas
+            .map(
+                mesa => {
 
-            const ocupados =
-                convidados.filter(
-                    c =>
-                        String(c.mesa_id) ===
-                        String(mesa.id)
-                ).length;
+                    const ocupados =
+                        convidados.filter(
+                            c =>
+                                String(
+                                    c.mesa_id
+                                ) ===
+                                String(
+                                    mesa.id
+                                )
+                        ).length;
 
-            return `
-                <div class="table-card">
 
-                    <h3>
-                        🪑 ${esc(mesa.nome)}
-                    </h3>
+                    return `
+                        <div class="table-card">
 
-                    <p>
-                        Lugares:
-                        <strong>
-                            ${mesa.lugares || 0}
-                        </strong>
-                    </p>
+                            <h3>
+                                🪑
+                                ${esc(
+                                    mesa.nome
+                                )}
+                            </h3>
 
-                    <p>
-                        Ocupados:
-                        <strong>
-                            ${ocupados}
-                        </strong>
-                    </p>
+                            <p>
+                                Lugares:
+                                <strong>
+                                    ${
+                                        mesa.lugares ||
+                                        0
+                                    }
+                                </strong>
+                            </p>
 
-                    <div class="actions" style="margin-top:15px;">
+                            <p>
+                                Ocupados:
+                                <strong>
+                                    ${ocupados}
+                                </strong>
+                            </p>
 
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            onclick="editarMesa('${mesa.id}')"
-                        >
-                            ✏️ Editar
-                        </button>
+                            <div
+                                class="actions"
+                                style="margin-top:15px;"
+                            >
 
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            onclick="eliminarMesa('${mesa.id}')"
-                        >
-                            🗑️
-                        </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    onclick="editarMesa('${mesa.id}')"
+                                >
+                                    ✏️ Editar
+                                </button>
 
-                    </div>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    onclick="eliminarMesa('${mesa.id}')"
+                                >
+                                    🗑️
+                                </button>
 
-                </div>
-            `;
-        }).join("");
+                            </div>
+
+                        </div>
+                    `;
+                }
+            )
+            .join("");
 }
 
 
+/* =====================================================
+   ABRIR MESA
+===================================================== */
+
 function abrirMesa() {
 
-    document.getElementById(
-        "tableForm"
-    ).reset();
+    document
+        .getElementById("tableForm")
+        .reset();
+
 
     document.getElementById(
         "tableId"
-    ).value = "";
+    ).value =
+        "";
+
 
     document.getElementById(
         "tableSeats"
-    ).value = 8;
+    ).value =
+        8;
+
 
     document.getElementById(
         "tableModalTitle"
     ).textContent =
         "Nova mesa";
 
-    document.getElementById(
-        "tableModal"
-    ).classList.add("open");
+
+    document
+        .getElementById("tableModal")
+        .classList.add("open");
 }
 
+
+/* =====================================================
+   EDITAR MESA
+===================================================== */
 
 function editarMesa(id) {
 
@@ -2128,49 +2614,77 @@ function editarMesa(id) {
                 String(id)
         );
 
-    if (!mesa) {
+
+    if (!mesa)
         return;
-    }
+
 
     document.getElementById(
         "tableId"
     ).value =
         mesa.id;
 
+
     document.getElementById(
         "tableName"
     ).value =
         mesa.nome;
+
 
     document.getElementById(
         "tableSeats"
     ).value =
         mesa.lugares || 8;
 
+
     document.getElementById(
         "tableModalTitle"
     ).textContent =
         "Editar mesa";
 
-    document.getElementById(
-        "tableModal"
-    ).classList.add("open");
+
+    document
+        .getElementById("tableModal")
+        .classList.add("open");
 }
 
 
-function guardarMesa(event) {
+/* =====================================================
+   GUARDAR MESA — SUPABASE
+===================================================== */
+
+async function guardarMesa(
+    event
+) {
 
     event.preventDefault();
+
+
+    if (!casamentoAtual) {
+
+        mostrarMensagem(
+            "Não foi encontrado o casamento desta conta.",
+            "error"
+        );
+
+        return;
+    }
+
 
     const id =
         document.getElementById(
             "tableId"
         ).value;
 
+
     const nome =
-        document.getElementById(
-            "tableName"
-        ).value.trim();
+        document
+            .getElementById(
+                "tableName"
+            )
+            .value
+            .trim();
+
 
     const lugares =
         Number(
@@ -2179,60 +2693,124 @@ function guardarMesa(event) {
             ).value
         ) || 8;
 
+
     if (!nome) {
+
+        mostrarMensagem(
+            "O nome da mesa é obrigatório.",
+            "error"
+        );
+
         return;
     }
 
-    if (id) {
 
-        const mesa =
-            mesas.find(
-                m =>
-                    String(m.id) ===
-                    String(id)
+    try {
+
+        if (id) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("tables")
+                    .update({
+
+                        nome:
+                            nome,
+
+                        lugares:
+                            lugares,
+
+                        atualizado_em:
+                            new Date()
+                                .toISOString()
+
+                    })
+                    .eq(
+                        "id",
+                        id
+                    )
+                    .eq(
+                        "wedding_id",
+                        casamentoAtual.id
+                    );
+
+
+            if (error)
+                throw error;
+
+
+            mostrarMensagem(
+                "Mesa atualizada com sucesso.",
+                "success"
             );
 
-        if (mesa) {
-            mesa.nome = nome;
-            mesa.lugares = lugares;
+
+        } else {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("tables")
+                    .insert({
+
+                        wedding_id:
+                            casamentoAtual.id,
+
+                        nome:
+                            nome,
+
+                        lugares:
+                            lugares
+
+                    });
+
+
+            if (error)
+                throw error;
+
+
+            mostrarMensagem(
+                "Mesa criada com sucesso.",
+                "success"
+            );
         }
 
-    } else {
 
-        mesas.push({
-            id:
-                "mesa_" +
-                Date.now() +
-                "_" +
-                Math.random()
-                    .toString(36)
-                    .substring(2, 8),
+        await carregarMesasSupabase();
 
-            nome,
-            lugares
-        });
+        await carregarConvidados();
+
+        renderizarTudo();
+
+        fecharModal(
+            "tableModal"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        mostrarMensagem(
+            "Não foi possível guardar a mesa: " +
+            error.message,
+            "error"
+        );
     }
-
-    guardarMesas();
-
-    carregarMesas();
-
-    renderizarTudo();
-
-    fecharModal(
-        "tableModal"
-    );
-
-    mostrarMensagem(
-        id
-            ? "Mesa atualizada."
-            : "Mesa criada com sucesso.",
-        "success"
-    );
 }
 
 
-async function eliminarMesa(id) {
+/* =====================================================
+   ELIMINAR MESA — SUPABASE
+===================================================== */
+
+async function eliminarMesa(
+    id
+) {
 
     const mesa =
         mesas.find(
@@ -2241,30 +2819,42 @@ async function eliminarMesa(id) {
                 String(id)
         );
 
-    if (!mesa) {
+
+    if (!mesa)
         return;
-    }
+
 
     const confirmar =
         confirm(
             `Eliminar a mesa "${mesa.nome}"? Os convidados continuarão no sistema, mas ficarão sem mesa.`
         );
 
-    if (!confirmar) {
+
+    if (!confirmar)
         return;
-    }
+
 
     try {
 
-        if (casamentoAtual) {
+        /*
+           Primeiro removemos a associação
+           dos convidados.
+        */
 
-            const {
-                error
-            } = await supabaseClient
+        const {
+            error:
+                erroConvidados
+        } =
+            await supabaseClient
                 .from("guests")
                 .update({
-                    mesa_id: null,
-                    lugar: null
+
+                    mesa_id:
+                        null,
+
+                    lugar:
+                        null
+
                 })
                 .eq(
                     "wedding_id",
@@ -2275,44 +2865,66 @@ async function eliminarMesa(id) {
                     id
                 );
 
-            if (error) {
-                throw error;
-            }
-        }
 
-        mesas =
-            mesas.filter(
-                m =>
-                    String(m.id) !==
-                    String(id)
-            );
+        if (erroConvidados)
+            throw erroConvidados;
 
-        guardarMesas();
+
+        /*
+           Agora eliminamos a mesa.
+        */
+
+        const {
+            error:
+                erroMesa
+        } =
+            await supabaseClient
+                .from("tables")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                )
+                .eq(
+                    "wedding_id",
+                    casamentoAtual.id
+                );
+
+
+        if (erroMesa)
+            throw erroMesa;
+
+
+        await carregarMesasSupabase();
 
         await carregarConvidados();
 
         renderizarTudo();
+
 
         mostrarMensagem(
             "Mesa eliminada.",
             "success"
         );
 
+
     } catch (error) {
 
         console.error(error);
 
+
         mostrarMensagem(
-            "Não foi possível eliminar a mesa.",
+            "Não foi possível eliminar a mesa: " +
+            error.message,
             "error"
         );
     }
 }
 
 
-/* =========================================================
+/* =====================================================
    MAPA
-========================================================= */
+===================================================== */
 
 function renderizarMapa() {
 
@@ -2321,106 +2933,137 @@ function renderizarMapa() {
             "mapContainer"
         );
 
+
     if (!mesas.length) {
 
         container.innerHTML = `
             <div class="empty">
-                <strong>Nenhuma mesa no mapa</strong>
-                Crie mesas para visualizar a disposição.
+
+                <strong>
+                    Nenhuma mesa no mapa
+                </strong>
+
+                Crie mesas para
+                visualizar a disposição.
+
             </div>
         `;
 
         return;
     }
 
+
     container.innerHTML =
-        mesas.map(mesa => {
+        mesas
+            .map(
+                mesa => {
 
-            const ocupados =
-                convidados.filter(
-                    c =>
-                        String(c.mesa_id) ===
-                        String(mesa.id)
-                ).length;
+                    const ocupados =
+                        convidados.filter(
+                            c =>
+                                String(
+                                    c.mesa_id
+                                ) ===
+                                String(
+                                    mesa.id
+                                )
+                        ).length;
 
-            return `
-                <div class="map-table">
 
-                    <strong>
-                        ${esc(mesa.nome)}
-                    </strong>
+                    return `
+                        <div class="map-table">
 
-                    <span>
-                        ${ocupados}/${mesa.lugares || 0}
-                        lugares
-                    </span>
+                            <strong>
+                                ${esc(
+                                    mesa.nome
+                                )}
+                            </strong>
 
-                </div>
-            `;
+                            <span>
+                                ${ocupados}/${
+                                    mesa.lugares ||
+                                    0
+                                } lugares
+                            </span>
 
-        }).join("");
+                        </div>
+                    `;
+                }
+            )
+            .join("");
 }
 
 
-/* =========================================================
-   ABAS
-========================================================= */
+/* =====================================================
+   TABS
+===================================================== */
 
 function configurarTabs() {
 
     document
         .querySelectorAll(".tab")
-        .forEach(tab => {
+        .forEach(
+            tab => {
 
-            tab.addEventListener(
-                "click",
-                () => {
+                tab.addEventListener(
+                    "click",
+                    () => {
 
-                    document
-                        .querySelectorAll(".tab")
-                        .forEach(t =>
-                            t.classList.remove(
-                                "active"
+                        document
+                            .querySelectorAll(
+                                ".tab"
                             )
+                            .forEach(
+                                t =>
+                                    t.classList
+                                        .remove(
+                                            "active"
+                                        )
+                            );
+
+
+                        tab.classList.add(
+                            "active"
                         );
 
-                    tab.classList.add(
-                        "active"
-                    );
 
-                    const nome =
-                        tab.dataset.tab;
+                        const nome =
+                            tab.dataset.tab;
 
-                    document.getElementById(
-                        "tab-convidados"
-                    ).style.display =
-                        nome === "convidados"
-                            ? "block"
-                            : "none";
 
-                    document.getElementById(
-                        "tab-mesas"
-                    ).style.display =
-                        nome === "mesas"
-                            ? "block"
-                            : "none";
+                        document.getElementById(
+                            "tab-convidados"
+                        ).style.display =
+                            nome === "convidados"
+                                ? "block"
+                                : "none";
 
-                    document.getElementById(
-                        "tab-mapa"
-                    ).style.display =
-                        nome === "mapa"
-                            ? "block"
-                            : "none";
-                }
-            );
 
-        });
+                        document.getElementById(
+                            "tab-mesas"
+                        ).style.display =
+                            nome === "mesas"
+                                ? "block"
+                                : "none";
+
+
+                        document.getElementById(
+                            "tab-mapa"
+                        ).style.display =
+                            nome === "mapa"
+                                ? "block"
+                                : "none";
+
+                    }
+                );
+            }
+        );
 }
 
 
-/* =========================================================
-   SUGESTÕES INTELIGENTES
-========================================================= */
+/* =====================================================
+   SUGESTÕES
+===================================================== */
 
 function configurarSugestoes() {
 
@@ -2428,97 +3071,119 @@ function configurarSugestoes() {
         .querySelectorAll(
             ".suggestions"
         )
-        .forEach(container => {
+        .forEach(
+            container => {
 
-            const campoId =
-                container.dataset.for;
+                const campoId =
+                    container.dataset.for;
 
-            const campo =
-                document.getElementById(
-                    campoId
+
+                const campo =
+                    document.getElementById(
+                        campoId
+                    );
+
+
+                if (!campo)
+                    return;
+
+
+                campo.addEventListener(
+                    "focus",
+                    () => {
+
+                        fecharTodasSugestoes();
+
+                        container.classList.add(
+                            "open"
+                        );
+                    }
                 );
 
-            if (!campo) {
-                return;
-            }
 
-            campo.addEventListener(
-                "focus",
-                () => {
+                campo.addEventListener(
+                    "input",
+                    () => {
 
-                    fecharTodasSugestoes();
+                        container.classList.add(
+                            "open"
+                        );
+                    }
+                );
 
-                    container.classList.add(
-                        "open"
-                    );
-                }
-            );
 
-            campo.addEventListener(
-                "input",
-                () => {
+                container
+                    .querySelectorAll(
+                        ".suggestion"
+                    )
+                    .forEach(
+                        botao => {
 
-                    container.classList.add(
-                        "open"
-                    );
-                }
-            );
+                            botao.addEventListener(
+                                "click",
+                                () => {
 
-            container
-                .querySelectorAll(
-                    ".suggestion"
-                )
-                .forEach(botao => {
+                                    const valor =
+                                        botao
+                                            .textContent
+                                            .trim();
 
-                    botao.addEventListener(
-                        "click",
-                        () => {
 
-                            const valor =
-                                botao.textContent.trim();
+                                    if (
+                                        campo.value &&
+                                        campoId ===
+                                            "notas"
+                                    ) {
 
-                            if (
-                                campo.value &&
-                                campoId === "notas"
-                            ) {
+                                        const valores =
+                                            campo
+                                                .value
+                                                .split(",")
+                                                .map(
+                                                    v =>
+                                                        v.trim()
+                                                )
+                                                .filter(
+                                                    Boolean
+                                                );
 
-                                const valores =
-                                    campo.value
-                                        .split(",")
-                                        .map(v => v.trim())
-                                        .filter(Boolean);
 
-                                if (
-                                    !valores.includes(
-                                        valor
-                                    )
-                                ) {
-                                    valores.push(
-                                        valor
+                                        if (
+                                            !valores.includes(
+                                                valor
+                                            )
+                                        ) {
+
+                                            valores.push(
+                                                valor
+                                            );
+                                        }
+
+
+                                        campo.value =
+                                            valores.join(
+                                                ", "
+                                            );
+
+                                    } else {
+
+                                        campo.value =
+                                            valor;
+                                    }
+
+
+                                    container.classList.remove(
+                                        "open"
                                     );
+
+
+                                    campo.focus();
                                 }
-
-                                campo.value =
-                                    valores.join(
-                                        ", "
-                                    );
-
-                            } else {
-
-                                campo.value =
-                                    valor;
-                            }
-
-                            container.classList.remove(
-                                "open"
                             );
-
-                            campo.focus();
                         }
                     );
-
-                });
-        });
+            }
+        );
 
 
     document.addEventListener(
@@ -2530,9 +3195,9 @@ function configurarSugestoes() {
                     ".form-group"
                 )
             ) {
+
                 fecharTodasSugestoes();
             }
-
         }
     );
 }
@@ -2544,25 +3209,27 @@ function fecharTodasSugestoes() {
         .querySelectorAll(
             ".suggestions"
         )
-        .forEach(el =>
-            el.classList.remove(
-                "open"
-            )
+        .forEach(
+            el =>
+                el.classList.remove(
+                    "open"
+                )
         );
 }
 
 
-/* =========================================================
+/* =====================================================
    MODAIS
-========================================================= */
+===================================================== */
 
 function fecharModal(id) {
 
-    document.getElementById(
-        id
-    ).classList.remove(
-        "open"
-    );
+    document
+        .getElementById(id)
+        .classList.remove(
+            "open"
+        );
+
 
     fecharTodasSugestoes();
 }
@@ -2572,51 +3239,54 @@ document
     .querySelectorAll(
         ".modal-overlay"
     )
-    .forEach(modal => {
+    .forEach(
+        modal => {
 
-        modal.addEventListener(
-            "click",
-            event => {
+            modal.addEventListener(
+                "click",
+                event => {
 
-                if (
-                    event.target === modal
-                ) {
-                    modal.classList.remove(
-                        "open"
-                    );
+                    if (
+                        event.target ===
+                        modal
+                    ) {
+
+                        modal.classList.remove(
+                            "open"
+                        );
+                    }
                 }
-
-            }
-        );
-
-    });
+            );
+        }
+    );
 
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape"
+        ) {
 
             document
                 .querySelectorAll(
                     ".modal-overlay.open"
                 )
-                .forEach(modal =>
-                    modal.classList.remove(
-                        "open"
-                    )
+                .forEach(
+                    modal =>
+                        modal.classList.remove(
+                            "open"
+                        )
                 );
-
         }
-
     }
 );
 
 
-/* =========================================================
+/* =====================================================
    NAVEGAÇÃO
-========================================================= */
+===================================================== */
 
 function voltarDashboard() {
 
@@ -2634,8 +3304,8 @@ async function sair() {
     } catch (error) {
 
         console.error(error);
-
     }
+
 
     window.location.replace(
         "login.html"
@@ -2643,9 +3313,9 @@ async function sair() {
 }
 
 
-/* =========================================================
+/* =====================================================
    MENSAGENS
-========================================================= */
+===================================================== */
 
 function mostrarMensagem(
     texto,
@@ -2657,12 +3327,15 @@ function mostrarMensagem(
             "message"
         );
 
+
     element.textContent =
         texto;
+
 
     element.className =
         "message show " +
         tipo;
+
 
     setTimeout(
         () => {
@@ -2677,18 +3350,18 @@ function mostrarMensagem(
 }
 
 
-/* =========================================================
-   SEGURANÇA / HTML
-========================================================= */
+/* =====================================================
+   SEGURANÇA HTML
+===================================================== */
 
 function esc(valor) {
 
     if (
         valor === null ||
         valor === undefined
-    ) {
+    )
         return "";
-    }
+
 
     return String(valor)
         .replace(
@@ -2715,19 +3388,24 @@ function esc(valor) {
 
 
 function escAttr(valor) {
+
     return esc(valor);
 }
 
 
-/* =========================================================
-   ATUALIZAÇÃO AUTOMÁTICA DA SESSÃO
-========================================================= */
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-    (event, session) => {
+    (
+        event,
+        session
+    ) => {
 
         if (
-            event === "SIGNED_OUT" ||
+            event ===
+                "SIGNED_OUT" ||
             !session
         ) {
 
@@ -2735,10 +3413,8 @@ supabaseClient.auth.onAuthStateChange(
                 "login.html"
             );
         }
-
     }
 );
-
 </script>
 
 </body>

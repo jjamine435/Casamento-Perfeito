@@ -568,7 +568,7 @@
 
         /* =========================================
            MENSAGEM
-        ========================================= */
+        ========================================== */
 
         .message {
 
@@ -1650,14 +1650,32 @@
 </div>
 
 
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
     /* =====================================================
-       CONFIGURAÇÃO
+       CONFIGURAÇÃO SUPABASE
     ===================================================== */
 
-    const CHAVE_UTILIZADORES =
-        "casamentoPerfeitoUtilizadores";
+    const SUPABASE_URL =
+        "https://yucymctjoqbxpipmpzir.supabase.co";
+
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_dyhLNw_TpWigMqYjxlPktA_vwW0aUBH";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
 
     /* =====================================================
@@ -1942,7 +1960,7 @@
         .getElementById("registerForm")
         .addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
@@ -2337,232 +2355,7 @@
 
 
                 /* =====================================
-                   OBTER UTILIZADORES
-                ====================================== */
-
-                let utilizadores = [];
-
-
-                try {
-
-                    utilizadores =
-                        JSON.parse(
-                            localStorage.getItem(
-                                CHAVE_UTILIZADORES
-                            )
-                        ) || [];
-
-
-                    if (
-                        !Array.isArray(
-                            utilizadores
-                        )
-                    ) {
-
-                        utilizadores = [];
-
-                    }
-
-                } catch (erro) {
-
-                    utilizadores = [];
-
-                }
-
-
-                /* =====================================
-                   VERIFICAR CONTA EXISTENTE
-                ====================================== */
-
-                const utilizadorExistente =
-                    utilizadores.find(
-                        user =>
-                            String(
-                                user.email || ""
-                            )
-                            .toLowerCase() ===
-                            email
-                    );
-
-
-                if (utilizadorExistente) {
-
-                    mostrarMensagem(
-                        "Já existe uma conta registada com este e-mail.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                /* =====================================
-                   CRIAR UTILIZADOR
-                ====================================== */
-
-                const novoUtilizador = {
-
-                    /*
-                     * Dados principais
-                     */
-
-                    nome: nome,
-
-                    email: email,
-
-                    password: password,
-
-
-                    /*
-                     * Identificação de quem criou
-                     */
-
-                    criadoPor: criadoPor,
-
-
-                    /*
-                     * Dados do noivo
-                     */
-
-                    noivo: {
-
-                        nome: nomeNoivo,
-
-                        telefone: telefoneNoivo,
-
-                        whatsapp: whatsappNoivo,
-
-                        email: emailNoivo
-
-                    },
-
-
-                    /*
-                     * Dados da noiva
-                     */
-
-                    noiva: {
-
-                        nome: nomeNoiva,
-
-                        telefone: telefoneNoiva,
-
-                        whatsapp: whatsappNoiva,
-
-                        email: emailNoiva
-
-                    },
-
-
-                    /*
-                     * Dados do casamento
-                     */
-
-                    casamento: {
-
-                        data: dataCasamento,
-
-                        hora: horaCasamento,
-
-                        cidade: cidade,
-
-                        localCerimonia:
-                            localCerimonia,
-
-                        localFesta:
-                            localFesta,
-
-                        convidadosEstimados:
-                            convidadosEstimados
-                                ? Number(
-                                    convidadosEstimados
-                                )
-                                : 0,
-
-                        tipo:
-                            tipoCasamento,
-
-                        estilo:
-                            estiloCasamento
-
-                    },
-
-
-                    /*
-                     * Preferências
-                     */
-
-                    preferencias: {
-
-                        moeda:
-                            moeda,
-
-                        orcamentoEstimado:
-                            orcamentoEstimado
-                                ? Number(
-                                    orcamentoEstimado
-                                )
-                                : 0,
-
-                        observacoes:
-                            observacoes
-
-                    },
-
-
-                    /*
-                     * Data de criação
-                     */
-
-                    dataCriacao:
-                        new Date()
-                            .toISOString()
-
-                };
-
-
-                /* =====================================
-                   GUARDAR
-                ====================================== */
-
-                utilizadores.push(
-                    novoUtilizador
-                );
-
-
-                try {
-
-                    localStorage.setItem(
-
-                        CHAVE_UTILIZADORES,
-
-                        JSON.stringify(
-                            utilizadores
-                        )
-
-                    );
-
-                } catch (erro) {
-
-                    console.error(
-                        "Erro ao guardar conta:",
-                        erro
-                    );
-
-
-                    mostrarMensagem(
-                        "Não foi possível guardar a conta neste navegador.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                /* =====================================
-                   SUCESSO
+                   DESATIVAR BOTÃO
                 ====================================== */
 
                 submitButton.disabled =
@@ -2570,43 +2363,303 @@
 
 
                 submitButton.textContent =
-                    "Conta criada com sucesso ✓";
+                    "A criar conta...";
 
 
-                mostrarMensagem(
+                /* =====================================
+                   CRIAR CONTA NO SUPABASE AUTH
+                ====================================== */
 
-                    "Conta criada com sucesso! " +
-                    "Vamos encaminhá-lo para o login.",
+                try {
 
-                    "success"
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth.signUp({
 
-                );
+                            email: email,
+
+                            password: password,
+
+                            options: {
+
+                                emailRedirectTo:
+                                    "https://jjamine435.github.io/Casamento-Perfeito/login.html",
 
 
-                /*
-                 * Limpar formulário
-                 */
+                                data: {
 
-                document
-                    .getElementById(
-                        "registerForm"
-                    )
-                    .reset();
+                                    nome:
+                                        nome,
+
+                                    criadoPor:
+                                        criadoPor,
 
 
-                /*
-                 * Redirecionar para login
-                 */
+                                    noivo: {
 
-                setTimeout(
-                    function () {
+                                        nome:
+                                            nomeNoivo,
 
-                        window.location.href =
-                            "login.html";
+                                        telefone:
+                                            telefoneNoivo,
 
-                    },
-                    1800
-                );
+                                        whatsapp:
+                                            whatsappNoivo,
+
+                                        email:
+                                            emailNoivo
+
+                                    },
+
+
+                                    noiva: {
+
+                                        nome:
+                                            nomeNoiva,
+
+                                        telefone:
+                                            telefoneNoiva,
+
+                                        whatsapp:
+                                            whatsappNoiva,
+
+                                        email:
+                                            emailNoiva
+
+                                    },
+
+
+                                    casamento: {
+
+                                        data:
+                                            dataCasamento,
+
+                                        hora:
+                                            horaCasamento,
+
+                                        cidade:
+                                            cidade,
+
+                                        localCerimonia:
+                                            localCerimonia,
+
+                                        localFesta:
+                                            localFesta,
+
+                                        convidadosEstimados:
+                                            convidadosEstimados
+                                                ? Number(
+                                                    convidadosEstimados
+                                                )
+                                                : 0,
+
+                                        tipo:
+                                            tipoCasamento,
+
+                                        estilo:
+                                            estiloCasamento
+
+                                    },
+
+
+                                    preferencias: {
+
+                                        moeda:
+                                            moeda,
+
+                                        orcamentoEstimado:
+                                            orcamentoEstimado
+                                                ? Number(
+                                                    orcamentoEstimado
+                                                )
+                                                : 0,
+
+                                        observacoes:
+                                            observacoes
+
+                                    }
+
+                                }
+
+                            }
+
+                        });
+
+
+                    /* =================================
+                       VERIFICAR ERRO
+                    ================================== */
+
+                    if (error) {
+
+                        console.error(
+                            "Erro Supabase:",
+                            error
+                        );
+
+
+                        let mensagemErro =
+                            "Não foi possível criar a conta.";
+
+
+                        if (
+                            error.message
+                                .toLowerCase()
+                                .includes("already registered")
+                        ) {
+
+                            mensagemErro =
+                                "Já existe uma conta registada com este e-mail.";
+
+                        }
+
+
+                        else if (
+                            error.message
+                                .toLowerCase()
+                                .includes("user already registered")
+                        ) {
+
+                            mensagemErro =
+                                "Já existe uma conta registada com este e-mail.";
+
+                        }
+
+
+                        else if (
+                            error.message
+                                .toLowerCase()
+                                .includes("password")
+                        ) {
+
+                            mensagemErro =
+                                "A palavra-passe não foi aceite pelo Supabase.";
+
+                        }
+
+
+                        else if (
+                            error.message
+                                .toLowerCase()
+                                .includes("email")
+                        ) {
+
+                            mensagemErro =
+                                "O e-mail introduzido não é válido ou não pode ser utilizado.";
+
+                        }
+
+
+                        else {
+
+                            mensagemErro =
+                                error.message;
+
+                        }
+
+
+                        mostrarMensagem(
+                            mensagemErro,
+                            "error"
+                        );
+
+
+                        submitButton.disabled =
+                            false;
+
+
+                        submitButton.textContent =
+                            "Criar conta e começar ❤️";
+
+
+                        return;
+
+                    }
+
+
+                    /* =================================
+                       SUCESSO
+                    ================================== */
+
+                    console.log(
+                        "Conta criada:",
+                        data.user
+                    );
+
+
+                    submitButton.disabled =
+                        true;
+
+
+                    submitButton.textContent =
+                        "Conta criada com sucesso ✓";
+
+
+                    mostrarMensagem(
+
+                        "Conta criada com sucesso! " +
+                        "Enviámos um e-mail de confirmação. " +
+                        "Confirme o seu e-mail antes de entrar.",
+
+                        "success"
+
+                    );
+
+
+                    /*
+                     * Limpar formulário
+                     */
+
+                    document
+                        .getElementById(
+                            "registerForm"
+                        )
+                        .reset();
+
+
+                    /*
+                     * Redirecionar para login
+                     */
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "login.html";
+
+                        },
+                        4500
+                    );
+
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro inesperado:",
+                        erro
+                    );
+
+
+                    mostrarMensagem(
+
+                        "Ocorreu um erro inesperado. " +
+                        "Verifique a sua ligação à internet e tente novamente.",
+
+                        "error"
+
+                    );
+
+
+                    submitButton.disabled =
+                        false;
+
+
+                    submitButton.textContent =
+                        "Criar conta e começar ❤️";
+
+                }
 
             }
         );

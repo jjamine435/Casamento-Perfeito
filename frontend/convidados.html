@@ -1,135 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Convidados e Mesas | Casamento Perfeito</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Convidados e Mesas — Casamento Perfeito</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7f4f2;
-            color: #333;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+            background: #fff9fb;
+            color: #4a3039;
         }
 
-        button,
-        input,
-        select,
-        textarea {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        .topbar {
-            background: white;
-            border-bottom: 1px solid #eee;
-            padding: 16px 24px;
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #f1dfe5;
+            padding: 16px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            color: #8b5e5e;
+            color: #c45f7d;
         }
 
-        .top-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+        main {
+            width: min(1250px, 92%);
+            margin: auto;
+            padding: 35px 0 50px;
+        }
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff0f5,
+                    #fffafd
+                );
+
+            border: 1px solid #f1dfe5;
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+        }
+
+        .hero small {
+            color: #c45f7d;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            margin: 8px 0;
+            font-size: 32px;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #777;
+            line-height: 1.6;
         }
 
         .btn {
             border: none;
             border-radius: 10px;
-            padding: 10px 16px;
-            font-weight: 600;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
         }
 
-        .btn-primary {
-            background: #8b5e5e;
+        .btn.primary {
+            background: #c45f7d;
             color: white;
         }
 
-        .btn-secondary {
-            background: #eee7e4;
-            color: #5d4545;
+        .btn.primary:hover {
+            background: #aa4e69;
         }
 
-        .btn-danger {
-            background: #f7dede;
-            color: #9b3333;
+        .btn.secondary {
+            background: #f8eaf0;
+            color: #a64f69;
         }
 
-        .container {
-            max-width: 1250px;
-            margin: auto;
-            padding: 30px 20px 60px;
+        .btn.secondary:hover {
+            background: #f1dbe3;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #8b5e5e, #b98282);
-            color: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
+        .btn.danger {
+            background: #fde9ed;
+            color: #a03f55;
         }
 
-        .hero h1 {
-            margin: 0 0 8px;
-            font-size: 30px;
-        }
-
-        .hero p {
-            margin: 0;
-            opacity: .9;
+        .btn.danger:hover {
+            background: #f8d6df;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 14px;
             margin-bottom: 25px;
         }
 
-        .stat {
+        .stat,
+        .box {
             background: white;
-            border-radius: 15px;
+            border: 1px solid #f1dfe5;
+            border-radius: 16px;
             padding: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.04);
+            box-shadow:
+                0 5px 18px
+                rgba(100, 50, 70, 0.05);
         }
 
-        .stat-label {
+        .stat strong {
+            display: block;
+            font-size: 25px;
+            color: #c45f7d;
+        }
+
+        .stat span {
             font-size: 13px;
             color: #777;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 26px;
-            font-weight: bold;
-            color: #8b5e5e;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,.05);
         }
 
         .tabs {
@@ -140,210 +160,461 @@
         }
 
         .tab {
-            border: none;
-            background: #f1ecea;
-            color: #665050;
-            padding: 11px 18px;
-            border-radius: 10px;
-            font-weight: 600;
+            background: white;
+            border: 1px solid #ebd3db;
+            color: #76545f;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .tab.active {
-            background: #8b5e5e;
+            background: #c45f7d;
             color: white;
         }
 
-        .toolbar {
-            display: grid;
-            grid-template-columns: 2fr repeat(4, 1fr) auto;
-            gap: 10px;
-            margin-bottom: 20px;
+        .panel {
+            display: none;
         }
 
-        .input,
-        .select,
+        .panel.active {
+            display: block;
+        }
+
+        .toolbar {
+            background: white;
+            border: 1px solid #f1dfe5;
+            border-radius: 18px;
+            padding: 18px;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr
+                repeat(4, 1fr)
+                auto;
+
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        input,
+        select,
         textarea {
             width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 11px 12px;
+
+            border: 1px solid #dfcbd3;
+            border-radius: 9px;
+
+            padding: 11px;
+
             background: white;
-            outline: none;
+            color: #4a3039;
+
+            font: inherit;
         }
 
-        .input:focus,
-        .select:focus,
+        input:focus,
+        select:focus,
         textarea:focus {
-            border-color: #a87676;
+            outline: none;
+            border-color: #c45f7d;
+            box-shadow:
+                0 0 0 3px
+                rgba(196, 95, 125, 0.10);
         }
 
-        .table-wrapper {
-            overflow-x: auto;
+        textarea {
+            min-height: 90px;
+            resize: vertical;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .list {
+            display: grid;
+            gap: 14px;
         }
 
-        th,
-        td {
-            text-align: left;
-            padding: 13px 10px;
-            border-bottom: 1px solid #eee;
-            white-space: nowrap;
+        .guest {
+            background: white;
+            border: 1px solid #f1dfe5;
+            border-radius: 18px;
+            padding: 20px;
         }
 
-        th {
+        .top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .muted {
             color: #777;
             font-size: 13px;
         }
 
+        .badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
         .badge {
-            display: inline-block;
             padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            border-radius: 999px;
+            background: #f8eaf0;
+            font-size: 11px;
+            font-weight: bold;
         }
 
-        .badge-green {
-            background: #def2e3;
-            color: #2d7741;
+        .badge.ok {
+            background: #e8f6ed;
+            color: #267347;
         }
 
-        .badge-yellow {
-            background: #fff1c9;
-            color: #806315;
+        .badge.pending {
+            background: #fff5d8;
+            color: #8a6a16;
         }
 
-        .badge-red {
-            background: #f8dddd;
-            color: #9a3434;
+        .badge.no {
+            background: #fde9ed;
+            color: #a03f55;
+        }
+
+        .badge.full {
+            background: #fde9ed;
+            color: #a03f55;
+        }
+
+        .badge.available {
+            background: #e8f6ed;
+            color: #267347;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .info label {
+            display: block;
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
         }
 
         .actions {
             display: flex;
-            gap: 6px;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
 
-        .icon-btn {
-            border: none;
-            background: #f1ecea;
-            border-radius: 8px;
-            padding: 7px 9px;
+        .tables {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #f1dfe5;
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .table-card.lotada {
+            border-color: #e7a8b8;
+        }
+
+        .table-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .table-capacity {
+            text-align: right;
+        }
+
+        .table-capacity strong {
+            font-size: 18px;
+            color: #c45f7d;
+        }
+
+        .table-status {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .table-status.available {
+            background: #e8f6ed;
+            color: #267347;
+        }
+
+        .table-status.full {
+            background: #fde9ed;
+            color: #a03f55;
+        }
+
+        .seats {
+            display: grid;
+            gap: 7px;
+        }
+
+        .seat {
+            padding: 9px;
+
+            border-radius: 9px;
+
+            background: #faf4f6;
+            border: 1px solid #f0e0e5;
+
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 13px;
+        }
+
+        .seat.occupied {
+            background: #f5e8ee;
+            border-color: #e5c3ce;
+        }
+
+        .seat-number {
+            color: #999;
+            font-weight: bold;
         }
 
         .empty {
+            background: white;
+            border: 1px dashed #dcbcc8;
+            border-radius: 18px;
+            padding: 35px;
             text-align: center;
-            padding: 45px 20px;
             color: #777;
         }
 
-        .empty strong {
-            display: block;
-            color: #555;
-            margin-bottom: 7px;
-        }
-
-        .modal-overlay {
+        .modal-bg {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,.5);
+
+            background:
+                rgba(45, 25, 35, 0.45);
+
             display: none;
+
             align-items: center;
             justify-content: center;
+
             padding: 20px;
-            z-index: 1000;
+
+            z-index: 50;
         }
 
-        .modal-overlay.open {
+        .modal-bg.open {
             display: flex;
         }
 
         .modal {
-            width: min(800px, 100%);
-            max-height: 90vh;
-            overflow-y: auto;
             background: white;
-            border-radius: 18px;
+
+            border-radius: 22px;
+
+            width: min(900px, 100%);
+
+            max-height: 92vh;
+
+            overflow: auto;
+
             padding: 25px;
         }
 
         .modal h2 {
             margin-top: 0;
-            color: #6f4b4b;
         }
 
-        .form-grid {
+        .form {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 13px;
         }
 
-        .form-group {
-            position: relative;
-        }
-
-        .form-group.full {
+        .full {
             grid-column: 1 / -1;
         }
 
-        .form-group label {
+        .field {
+            position: relative;
+        }
+
+        .field label {
             display: block;
-            margin-bottom: 7px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 6px;
         }
 
         .suggestions {
             display: none;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 100%;
-            margin-top: 4px;
-            background: white;
-            border: 1px solid #ddd;
+
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-top: 7px;
+
+            padding: 8px;
+
+            background: #fff8fb;
+
+            border:
+                1px solid #f0dce4;
+
             border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,.12);
-            z-index: 50;
-            padding: 7px;
         }
 
-        .suggestions.open {
+        .suggestions.visible {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
         }
 
         .suggestion {
-            border: 1px solid #e1d5d2;
-            background: #faf6f5;
-            color: #704f4f;
-            padding: 7px 10px;
-            border-radius: 20px;
-            font-size: 12px;
+            border: 1px solid #e7cbd5;
+
+            background: white;
+
+            color: #8b5365;
+
+            border-radius: 999px;
+
+            padding: 6px 10px;
+
+            font-size: 11px;
+
+            cursor: pointer;
         }
 
         .suggestion:hover {
-            background: #8b5e5e;
-            color: white;
-            border-color: #8b5e5e;
+            background: #f8eaf0;
+            border-color: #c45f7d;
         }
 
-        .modal-footer {
+        .modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin-top: 22px;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .capacity-help {
+            margin-top: 7px;
+
+            font-size: 12px;
+
+            color: #777;
+        }
+
+        .capacity-help.warning {
+            color: #a03f55;
+            font-weight: bold;
+        }
+
+        .map {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            justify-content: center;
+
+            padding: 25px;
+        }
+
+        .map-table {
+            width: 190px;
+            min-height: 140px;
+
+            border:
+                2px solid #d9b5c2;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #fff8fb;
+
+            text-align: center;
+
+            padding: 15px;
+        }
+
+        .map-table.full {
+            border-color: #d994a7;
+            background: #fff0f4;
+        }
+
+        .map-table strong {
+            font-size: 16px;
+        }
+
+        .map-table span {
+            font-size: 12px;
+
+            color: #777;
+
+            margin-top: 5px;
         }
 
         .message {
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            position: fixed;
+
+            top: 80px;
+            right: 25px;
+
+            max-width: 380px;
+
+            padding: 14px 18px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.12);
+
+            font-size: 13px;
+
+            z-index: 100;
+
             display: none;
         }
 
@@ -351,289 +622,408 @@
             display: block;
         }
 
-        .message.error {
-            background: #f8dddd;
-            color: #8f3030;
-        }
-
         .message.success {
-            background: #def2e3;
-            color: #2d7741;
+            background: #e8f6ed;
+            color: #267347;
+            border: 1px solid #b9ddc5;
         }
 
-        .table-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 15px;
+        .message.error {
+            background: #fde9ed;
+            color: #a03f55;
+            border: 1px solid #e5b6c2;
         }
 
-        .table-card {
-            border: 1px solid #eee;
-            border-radius: 15px;
-            padding: 18px;
+        .message.info {
+            background: #eef5ff;
+            color: #365f91;
+            border: 1px solid #c6d9ef;
         }
 
-        .table-card h3 {
-            margin: 0 0 8px;
-            color: #765252;
-        }
-
-        .table-card p {
-            margin: 5px 0;
-            color: #777;
-        }
-
-        .map {
-            min-height: 350px;
-            background: #f7f4f2;
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .map-table {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: white;
-            border: 5px solid #c9aaaa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        footer {
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,.08);
+
+            padding: 25px;
+
+            color: #999;
+
+            font-size: 13px;
         }
 
-        .map-table strong {
-            color: #704f4f;
-        }
+        @media (max-width: 1050px) {
 
-        .map-table span {
-            font-size: 12px;
-            color: #777;
-            margin-top: 5px;
-        }
-
-        @media(max-width:1000px) {
             .stats {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns:
+                    repeat(3, 1fr);
             }
 
             .toolbar {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
-            .toolbar .search {
-                grid-column: 1 / -1;
+            .grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
             }
+
+            .tables {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
         }
 
-        @media(max-width:650px) {
-            .topbar {
-                padding: 14px;
+        @media (max-width: 650px) {
+
+            header {
+                padding: 14px 18px;
             }
 
-            .container {
-                padding: 20px 12px 40px;
+            .logo {
+                font-size: 18px;
+            }
+
+            main {
+                padding: 25px 15px;
             }
 
             .hero {
-                padding: 22px;
+                padding: 25px;
             }
 
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+            .hero h1 {
+                font-size: 26px;
             }
 
-            .form-grid {
+            .stats,
+            .toolbar,
+            .form {
                 grid-template-columns: 1fr;
             }
 
-            .form-group.full {
+            .grid,
+            .tables {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
                 grid-column: auto;
             }
 
-            .toolbar {
-                grid-template-columns: 1fr;
+            .top {
+                display: block;
             }
+
+            .table-head {
+                display: block;
+            }
+
+            .table-capacity {
+                text-align: left;
+                margin-top: 10px;
+            }
+
+            .modal {
+                max-height: 96vh;
+                padding: 20px;
+            }
+
         }
+
     </style>
+
 </head>
 
 <body>
 
-<header class="topbar">
-    <div class="logo">💍 Casamento Perfeito</div>
+<header>
 
-    <div class="top-actions">
-        <button type="button" class="btn btn-secondary" onclick="voltarDashboard()">
-            ← Dashboard
-        </button>
-
-        <button type="button" class="btn btn-danger" onclick="sair()">
-            Sair
-        </button>
+    <div class="logo">
+        💕 Casamento Perfeito
     </div>
+
+    <div>
+
+        <a
+            class="btn secondary"
+            href="dashboard.html"
+        >
+            ← Painel
+        </a>
+
+        <a
+            class="btn secondary"
+            href="planeador.html"
+        >
+            Planeador
+        </a>
+
+    </div>
+
 </header>
 
-<main class="container">
+
+<main>
 
     <section class="hero">
-        <h1>👥 Convidados e Mesas</h1>
+
+        <small>
+            GESTÃO DO CASAMENTO
+        </small>
+
+        <h1>
+            👥 Convidados e Mesas
+        </h1>
+
         <p>
-            Organize os seus convidados, confirmações e lugares do casamento.
+            Registe convidados, acompanhe confirmações
+            e organize a distribuição pelas mesas.
         </p>
+
     </section>
 
-    <div id="message" class="message"></div>
+
+    <!-- ESTATÍSTICAS -->
 
     <section class="stats">
 
         <div class="stat">
-            <div class="stat-label">Total</div>
-            <div class="stat-value" id="statTotal">0</div>
+            <strong id="total">0</strong>
+            <span>Total</span>
         </div>
 
         <div class="stat">
-            <div class="stat-label">Confirmados</div>
-            <div class="stat-value" id="statConfirmados">0</div>
+            <strong id="confirmed">0</strong>
+            <span>Confirmados</span>
         </div>
 
         <div class="stat">
-            <div class="stat-label">Pendentes</div>
-            <div class="stat-value" id="statPendentes">0</div>
+            <strong id="pending">0</strong>
+            <span>Pendentes</span>
         </div>
 
         <div class="stat">
-            <div class="stat-label">Não vão</div>
-            <div class="stat-value" id="statNaoVai">0</div>
+            <strong id="declined">0</strong>
+            <span>Não vão</span>
         </div>
 
         <div class="stat">
-            <div class="stat-label">Adultos</div>
-            <div class="stat-value" id="statAdultos">0</div>
+            <strong id="adults">0</strong>
+            <span>Adultos</span>
         </div>
 
         <div class="stat">
-            <div class="stat-label">Crianças</div>
-            <div class="stat-value" id="statCriancas">0</div>
+            <strong id="children">0</strong>
+            <span>Crianças</span>
         </div>
 
     </section>
 
-    <section class="card">
 
-        <div class="tabs">
+    <!-- TABS -->
 
-            <button type="button" class="tab active" data-tab="convidados">
-                👥 Convidados
-            </button>
+    <div class="tabs">
 
-            <button type="button" class="tab" data-tab="mesas">
-                🪑 Mesas
-            </button>
+        <button
+            class="tab active"
+            data-panel="guests"
+        >
+            👥 Convidados
+        </button>
 
-            <button type="button" class="tab" data-tab="mapa">
-                🗺️ Mapa
+        <button
+            class="tab"
+            data-panel="tables"
+        >
+            🪑 Mesas
+        </button>
+
+        <button
+            class="tab"
+            data-panel="map"
+        >
+            🗺️ Mapa
+        </button>
+
+    </div>
+
+
+    <!-- CONVIDADOS -->
+
+    <section
+        id="guests"
+        class="panel active"
+    >
+
+        <div class="toolbar">
+
+            <input
+                id="search"
+                placeholder="Pesquisar nome, telefone ou grupo"
+            >
+
+            <select id="rsvp">
+
+                <option value="">
+                    Todos os estados
+                </option>
+
+                <option>
+                    Confirmado
+                </option>
+
+                <option>
+                    Pendente
+                </option>
+
+                <option>
+                    Não vai
+                </option>
+
+            </select>
+
+
+            <select id="side">
+
+                <option value="">
+                    Todos os lados
+                </option>
+
+                <option>
+                    Noiva
+                </option>
+
+                <option>
+                    Noivo
+                </option>
+
+                <option>
+                    Ambos
+                </option>
+
+            </select>
+
+
+            <select id="type">
+
+                <option value="">
+                    Adultos e crianças
+                </option>
+
+                <option>
+                    Adulto
+                </option>
+
+                <option>
+                    Criança
+                </option>
+
+            </select>
+
+
+            <select id="tableFilter">
+
+                <option value="">
+                    Todas as mesas
+                </option>
+
+                <option value="none">
+                    Sem mesa
+                </option>
+
+            </select>
+
+
+            <button
+                class="btn primary"
+                id="newGuest"
+                type="button"
+            >
+                + Convidado
             </button>
 
         </div>
 
-        <div id="tab-convidados">
 
-            <div class="toolbar">
+        <div
+            id="guestList"
+            class="list"
+        ></div>
 
-                <input
-                    id="search"
-                    class="input search"
-                    type="search"
-                    placeholder="🔎 Procurar convidado..."
-                >
+    </section>
 
-                <select id="filterRsvp" class="select">
-                    <option value="">Todos RSVP</option>
-                    <option value="Pendente">Pendente</option>
-                    <option value="Confirmado">Confirmado</option>
-                    <option value="Não vai">Não vai</option>
-                </select>
 
-                <select id="filterLado" class="select">
-                    <option value="">Todos os lados</option>
-                    <option value="Noiva">Noiva</option>
-                    <option value="Noivo">Noivo</option>
-                    <option value="Ambos">Ambos</option>
-                </select>
+    <!-- MESAS -->
 
-                <select id="filterTipo" class="select">
-                    <option value="">Adultos e crianças</option>
-                    <option value="Adulto">Adulto</option>
-                    <option value="Criança">Criança</option>
-                </select>
+    <section
+        id="tables"
+        class="panel"
+    >
 
-                <select id="filterMesa" class="select">
-                    <option value="">Todas as mesas</option>
-                </select>
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:18px;
+                gap:10px;
+            "
+        >
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="abrirConvidado()"
-                >
-                    + Convidado
-                </button>
+            <div>
+
+                <h2>
+                    Gestão de mesas
+                </h2>
+
+                <p class="muted">
+                    Crie mesas e defina a capacidade
+                    de cada uma.
+                </p>
 
             </div>
 
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Grupo</th>
-                            <th>Lado</th>
-                            <th>Tipo</th>
-                            <th>RSVP</th>
-                            <th>Mesa</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="guestTableBody"></tbody>
-
-                </table>
-
-            </div>
+            <button
+                class="btn primary"
+                id="newTable"
+                type="button"
+            >
+                + Nova mesa
+            </button>
 
         </div>
 
-        <div id="tab-mesas" style="display:none;">
 
-            <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+        <div
+            id="tableList"
+            class="tables"
+        ></div>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="abrirMesa()"
-                >
-                    + Nova mesa
-                </button>
+    </section>
 
-            </div>
 
-            <div id="tablesContainer" class="table-grid"></div>
+    <!-- MAPA -->
 
-        </div>
+    <section
+        id="map"
+        class="panel"
+    >
 
-        <div id="tab-mapa" style="display:none;">
+        <div class="box">
 
-            <div id="mapContainer" class="map"></div>
+            <h2>
+                Mapa das mesas
+            </h2>
+
+            <p class="muted">
+                Visão geral da distribuição dos convidados.
+            </p>
+
+            <div
+                id="mapList"
+                class="map"
+            ></div>
 
         </div>
 
@@ -641,290 +1031,535 @@
 
 </main>
 
-<!-- MODAL CONVIDADO -->
 
-<div id="guestModal" class="modal-overlay">
+<footer>
+    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
+</footer>
+
+
+<!-- MENSAGEM -->
+
+<div
+    id="message"
+    class="message"
+></div>
+
+
+<!-- ======================================================
+     MODAL CONVIDADO
+====================================================== -->
+
+<div
+    class="modal-bg"
+    id="guestModal"
+>
 
     <div class="modal">
 
-        <h2 id="guestModalTitle">
+        <h2 id="guestTitle">
             Adicionar convidado
         </h2>
 
+
         <form id="guestForm">
 
-            <input type="hidden" id="guestId">
+            <input
+                type="hidden"
+                id="guestId"
+            >
 
-            <div class="form-grid">
 
-                <div class="form-group full">
+            <div class="form">
 
-                    <label for="nome">
+
+                <!-- NOME -->
+
+                <div class="field">
+
+                    <label>
                         Nome completo *
                     </label>
 
                     <input
-                        id="nome"
-                        class="input"
+                        id="name"
                         required
-                        autocomplete="off"
                     >
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="grupo">
+                <!-- GRUPO -->
+
+                <div class="field">
+
+                    <label>
                         Grupo / Família
                     </label>
 
                     <input
-                        id="grupo"
-                        class="input"
+                        id="group"
                         autocomplete="off"
                     >
 
-                    <div class="suggestions" data-for="grupo">
+                    <div
+                        class="suggestions"
+                        data-target="group"
+                    >
 
-                        <button type="button" class="suggestion">Família</button>
-                        <button type="button" class="suggestion">Amigos</button>
-                        <button type="button" class="suggestion">Trabalho</button>
-                        <button type="button" class="suggestion">Igreja</button>
-                        <button type="button" class="suggestion">Escola</button>
-                        <button type="button" class="suggestion">Vizinhos</button>
-                        <button type="button" class="suggestion">Padrinhos</button>
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Família"
+                        >
+                            Família
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Amigos"
+                        >
+                            Amigos
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Trabalho"
+                        >
+                            Trabalho
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Igreja"
+                        >
+                            Igreja
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Escola"
+                        >
+                            Escola
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Vizinhos"
+                        >
+                            Vizinhos
+                        </button>
+
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Padrinhos"
+                        >
+                            Padrinhos
+                        </button>
 
                     </div>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="relacao">
+                <!-- LADO -->
+
+                <div class="field">
+
+                    <label>
+                        Lado
+                    </label>
+
+                    <select id="guestSide">
+
+                        <option>
+                            Noiva
+                        </option>
+
+                        <option>
+                            Noivo
+                        </option>
+
+                        <option>
+                            Ambos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RELAÇÃO -->
+
+                <div class="field">
+
+                    <label>
                         Relação
                     </label>
 
                     <input
-                        id="relacao"
-                        class="input"
+                        id="relation"
                         autocomplete="off"
                     >
 
-                    <div class="suggestions" data-for="relacao">
+                    <div
+                        class="suggestions"
+                        data-target="relation"
+                    >
 
-                        <button type="button" class="suggestion">Pai</button>
-                        <button type="button" class="suggestion">Mãe</button>
-                        <button type="button" class="suggestion">Irmão</button>
-                        <button type="button" class="suggestion">Irmã</button>
-                        <button type="button" class="suggestion">Tio</button>
-                        <button type="button" class="suggestion">Tia</button>
-                        <button type="button" class="suggestion">Primo</button>
-                        <button type="button" class="suggestion">Prima</button>
-                        <button type="button" class="suggestion">Amigo</button>
-                        <button type="button" class="suggestion">Amiga</button>
-                        <button type="button" class="suggestion">Colega</button>
-                        <button type="button" class="suggestion">Vizinho</button>
-                        <button type="button" class="suggestion">Padrinho</button>
-                        <button type="button" class="suggestion">Madrinha</button>
+                        <button type="button" class="suggestion" data-value="Pai">
+                            Pai
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Mãe">
+                            Mãe
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Irmão">
+                            Irmão
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Irmã">
+                            Irmã
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Tio">
+                            Tio
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Tia">
+                            Tia
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Primo">
+                            Primo
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Prima">
+                            Prima
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Amigo">
+                            Amigo
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Amiga">
+                            Amiga
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Colega">
+                            Colega
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Vizinho">
+                            Vizinho
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Padrinho">
+                            Padrinho
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Madrinha">
+                            Madrinha
+                        </button>
 
                     </div>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="lado">
-                        Lado
-                    </label>
+                <!-- TELEFONE -->
 
-                    <select id="lado" class="select">
-                        <option value="Noiva">Noiva</option>
-                        <option value="Noivo">Noivo</option>
-                        <option value="Ambos">Ambos</option>
-                    </select>
+                <div class="field">
 
-                </div>
-
-                <div class="form-group">
-
-                    <label for="tipo">
-                        Tipo
-                    </label>
-
-                    <select id="tipo" class="select">
-                        <option value="Adulto">Adulto</option>
-                        <option value="Criança">Criança</option>
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="telefone">
+                    <label>
                         Telefone
                     </label>
 
                     <input
-                        id="telefone"
-                        class="input"
+                        id="phone"
                         type="tel"
                     >
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="whatsapp">
+                <!-- WHATSAPP -->
+
+                <div class="field">
+
+                    <label>
                         WhatsApp
                     </label>
 
                     <input
                         id="whatsapp"
-                        class="input"
                         type="tel"
                     >
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="email">
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label>
                         Email
                     </label>
 
                     <input
                         id="email"
-                        class="input"
                         type="email"
                     >
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="rsvp">
+                <!-- TIPO -->
+
+                <div class="field">
+
+                    <label>
+                        Tipo
+                    </label>
+
+                    <select id="guestType">
+
+                        <option>
+                            Adulto
+                        </option>
+
+                        <option>
+                            Criança
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RSVP -->
+
+                <div class="field">
+
+                    <label>
                         RSVP
                     </label>
 
-                    <select id="rsvp" class="select">
-                        <option value="Pendente">Pendente</option>
-                        <option value="Confirmado">Confirmado</option>
-                        <option value="Não vai">Não vai</option>
+                    <select id="guestRsvp">
+
+                        <option>
+                            Pendente
+                        </option>
+
+                        <option>
+                            Confirmado
+                        </option>
+
+                        <option>
+                            Não vai
+                        </option>
+
                     </select>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="acompanhante">
+                <!-- ACOMPANHANTE -->
+
+                <div class="field">
+
+                    <label>
                         Acompanhante
                     </label>
 
-                    <select id="acompanhante" class="select">
-                        <option value="Não">Não</option>
-                        <option value="Sim">Sim</option>
+                    <select id="companion">
+
+                        <option>
+                            Não
+                        </option>
+
+                        <option>
+                            Sim
+                        </option>
+
                     </select>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="nomeAcompanhante">
+                <!-- NOME ACOMPANHANTE -->
+
+                <div class="field">
+
+                    <label>
                         Nome do acompanhante
                     </label>
 
                     <input
-                        id="nomeAcompanhante"
-                        class="input"
+                        id="companionName"
                     >
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="alimentacao">
-                        Restrição alimentar
+                <!-- ALIMENTAÇÃO -->
+
+                <div class="field">
+
+                    <label>
+                        Alimentação
                     </label>
 
                     <input
-                        id="alimentacao"
-                        class="input"
+                        id="food"
                         autocomplete="off"
                     >
 
-                    <div class="suggestions" data-for="alimentacao">
+                    <div
+                        class="suggestions"
+                        data-target="food"
+                    >
 
-                        <button type="button" class="suggestion">Normal</button>
-                        <button type="button" class="suggestion">Vegetariana</button>
-                        <button type="button" class="suggestion">Sem glúten</button>
-                        <button type="button" class="suggestion">Sem lactose</button>
-                        <button type="button" class="suggestion">Vegana</button>
-                        <button type="button" class="suggestion">Outra</button>
+                        <button type="button" class="suggestion" data-value="Normal">
+                            Normal
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Vegetariana">
+                            Vegetariana
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Sem glúten">
+                            Sem glúten
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Sem lactose">
+                            Sem lactose
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Vegana">
+                            Vegana
+                        </button>
+
+                        <button type="button" class="suggestion" data-value="Outra">
+                            Outra
+                        </button>
 
                     </div>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="mesa">
+                <!-- MESA -->
+
+                <div class="field">
+
+                    <label>
                         Mesa
                     </label>
 
-                    <select id="mesa" class="select">
+                    <select id="guestTable">
+
                         <option value="">
                             Sem mesa
                         </option>
+
                     </select>
+
+                    <div
+                        id="tableCapacityHelp"
+                        class="capacity-help"
+                    >
+                        Sem mesa selecionada.
+                    </div>
 
                 </div>
 
-                <div class="form-group">
 
-                    <label for="lugar">
+                <!-- LUGAR -->
+
+                <div class="field">
+
+                    <label>
                         Lugar
                     </label>
 
                     <input
-                        id="lugar"
-                        class="input"
+                        id="seat"
                         type="number"
                         min="1"
                     >
 
+                    <div
+                        class="capacity-help"
+                    >
+                        Escolha primeiro uma mesa.
+                    </div>
+
                 </div>
 
-                <div class="form-group full">
 
-                    <label for="notas">
+                <!-- OBSERVAÇÕES -->
+
+                <div class="field full">
+
+                    <label>
                         Observações
                     </label>
 
-                    <input
-                        id="notas"
-                        class="input"
-                        autocomplete="off"
+                    <textarea
+                        id="notes"
+                        placeholder="Observações importantes..."
+                    ></textarea>
+
+                    <div
+                        class="suggestions"
+                        data-target="notes"
                     >
 
-                    <div class="suggestions" data-for="notas">
-
-                        <button type="button" class="suggestion">
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Precisa de transporte"
+                        >
                             Precisa de transporte
                         </button>
 
-                        <button type="button" class="suggestion">
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Vai com crianças"
+                        >
                             Vai com crianças
                         </button>
 
-                        <button type="button" class="suggestion">
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Precisa de lugar especial"
+                        >
                             Precisa de lugar especial
                         </button>
 
-                        <button type="button" class="suggestion">
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Família próxima"
+                        >
                             Família próxima
                         </button>
 
-                        <button type="button" class="suggestion">
+                        <button
+                            type="button"
+                            class="suggestion"
+                            data-value="Padrinho/Madrinha"
+                        >
                             Padrinho/Madrinha
                         </button>
 
@@ -932,21 +1567,22 @@
 
                 </div>
 
+
             </div>
 
-            <div class="modal-footer">
+
+            <div class="modal-actions">
 
                 <button
                     type="button"
-                    class="btn btn-secondary"
-                    onclick="fecharModal('guestModal')"
+                    class="btn secondary close"
                 >
                     Cancelar
                 </button>
 
                 <button
+                    class="btn primary"
                     type="submit"
-                    class="btn btn-primary"
                 >
                     Guardar convidado
                 </button>
@@ -959,64 +1595,146 @@
 
 </div>
 
-<!-- MODAL MESA -->
 
-<div id="tableModal" class="modal-overlay">
+<!-- ======================================================
+     MODAL MESA
+====================================================== -->
+
+<div
+    class="modal-bg"
+    id="tableModal"
+>
 
     <div class="modal">
 
-        <h2 id="tableModalTitle">
+        <h2 id="tableTitle">
             Nova mesa
         </h2>
 
+
         <form id="tableForm">
 
-            <input type="hidden" id="tableId">
+            <input
+                type="hidden"
+                id="tableId"
+            >
 
-            <div class="form-group">
 
-                <label for="tableName">
-                    Nome / Número da mesa *
-                </label>
+            <div class="form">
 
-                <input
-                    id="tableName"
-                    class="input"
-                    required
-                    placeholder="Ex.: Mesa 1"
-                >
+
+                <div class="field">
+
+                    <label>
+                        Nome / número *
+                    </label>
+
+                    <input
+                        id="tableName"
+                        placeholder="Mesa 01"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Formato
+                    </label>
+
+                    <select id="shape">
+
+                        <option>
+                            Redonda
+                        </option>
+
+                        <option>
+                            Retangular
+                        </option>
+
+                        <option>
+                            Quadrada
+                        </option>
+
+                        <option>
+                            Imperial
+                        </option>
+
+                        <option>
+                            Personalizada
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Capacidade *
+                    </label>
+
+                    <input
+                        id="capacity"
+                        type="number"
+                        min="1"
+                        value="10"
+                        required
+                    >
+
+                    <div
+                        id="tableCapacityWarning"
+                        class="capacity-help"
+                    ></div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Localização
+                    </label>
+
+                    <input
+                        id="location"
+                        placeholder="Salão principal"
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Observações
+                    </label>
+
+                    <textarea
+                        id="tableNotes"
+                    ></textarea>
+
+                </div>
+
 
             </div>
 
-            <div class="form-group" style="margin-top:15px;">
 
-                <label for="tableSeats">
-                    Número de lugares
-                </label>
-
-                <input
-                    id="tableSeats"
-                    class="input"
-                    type="number"
-                    min="1"
-                    value="8"
-                >
-
-            </div>
-
-            <div class="modal-footer">
+            <div class="modal-actions">
 
                 <button
                     type="button"
-                    class="btn btn-secondary"
-                    onclick="fecharModal('tableModal')"
+                    class="btn secondary close"
                 >
                     Cancelar
                 </button>
 
                 <button
+                    class="btn primary"
                     type="submit"
-                    class="btn btn-primary"
                 >
                     Guardar mesa
                 </button>
@@ -1029,12 +1747,15 @@
 
 </div>
 
+
 <script>
+
 "use strict";
 
-/* =====================================================
+
+/* ======================================================
    SUPABASE
-===================================================== */
+====================================================== */
 
 const SUPABASE_URL =
     "https://yucymctjoqbxpipmpzir.supabase.co";
@@ -1049,9 +1770,9 @@ const supabaseClient =
     );
 
 
-/* =====================================================
+/* ======================================================
    ESTADO
-===================================================== */
+====================================================== */
 
 let utilizadorAtual = null;
 
@@ -1062,94 +1783,145 @@ let convidados = [];
 let mesas = [];
 
 
-/* =====================================================
-   LOCALSTORAGE ANTIGO
-   Mantido apenas para migração
-===================================================== */
+/*
+ * Backup das mesas antigas.
+ *
+ * Não apagamos esta informação.
+ * Ela pode ser usada caso a migração precise
+ * ser repetida manualmente.
+ */
 
 const STORAGE_TABLES =
     "casamentoPerfeitoMesas_v1";
 
 
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
+/* ======================================================
+   ELEMENTOS
+====================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
-
-        configurarTabs();
-
-        configurarSugestoes();
-
-        configurarFormularios();
-
-        configurarFiltros();
-
-        await verificarSessao();
-
-    }
-);
+const $ = id =>
+    document.getElementById(id);
 
 
-/* =====================================================
-   SESSÃO
-===================================================== */
+/* ======================================================
+   ESCAPAR HTML
+====================================================== */
 
-async function verificarSessao() {
+function esc(valor) {
 
-    try {
+    return String(valor ?? "")
+        .replace(/[&<>"']/g, caractere => {
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
+            const mapa = {
 
-        if (error)
-            throw error;
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
 
-        const session =
-            data.session;
+            };
 
-        if (!session) {
+            return mapa[caractere];
 
-            window.location.replace(
-                "login.html"
-            );
+        });
 
-            return;
-        }
-
-        utilizadorAtual =
-            session.user;
-
-        await carregarDados();
-
-    } catch (error) {
-
-        console.error(error);
-
-        mostrarMensagem(
-            "Não foi possível verificar a sessão.",
-            "error"
-        );
-    }
 }
 
 
-/* =====================================================
+function escAttr(valor) {
+
+    return esc(valor);
+
+}
+
+
+/* ======================================================
+   MENSAGENS
+====================================================== */
+
+let messageTimer = null;
+
+
+function mostrarMensagem(
+    texto,
+    tipo = "success"
+) {
+
+    const elemento = $("message");
+
+    elemento.textContent = texto;
+
+    elemento.className =
+        "message show " + tipo;
+
+    clearTimeout(messageTimer);
+
+    messageTimer = setTimeout(() => {
+
+        elemento.className =
+            "message";
+
+    }, 4500);
+
+}
+
+
+/* ======================================================
+   SESSÃO
+====================================================== */
+
+async function verificarSessao() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao obter sessão:",
+            error
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return;
+
+    }
+
+
+    if (!data.session) {
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return;
+
+    }
+
+
+    utilizadorAtual =
+        data.session.user;
+
+
+    await carregarDados();
+
+}
+
+
+/* ======================================================
    CARREGAR DADOS
-===================================================== */
+====================================================== */
 
 async function carregarDados() {
 
     try {
-
-        if (!utilizadorAtual)
-            return;
-
 
         const {
             data: casamento,
@@ -1172,8 +1944,11 @@ async function carregarDados() {
                 .maybeSingle();
 
 
-        if (erroCasamento)
+        if (erroCasamento) {
+
             throw erroCasamento;
+
+        }
 
 
         casamentoAtual =
@@ -1183,13 +1958,12 @@ async function carregarDados() {
         if (!casamentoAtual) {
 
             mostrarMensagem(
-                "Ainda não existe um casamento configurado para esta conta.",
+                "Não foi encontrado um casamento associado à sua conta.",
                 "error"
             );
 
-            renderizarTudo();
-
             return;
+
         }
 
 
@@ -1199,29 +1973,36 @@ async function carregarDados() {
 
         await migrarMesasAntigas();
 
+        /*
+         * Depois da migração voltamos a carregar
+         * os convidados para garantir que as
+         * referências das mesas estão atualizadas.
+         */
+
         await carregarConvidados();
 
         renderizarTudo();
 
-
-    } catch (error) {
+    } catch (erro) {
 
         console.error(
             "Erro ao carregar dados:",
-            error
+            erro
         );
 
         mostrarMensagem(
-            "Não foi possível carregar os dados dos convidados.",
+            "Não foi possível carregar os dados do casamento.",
             "error"
         );
+
     }
+
 }
 
 
-/* =====================================================
-   CONVIDADOS
-===================================================== */
+/* ======================================================
+   CONVIDADOS — CARREGAR
+====================================================== */
 
 async function carregarConvidados() {
 
@@ -1230,6 +2011,7 @@ async function carregarConvidados() {
         convidados = [];
 
         return;
+
     }
 
 
@@ -1252,18 +2034,22 @@ async function carregarConvidados() {
             );
 
 
-    if (error)
+    if (error) {
+
         throw error;
+
+    }
 
 
     convidados =
         data || [];
+
 }
 
 
-/* =====================================================
-   MESAS — SUPABASE
-===================================================== */
+/* ======================================================
+   MESAS — CARREGAR
+====================================================== */
 
 async function carregarMesasSupabase() {
 
@@ -1272,6 +2058,7 @@ async function carregarMesasSupabase() {
         mesas = [];
 
         return;
+
     }
 
 
@@ -1294,32 +2081,42 @@ async function carregarMesasSupabase() {
             );
 
 
-    if (error)
+    if (error) {
+
         throw error;
+
+    }
 
 
     mesas =
         data || [];
+
 }
 
 
-/* =====================================================
-   MIGRAÇÃO DAS MESAS ANTIGAS
-===================================================== */
+/* ======================================================
+   MIGRAR MESAS ANTIGAS
+====================================================== */
 
 async function migrarMesasAntigas() {
 
-    if (!casamentoAtual)
+    if (!casamentoAtual) {
+
         return;
+
+    }
 
 
     /*
-       Se já existem mesas no Supabase,
-       não fazemos migração automática.
-    */
+     * Se já existem mesas no Supabase,
+     * não fazemos nova migração.
+     */
 
-    if (mesas.length > 0)
+    if (mesas.length > 0) {
+
         return;
+
+    }
 
 
     let mesasAntigas = [];
@@ -1333,22 +2130,25 @@ async function migrarMesasAntigas() {
             );
 
 
-        if (!dados)
+        if (!dados) {
+
             return;
+
+        }
 
 
         mesasAntigas =
             JSON.parse(dados);
 
-
-    } catch (error) {
+    } catch (erro) {
 
         console.error(
             "Erro ao ler mesas antigas:",
-            error
+            erro
         );
 
         return;
+
     }
 
 
@@ -1358,17 +2158,17 @@ async function migrarMesasAntigas() {
     ) {
 
         return;
+
     }
 
 
     mostrarMensagem(
         "A migrar as mesas antigas para o Supabase...",
-        "success"
+        "info"
     );
 
 
-    const mapaMesas =
-        {};
+    const mapaMesas = {};
 
 
     for (
@@ -1376,58 +2176,51 @@ async function migrarMesasAntigas() {
         of mesasAntigas
     ) {
 
-        try {
+        const {
+            data: novaMesa,
+            error
+        } =
+            await supabaseClient
+                .from("tables")
+                .insert({
 
-            const {
-                data: novaMesa,
-                error
-            } =
-                await supabaseClient
-                    .from("tables")
-                    .insert({
-                        wedding_id:
-                            casamentoAtual.id,
+                    wedding_id:
+                        casamentoAtual.id,
 
-                        nome:
-                            mesaAntiga.nome ||
-                            "Mesa",
+                    nome:
+                        mesaAntiga.nome ||
+                        "Mesa",
 
-                        lugares:
-                            Number(
-                                mesaAntiga.lugares
-                            ) || 8
-                    })
-                    .select()
-                    .single();
+                    lugares:
+                        Number(
+                            mesaAntiga.lugares ||
+                            mesaAntiga.capacidade
+                        ) || 8
 
-
-            if (error)
-                throw error;
+                })
+                .select()
+                .single();
 
 
-            mapaMesas[
-                mesaAntiga.id
-            ] =
-                novaMesa.id;
-
-
-        } catch (error) {
-
-            console.error(
-                "Erro ao migrar mesa:",
-                mesaAntiga,
-                error
-            );
+        if (error) {
 
             throw error;
+
         }
+
+
+        mapaMesas[
+            mesaAntiga.id
+        ] =
+            novaMesa.id;
+
     }
 
 
     /*
-       Atualizar convidados que tinham
-       mesa_id antigo.
-    */
+     * Atualizar convidados que estavam
+     * associados às mesas antigas.
+     */
 
     for (
         const convidado
@@ -1440,8 +2233,23 @@ async function migrarMesasAntigas() {
             ];
 
 
-        if (!novoMesaId)
+        /*
+         * Também tentamos a propriedade antiga
+         * "mesa", caso exista no backup.
+         */
+
+        const novoMesaIdAntigo =
+            novoMesaId ||
+            mapaMesas[
+                convidado.mesa
+            ];
+
+
+        if (!novoMesaIdAntigo) {
+
             continue;
+
+        }
 
 
         const {
@@ -1450,8 +2258,10 @@ async function migrarMesasAntigas() {
             await supabaseClient
                 .from("guests")
                 .update({
+
                     mesa_id:
-                        novoMesaId
+                        novoMesaIdAntigo
+
                 })
                 .eq(
                     "id",
@@ -1463,14 +2273,14 @@ async function migrarMesasAntigas() {
                 );
 
 
-        if (error)
+        if (error) {
+
             throw error;
+
+        }
+
     }
 
-
-    /*
-       Recarregar mesas.
-    */
 
     await carregarMesasSupabase();
 
@@ -1479,151 +2289,557 @@ async function migrarMesasAntigas() {
         `${mesasAntigas.length} mesa(s) migrada(s) para o Supabase.`,
         "success"
     );
+
 }
 
 
-/* =====================================================
-   RENDERIZAÇÃO
-===================================================== */
+/* ======================================================
+   OBTER MESA
+====================================================== */
+
+function obterMesa(id) {
+
+    if (!id) {
+
+        return null;
+
+    }
+
+
+    return mesas.find(
+        mesa =>
+            String(mesa.id) ===
+            String(id)
+    ) || null;
+
+}
+
+
+/* ======================================================
+   CONTAR OCUPADOS
+====================================================== */
+
+function contarOcupados(
+    mesaId,
+    ignorarConvidadoId = null
+) {
+
+    if (!mesaId) {
+
+        return 0;
+
+    }
+
+
+    return convidados.filter(
+        convidado => {
+
+            if (
+                String(convidado.mesa_id) !==
+                String(mesaId)
+            ) {
+
+                return false;
+
+            }
+
+
+            if (
+                ignorarConvidadoId &&
+                String(convidado.id) ===
+                String(ignorarConvidadoId)
+            ) {
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+    ).length;
+
+}
+
+
+/* ======================================================
+   VALIDAR MESA E LUGAR
+====================================================== */
+
+function validarLugarEMesa(
+    mesaId,
+    lugar,
+    convidadoId = null,
+    mesaAnteriorId = null
+) {
+
+    /*
+     * Sem mesa:
+     * não existe validação de capacidade.
+     */
+
+    if (!mesaId) {
+
+        return {
+            valido: true
+        };
+
+    }
+
+
+    const mesa =
+        obterMesa(mesaId);
+
+
+    if (!mesa) {
+
+        return {
+
+            valido: false,
+
+            mensagem:
+                "A mesa selecionada não foi encontrada."
+
+        };
+
+    }
+
+
+    const capacidade =
+        Number(mesa.lugares) || 0;
+
+
+    /*
+     * Validar número do lugar.
+     */
+
+    if (lugar !== null) {
+
+        if (
+            !Number.isInteger(lugar) ||
+            lugar < 1
+        ) {
+
+            return {
+
+                valido: false,
+
+                mensagem:
+                    "O número do lugar deve ser um número inteiro maior que zero."
+
+            };
+
+        }
+
+
+        if (lugar > capacidade) {
+
+            return {
+
+                valido: false,
+
+                mensagem:
+                    `A ${mesa.nome} tem apenas ${capacidade} lugar(es). O lugar ${lugar} não existe.`
+
+            };
+
+        }
+
+
+        /*
+         * Verificar se o lugar já está ocupado.
+         */
+
+        const lugarOcupado =
+            convidados.some(
+                convidado => {
+
+                    if (
+                        String(convidado.mesa_id) !==
+                        String(mesaId)
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    if (
+                        Number(convidado.lugar) !==
+                        Number(lugar)
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    if (
+                        convidadoId &&
+                        String(convidado.id) ===
+                        String(convidadoId)
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    return true;
+
+                }
+            );
+
+
+        if (lugarOcupado) {
+
+            return {
+
+                valido: false,
+
+                mensagem:
+                    `O lugar ${lugar} da ${mesa.nome} já está ocupado.`
+
+            };
+
+        }
+
+    }
+
+
+    const ocupados =
+        contarOcupados(
+            mesaId,
+            convidadoId
+        );
+
+
+    /*
+     * IMPORTANTE:
+     *
+     * Se estamos a editar um convidado
+     * que já estava nesta mesma mesa,
+     * não bloqueamos a edição apenas porque
+     * a mesa já estava sobrelotada.
+     *
+     * Isto permite corrigir dados de convidados
+     * antigos sem apagar informação.
+     */
+
+    const mesmaMesa =
+        convidadoId &&
+        mesaAnteriorId &&
+        String(mesaAnteriorId) ===
+        String(mesaId);
+
+
+    if (
+        !mesmaMesa &&
+        ocupados >= capacidade
+    ) {
+
+        return {
+
+            valido: false,
+
+            mensagem:
+                `A ${mesa.nome} está lotada (${ocupados}/${capacidade} lugares ocupados).`
+
+        };
+
+    }
+
+
+    return {
+        valido: true
+    };
+
+}
+
+
+/* ======================================================
+   RENDERIZAR TUDO
+====================================================== */
 
 function renderizarTudo() {
 
     atualizarEstatisticas();
 
+    atualizarSelectMesas();
+
     renderizarConvidados();
 
     renderizarMesas();
 
-    atualizarSelectMesas();
-
     renderizarMapa();
+
 }
 
 
-/* =====================================================
+/* ======================================================
    ESTATÍSTICAS
-===================================================== */
+====================================================== */
 
 function atualizarEstatisticas() {
 
-    const total =
+    $("total").textContent =
         convidados.length;
 
 
-    const confirmados =
+    $("confirmed").textContent =
         convidados.filter(
-            c =>
-                c.rsvp === "Confirmado"
+            convidado =>
+                convidado.rsvp ===
+                "Confirmado"
         ).length;
 
 
-    const pendentes =
+    $("pending").textContent =
         convidados.filter(
-            c =>
-                c.rsvp === "Pendente"
+            convidado =>
+                convidado.rsvp ===
+                "Pendente"
         ).length;
 
 
-    const naoVai =
+    $("declined").textContent =
         convidados.filter(
-            c =>
-                c.rsvp === "Não vai"
+            convidado =>
+                convidado.rsvp ===
+                "Não vai"
         ).length;
 
 
-    const adultos =
+    $("adults").textContent =
         convidados.filter(
-            c =>
-                c.tipo === "Adulto"
+            convidado =>
+                convidado.tipo ===
+                "Adulto"
         ).length;
 
 
-    const criancas =
+    $("children").textContent =
         convidados.filter(
-            c =>
-                c.tipo === "Criança"
+            convidado =>
+                convidado.tipo ===
+                "Criança"
         ).length;
 
-
-    document.getElementById(
-        "statTotal"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "statConfirmados"
-    ).textContent =
-        confirmados;
-
-
-    document.getElementById(
-        "statPendentes"
-    ).textContent =
-        pendentes;
-
-
-    document.getElementById(
-        "statNaoVai"
-    ).textContent =
-        naoVai;
-
-
-    document.getElementById(
-        "statAdultos"
-    ).textContent =
-        adultos;
-
-
-    document.getElementById(
-        "statCriancas"
-    ).textContent =
-        criancas;
 }
 
 
-/* =====================================================
-   CONVIDADOS — TABELA
-===================================================== */
+/* ======================================================
+   SELECT DE MESAS
+====================================================== */
 
-function renderizarConvidados() {
+function atualizarSelectMesas(
+    mesaSelecionada = null,
+    convidadoId = null
+) {
 
-    const tbody =
-        document.getElementById(
-            "guestTableBody"
+    const select =
+        $("guestTable");
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    let html =
+        `<option value="">Sem mesa</option>`;
+
+
+    mesas.forEach(
+        mesa => {
+
+            const ocupados =
+                contarOcupados(
+                    mesa.id,
+                    convidadoId
+                );
+
+
+            const capacidade =
+                Number(mesa.lugares) || 0;
+
+
+            const cheia =
+                ocupados >= capacidade;
+
+
+            /*
+             * A mesa atual do convidado
+             * continua selecionável mesmo
+             * quando está cheia.
+             */
+
+            const atual =
+                mesaSelecionada &&
+                String(mesaSelecionada) ===
+                String(mesa.id);
+
+
+            const disabled =
+                cheia &&
+                !atual;
+
+
+            html += `
+                <option
+                    value="${escAttr(mesa.id)}"
+                    ${atual ? "selected" : ""}
+                    ${disabled ? "disabled" : ""}
+                >
+                    ${esc(mesa.nome)}
+                    — ${ocupados}/${capacidade}
+                    ${cheia ? " — Lotada" : ""}
+                </option>
+            `;
+
+        }
+    );
+
+
+    select.innerHTML =
+        html;
+
+
+    atualizarInformacaoMesa();
+
+}
+
+
+/* ======================================================
+   INFORMAÇÃO DA MESA
+====================================================== */
+
+function atualizarInformacaoMesa() {
+
+    const mesaId =
+        $("guestTable").value;
+
+
+    const ajuda =
+        $("tableCapacityHelp");
+
+
+    const lugar =
+        $("seat");
+
+
+    if (!mesaId) {
+
+        ajuda.textContent =
+            "Sem mesa selecionada.";
+
+        ajuda.className =
+            "capacity-help";
+
+        lugar.removeAttribute(
+            "max"
+        );
+
+        return;
+
+    }
+
+
+    const mesa =
+        obterMesa(mesaId);
+
+
+    if (!mesa) {
+
+        return;
+
+    }
+
+
+    const capacidade =
+        Number(mesa.lugares) || 0;
+
+
+    const convidadoId =
+        $("guestId").value ||
+        null;
+
+
+    const ocupados =
+        contarOcupados(
+            mesa.id,
+            convidadoId
         );
 
 
-    const pesquisa =
-        document
-            .getElementById("search")
+    const disponiveis =
+        Math.max(
+            capacidade - ocupados,
+            0
+        );
+
+
+    lugar.max =
+        capacidade;
+
+
+    if (
+        ocupados >= capacidade
+    ) {
+
+        ajuda.textContent =
+            `${mesa.nome}: ${ocupados}/${capacidade} lugares ocupados — mesa cheia.`;
+
+        ajuda.className =
+            "capacity-help warning";
+
+    } else {
+
+        ajuda.textContent =
+            `${mesa.nome}: ${ocupados}/${capacidade} ocupados — ${disponiveis} lugar(es) disponível(eis).`;
+
+        ajuda.className =
+            "capacity-help";
+
+    }
+
+}
+
+
+/* ======================================================
+   RENDERIZAR CONVIDADOS
+====================================================== */
+
+function renderizarConvidados() {
+
+    const container =
+        $("guestList");
+
+
+    const query =
+        $("search")
             .value
             .toLowerCase()
             .trim();
 
 
     const rsvp =
-        document
-            .getElementById("filterRsvp")
-            .value;
+        $("rsvp").value;
 
 
     const lado =
-        document
-            .getElementById("filterLado")
-            .value;
+        $("side").value;
 
 
     const tipo =
-        document
-            .getElementById("filterTipo")
-            .value;
+        $("type").value;
 
 
-    const mesa =
-        document
-            .getElementById("filterMesa")
-            .value;
+    const mesaFiltro =
+        $("tableFilter").value;
 
 
     const filtrados =
@@ -1631,783 +2847,921 @@ function renderizarConvidados() {
             convidado => {
 
                 const texto = [
+
                     convidado.nome,
                     convidado.grupo,
-                    convidado.relacao,
                     convidado.telefone,
-                    convidado.whatsapp,
-                    convidado.email
+                    convidado.whatsapp
+
                 ]
-                    .filter(Boolean)
                     .join(" ")
                     .toLowerCase();
 
 
                 if (
-                    pesquisa &&
-                    !texto.includes(pesquisa)
-                )
+                    query &&
+                    !texto.includes(query)
+                ) {
+
                     return false;
+
+                }
 
 
                 if (
                     rsvp &&
-                    convidado.rsvp !== rsvp
-                )
+                    convidado.rsvp !==
+                    rsvp
+                ) {
+
                     return false;
+
+                }
 
 
                 if (
                     lado &&
-                    convidado.lado !== lado
-                )
+                    convidado.lado !==
+                    lado
+                ) {
+
                     return false;
+
+                }
 
 
                 if (
                     tipo &&
-                    convidado.tipo !== tipo
-                )
+                    convidado.tipo !==
+                    tipo
+                ) {
+
                     return false;
 
+                }
 
-                if (mesa) {
+
+                if (
+                    mesaFiltro ===
+                    "none"
+                ) {
 
                     if (
-                        mesa === "sem-mesa" &&
                         convidado.mesa_id
-                    )
+                    ) {
+
                         return false;
 
+                    }
 
-                    if (
-                        mesa !== "sem-mesa" &&
-                        convidado.mesa_id !== mesa
+                }
+
+
+                if (
+                    mesaFiltro &&
+                    mesaFiltro !==
+                    "none" &&
+                    String(
+                        convidado.mesa_id
+                    ) !==
+                    String(
+                        mesaFiltro
                     )
-                        return false;
+                ) {
+
+                    return false;
+
                 }
 
 
                 return true;
+
             }
         );
 
 
-    if (!filtrados.length) {
+    if (
+        filtrados.length === 0
+    ) {
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    <div class="empty">
-                        <strong>
-                            Nenhum convidado encontrado
-                        </strong>
+        container.innerHTML = `
+            <div class="empty">
 
-                        Adicione um convidado
-                        ou altere os filtros.
-                    </div>
-                </td>
-            </tr>
+                <h3>
+                    Nenhum convidado encontrado
+                </h3>
+
+                <p>
+                    Tente alterar os filtros
+                    ou adicione um novo convidado.
+                </p>
+
+            </div>
         `;
 
         return;
+
     }
 
 
-    tbody.innerHTML =
-        filtrados
-            .map(
-                convidado => {
+    container.innerHTML =
+        filtrados.map(
+            convidado => {
 
-                    const mesaAtual =
-                        mesas.find(
-                            m =>
-                                String(m.id) ===
-                                String(
-                                    convidado.mesa_id
-                                )
-                        );
+                const mesa =
+                    obterMesa(
+                        convidado.mesa_id
+                    );
 
 
-                    return `
-                        <tr>
+                const classeRsvp =
+                    convidado.rsvp ===
+                    "Confirmado"
 
-                            <td>
-                                <strong>
+                        ? "ok"
+
+                        : convidado.rsvp ===
+                          "Não vai"
+
+                            ? "no"
+
+                            : "pending";
+
+
+                return `
+
+                    <article class="guest">
+
+                        <div class="top">
+
+                            <div>
+
+                                <div class="name">
+                                    ${esc(convidado.nome)}
+                                </div>
+
+                                <div class="muted">
+
                                     ${esc(
-                                        convidado.nome
+                                        convidado.grupo ||
+                                        "Sem grupo"
                                     )}
-                                </strong>
-                            </td>
 
-                            <td>
-                                ${esc(
-                                    convidado.grupo ||
-                                    "—"
-                                )}
-                            </td>
+                                    ·
 
-                            <td>
-                                ${esc(
-                                    convidado.lado ||
-                                    "—"
-                                )}
-                            </td>
-
-                            <td>
-                                ${esc(
-                                    convidado.tipo ||
-                                    "—"
-                                )}
-                            </td>
-
-                            <td>
-                                ${badgeRsvp(
-                                    convidado.rsvp
-                                )}
-                            </td>
-
-                            <td>
-                                ${
-                                    mesaAtual
-                                        ? esc(
-                                            mesaAtual.nome
-                                        )
-                                        : "Sem mesa"
-                                }
-                            </td>
-
-                            <td>
-
-                                <div class="actions">
-
-                                    <button
-                                        type="button"
-                                        class="icon-btn"
-                                        onclick="editarConvidado('${convidado.id}')"
-                                        title="Editar"
-                                    >
-                                        ✏️
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        class="icon-btn"
-                                        onclick="eliminarConvidado('${convidado.id}')"
-                                        title="Eliminar"
-                                    >
-                                        🗑️
-                                    </button>
+                                    ${esc(
+                                        convidado.relacao ||
+                                        "Relação não definida"
+                                    )}
 
                                 </div>
 
-                            </td>
 
-                        </tr>
-                    `;
-                }
-            )
-            .join("");
-}
+                                <div class="badges">
 
-
-/* =====================================================
-   BADGE RSVP
-===================================================== */
-
-function badgeRsvp(rsvp) {
-
-    if (
-        rsvp === "Confirmado"
-    ) {
-
-        return `
-            <span class="badge badge-green">
-                Confirmado
-            </span>
-        `;
-    }
+                                    <span
+                                        class="badge ${classeRsvp}"
+                                    >
+                                        ${esc(
+                                            convidado.rsvp ||
+                                            "Pendente"
+                                        )}
+                                    </span>
 
 
-    if (
-        rsvp === "Não vai"
-    ) {
-
-        return `
-            <span class="badge badge-red">
-                Não vai
-            </span>
-        `;
-    }
+                                    <span class="badge">
+                                        ${esc(
+                                            convidado.tipo ||
+                                            "Adulto"
+                                        )}
+                                    </span>
 
 
-    return `
-        <span class="badge badge-yellow">
-            Pendente
-        </span>
-    `;
-}
+                                    <span class="badge">
+                                        ${esc(
+                                            convidado.lado ||
+                                            "Noiva"
+                                        )}
+                                    </span>
 
 
-/* =====================================================
-   FILTROS
-===================================================== */
+                                    ${
+                                        convidado.acompanhante ===
+                                        "Sim"
 
-function configurarFiltros() {
+                                            ? `
+                                                <span class="badge">
+                                                    + acompanhante
+                                                </span>
+                                              `
 
-    [
-        "search",
-        "filterRsvp",
-        "filterLado",
-        "filterTipo",
-        "filterMesa"
-    ]
-        .forEach(
-            id => {
+                                            : ""
+                                    }
 
-                document
-                    .getElementById(id)
-                    .addEventListener(
-                        "input",
-                        renderizarConvidados
-                    );
+                                </div>
+
+                            </div>
 
 
-                document
-                    .getElementById(id)
-                    .addEventListener(
-                        "change",
-                        renderizarConvidados
-                    );
+                            <div class="muted">
+
+                                ${
+                                    mesa
+                                        ? esc(mesa.nome)
+                                        : "Sem mesa"
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="grid">
+
+
+                            <div class="info">
+
+                                <label>
+                                    Telefone
+                                </label>
+
+                                <div>
+                                    ${esc(
+                                        convidado.telefone ||
+                                        "—"
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info">
+
+                                <label>
+                                    WhatsApp
+                                </label>
+
+                                <div>
+                                    ${esc(
+                                        convidado.whatsapp ||
+                                        "—"
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info">
+
+                                <label>
+                                    RSVP
+                                </label>
+
+                                <div>
+                                    ${esc(
+                                        convidado.rsvp ||
+                                        "Pendente"
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info">
+
+                                <label>
+                                    Acompanhante
+                                </label>
+
+                                <div>
+                                    ${esc(
+                                        convidado.nome_acompanhante ||
+                                        (
+                                            convidado.acompanhante ===
+                                            "Sim"
+                                                ? "Sim"
+                                                : "Não"
+                                        )
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info">
+
+                                <label>
+                                    Lugar
+                                </label>
+
+                                <div>
+                                    ${
+                                        convidado.lugar ||
+                                        "—"
+                                    }
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        ${
+                            convidado.alimentacao
+
+                                ? `
+                                    <div
+                                        class="muted"
+                                        style="margin-top:10px"
+                                    >
+                                        🍽
+                                        ${esc(
+                                            convidado.alimentacao
+                                        )}
+                                    </div>
+                                  `
+
+                                : ""
+                        }
+
+
+                        ${
+                            convidado.notas
+
+                                ? `
+                                    <div
+                                        class="muted"
+                                        style="margin-top:8px"
+                                    >
+                                        📝
+                                        ${esc(
+                                            convidado.notas
+                                        )}
+                                    </div>
+                                  `
+
+                                : ""
+                        }
+
+
+                        <div class="actions">
+
+                            <button
+                                class="btn secondary"
+                                type="button"
+                                onclick="editGuest('${escAttr(convidado.id)}')"
+                            >
+                                Editar
+                            </button>
+
+
+                            <button
+                                class="btn danger"
+                                type="button"
+                                onclick="delGuest('${escAttr(convidado.id)}')"
+                            >
+                                Eliminar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
             }
-        );
+        ).join("");
+
 }
 
 
-/* =====================================================
-   SELECT MESAS
-===================================================== */
+/* ======================================================
+   RENDERIZAR MESAS
+====================================================== */
 
-function atualizarSelectMesas() {
+function renderizarMesas() {
 
-    const select =
-        document.getElementById(
-            "mesa"
-        );
+    const container =
+        $("tableList");
 
 
-    const filtro =
-        document.getElementById(
-            "filterMesa"
-        );
+    if (
+        mesas.length === 0
+    ) {
 
+        container.innerHTML = `
 
-    select.innerHTML =
-        `
-            <option value="">
-                Sem mesa
-            </option>
+            <div
+                class="empty"
+                style="grid-column:1/-1"
+            >
+
+                <h3>
+                    Ainda não existem mesas
+                </h3>
+
+                <p style="margin-top:7px">
+                    Crie a primeira mesa.
+                </p>
+
+            </div>
+
         `;
 
+        return;
 
-    filtro.innerHTML =
-        `
-            <option value="">
-                Todas as mesas
-            </option>
+    }
+
+
+    container.innerHTML =
+        mesas.map(
+            mesa => {
+
+                const ocupados =
+                    convidados.filter(
+                        convidado =>
+                            String(
+                                convidado.mesa_id
+                            ) ===
+                            String(
+                                mesa.id
+                            )
+                    );
+
+
+                const capacidade =
+                    Number(
+                        mesa.lugares
+                    ) || 0;
+
+
+                const cheia =
+                    ocupados.length >=
+                    capacidade;
+
+
+                const disponiveis =
+                    Math.max(
+                        capacidade -
+                        ocupados.length,
+                        0
+                    );
+
+
+                return `
+
+                    <article
+                        class="
+                            table-card
+                            ${cheia ? "lotada" : ""}
+                        "
+                    >
+
+                        <div class="table-head">
+
+                            <div>
+
+                                <h3>
+                                    🪑
+                                    ${esc(
+                                        mesa.nome
+                                    )}
+                                </h3>
+
+                                <div class="muted">
+
+                                    ${esc(
+                                        mesa.formato ||
+                                        "Mesa"
+                                    )}
+
+                                    ·
+
+                                    ${esc(
+                                        mesa.localizacao ||
+                                        "Local não definido"
+                                    )}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="table-capacity">
+
+                                <strong>
+                                    ${ocupados.length}/${capacidade}
+                                </strong>
+
+                                <br>
+
+                                <span
+                                    class="
+                                        table-status
+                                        ${
+                                            cheia
+                                                ? "full"
+                                                : "available"
+                                        }
+                                    "
+                                >
+
+                                    ${
+                                        cheia
+                                            ? "Lotada"
+                                            : `${disponiveis} livre(s)`
+                                    }
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="seats">
+
+                            ${Array.from(
+                                {
+                                    length:
+                                        capacidade
+                                },
+                                (_, indice) => {
+
+                                    const numero =
+                                        indice + 1;
+
+
+                                    const convidado =
+                                        ocupados.find(
+                                            pessoa =>
+                                                Number(
+                                                    pessoa.lugar
+                                                ) ===
+                                                numero
+                                        );
+
+
+                                    return `
+
+                                        <div
+                                            class="
+                                                seat
+                                                ${
+                                                    convidado
+                                                        ? "occupied"
+                                                        : ""
+                                                }
+                                            "
+                                        >
+
+                                            <span>
+
+                                                ${
+                                                    convidado
+                                                        ? esc(
+                                                            convidado.nome
+                                                          )
+                                                        : "Lugar livre"
+                                                }
+
+                                            </span>
+
+
+                                            <span
+                                                class="seat-number"
+                                            >
+                                                ${numero}
+                                            </span>
+
+                                        </div>
+
+                                    `;
+
+                                }
+                            ).join("")}
+
+                        </div>
+
+
+                        ${
+                            mesa.observacoes ||
+                            mesa.notas
+
+                                ? `
+                                    <div
+                                        class="muted"
+                                        style="margin-top:10px"
+                                    >
+                                        📝
+                                        ${esc(
+                                            mesa.observacoes ||
+                                            mesa.notas
+                                        )}
+                                    </div>
+                                  `
+
+                                : ""
+                        }
+
+
+                        <div class="actions">
+
+                            <button
+                                class="btn secondary"
+                                type="button"
+                                onclick="editTable('${escAttr(mesa.id)}')"
+                            >
+                                Editar
+                            </button>
+
+
+                            <button
+                                class="btn danger"
+                                type="button"
+                                onclick="delTable('${escAttr(mesa.id)}')"
+                            >
+                                Eliminar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* ======================================================
+   MAPA
+====================================================== */
+
+function renderizarMapa() {
+
+    const container =
+        $("mapList");
+
+
+    if (
+        mesas.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="empty"
+                style="width:100%"
+            >
+                Crie mesas para visualizar o mapa.
+            </div>
+
         `;
 
+        return;
 
-    mesas.forEach(
-        mesa => {
-
-            select.innerHTML += `
-                <option
-                    value="${escAttr(mesa.id)}"
-                >
-                    ${esc(mesa.nome)}
-                </option>
-            `;
+    }
 
 
-            filtro.innerHTML += `
-                <option
-                    value="${escAttr(mesa.id)}"
-                >
-                    ${esc(mesa.nome)}
-                </option>
-            `;
-        }
+    container.innerHTML =
+        mesas.map(
+            mesa => {
+
+                const ocupados =
+                    contarOcupados(
+                        mesa.id
+                    );
+
+
+                const capacidade =
+                    Number(
+                        mesa.lugares
+                    ) || 0;
+
+
+                const cheia =
+                    ocupados >=
+                    capacidade;
+
+
+                return `
+
+                    <div
+                        class="
+                            map-table
+                            ${cheia ? "full" : ""}
+                        "
+                    >
+
+                        <strong>
+                            ${esc(
+                                mesa.nome
+                            )}
+                        </strong>
+
+                        <span>
+                            ${ocupados}/${capacidade}
+                            convidados
+                        </span>
+
+                        <span>
+                            ${cheia
+                                ? "Lotada"
+                                : `${capacidade - ocupados} lugar(es) livre(s)`
+                            }
+                        </span>
+
+                        <span>
+                            ${esc(
+                                mesa.formato ||
+                                ""
+                            )}
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* ======================================================
+   ABRIR CONVIDADO
+====================================================== */
+
+function openGuest(id = "") {
+
+    $("guestForm").reset();
+
+
+    $("guestId").value =
+        id;
+
+
+    $("guestTitle").textContent =
+        id
+            ? "Editar convidado"
+            : "Adicionar convidado";
+
+
+    let convidado = null;
+
+
+    if (id) {
+
+        convidado =
+            convidados.find(
+                pessoa =>
+                    String(pessoa.id) ===
+                    String(id)
+            );
+
+    }
+
+
+    const mesaSelecionada =
+        convidado
+            ? convidado.mesa_id
+            : null;
+
+
+    atualizarSelectMesas(
+        mesaSelecionada,
+        id || null
     );
 
 
-    filtro.innerHTML += `
-        <option value="sem-mesa">
-            Sem mesa
-        </option>
-    `;
+    if (convidado) {
+
+        $("name").value =
+            convidado.nome || "";
+
+
+        $("group").value =
+            convidado.grupo || "";
+
+
+        $("guestSide").value =
+            convidado.lado ||
+            "Noiva";
+
+
+        $("relation").value =
+            convidado.relacao || "";
+
+
+        $("phone").value =
+            convidado.telefone || "";
+
+
+        $("whatsapp").value =
+            convidado.whatsapp || "";
+
+
+        $("email").value =
+            convidado.email || "";
+
+
+        $("guestType").value =
+            convidado.tipo ||
+            "Adulto";
+
+
+        $("guestRsvp").value =
+            convidado.rsvp ||
+            "Pendente";
+
+
+        $("companion").value =
+            convidado.acompanhante ||
+            "Não";
+
+
+        $("companionName").value =
+            convidado.nome_acompanhante ||
+            "";
+
+
+        $("food").value =
+            convidado.alimentacao ||
+            "";
+
+
+        $("guestTable").value =
+            convidado.mesa_id ||
+            "";
+
+
+        $("seat").value =
+            convidado.lugar ||
+            "";
+
+
+        $("notes").value =
+            convidado.notas ||
+            "";
+
+    }
+
+
+    atualizarInformacaoMesa();
+
+
+    $("guestModal")
+        .classList
+        .add("open");
+
 }
 
 
-/* =====================================================
-   FORMULÁRIO CONVIDADO
-===================================================== */
+/* ======================================================
+   EDITAR CONVIDADO
+====================================================== */
 
-function abrirConvidado() {
+function editGuest(id) {
 
-    limparFormularioConvidado();
+    openGuest(id);
 
-
-    document.getElementById(
-        "guestModalTitle"
-    ).textContent =
-        "Adicionar convidado";
-
-
-    document.getElementById(
-        "guestModal"
-    )
-        .classList.add("open");
 }
 
 
-function editarConvidado(id) {
+/* ======================================================
+   APAGAR CONVIDADO
+====================================================== */
+
+async function delGuest(id) {
 
     const convidado =
         convidados.find(
-            c =>
-                String(c.id) ===
+            pessoa =>
+                String(pessoa.id) ===
                 String(id)
         );
 
 
-    if (!convidado)
+    if (!convidado) {
+
         return;
 
-
-    document.getElementById(
-        "guestModalTitle"
-    ).textContent =
-        "Editar convidado";
-
-
-    document.getElementById(
-        "guestId"
-    ).value =
-        convidado.id || "";
-
-
-    document.getElementById(
-        "nome"
-    ).value =
-        convidado.nome || "";
-
-
-    document.getElementById(
-        "grupo"
-    ).value =
-        convidado.grupo || "";
-
-
-    document.getElementById(
-        "relacao"
-    ).value =
-        convidado.relacao || "";
-
-
-    document.getElementById(
-        "lado"
-    ).value =
-        convidado.lado || "Noiva";
-
-
-    document.getElementById(
-        "tipo"
-    ).value =
-        convidado.tipo || "Adulto";
-
-
-    document.getElementById(
-        "telefone"
-    ).value =
-        convidado.telefone || "";
-
-
-    document.getElementById(
-        "whatsapp"
-    ).value =
-        convidado.whatsapp || "";
-
-
-    document.getElementById(
-        "email"
-    ).value =
-        convidado.email || "";
-
-
-    document.getElementById(
-        "rsvp"
-    ).value =
-        convidado.rsvp || "Pendente";
-
-
-    document.getElementById(
-        "acompanhante"
-    ).value =
-        convidado.acompanhante || "Não";
-
-
-    document.getElementById(
-        "nomeAcompanhante"
-    ).value =
-        convidado.nome_acompanhante || "";
-
-
-    document.getElementById(
-        "alimentacao"
-    ).value =
-        convidado.alimentacao || "Normal";
-
-
-    document.getElementById(
-        "mesa"
-    ).value =
-        convidado.mesa_id || "";
-
-
-    document.getElementById(
-        "lugar"
-    ).value =
-        convidado.lugar || "";
-
-
-    document.getElementById(
-        "notas"
-    ).value =
-        convidado.notas || "";
-
-
-    document.getElementById(
-        "guestModal"
-    )
-        .classList.add("open");
-}
-
-
-function limparFormularioConvidado() {
-
-    document
-        .getElementById("guestForm")
-        .reset();
-
-
-    document.getElementById(
-        "guestId"
-    ).value = "";
-
-
-    document.getElementById(
-        "lado"
-    ).value =
-        "Noiva";
-
-
-    document.getElementById(
-        "tipo"
-    ).value =
-        "Adulto";
-
-
-    document.getElementById(
-        "rsvp"
-    ).value =
-        "Pendente";
-
-
-    document.getElementById(
-        "acompanhante"
-    ).value =
-        "Não";
-
-
-    document.getElementById(
-        "alimentacao"
-    ).value =
-        "Normal";
-
-
-    document.getElementById(
-        "mesa"
-    ).value =
-        "";
-}
-
-
-/* =====================================================
-   FORMULÁRIOS
-===================================================== */
-
-function configurarFormularios() {
-
-    document
-        .getElementById("guestForm")
-        .addEventListener(
-            "submit",
-            guardarConvidado
-        );
-
-
-    document
-        .getElementById("tableForm")
-        .addEventListener(
-            "submit",
-            guardarMesa
-        );
-}
-
-
-/* =====================================================
-   GUARDAR CONVIDADO
-===================================================== */
-
-async function guardarConvidado(
-    event
-) {
-
-    event.preventDefault();
-
-
-    if (!casamentoAtual) {
-
-        mostrarMensagem(
-            "Não foi encontrado o casamento desta conta.",
-            "error"
-        );
-
-        return;
     }
 
 
-    const id =
-        document.getElementById(
-            "guestId"
-        ).value;
-
-
-    const dados = {
-
-        wedding_id:
-            casamentoAtual.id,
-
-        nome:
-            document
-                .getElementById("nome")
-                .value
-                .trim(),
-
-        grupo:
-            document
-                .getElementById("grupo")
-                .value
-                .trim() ||
-            null,
-
-        relacao:
-            document
-                .getElementById("relacao")
-                .value
-                .trim() ||
-            null,
-
-        lado:
-            document.getElementById(
-                "lado"
-            ).value,
-
-        tipo:
-            document.getElementById(
-                "tipo"
-            ).value,
-
-        telefone:
-            document
-                .getElementById("telefone")
-                .value
-                .trim() ||
-            null,
-
-        whatsapp:
-            document
-                .getElementById("whatsapp")
-                .value
-                .trim() ||
-            null,
-
-        email:
-            document
-                .getElementById("email")
-                .value
-                .trim() ||
-            null,
-
-        rsvp:
-            document.getElementById(
-                "rsvp"
-            ).value,
-
-        acompanhante:
-            document.getElementById(
-                "acompanhante"
-            ).value,
-
-        nome_acompanhante:
-            document
-                .getElementById(
-                    "nomeAcompanhante"
-                )
-                .value
-                .trim() ||
-            null,
-
-        alimentacao:
-            document
-                .getElementById(
-                    "alimentacao"
-                )
-                .value
-                .trim() ||
-            "Normal",
-
-        mesa_id:
-            document.getElementById(
-                "mesa"
-            ).value ||
-            null,
-
-        lugar:
-            document.getElementById(
-                "lugar"
-            ).value
-                ? Number(
-                    document.getElementById(
-                        "lugar"
-                    ).value
-                )
-                : null,
-
-        notas:
-            document
-                .getElementById("notas")
-                .value
-                .trim() ||
-            null
-    };
-
-
-    if (!dados.nome) {
-
-        mostrarMensagem(
-            "O nome do convidado é obrigatório.",
-            "error"
-        );
+    if (
+        !confirm(
+            `Eliminar o convidado "${convidado.nome}"?`
+        )
+    ) {
 
         return;
+
     }
-
-
-    try {
-
-        let resultado;
-
-
-        if (id) {
-
-            resultado =
-                await supabaseClient
-                    .from("guests")
-                    .update(dados)
-                    .eq(
-                        "id",
-                        id
-                    )
-                    .eq(
-                        "wedding_id",
-                        casamentoAtual.id
-                    );
-
-        } else {
-
-            resultado =
-                await supabaseClient
-                    .from("guests")
-                    .insert(dados);
-        }
-
-
-        if (resultado.error)
-            throw resultado.error;
-
-
-        fecharModal(
-            "guestModal"
-        );
-
-
-        await carregarConvidados();
-
-        renderizarTudo();
-
-
-        mostrarMensagem(
-            id
-                ? "Convidado atualizado com sucesso."
-                : "Convidado adicionado com sucesso.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        mostrarMensagem(
-            "Não foi possível guardar o convidado: " +
-            error.message,
-            "error"
-        );
-    }
-}
-
-
-/* =====================================================
-   ELIMINAR CONVIDADO
-===================================================== */
-
-async function eliminarConvidado(
-    id
-) {
-
-    const convidado =
-        convidados.find(
-            c =>
-                String(c.id) ===
-                String(id)
-        );
-
-
-    if (!convidado)
-        return;
-
-
-    const confirmar =
-        confirm(
-            `Deseja eliminar o convidado "${convidado.nome}"?`
-        );
-
-
-    if (!confirmar)
-        return;
 
 
     try {
@@ -2428,8 +3782,11 @@ async function eliminarConvidado(
                 );
 
 
-        if (error)
+        if (error) {
+
             throw error;
+
+        }
 
 
         await carregarConvidados();
@@ -2442,267 +3799,503 @@ async function eliminarConvidado(
             "success"
         );
 
+    } catch (erro) {
 
-    } catch (error) {
-
-        console.error(error);
-
+        console.error(
+            "Erro ao eliminar convidado:",
+            erro
+        );
 
         mostrarMensagem(
             "Não foi possível eliminar o convidado.",
             "error"
         );
-    }
-}
 
-
-/* =====================================================
-   MESAS — RENDER
-===================================================== */
-
-function renderizarMesas() {
-
-    const container =
-        document.getElementById(
-            "tablesContainer"
-        );
-
-
-    if (!mesas.length) {
-
-        container.innerHTML = `
-            <div
-                class="empty"
-                style="grid-column:1/-1;"
-            >
-
-                <strong>
-                    Nenhuma mesa criada
-                </strong>
-
-                Crie a primeira mesa
-                para começar a organizar
-                os lugares.
-
-            </div>
-        `;
-
-        return;
     }
 
-
-    container.innerHTML =
-        mesas
-            .map(
-                mesa => {
-
-                    const ocupados =
-                        convidados.filter(
-                            c =>
-                                String(
-                                    c.mesa_id
-                                ) ===
-                                String(
-                                    mesa.id
-                                )
-                        ).length;
-
-
-                    return `
-                        <div class="table-card">
-
-                            <h3>
-                                🪑
-                                ${esc(
-                                    mesa.nome
-                                )}
-                            </h3>
-
-                            <p>
-                                Lugares:
-                                <strong>
-                                    ${
-                                        mesa.lugares ||
-                                        0
-                                    }
-                                </strong>
-                            </p>
-
-                            <p>
-                                Ocupados:
-                                <strong>
-                                    ${ocupados}
-                                </strong>
-                            </p>
-
-                            <div
-                                class="actions"
-                                style="margin-top:15px;"
-                            >
-
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    onclick="editarMesa('${mesa.id}')"
-                                >
-                                    ✏️ Editar
-                                </button>
-
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    onclick="eliminarMesa('${mesa.id}')"
-                                >
-                                    🗑️
-                                </button>
-
-                            </div>
-
-                        </div>
-                    `;
-                }
-            )
-            .join("");
 }
 
 
-/* =====================================================
-   ABRIR MESA
-===================================================== */
+/* ======================================================
+   GUARDAR CONVIDADO
+====================================================== */
 
-function abrirMesa() {
-
-    document
-        .getElementById("tableForm")
-        .reset();
-
-
-    document.getElementById(
-        "tableId"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "tableSeats"
-    ).value =
-        8;
-
-
-    document.getElementById(
-        "tableModalTitle"
-    ).textContent =
-        "Nova mesa";
-
-
-    document
-        .getElementById("tableModal")
-        .classList.add("open");
-}
-
-
-/* =====================================================
-   EDITAR MESA
-===================================================== */
-
-function editarMesa(id) {
-
-    const mesa =
-        mesas.find(
-            m =>
-                String(m.id) ===
-                String(id)
-        );
-
-
-    if (!mesa)
-        return;
-
-
-    document.getElementById(
-        "tableId"
-    ).value =
-        mesa.id;
-
-
-    document.getElementById(
-        "tableName"
-    ).value =
-        mesa.nome;
-
-
-    document.getElementById(
-        "tableSeats"
-    ).value =
-        mesa.lugares || 8;
-
-
-    document.getElementById(
-        "tableModalTitle"
-    ).textContent =
-        "Editar mesa";
-
-
-    document
-        .getElementById("tableModal")
-        .classList.add("open");
-}
-
-
-/* =====================================================
-   GUARDAR MESA — SUPABASE
-===================================================== */
-
-async function guardarMesa(
-    event
-) {
-
-    event.preventDefault();
-
-
-    if (!casamentoAtual) {
-
-        mostrarMensagem(
-            "Não foi encontrado o casamento desta conta.",
-            "error"
-        );
-
-        return;
-    }
-
+async function guardarConvidado() {
 
     const id =
-        document.getElementById(
-            "tableId"
-        ).value;
+        $("guestId").value.trim();
 
 
     const nome =
-        document
-            .getElementById(
-                "tableName"
-            )
-            .value
-            .trim();
-
-
-    const lugares =
-        Number(
-            document.getElementById(
-                "tableSeats"
-            ).value
-        ) || 8;
+        $("name").value.trim();
 
 
     if (!nome) {
 
         mostrarMensagem(
-            "O nome da mesa é obrigatório.",
+            "Introduza o nome do convidado.",
             "error"
         );
 
         return;
+
     }
+
+
+    const mesaId =
+        $("guestTable").value ||
+        null;
+
+
+    const lugarTexto =
+        $("seat").value.trim();
+
+
+    const lugar =
+        lugarTexto
+            ? Number(lugarTexto)
+            : null;
+
+
+    /*
+     * Descobrir dados anteriores
+     * para sabermos se o convidado
+     * já estava na mesma mesa.
+     */
+
+    const convidadoAnterior =
+        id
+            ? convidados.find(
+                pessoa =>
+                    String(pessoa.id) ===
+                    String(id)
+              )
+            : null;
+
+
+    const mesaAnteriorId =
+        convidadoAnterior
+            ? convidadoAnterior.mesa_id
+            : null;
+
+
+    const validacao =
+        validarLugarEMesa(
+            mesaId,
+            lugar,
+            id || null,
+            mesaAnteriorId
+        );
+
+
+    if (!validacao.valido) {
+
+        mostrarMensagem(
+            validacao.mensagem,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const dados = {
+
+        wedding_id:
+            casamentoAtual.id,
+
+        nome:
+            nome,
+
+        grupo:
+            $("group").value.trim() ||
+            null,
+
+        relacao:
+            $("relation").value.trim() ||
+            null,
+
+        lado:
+            $("guestSide").value ||
+            "Noiva",
+
+        tipo:
+            $("guestType").value ||
+            "Adulto",
+
+        telefone:
+            $("phone").value.trim() ||
+            null,
+
+        whatsapp:
+            $("whatsapp").value.trim() ||
+            null,
+
+        email:
+            $("email").value.trim() ||
+            null,
+
+        rsvp:
+            $("guestRsvp").value ||
+            "Pendente",
+
+        acompanhante:
+            $("companion").value ||
+            "Não",
+
+        nome_acompanhante:
+            $("companionName").value.trim() ||
+            null,
+
+        alimentacao:
+            $("food").value.trim() ||
+            "Normal",
+
+        mesa_id:
+            mesaId,
+
+        lugar:
+            lugar,
+
+        notas:
+            $("notes").value.trim() ||
+            null
+
+    };
+
+
+    try {
+
+        if (id) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("guests")
+                    .update(dados)
+                    .eq(
+                        "id",
+                        id
+                    )
+                    .eq(
+                        "wedding_id",
+                        casamentoAtual.id
+                    );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            mostrarMensagem(
+                "Convidado atualizado com sucesso.",
+                "success"
+            );
+
+        } else {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("guests")
+                    .insert(dados);
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            mostrarMensagem(
+                "Convidado adicionado com sucesso.",
+                "success"
+            );
+
+        }
+
+
+        $("guestModal")
+            .classList
+            .remove("open");
+
+
+        await carregarConvidados();
+
+        renderizarTudo();
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao guardar convidado:",
+            erro
+        );
+
+
+        mostrarMensagem(
+            "Não foi possível guardar o convidado.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ======================================================
+   ABRIR MESA
+====================================================== */
+
+function openTable(id = "") {
+
+    $("tableForm").reset();
+
+
+    $("tableId").value =
+        id;
+
+
+    $("tableTitle").textContent =
+        id
+            ? "Editar mesa"
+            : "Nova mesa";
+
+
+    $("capacity").value =
+        10;
+
+
+    $("tableCapacityWarning").textContent =
+        "";
+
+
+    if (id) {
+
+        const mesa =
+            obterMesa(id);
+
+
+        if (!mesa) {
+
+            return;
+
+        }
+
+
+        $("tableName").value =
+            mesa.nome || "";
+
+
+        $("shape").value =
+            mesa.formato ||
+            "Redonda";
+
+
+        $("capacity").value =
+            mesa.lugares ||
+            10;
+
+
+        $("location").value =
+            mesa.localizacao ||
+            "";
+
+
+        $("tableNotes").value =
+            mesa.notas ||
+            "";
+
+        atualizarAvisoCapacidadeMesa();
+
+    }
+
+
+    $("tableModal")
+        .classList
+        .add("open");
+
+}
+
+
+/* ======================================================
+   EDITAR MESA
+====================================================== */
+
+function editTable(id) {
+
+    openTable(id);
+
+}
+
+
+/* ======================================================
+   AVISO CAPACIDADE DA MESA
+====================================================== */
+
+function atualizarAvisoCapacidadeMesa() {
+
+    const id =
+        $("tableId").value;
+
+
+    const capacidade =
+        Number(
+            $("capacity").value
+        ) || 0;
+
+
+    const aviso =
+        $("tableCapacityWarning");
+
+
+    if (!id) {
+
+        aviso.textContent =
+            "";
+
+        aviso.className =
+            "capacity-help";
+
+        return;
+
+    }
+
+
+    const ocupados =
+        contarOcupados(id);
+
+
+    if (
+        capacidade <
+        ocupados
+    ) {
+
+        aviso.textContent =
+            `Esta mesa já tem ${ocupados} convidado(s). A capacidade não pode ser inferior a ${ocupados}.`;
+
+        aviso.className =
+            "capacity-help warning";
+
+    } else {
+
+        aviso.textContent =
+            `Esta mesa tem atualmente ${ocupados} convidado(s).`;
+
+        aviso.className =
+            "capacity-help";
+
+    }
+
+}
+
+
+/* ======================================================
+   GUARDAR MESA
+====================================================== */
+
+async function guardarMesa() {
+
+    const id =
+        $("tableId").value.trim();
+
+
+    const nome =
+        $("tableName").value.trim();
+
+
+    const lugares =
+        Number(
+            $("capacity").value
+        );
+
+
+    if (!nome) {
+
+        mostrarMensagem(
+            "Introduza o nome ou número da mesa.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isInteger(lugares) ||
+        lugares < 1
+    ) {
+
+        mostrarMensagem(
+            "A capacidade da mesa deve ser pelo menos 1.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Se estamos a editar uma mesa,
+     * não podemos reduzir a capacidade
+     * abaixo dos convidados existentes.
+     */
+
+    if (id) {
+
+        const ocupados =
+            contarOcupados(id);
+
+
+        if (
+            lugares <
+            ocupados
+        ) {
+
+            mostrarMensagem(
+
+                `Não é possível reduzir esta mesa para ${lugares} lugar(es), porque já existem ${ocupados} convidado(s) nela.`,
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    const dados = {
+
+        nome:
+            nome,
+
+        lugares:
+            lugares,
+
+        formato:
+            $("shape").value ||
+            "Redonda",
+
+        localizacao:
+            $("location").value.trim() ||
+            null,
+
+        notas:
+            $("tableNotes").value.trim() ||
+            null
+
+    };
 
 
     try {
@@ -2714,19 +4307,7 @@ async function guardarMesa(
             } =
                 await supabaseClient
                     .from("tables")
-                    .update({
-
-                        nome:
-                            nome,
-
-                        lugares:
-                            lugares,
-
-                        atualizado_em:
-                            new Date()
-                                .toISOString()
-
-                    })
+                    .update(dados)
                     .eq(
                         "id",
                         id
@@ -2737,15 +4318,17 @@ async function guardarMesa(
                     );
 
 
-            if (error)
+            if (error) {
+
                 throw error;
+
+            }
 
 
             mostrarMensagem(
                 "Mesa atualizada com sucesso.",
                 "success"
             );
-
 
         } else {
 
@@ -2759,124 +4342,137 @@ async function guardarMesa(
                         wedding_id:
                             casamentoAtual.id,
 
-                        nome:
-                            nome,
-
-                        lugares:
-                            lugares
+                        ...dados
 
                     });
 
 
-            if (error)
+            if (error) {
+
                 throw error;
+
+            }
 
 
             mostrarMensagem(
                 "Mesa criada com sucesso.",
                 "success"
             );
+
         }
+
+
+        $("tableModal")
+            .classList
+            .remove("open");
 
 
         await carregarMesasSupabase();
 
-        await carregarConvidados();
-
         renderizarTudo();
 
-        fecharModal(
-            "tableModal"
+    } catch (erro) {
+
+        console.error(
+            "Erro ao guardar mesa:",
+            erro
         );
-
-
-    } catch (error) {
-
-        console.error(error);
 
 
         mostrarMensagem(
-            "Não foi possível guardar a mesa: " +
-            error.message,
+            "Não foi possível guardar a mesa.",
             "error"
         );
+
     }
+
 }
 
 
-/* =====================================================
-   ELIMINAR MESA — SUPABASE
-===================================================== */
+/* ======================================================
+   APAGAR MESA
+====================================================== */
 
-async function eliminarMesa(
-    id
-) {
+async function delTable(id) {
 
     const mesa =
-        mesas.find(
-            m =>
-                String(m.id) ===
-                String(id)
-        );
+        obterMesa(id);
 
 
-    if (!mesa)
+    if (!mesa) {
+
         return;
 
-
-    const confirmar =
-        confirm(
-            `Eliminar a mesa "${mesa.nome}"? Os convidados continuarão no sistema, mas ficarão sem mesa.`
-        );
+    }
 
 
-    if (!confirmar)
+    const ocupados =
+        contarOcupados(id);
+
+
+    const confirmacao =
+        ocupados > 0
+
+            ? confirm(
+                `A ${mesa.nome} tem ${ocupados} convidado(s). Ao eliminar a mesa, esses convidados ficarão sem mesa. Continuar?`
+              )
+
+            : confirm(
+                `Eliminar a ${mesa.nome}?`
+              );
+
+
+    if (!confirmacao) {
+
         return;
+
+    }
 
 
     try {
 
         /*
-           Primeiro removemos a associação
-           dos convidados.
-        */
+         * Primeiro retiramos a mesa dos convidados.
+         * A FK também possui ON DELETE SET NULL,
+         * mas fazemos explicitamente para manter
+         * o estado claro.
+         */
+
+        if (ocupados > 0) {
+
+            const {
+                error:
+                    erroConvidados
+            } =
+                await supabaseClient
+                    .from("guests")
+                    .update({
+                        mesa_id:
+                            null,
+                        lugar:
+                            null
+                    })
+                    .eq(
+                        "wedding_id",
+                        casamentoAtual.id
+                    )
+                    .eq(
+                        "mesa_id",
+                        id
+                    );
+
+
+            if (erroConvidados) {
+
+                throw erroConvidados;
+
+            }
+
+        }
+
 
         const {
-            error:
-                erroConvidados
-        } =
-            await supabaseClient
-                .from("guests")
-                .update({
-
-                    mesa_id:
-                        null,
-
-                    lugar:
-                        null
-
-                })
-                .eq(
-                    "wedding_id",
-                    casamentoAtual.id
-                )
-                .eq(
-                    "mesa_id",
-                    id
-                );
-
-
-        if (erroConvidados)
-            throw erroConvidados;
-
-
-        /*
-           Agora eliminamos a mesa.
-        */
-
-        const {
-            error:
-                erroMesa
+            error
         } =
             await supabaseClient
                 .from("tables")
@@ -2891,8 +4487,11 @@ async function eliminarMesa(
                 );
 
 
-        if (erroMesa)
-            throw erroMesa;
+        if (error) {
+
+            throw error;
+
+        }
 
 
         await carregarMesasSupabase();
@@ -2907,207 +4506,127 @@ async function eliminarMesa(
             "success"
         );
 
+    } catch (erro) {
 
-    } catch (error) {
-
-        console.error(error);
+        console.error(
+            "Erro ao eliminar mesa:",
+            erro
+        );
 
 
         mostrarMensagem(
-            "Não foi possível eliminar a mesa: " +
-            error.message,
+            "Não foi possível eliminar a mesa.",
             "error"
         );
+
     }
+
 }
 
 
-/* =====================================================
-   MAPA
-===================================================== */
-
-function renderizarMapa() {
-
-    const container =
-        document.getElementById(
-            "mapContainer"
-        );
-
-
-    if (!mesas.length) {
-
-        container.innerHTML = `
-            <div class="empty">
-
-                <strong>
-                    Nenhuma mesa no mapa
-                </strong>
-
-                Crie mesas para
-                visualizar a disposição.
-
-            </div>
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        mesas
-            .map(
-                mesa => {
-
-                    const ocupados =
-                        convidados.filter(
-                            c =>
-                                String(
-                                    c.mesa_id
-                                ) ===
-                                String(
-                                    mesa.id
-                                )
-                        ).length;
-
-
-                    return `
-                        <div class="map-table">
-
-                            <strong>
-                                ${esc(
-                                    mesa.nome
-                                )}
-                            </strong>
-
-                            <span>
-                                ${ocupados}/${
-                                    mesa.lugares ||
-                                    0
-                                } lugares
-                            </span>
-
-                        </div>
-                    `;
-                }
-            )
-            .join("");
-}
-
-
-/* =====================================================
+/* ======================================================
    TABS
-===================================================== */
+====================================================== */
 
 function configurarTabs() {
 
     document
         .querySelectorAll(".tab")
         .forEach(
-            tab => {
+            botao => {
 
-                tab.addEventListener(
+                botao.addEventListener(
                     "click",
                     () => {
 
                         document
-                            .querySelectorAll(
-                                ".tab"
-                            )
+                            .querySelectorAll(".tab")
                             .forEach(
-                                t =>
-                                    t.classList
-                                        .remove(
-                                            "active"
-                                        )
+                                item =>
+                                    item.classList
+                                        .remove("active")
                             );
 
 
-                        tab.classList.add(
-                            "active"
-                        );
+                        document
+                            .querySelectorAll(".panel")
+                            .forEach(
+                                painel =>
+                                    painel.classList
+                                        .remove("active")
+                            );
 
 
-                        const nome =
-                            tab.dataset.tab;
+                        botao.classList
+                            .add("active");
 
 
-                        document.getElementById(
-                            "tab-convidados"
-                        ).style.display =
-                            nome === "convidados"
-                                ? "block"
-                                : "none";
+                        const painel =
+                            document.getElementById(
+                                botao.dataset.panel
+                            );
 
 
-                        document.getElementById(
-                            "tab-mesas"
-                        ).style.display =
-                            nome === "mesas"
-                                ? "block"
-                                : "none";
+                        if (painel) {
 
+                            painel.classList
+                                .add("active");
 
-                        document.getElementById(
-                            "tab-mapa"
-                        ).style.display =
-                            nome === "mapa"
-                                ? "block"
-                                : "none";
+                        }
 
                     }
                 );
+
             }
         );
+
 }
 
 
-/* =====================================================
-   SUGESTÕES
-===================================================== */
+/* ======================================================
+   SUGESTÕES INTELIGENTES
+====================================================== */
 
 function configurarSugestoes() {
 
     document
-        .querySelectorAll(
-            ".suggestions"
-        )
+        .querySelectorAll(".suggestions")
         .forEach(
             container => {
 
-                const campoId =
-                    container.dataset.for;
+                const targetId =
+                    container.dataset.target;
 
 
-                const campo =
-                    document.getElementById(
-                        campoId
-                    );
+                const input =
+                    $(targetId);
 
 
-                if (!campo)
+                if (!input) {
+
                     return;
 
+                }
 
-                campo.addEventListener(
+
+                input.addEventListener(
                     "focus",
                     () => {
 
-                        fecharTodasSugestoes();
+                        container.classList
+                            .add("visible");
 
-                        container.classList.add(
-                            "open"
-                        );
                     }
                 );
 
 
-                campo.addEventListener(
-                    "input",
+                input.addEventListener(
+                    "click",
                     () => {
 
-                        container.classList.add(
-                            "open"
-                        );
+                        container.classList
+                            .add("visible");
+
                     }
                 );
 
@@ -3124,297 +4643,377 @@ function configurarSugestoes() {
                                 () => {
 
                                     const valor =
-                                        botao
-                                            .textContent
-                                            .trim();
+                                        botao.dataset.value ||
+                                        "";
 
+
+                                    /*
+                                     * Para observações,
+                                     * acrescentamos o texto
+                                     * em vez de apagar o
+                                     * que já existe.
+                                     */
 
                                     if (
-                                        campo.value &&
-                                        campoId ===
-                                            "notas"
+                                        targetId ===
+                                        "notes"
                                     ) {
 
-                                        const valores =
-                                            campo
-                                                .value
-                                                .split(",")
-                                                .map(
-                                                    v =>
-                                                        v.trim()
-                                                )
-                                                .filter(
-                                                    Boolean
-                                                );
+                                        const atual =
+                                            input.value
+                                                .trim();
 
 
                                         if (
-                                            !valores.includes(
-                                                valor
-                                            )
+                                            atual &&
+                                            !atual
+                                                .split(
+                                                    "\n"
+                                                )
+                                                .includes(
+                                                    valor
+                                                )
                                         ) {
 
-                                            valores.push(
-                                                valor
-                                            );
+                                            input.value =
+                                                atual +
+                                                (
+                                                    atual
+                                                        ? "\n"
+                                                        : ""
+                                                ) +
+                                                valor;
+
+                                        } else if (
+                                            !atual
+                                        ) {
+
+                                            input.value =
+                                                valor;
+
                                         }
-
-
-                                        campo.value =
-                                            valores.join(
-                                                ", "
-                                            );
 
                                     } else {
 
-                                        campo.value =
+                                        input.value =
                                             valor;
+
                                     }
 
 
-                                    container.classList.remove(
-                                        "open"
-                                    );
+                                    container.classList
+                                        .remove("visible");
 
 
-                                    campo.focus();
+                                    input.focus();
+
                                 }
                             );
+
                         }
                     );
+
             }
         );
 
+
+    /*
+     * Fechar sugestões quando clicamos
+     * fora do campo.
+     */
 
     document.addEventListener(
         "click",
-        event => {
+        evento => {
 
             if (
-                !event.target.closest(
-                    ".form-group"
+                !evento.target.closest(
+                    ".field"
                 )
             ) {
 
-                fecharTodasSugestoes();
+                document
+                    .querySelectorAll(
+                        ".suggestions"
+                    )
+                    .forEach(
+                        item =>
+                            item.classList
+                                .remove("visible")
+                    );
+
             }
+
         }
     );
+
 }
 
 
-function fecharTodasSugestoes() {
+/* ======================================================
+   FILTROS
+====================================================== */
 
-    document
-        .querySelectorAll(
-            ".suggestions"
-        )
-        .forEach(
-            el =>
-                el.classList.remove(
-                    "open"
-                )
-        );
-}
+function configurarFiltros() {
 
+    [
+        "search",
+        "rsvp",
+        "side",
+        "type",
+        "tableFilter"
 
-/* =====================================================
-   MODAIS
-===================================================== */
+    ].forEach(
+        id => {
 
-function fecharModal(id) {
-
-    document
-        .getElementById(id)
-        .classList.remove(
-            "open"
-        );
-
-
-    fecharTodasSugestoes();
-}
-
-
-document
-    .querySelectorAll(
-        ".modal-overlay"
-    )
-    .forEach(
-        modal => {
-
-            modal.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target ===
-                        modal
-                    ) {
-
-                        modal.classList.remove(
-                            "open"
-                        );
-                    }
-                }
+            $(id).addEventListener(
+                "input",
+                renderizarConvidados
             );
+
+            $(id).addEventListener(
+                "change",
+                renderizarConvidados
+            );
+
         }
     );
 
+}
+
+
+/* ======================================================
+   FORMULÁRIOS
+====================================================== */
+
+function configurarFormularios() {
+
+    $("guestForm")
+        .addEventListener(
+            "submit",
+            evento => {
+
+                evento.preventDefault();
+
+                guardarConvidado();
+
+            }
+        );
+
+
+    $("tableForm")
+        .addEventListener(
+            "submit",
+            evento => {
+
+                evento.preventDefault();
+
+                guardarMesa();
+
+            }
+        );
+
+
+    $("newGuest")
+        .addEventListener(
+            "click",
+            () => {
+
+                openGuest();
+
+            }
+        );
+
+
+    $("newTable")
+        .addEventListener(
+            "click",
+            () => {
+
+                openTable();
+
+            }
+        );
+
+
+    $("guestTable")
+        .addEventListener(
+            "change",
+            () => {
+
+                atualizarInformacaoMesa();
+
+            }
+        );
+
+
+    $("capacity")
+        .addEventListener(
+            "input",
+            () => {
+
+                atualizarAvisoCapacidadeMesa();
+
+            }
+        );
+
+
+    $("seat")
+        .addEventListener(
+            "input",
+            () => {
+
+                const mesaId =
+                    $("guestTable").value;
+
+
+                const mesa =
+                    obterMesa(mesaId);
+
+
+                if (!mesa) {
+
+                    return;
+
+                }
+
+
+                const valor =
+                    Number(
+                        $("seat").value
+                    );
+
+
+                const capacidade =
+                    Number(
+                        mesa.lugares
+                    ) || 0;
+
+
+                if (
+                    valor >
+                    capacidade
+                ) {
+
+                    mostrarMensagem(
+
+                        `A ${mesa.nome} tem apenas ${capacidade} lugares.`,
+
+                        "error"
+
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(".close")
+        .forEach(
+            botao => {
+
+                botao.addEventListener(
+                    "click",
+                    () => {
+
+                        const modal =
+                            botao.closest(
+                                ".modal-bg"
+                            );
+
+
+                        if (modal) {
+
+                            modal.classList
+                                .remove("open");
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    /*
+     * Fechar modal clicando fora.
+     */
+
+    document
+        .querySelectorAll(".modal-bg")
+        .forEach(
+            modal => {
+
+                modal.addEventListener(
+                    "click",
+                    evento => {
+
+                        if (
+                            evento.target ===
+                            modal
+                        ) {
+
+                            modal.classList
+                                .remove("open");
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* ======================================================
+   AUTH STATE
+====================================================== */
+
+supabaseClient.auth
+    .onAuthStateChange(
+        (evento) => {
+
+            if (
+                evento ===
+                "SIGNED_OUT"
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+
+        }
+    );
+
+
+/* ======================================================
+   INICIAR
+====================================================== */
 
 document.addEventListener(
-    "keydown",
-    event => {
+    "DOMContentLoaded",
+    async () => {
 
-        if (
-            event.key === "Escape"
-        ) {
+        configurarTabs();
 
-            document
-                .querySelectorAll(
-                    ".modal-overlay.open"
-                )
-                .forEach(
-                    modal =>
-                        modal.classList.remove(
-                            "open"
-                        )
-                );
-        }
+        configurarSugestoes();
+
+        configurarFormularios();
+
+        configurarFiltros();
+
+        await verificarSessao();
+
     }
 );
 
-
-/* =====================================================
-   NAVEGAÇÃO
-===================================================== */
-
-function voltarDashboard() {
-
-    window.location.href =
-        "dashboard.html";
-}
-
-
-async function sair() {
-
-    try {
-
-        await supabaseClient.auth.signOut();
-
-    } catch (error) {
-
-        console.error(error);
-    }
-
-
-    window.location.replace(
-        "login.html"
-    );
-}
-
-
-/* =====================================================
-   MENSAGENS
-===================================================== */
-
-function mostrarMensagem(
-    texto,
-    tipo = "success"
-) {
-
-    const element =
-        document.getElementById(
-            "message"
-        );
-
-
-    element.textContent =
-        texto;
-
-
-    element.className =
-        "message show " +
-        tipo;
-
-
-    setTimeout(
-        () => {
-
-            element.classList.remove(
-                "show"
-            );
-
-        },
-        4000
-    );
-}
-
-
-/* =====================================================
-   SEGURANÇA HTML
-===================================================== */
-
-function esc(valor) {
-
-    if (
-        valor === null ||
-        valor === undefined
-    )
-        return "";
-
-
-    return String(valor)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
-
-
-function escAttr(valor) {
-
-    return esc(valor);
-}
-
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-supabaseClient.auth.onAuthStateChange(
-    (
-        event,
-        session
-    ) => {
-
-        if (
-            event ===
-                "SIGNED_OUT" ||
-            !session
-        ) {
-
-            window.location.replace(
-                "login.html"
-            );
-        }
-    }
-);
 </script>
 
 </body>

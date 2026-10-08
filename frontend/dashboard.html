@@ -4,764 +4,283 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | Casamento Perfeito</title>
+    <title>Dashboard - Casamento Perfeito</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff7fa;
-            color: #4a3039;
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f8f5f2;
+            color: #333;
         }
 
         header {
-            background: #ffffff;
-            min-height: 72px;
-            padding: 15px 40px;
-
+            background: white;
+            padding: 18px 30px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            border-bottom: 1px solid #f2dfe6;
-
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            align-items: center;
+            border-bottom: 1px solid #eee;
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            color: #c45f7d;
+            color: #b76e79;
         }
 
-        #logoutButton {
-            border: none;
-            background: #c45f7d;
-            color: white;
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-            padding: 11px 20px;
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            font-weight: bold;
+        .user-email {
+            color: #666;
             font-size: 14px;
-
-            transition: 0.2s;
         }
 
-        #logoutButton:hover {
-            background: #aa4e69;
-            transform: translateY(-1px);
+        .logout-btn {
+            border: none;
+            background: #b76e79;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
-        #logoutButton:active {
-            transform: translateY(0);
+        .logout-btn:hover {
+            opacity: 0.9;
         }
 
         main {
-            max-width: 1180px;
-            margin: auto;
-            padding: 45px 25px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 25px;
         }
 
         .welcome {
-            background: linear-gradient(
-                135deg,
-                #ffffff,
-                #fff0f5
-            );
-
-            border-radius: 24px;
-
-            padding: 40px;
-
-            margin-bottom: 35px;
-
-            border: 1px solid #f3dce4;
-
-            box-shadow:
-                0 8px 30px rgba(100, 50, 70, 0.08);
-        }
-
-        .welcome small {
-            display: block;
-
-            color: #c45f7d;
-
-            font-weight: bold;
-
-            margin-bottom: 10px;
-
-            letter-spacing: 0.5px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
         }
 
         .welcome h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-
-        .welcome p {
-            color: #777;
-            line-height: 1.6;
-        }
-
-        #userWelcome {
-            margin-top: 20px;
-
-            color: #c45f7d;
-
-            font-size: 18px;
-
-            font-weight: bold;
-        }
-
-        .summary {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 35px;
-        }
-
-        .summary-card {
-            background: #ffffff;
-
-            border: 1px solid #f1dfe5;
-
-            border-radius: 18px;
-
-            padding: 22px;
-
-            box-shadow:
-                0 5px 18px rgba(100, 50, 70, 0.05);
-        }
-
-        .summary-icon {
-            font-size: 25px;
-            margin-bottom: 12px;
-        }
-
-        .summary-number {
-            font-size: 27px;
-            font-weight: bold;
-
-            color: #c45f7d;
-
-            margin-bottom: 5px;
-        }
-
-        .summary-label {
-            color: #777;
-            font-size: 13px;
-        }
-
-        .section-header {
-            display: flex;
-
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .section-header h2 {
-            font-size: 23px;
-        }
-
-        .section-header span {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .cards {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 22px;
-        }
-
-        .card {
-            background: white;
-
-            border: 1px solid #f1dfe5;
-
-            border-radius: 20px;
-
-            padding: 28px;
-
-            text-decoration: none;
-
-            color: inherit;
-
-            transition: 0.25s;
-
-            box-shadow:
-                0 6px 22px rgba(100, 50, 70, 0.06);
-
-            display: block;
-
-            min-height: 230px;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 12px 28px rgba(100, 50, 70, 0.12);
-
-            border-color: #e8c4d0;
-        }
-
-        .card.disabled {
-            cursor: not-allowed;
-            opacity: 0.72;
-        }
-
-        .card.disabled:hover {
-            transform: none;
-
-            box-shadow:
-                0 6px 22px rgba(100, 50, 70, 0.06);
-        }
-
-        .card-icon {
-            font-size: 32px;
-
-            margin-bottom: 18px;
-        }
-
-        .card h3 {
-            margin-bottom: 9px;
-
-            font-size: 19px;
-        }
-
-        .card p {
-            color: #777;
-
-            font-size: 14px;
-
-            line-height: 1.6;
-        }
-
-        .card-action {
-            display: inline-block;
-
-            margin-top: 17px;
-
-            color: #c45f7d;
-
-            font-size: 13px;
-
-            font-weight: bold;
-        }
-
-        .card.disabled .card-action {
-            color: #aaa;
-        }
-
-        .info-box {
-            background: white;
-
-            border: 1px solid #f1dfe5;
-
-            border-radius: 20px;
-
-            padding: 30px;
-
-            margin-top: 35px;
-        }
-
-        .info-box h2 {
+            color: #b76e79;
             margin-bottom: 10px;
         }
 
-        .info-box p {
-            color: #777;
+        .welcome p {
+            color: #666;
+        }
 
-            line-height: 1.6;
-
+        .error-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff0f0;
+            border: 1px solid #e0aaaa;
+            border-radius: 8px;
+            color: #9b2226;
             font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
-        .status-message {
-            margin-top: 18px;
-
-            padding: 12px 15px;
-
-            background: #fff7fa;
-
-            border: 1px solid #f1dfe5;
-
-            border-radius: 10px;
-
-            color: #777;
-
-            font-size: 13px;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
         }
 
-        footer {
-            text-align: center;
-
+        .stat-card {
+            background: white;
+            border-radius: 15px;
             padding: 25px;
-
-            color: #999;
-
-            font-size: 13px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
         }
 
-        @media (max-width: 1000px) {
+        .stat-card h3 {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
 
-            .summary {
-                grid-template-columns:
-                    repeat(2, 1fr);
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #b76e79;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .module-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .module-card h2 {
+            color: #b76e79;
+            margin-bottom: 10px;
+        }
+
+        .module-card p {
+            color: #777;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .cards {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
         }
 
         @media (max-width: 600px) {
-
             header {
-                padding: 15px 18px;
+                padding: 15px;
             }
 
-            .logo {
-                font-size: 18px;
-            }
-
-            #logoutButton {
-                padding: 9px 13px;
-                font-size: 13px;
+            .header-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
             }
 
             main {
-                padding: 30px 18px;
+                padding: 25px 15px;
             }
 
-            .welcome {
-                padding: 28px 22px;
-            }
-
-            .welcome h1 {
-                font-size: 25px;
-            }
-
-            #userWelcome {
-                font-size: 16px;
-            }
-
-            .summary {
-                grid-template-columns: 1fr 1fr;
-
-                gap: 12px;
-            }
-
-            .summary-card {
-                padding: 17px;
-            }
-
-            .summary-number {
-                font-size: 23px;
-            }
-
-            .cards {
+            .stats,
+            .modules {
                 grid-template-columns: 1fr;
             }
-
-            .section-header {
-                display: block;
-            }
-
-            .section-header span {
-                display: block;
-                margin-top: 7px;
-            }
-
-            .card {
-                min-height: auto;
-            }
-
         }
-
-        @media (max-width: 380px) {
-
-            .summary {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
     </style>
-
 </head>
 
 <body>
 
 <header>
-
     <div class="logo">
-        💕 Casamento Perfeito
+        Casamento Perfeito
     </div>
 
-    <button
-        id="logoutButton"
-        type="button"
-    >
-        Terminar sessão
-    </button>
+    <div class="header-right">
+        <span class="user-email" id="userEmail">
+            A carregar...
+        </span>
 
+        <button class="logout-btn" id="logoutBtn">
+            Sair
+        </button>
+    </div>
 </header>
-
 
 <main>
 
     <section class="welcome">
-
-        <small>
-            O SEU GRANDE DIA
-        </small>
-
-        <h1>
-            Bem-vindo ao seu painel ❤️
+        <h1 id="welcomeTitle">
+            Bem-vindo!
         </h1>
 
-        <p>
-            Tenha tudo o que precisa para organizar
-            o seu casamento num único lugar.
+        <p id="welcomeMessage">
+            A carregar os dados da sua conta...
         </p>
 
-        <div id="userWelcome">
-            A carregar os dados da sua conta...
-        </div>
-
+        <div
+            id="errorBox"
+            class="error-box"
+            style="display:none;"
+        ></div>
     </section>
 
+    <section class="stats">
 
-    <section class="summary">
-
-        <div class="summary-card">
-
-            <div class="summary-icon">
-                👥
-            </div>
-
-            <div
-                class="summary-number"
-                id="totalConvidados"
-            >
+        <div class="stat-card">
+            <h3>Convidados estimados</h3>
+            <div class="number" id="totalConvidados">
                 0
             </div>
-
-            <div class="summary-label">
-                Convidados estimados
-            </div>
-
         </div>
 
-
-        <div class="summary-card">
-
-            <div class="summary-icon">
-                🪑
-            </div>
-
-            <div
-                class="summary-number"
-                id="totalMesas"
-            >
+        <div class="stat-card">
+            <h3>Mesas</h3>
+            <div class="number" id="totalMesas">
                 0
             </div>
-
-            <div class="summary-label">
-                Mesas
-            </div>
-
         </div>
 
-
-        <div class="summary-card">
-
-            <div class="summary-icon">
-                💰
-            </div>
-
-            <div
-                class="summary-number"
-                id="totalOrcamento"
-            >
+        <div class="stat-card">
+            <h3>Orçamento</h3>
+            <div class="number" id="totalOrcamento">
                 —
             </div>
-
-            <div class="summary-label">
-                Orçamento
-            </div>
-
         </div>
 
-
-        <div class="summary-card">
-
-            <div class="summary-icon">
-                ✅
-            </div>
-
-            <div
-                class="summary-number"
-                id="totalConfirmados"
-            >
+        <div class="stat-card">
+            <h3>Confirmados</h3>
+            <div class="number" id="totalConfirmados">
                 0
             </div>
-
-            <div class="summary-label">
-                Confirmados
-            </div>
-
         </div>
 
     </section>
 
-
-    <div class="section-header">
-
-        <h2>
-            Organize o seu casamento
-        </h2>
-
-        <span>
-            Tudo num só lugar
-        </span>
-
-    </div>
-
-
-    <section class="cards">
+    <section class="modules">
 
         <a
             href="planeador.html"
-            class="card"
+            class="module-card"
         >
-
-            <div class="card-icon">
-                💍
-            </div>
-
-            <h3>
-                Planeador
-            </h3>
-
+            <h2>Planeador</h2>
             <p>
-                Organize todas as tarefas necessárias
-                para preparar o seu casamento.
+                Organize o seu casamento, orçamento,
+                tarefas e todos os detalhes importantes.
             </p>
-
-            <span class="card-action">
-                Abrir planeador →
-            </span>
-
         </a>
-
 
         <a
             href="convidados.html"
-            class="card"
+            class="module-card"
         >
-
-            <div class="card-icon">
-                👥
-            </div>
-
-            <h3>
-                Convidados
-            </h3>
-
+            <h2>Convidados</h2>
             <p>
-                Registe os convidados, organize as mesas,
-                acompanhe confirmações e visualize o
-                mapa das mesas.
+                Gerencie os seus convidados,
+                confirmações e mesas.
             </p>
-
-            <span class="card-action">
-                Gerir convidados →
-            </span>
-
         </a>
-
-
-        <a
-            href="#"
-            class="card disabled"
-            onclick="mostrarModuloEmBreve(event, 'Orçamento')"
-        >
-
-            <div class="card-icon">
-                💰
-            </div>
-
-            <h3>
-                Orçamento
-            </h3>
-
-            <p>
-                Controle as despesas, fornecedores,
-                pagamentos e mantenha o orçamento
-                organizado.
-            </p>
-
-            <span class="card-action">
-                Em desenvolvimento
-            </span>
-
-        </a>
-
-
-        <a
-            href="#"
-            class="card disabled"
-            onclick="mostrarModuloEmBreve(event, 'Fornecedores')"
-        >
-
-            <div class="card-icon">
-                🤝
-            </div>
-
-            <h3>
-                Fornecedores
-            </h3>
-
-            <p>
-                Organize fotógrafos, decoração,
-                catering, música e outros serviços.
-            </p>
-
-            <span class="card-action">
-                Em desenvolvimento
-            </span>
-
-        </a>
-
-
-        <a
-            href="#"
-            class="card disabled"
-            onclick="mostrarModuloEmBreve(event, 'Cronograma')"
-        >
-
-            <div class="card-icon">
-                📅
-            </div>
-
-            <h3>
-                Cronograma
-            </h3>
-
-            <p>
-                Acompanhe datas e momentos importantes
-                antes e durante o casamento.
-            </p>
-
-            <span class="card-action">
-                Em desenvolvimento
-            </span>
-
-        </a>
-
-
-        <a
-            href="#"
-            class="card disabled"
-            onclick="mostrarModuloEmBreve(event, 'Meu casamento')"
-        >
-
-            <div class="card-icon">
-                ❤️
-            </div>
-
-            <h3>
-                Meu casamento
-            </h3>
-
-            <p>
-                Consulte e personalize as informações
-                do seu grande dia.
-            </p>
-
-            <span class="card-action">
-                Em desenvolvimento
-            </span>
-
-        </a>
-
-    </section>
-
-
-    <section class="info-box">
-
-        <h2>
-            💕 O seu casamento começa aqui
-        </h2>
-
-        <p>
-            Este é o seu espaço pessoal para organizar
-            todos os detalhes do casamento.
-        </p>
-
-        <div class="status-message">
-
-            <strong>
-                Próximos módulos:
-            </strong>
-
-            Convidados, Mesas, Orçamento, Fornecedores,
-            Cronograma e Meu Casamento.
-
-        </div>
 
     </section>
 
 </main>
 
-
-<footer>
-
-    © 2026 Casamento Perfeito —
-    Planeie o seu grande dia ❤️
-
-</footer>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
 <script>
 
-    /* =====================================================
-       CONFIGURAÇÃO SUPABASE
-    ===================================================== */
+    // =========================================================
+    // SUPABASE
+    // =========================================================
 
     const SUPABASE_URL =
         "https://yucymctjoqbxpipmpzir.supabase.co";
@@ -776,105 +295,102 @@
         );
 
 
-    /* =====================================================
-       REDIRECIONAR PARA LOGIN
-    ===================================================== */
+    // =========================================================
+    // ELEMENTOS
+    // =========================================================
 
-    function redirecionarParaLogin() {
+    const welcomeTitle =
+        document.getElementById("welcomeTitle");
 
-        window.location.replace(
-            "login.html"
+    const welcomeMessage =
+        document.getElementById("welcomeMessage");
+
+    const userEmail =
+        document.getElementById("userEmail");
+
+    const errorBox =
+        document.getElementById("errorBox");
+
+    const totalConvidados =
+        document.getElementById("totalConvidados");
+
+    const totalMesas =
+        document.getElementById("totalMesas");
+
+    const totalOrcamento =
+        document.getElementById("totalOrcamento");
+
+    const totalConfirmados =
+        document.getElementById("totalConfirmados");
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+
+    // =========================================================
+    // MOSTRAR ERRO
+    // =========================================================
+
+    function mostrarErro(error, etapa) {
+
+        console.error(
+            "Erro na etapa:",
+            etapa,
+            error
         );
 
+        let mensagem =
+            error?.message ||
+            "Erro desconhecido.";
+
+        let detalhes = "";
+
+        if (error?.details) {
+            detalhes +=
+                "\nDetalhes: " +
+                error.details;
+        }
+
+        if (error?.hint) {
+            detalhes +=
+                "\nSugestão: " +
+                error.hint;
+        }
+
+        if (error?.code) {
+            detalhes +=
+                "\nCódigo: " +
+                error.code;
+        }
+
+        errorBox.style.display = "block";
+
+        errorBox.innerHTML =
+            "<strong>Erro na etapa: " +
+            etapa +
+            "</strong>\n\n" +
+            mensagem +
+            detalhes;
     }
 
 
-    /* =====================================================
-       MOSTRAR UTILIZADOR
-    ===================================================== */
+    // =========================================================
+    // CRIAR CASAMENTO INICIAL
+    // =========================================================
 
-    function mostrarUtilizador(
-        utilizador,
-        perfil
-    ) {
+    async function criarCasamentoInicial(utilizador) {
 
-        const userWelcome =
-            document.getElementById(
-                "userWelcome"
-            );
-
-
-        if (!userWelcome) {
-            return;
-        }
-
-
-        const nome =
-            perfil?.nome ||
-            utilizador?.user_metadata?.nome ||
-            utilizador?.email ||
-            "Utilizador";
-
-
-        userWelcome.textContent =
-            "Olá, " + nome + "! 👋";
-
-    }
-
-
-    /* =====================================================
-       FORMATAR MOEDA
-    ===================================================== */
-
-    function formatarMoeda(
-        valor,
-        moeda
-    ) {
-
-        const numero =
-            Number(valor || 0);
-
-
-        if (!numero) {
-            return "—";
-        }
-
-
-        try {
-
-            return new Intl.NumberFormat(
-                "pt-PT",
-                {
-                    style: "currency",
-                    currency: moeda || "MZN",
-                    maximumFractionDigits: 2
-                }
-            ).format(numero);
-
-        } catch (erro) {
-
-            return (
-                numero.toLocaleString("pt-PT") +
-                " " +
-                (moeda || "MZN")
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       CRIAR CASAMENTO A PARTIR DOS DADOS DO REGISTO
-    ===================================================== */
-
-    async function criarCasamentoInicial(
-        utilizador
-    ) {
+        console.log(
+            "A tentar criar casamento inicial..."
+        );
 
         const metadata =
             utilizador.user_metadata || {};
 
+        console.log(
+            "Metadata do utilizador:",
+            metadata
+        );
 
         const noivo =
             metadata.noivo || {};
@@ -889,29 +405,28 @@
             metadata.preferencias || {};
 
 
-        /*
-         * A data é obrigatória na tabela weddings.
-         *
-         * Como o formulário de registo exige a data,
-         * normalmente este valor estará presente.
-         */
+        // -----------------------------------------------------
+        // Verificar data
+        // -----------------------------------------------------
 
         if (!casamento.data) {
 
             throw new Error(
-                "Os dados do casamento não possuem uma data válida."
+                "A data do casamento não foi encontrada nos dados da conta."
             );
-
         }
 
 
-        const novoCasamento = {
+        // -----------------------------------------------------
+        // Preparar dados
+        // -----------------------------------------------------
 
-            user_id:
-                utilizador.id,
+        const dadosCasamento = {
+
+            user_id: utilizador.id,
 
             nome_noivo:
-                noivo.nome || "Noivo",
+                noivo.nome || "",
 
             telefone_noivo:
                 noivo.telefone || null,
@@ -922,8 +437,9 @@
             email_noivo:
                 noivo.email || null,
 
+
             nome_noiva:
-                noiva.nome || "Noiva",
+                noiva.nome || "",
 
             telefone_noiva:
                 noiva.telefone || null,
@@ -933,6 +449,7 @@
 
             email_noiva:
                 noiva.email || null,
+
 
             data_casamento:
                 casamento.data,
@@ -949,16 +466,19 @@
             local_festa:
                 casamento.localFesta || null,
 
+
             convidados_estimados:
                 Number(
                     casamento.convidadosEstimados || 0
                 ),
+
 
             tipo_casamento:
                 casamento.tipo || null,
 
             estilo:
                 casamento.estilo || null,
+
 
             moeda:
                 preferencias.moeda || "MZN",
@@ -970,17 +490,25 @@
 
             observacoes:
                 preferencias.observacoes || null
-
         };
 
+
+        console.log(
+            "Dados que serão enviados para weddings:",
+            dadosCasamento
+        );
+
+
+        // -----------------------------------------------------
+        // INSERT
+        // -----------------------------------------------------
 
         const {
             data,
             error
-        } =
-            await supabaseClient
+        } = await supabaseClient
             .from("weddings")
-            .insert(novoCasamento)
+            .insert(dadosCasamento)
             .select()
             .single();
 
@@ -988,343 +516,69 @@
         if (error) {
 
             console.error(
-                "Erro ao criar casamento:",
+                "Erro Supabase ao criar wedding:",
                 error
             );
 
             throw error;
-
         }
 
+
+        console.log(
+            "Casamento criado:",
+            data
+        );
 
         return data;
-
     }
 
 
-    /* =====================================================
-       CARREGAR OU CRIAR CASAMENTO
-    ===================================================== */
+    // =========================================================
+    // CARREGAR DASHBOARD
+    // =========================================================
 
-    async function carregarCasamento(
-        utilizador
-    ) {
+    async function carregarDashboard() {
 
-        /*
-         * Primeiro procuramos um casamento
-         * pertencente ao utilizador autenticado.
-         */
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-            .from("weddings")
-            .select("*")
-            .eq(
-                "user_id",
-                utilizador.id
-            )
-            .order(
-                "criado_em",
-                {
-                    ascending: true
-                }
-            )
-            .limit(1);
-
-
-        if (error) {
-
-            console.error(
-                "Erro ao carregar casamento:",
-                error
-            );
-
-            throw error;
-
-        }
-
-
-        /*
-         * Já existe.
-         */
-
-        if (data && data.length > 0) {
-
-            return data[0];
-
-        }
-
-
-        /*
-         * Ainda não existe.
-         *
-         * Criamos o primeiro casamento
-         * usando os dados recolhidos no registo.
-         */
-
-        return await criarCasamentoInicial(
-            utilizador
-        );
-
-    }
-
-
-    /* =====================================================
-       CARREGAR ESTATÍSTICAS DO DASHBOARD
-    ===================================================== */
-
-    function carregarEstatisticas(
-        casamento
-    ) {
-
-        /*
-         * Convidados estimados
-         *
-         * Ainda não estamos a contar convidados
-         * da tabela de convidados porque esse módulo
-         * ainda não foi migrado para o Supabase.
-         */
-
-        const totalConvidados =
-            document.getElementById(
-                "totalConvidados"
-            );
-
-
-        if (totalConvidados) {
-
-            totalConvidados.textContent =
-                Number(
-                    casamento?.convidados_estimados || 0
-                );
-
-        }
-
-
-        /*
-         * Mesas
-         *
-         * A tabela de mesas ainda será criada.
-         */
-
-        const totalMesas =
-            document.getElementById(
-                "totalMesas"
-            );
-
-
-        if (totalMesas) {
-
-            totalMesas.textContent =
-                "0";
-
-        }
-
-
-        /*
-         * Confirmados
-         *
-         * Será ligado ao módulo de convidados
-         * numa próxima etapa.
-         */
-
-        const totalConfirmados =
-            document.getElementById(
-                "totalConfirmados"
-            );
-
-
-        if (totalConfirmados) {
-
-            totalConfirmados.textContent =
-                "0";
-
-        }
-
-
-        /*
-         * Orçamento estimado
-         */
-
-        const totalOrcamento =
-            document.getElementById(
-                "totalOrcamento"
-            );
-
-
-        if (totalOrcamento) {
-
-            totalOrcamento.textContent =
-                formatarMoeda(
-                    casamento?.orcamento_estimado,
-                    casamento?.moeda
-                );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       MOSTRAR ERRO
-    ===================================================== */
-
-    function mostrarErroDashboard(
-        erro
-    ) {
-
-        console.error(
-            "Erro no dashboard:",
-            erro
-        );
-
-
-        const userWelcome =
-            document.getElementById(
-                "userWelcome"
-            );
-
-
-        if (userWelcome) {
-
-            userWelcome.textContent =
-                "Não foi possível carregar os dados da sua conta.";
-
-        }
-
-    }
-
-
-    /* =====================================================
-       TERMINAR SESSÃO
-    ===================================================== */
-
-    async function terminarSessao() {
-
-        const confirmar =
-            confirm(
-                "Tem a certeza de que deseja terminar a sessão?"
-            );
-
-
-        if (!confirmar) {
-            return;
-        }
-
-
-        const {
-            error
-        } =
-            await supabaseClient.auth.signOut();
-
-
-        if (error) {
-
-            console.error(
-                "Erro ao terminar sessão:",
-                error
-            );
-
-            alert(
-                "Não foi possível terminar a sessão. Tente novamente."
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Limpar a antiga sessão local criada
-         * pela versão anterior da aplicação.
-         *
-         * Isto não interfere com a sessão segura
-         * do Supabase.
-         */
-
-        localStorage.removeItem(
-            "casamentoPerfeitoSessao"
-        );
-
-
-        sessionStorage.removeItem(
-            "casamentoPerfeitoSessao"
-        );
-
-
-        window.location.replace(
-            "login.html"
-        );
-
-    }
-
-
-    /* =====================================================
-       MÓDULOS EM DESENVOLVIMENTO
-    ===================================================== */
-
-    function mostrarModuloEmBreve(
-        evento,
-        nomeModulo
-    ) {
-
-        if (evento) {
-            evento.preventDefault();
-        }
-
-
-        alert(
-            nomeModulo +
-            " ainda está em desenvolvimento.\n\n" +
-            "Vamos adicionar este módulo ao Casamento Perfeito."
-        );
-
-    }
-
-
-    /* =====================================================
-       INICIALIZAÇÃO
-    ===================================================== */
-
-    async function inicializarDashboard() {
+        errorBox.style.display = "none";
 
         try {
 
-            /*
-             * Obter sessão atual do Supabase.
-             */
+            console.log(
+                "A verificar sessão..."
+            );
+
+
+            // -------------------------------------------------
+            // 1. SESSION
+            // -------------------------------------------------
 
             const {
                 data: sessionData,
                 error: sessionError
-            } =
-                await supabaseClient.auth.getSession();
+            } = await supabaseClient
+                .auth
+                .getSession();
 
 
             if (sessionError) {
-
                 throw sessionError;
-
             }
 
 
             const session =
-                sessionData?.session;
+                sessionData.session;
 
-
-            /*
-             * Não existe sessão.
-             */
 
             if (!session) {
 
-                redirecionarParaLogin();
+                console.log(
+                    "Nenhuma sessão encontrada."
+                );
+
+                window.location.href =
+                    "login.html";
 
                 return;
-
             }
 
 
@@ -1332,126 +586,280 @@
                 session.user;
 
 
-            /*
-             * Carregar perfil.
-             */
+            console.log(
+                "Utilizador autenticado:",
+                utilizador
+            );
+
+
+            userEmail.textContent =
+                utilizador.email || "";
+
+
+            // -------------------------------------------------
+            // 2. PROFILE
+            // -------------------------------------------------
+
+            console.log(
+                "A carregar profile..."
+            );
+
 
             const {
                 data: perfil,
                 error: perfilError
-            } =
-                await supabaseClient
+            } = await supabaseClient
                 .from("profiles")
                 .select("*")
-                .eq(
-                    "id",
-                    utilizador.id
-                )
+                .eq("id", utilizador.id)
                 .maybeSingle();
 
 
             if (perfilError) {
 
-                console.error(
-                    "Erro ao carregar perfil:",
-                    perfilError
+                mostrarErro(
+                    perfilError,
+                    "Carregar perfil"
                 );
 
+                return;
             }
 
 
-            /*
-             * Mostrar utilizador.
-             */
-
-            mostrarUtilizador(
-                utilizador,
+            console.log(
+                "Perfil encontrado:",
                 perfil
             );
 
 
-            /*
-             * Carregar ou criar casamento.
-             */
+            const nome =
+                perfil?.nome ||
+                utilizador.user_metadata?.nome ||
+                "Utilizador";
 
-            const casamento =
-                await carregarCasamento(
-                    utilizador
+
+            welcomeTitle.textContent =
+                "Bem-vindo, " +
+                nome +
+                "!";
+
+
+            welcomeMessage.textContent =
+                "Aqui pode acompanhar e organizar os principais detalhes do seu casamento.";
+
+
+            // -------------------------------------------------
+            // 3. PROCURAR CASAMENTO
+            // -------------------------------------------------
+
+            console.log(
+                "A procurar casamento..."
+            );
+
+
+            const {
+                data: casamentos,
+                error: casamentoError
+            } = await supabaseClient
+                .from("weddings")
+                .select("*")
+                .eq("user_id", utilizador.id)
+                .order("criado_em", {
+                    ascending: true
+                })
+                .limit(1);
+
+
+            if (casamentoError) {
+
+                mostrarErro(
+                    casamentoError,
+                    "Procurar casamento"
+                );
+
+                return;
+            }
+
+
+            console.log(
+                "Casamentos encontrados:",
+                casamentos
+            );
+
+
+            let casamento =
+                casamentos &&
+                casamentos.length > 0
+                    ? casamentos[0]
+                    : null;
+
+
+            // -------------------------------------------------
+            // 4. SE NÃO EXISTIR, CRIAR
+            // -------------------------------------------------
+
+            if (!casamento) {
+
+                console.log(
+                    "Nenhum casamento encontrado."
+                );
+
+                console.log(
+                    "A criar o primeiro casamento..."
                 );
 
 
-            /*
-             * Mostrar estatísticas.
-             */
+                try {
 
-            carregarEstatisticas(
+                    casamento =
+                        await criarCasamentoInicial(
+                            utilizador
+                        );
+
+                } catch (error) {
+
+                    mostrarErro(
+                        error,
+                        "Criar casamento"
+                    );
+
+                    return;
+                }
+            }
+
+
+            // -------------------------------------------------
+            // 5. MOSTRAR DADOS
+            // -------------------------------------------------
+
+            console.log(
+                "Casamento final:",
                 casamento
             );
 
 
-        } catch (erro) {
+            totalConvidados.textContent =
+                Number(
+                    casamento.convidados_estimados || 0
+                );
 
-            mostrarErroDashboard(
-                erro
+
+            totalMesas.textContent =
+                "0";
+
+
+            totalConfirmados.textContent =
+                "0";
+
+
+            const moeda =
+                casamento.moeda ||
+                "MZN";
+
+
+            const orcamento =
+                Number(
+                    casamento.orcamento_estimado || 0
+                );
+
+
+            if (orcamento > 0) {
+
+                totalOrcamento.textContent =
+                    new Intl.NumberFormat(
+                        "pt-PT",
+                        {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2
+                        }
+                    ).format(orcamento) +
+                    " " +
+                    moeda;
+
+            } else {
+
+                totalOrcamento.textContent =
+                    "—";
+            }
+
+
+            console.log(
+                "Dashboard carregado com sucesso."
             );
 
-        }
+        } catch (error) {
 
+            mostrarErro(
+                error,
+                "Carregar dashboard"
+            );
+        }
     }
 
 
-    /* =====================================================
-       BOTÃO DE LOGOUT
-    ===================================================== */
+    // =========================================================
+    // LOGOUT
+    // =========================================================
 
-    document
-    .getElementById("logoutButton")
-    .addEventListener(
+    logoutBtn.addEventListener(
         "click",
-        terminarSessao
+        async function () {
+
+            try {
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+            } catch (error) {
+
+                console.error(
+                    "Erro ao sair:",
+                    error
+                );
+            }
+
+            localStorage.removeItem(
+                "casamentoPerfeitoSessao"
+            );
+
+            sessionStorage.clear();
+
+            window.location.href =
+                "login.html";
+        }
     );
 
 
-    /* =====================================================
-       DETECTAR ALTERAÇÕES NA AUTENTICAÇÃO
-    ===================================================== */
+    // =========================================================
+    // OBSERVAR ALTERAÇÕES DE AUTENTICAÇÃO
+    // =========================================================
 
     supabaseClient.auth.onAuthStateChange(
-        function(event, session) {
+        function (event, session) {
+
+            console.log(
+                "Auth event:",
+                event
+            );
 
             if (
                 event === "SIGNED_OUT" ||
                 !session
             ) {
 
-                if (
-                    !window.location.pathname
-                    .toLowerCase()
-                    .includes("login.html")
-                ) {
-
-                    redirecionarParaLogin();
-
-                }
-
+                window.location.href =
+                    "login.html";
             }
-
         }
     );
 
 
-    /* =====================================================
-       INICIAR
-    ===================================================== */
+    // =========================================================
+    // INICIAR
+    // =========================================================
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
-
-            inicializarDashboard();
-
-        }
-    );
+    carregarDashboard();
 
 </script>
 

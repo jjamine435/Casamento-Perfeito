@@ -1,291 +1,1623 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar conta | Casamento Perfeito</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Criar conta | Casamento Perfeito
+    </title>
+
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+
         body {
-            font-family: Arial, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #fff4f7;
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             padding: 30px;
+
+            color: #4b3039;
         }
+
+
+        /* =========================================
+           CARTÃO PRINCIPAL
+        ========================================= */
 
         .register-card {
-            width: 920px;
+
+            width: 1150px;
+
             max-width: 100%;
+
             background: white;
+
             border-radius: 22px;
+
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.12);
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 0.75fr;
         }
+
+
+        /* =========================================
+           ÁREA DO FORMULÁRIO
+        ========================================= */
 
         .register-side {
-            padding: 45px;
+
+            padding: 42px;
+
+            max-height: 900px;
+
+            overflow-y: auto;
         }
+
 
         .menu {
+
             display: flex;
+
             justify-content: flex-end;
+
             gap: 20px;
-            margin-bottom: 35px;
+
+            margin-bottom: 30px;
         }
 
+
         .menu a {
+
             text-decoration: none;
+
             color: #9b596f;
+
             font-size: 14px;
         }
 
-        .logo {
+
+        .menu a:hover {
+
             color: #c66b88;
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 35px;
         }
 
+
+        .logo {
+
+            color: #c66b88;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+
         h1 {
+
             color: #4b3039;
-            font-size: 32px;
+
+            font-size: 30px;
+
             margin-bottom: 10px;
         }
 
+
         .subtitle {
+
             color: #777;
+
             margin-bottom: 28px;
+
             line-height: 1.5;
         }
 
-        .form-group {
-            margin-bottom: 18px;
+
+        /* =========================================
+           SEÇÕES
+        ========================================= */
+
+        .form-section {
+
+            border: 1px solid #f0dce3;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            margin-bottom: 22px;
+
+            background: #fffafb;
         }
+
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #c66b88;
+
+            font-size: 19px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .section-description {
+
+            color: #888;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================
+           GRID
+        ========================================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 17px;
+        }
+
+
+        .full {
+
+            grid-column: 1 / -1;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 2px;
+        }
+
 
         label {
+
             display: block;
+
             margin-bottom: 7px;
+
             color: #4b3039;
-            font-size: 14px;
+
+            font-size: 13px;
+
             font-weight: bold;
         }
 
-        input {
+
+        .required {
+
+            color: #c66b88;
+        }
+
+
+        input,
+        select,
+        textarea {
+
             width: 100%;
-            padding: 14px;
+
+            padding: 13px;
+
             border: 1px solid #e4cbd3;
+
             border-radius: 10px;
-            font-size: 15px;
+
+            font-size: 14px;
+
             outline: none;
+
+            background: white;
+
+            color: #4b3039;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
         }
 
-        input:focus {
+
+        textarea {
+
+            min-height: 90px;
+
+            resize: vertical;
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
             border-color: #c66b88;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    198,
+                    107,
+                    136,
+                    0.08
+                );
         }
 
-        .terms {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin: 18px 0;
-            font-size: 13px;
-            color: #777;
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color: #aaa;
         }
 
-        .terms input {
-            width: auto;
-            margin-top: 3px;
+
+        /* =========================================
+           CAMPO DE PASSWORD
+        ========================================= */
+
+        .password-wrapper {
+
+            position: relative;
         }
 
-        .terms a {
-            color: #c66b88;
+
+        .password-wrapper input {
+
+            padding-right: 48px;
         }
 
-        button {
-            width: 100%;
-            padding: 15px;
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 8px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 34px;
+
+            height: 34px;
+
+            padding: 0;
+
+            background: transparent;
+
+            color: #9b596f;
+
             border: none;
-            border-radius: 10px;
-            background: #c66b88;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
+
             cursor: pointer;
+
+            font-size: 17px;
         }
 
-        button:hover {
-            background: #b45877;
-        }
 
-        .message {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-            font-size: 14px;
-        }
+        .password-toggle:hover {
 
-        .success {
-            background: #e9f8ee;
-            color: #26723d;
-        }
+            background: transparent;
 
-        .error {
-            background: #fdebed;
-            color: #a33a48;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #777;
-            font-size: 14px;
-        }
-
-        .login-link a {
             color: #c66b88;
-            text-decoration: none;
-            font-weight: bold;
         }
 
-        .back-home {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
+
+        /* =========================================
+           FORÇA DA PASSWORD
+        ========================================= */
+
+        .password-strength {
+
+            margin-top: 7px;
+
+            font-size: 12px;
+
             color: #999;
-            text-decoration: none;
-            font-size: 13px;
         }
 
-        .flower-side {
-            min-height: 650px;
+
+        .strength-bar {
+
+            width: 100%;
+
+            height: 5px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            margin-top: 5px;
+
             overflow: hidden;
         }
 
-        .flower-side img {
-            width: 100%;
+
+        .strength-fill {
+
             height: 100%;
+
+            width: 0%;
+
+            transition: 0.25s;
+
+            background: #ddd;
+        }
+
+
+        /* =========================================
+           BLOCO DO CASAL
+        ========================================= */
+
+        .person-box {
+
+            background: white;
+
+            border: 1px solid #f1dce3;
+
+            border-radius: 13px;
+
+            padding: 17px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .person-title {
+
+            color: #c66b88;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           OPÇÕES
+        ========================================= */
+
+        .radio-group {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+
+        .radio-option {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 9px 12px;
+
+            border: 1px solid #ead4dc;
+
+            border-radius: 9px;
+
+            background: white;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: normal;
+        }
+
+
+        .radio-option:hover {
+
+            border-color: #c66b88;
+
+        }
+
+
+        .radio-option input {
+
+            width: auto;
+
+            margin: 0;
+
+            accent-color: #c66b88;
+        }
+
+
+        /* =========================================
+           TERMOS
+        ========================================= */
+
+        .terms {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+
+            margin: 20px 0;
+
+            font-size: 13px;
+
+            color: #777;
+
+            line-height: 1.5;
+        }
+
+
+        .terms input {
+
+            width: auto;
+
+            margin-top: 3px;
+
+            accent-color: #c66b88;
+        }
+
+
+        .terms label {
+
+            font-weight: normal;
+
+            margin: 0;
+        }
+
+
+        .terms a {
+
+            color: #c66b88;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           BOTÃO
+        ========================================= */
+
+        .submit-button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #c66b88;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .submit-button:hover {
+
+            background: #b45877;
+        }
+
+
+        .submit-button:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           MENSAGEM
+        ========================================= */
+
+        .message {
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            display: none;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        .success {
+
+            background: #e9f8ee;
+
+            color: #26723d;
+        }
+
+
+        .error {
+
+            background: #fdebed;
+
+            color: #a33a48;
+        }
+
+
+        /* =========================================
+           LOGIN
+        ========================================= */
+
+        .login-link {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .login-link a {
+
+            color: #c66b88;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        .back-home {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #999;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           IMAGEM
+        ========================================= */
+
+        .flower-side {
+
+            min-height: 850px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+
+        .flower-side img {
+
+            width: 100%;
+
+            height: 100%;
+
             object-fit: cover;
+
             display: block;
         }
 
-        @media (max-width: 750px) {
+
+        .flower-overlay {
+
+            position: absolute;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            padding: 35px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(60, 25, 38, 0.78)
+                );
+        }
+
+
+        .flower-overlay h2 {
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .flower-overlay p {
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           RESPONSIVO
+        ========================================= */
+
+        @media (max-width: 900px) {
+
             .register-card {
+
                 grid-template-columns: 1fr;
             }
 
+
             .flower-side {
+
                 display: none;
             }
 
+
             .register-side {
-                padding: 30px 25px;
+
+                max-height: none;
             }
+
         }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 12px;
+            }
+
+
+            .register-side {
+
+                padding: 25px 18px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .full {
+
+                grid-column: auto;
+            }
+
+
+            h1 {
+
+                font-size: 25px;
+            }
+
+
+            .logo {
+
+                font-size: 21px;
+            }
+
+
+            .form-section {
+
+                padding: 17px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="register-card">
+
+
+    <!-- =========================================
+         FORMULÁRIO
+    ========================================== -->
 
     <section class="register-side">
 
+
         <div class="menu">
-            <a href="login.html">Entrar</a>
-            <a href="registo.html">Criar conta</a>
+
+            <a href="login.html">
+                Entrar
+            </a>
+
+            <a href="registo.html">
+                Criar conta
+            </a>
+
         </div>
+
 
         <div class="logo">
             💕 Casamento Perfeito
         </div>
 
-        <h1>Criar a sua conta</h1>
+
+        <h1>
+            Criar a sua conta
+        </h1>
+
 
         <p class="subtitle">
-            Comece a planear o seu grande dia de forma simples,
-            organizada e especial.
+
+            Vamos começar por conhecer vocês
+            e configurar o vosso casamento.
+            Poderá alterar estas informações
+            posteriormente.
+
         </p>
+
 
         <form id="registerForm">
 
-            <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input
-                    type="text"
-                    id="nome"
-                    placeholder="Digite o seu nome"
-                    required
-                >
-            </div>
 
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="exemplo@email.com"
-                    required
-                >
-            </div>
+            <!-- =====================================
+                 1. CONTA
+            ====================================== -->
 
-            <div class="form-group">
-                <label for="password">Palavra-passe</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Crie uma palavra-passe"
-                    required
-                >
-            </div>
+            <section class="form-section">
 
-            <div class="form-group">
-                <label for="confirmPassword">Confirmar palavra-passe</label>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Repita a palavra-passe"
-                    required
-                >
-            </div>
+                <h2 class="section-title">
+                    👤 Conta
+                </h2>
+
+                <p class="section-description">
+
+                    Estes dados serão utilizados
+                    para entrar e gerir a sua conta.
+
+                </p>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group full">
+
+                        <label for="nome">
+
+                            Nome do responsável
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            placeholder="Ex.: João Manuel"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+
+                            E-mail da conta
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="exemplo@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Quem está a criar a conta?
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div class="radio-group">
+
+
+                            <label class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="criadoPor"
+                                    value="noivo"
+                                    required
+                                >
+
+                                Noivo
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="criadoPor"
+                                    value="noiva"
+                                >
+
+                                Noiva
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="criadoPor"
+                                    value="ambos"
+                                >
+
+                                Ambos
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="criadoPor"
+                                    value="outro"
+                                >
+
+                                Outro
+
+                            </label>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+
+                            Palavra-passe
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Mínimo 6 caracteres"
+                                autocomplete="new-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="alternarPassword('password', this)"
+                                aria-label="Mostrar palavra-passe"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+
+                        <div class="password-strength">
+
+                            <span id="strengthText">
+                                Digite uma palavra-passe
+                            </span>
+
+
+                            <div class="strength-bar">
+
+                                <div
+                                    id="strengthFill"
+                                    class="strength-fill"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+
+                            Confirmar palavra-passe
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Repita a palavra-passe"
+                                autocomplete="new-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="alternarPassword('confirmPassword', this)"
+                                aria-label="Mostrar palavra-passe"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 2. NOIVO E NOIVA
+            ====================================== -->
+
+            <section class="form-section">
+
+                <h2 class="section-title">
+                    💑 O casal
+                </h2>
+
+                <p class="section-description">
+
+                    Estes dados serão utilizados
+                    no perfil do casamento.
+
+                </p>
+
+
+                <!-- NOIVO -->
+
+                <div class="person-box">
+
+                    <div class="person-title">
+                        🤵 Dados do noivo
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group full">
+
+                            <label for="nomeNoivo">
+
+                                Nome completo
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nomeNoivo"
+                                placeholder="Nome completo do noivo"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="telefoneNoivo">
+                                Telefone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefoneNoivo"
+                                placeholder="+258 84 000 0000"
+                                autocomplete="tel"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="whatsappNoivo">
+                                WhatsApp
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="whatsappNoivo"
+                                placeholder="+258 84 000 0000"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="emailNoivo">
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="emailNoivo"
+                                placeholder="noivo@email.com"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOIVA -->
+
+                <div class="person-box">
+
+                    <div class="person-title">
+                        👰 Dados da noiva
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group full">
+
+                            <label for="nomeNoiva">
+
+                                Nome completo
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nomeNoiva"
+                                placeholder="Nome completo da noiva"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="telefoneNoiva">
+                                Telefone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefoneNoiva"
+                                placeholder="+258 84 000 0000"
+                                autocomplete="tel"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="whatsappNoiva">
+                                WhatsApp
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="whatsappNoiva"
+                                placeholder="+258 84 000 0000"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="emailNoiva">
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="emailNoiva"
+                                placeholder="noiva@email.com"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 3. CASAMENTO
+            ====================================== -->
+
+            <section class="form-section">
+
+                <h2 class="section-title">
+                    💍 O casamento
+                </h2>
+
+                <p class="section-description">
+
+                    Estas informações ajudarão o
+                    Casamento Perfeito a organizar
+                    o vosso grande dia.
+
+                </p>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label for="dataCasamento">
+
+                            Data do casamento
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dataCasamento"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="horaCasamento">
+                            Hora prevista
+                        </label>
+
+                        <input
+                            type="time"
+                            id="horaCasamento"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cidade">
+                            Cidade
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cidade"
+                            placeholder="Ex.: Maputo"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="convidadosEstimados">
+
+                            Convidados estimados
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="convidadosEstimados"
+                            min="0"
+                            max="10000"
+                            placeholder="Ex.: 150"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="localCerimonia">
+                            Local da cerimónia
+                        </label>
+
+                        <input
+                            type="text"
+                            id="localCerimonia"
+                            placeholder="Ex.: Igreja, quinta ou salão"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="localFesta">
+                            Local da receção / festa
+                        </label>
+
+                        <input
+                            type="text"
+                            id="localFesta"
+                            placeholder="Ex.: Salão de festas"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="tipoCasamento">
+                            Tipo de casamento
+                        </label>
+
+                        <select id="tipoCasamento">
+
+                            <option value="">
+                                Selecionar
+                            </option>
+
+                            <option value="civil">
+                                Civil
+                            </option>
+
+                            <option value="religioso">
+                                Religioso
+                            </option>
+
+                            <option value="civil-religioso">
+                                Civil + Religioso
+                            </option>
+
+                            <option value="simbolico">
+                                Simbólico
+                            </option>
+
+                            <option value="outro">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="estiloCasamento">
+                            Estilo do casamento
+                        </label>
+
+                        <select id="estiloCasamento">
+
+                            <option value="">
+                                Selecionar
+                            </option>
+
+                            <option value="classico">
+                                Clássico
+                            </option>
+
+                            <option value="moderno">
+                                Moderno
+                            </option>
+
+                            <option value="romantico">
+                                Romântico
+                            </option>
+
+                            <option value="rustico">
+                                Rústico
+                            </option>
+
+                            <option value="elegante">
+                                Elegante
+                            </option>
+
+                            <option value="praia">
+                                Praia
+                            </option>
+
+                            <option value="simples">
+                                Simples / Intimista
+                            </option>
+
+                            <option value="outro">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 4. ORÇAMENTO E PREFERÊNCIAS
+            ====================================== -->
+
+            <section class="form-section">
+
+                <h2 class="section-title">
+                    💰 Orçamento e preferências
+                </h2>
+
+                <p class="section-description">
+
+                    Estas informações serão usadas
+                    futuramente no módulo de orçamento.
+
+                </p>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label for="moeda">
+                            Moeda
+                        </label>
+
+                        <select id="moeda">
+
+                            <option value="MZN">
+                                MZN — Metical
+                            </option>
+
+                            <option value="USD">
+                                USD — Dólar
+                            </option>
+
+                            <option value="EUR">
+                                EUR — Euro
+                            </option>
+
+                            <option value="ZAR">
+                                ZAR — Rand
+                            </option>
+
+                            <option value="AOA">
+                                AOA — Kwanza
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="orcamentoEstimado">
+                            Orçamento estimado
+                        </label>
+
+                        <input
+                            type="number"
+                            id="orcamentoEstimado"
+                            min="0"
+                            step="0.01"
+                            placeholder="Ex.: 250000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="observacoes">
+
+                            Observações
+
+                        </label>
+
+                        <textarea
+                            id="observacoes"
+                            placeholder="Alguma informação importante sobre o vosso casamento..."
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 TERMOS
+            ====================================== -->
 
             <div class="terms">
-                <input type="checkbox" id="terms" required>
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
 
                 <label for="terms">
-                    Aceito os termos de utilização e a política de privacidade.
+
+                    Aceito os termos de utilização
+                    e a política de privacidade.
+
                 </label>
+
             </div>
 
-            <button type="submit">
-                Criar conta
+
+            <!-- =====================================
+                 BOTÃO
+            ====================================== -->
+
+            <button
+                type="submit"
+                class="submit-button"
+                id="submitButton"
+            >
+
+                Criar conta e começar ❤️
+
             </button>
 
-            <div id="message" class="message"></div>
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
 
         </form>
 
+
         <div class="login-link">
+
             Já tem uma conta?
-            <a href="login.html">Entrar</a>
+
+            <a href="login.html">
+                Entrar
+            </a>
+
         </div>
 
-        <a class="back-home" href="index.html">
+
+        <a
+            class="back-home"
+            href="index.html"
+        >
+
             ← Voltar à página inicial
+
         </a>
 
+
     </section>
+
+
+    <!-- =========================================
+         IMAGEM
+    ========================================== -->
 
     <section class="flower-side">
 
@@ -294,90 +1626,1006 @@
             alt="Rosas de casamento"
         >
 
+
+        <div class="flower-overlay">
+
+            <h2>
+                O vosso grande dia começa aqui ❤️
+            </h2>
+
+            <p>
+
+                Criem a conta, contem-nos sobre
+                o vosso casamento e deixem o
+                Casamento Perfeito ajudar a
+                organizar cada detalhe.
+
+            </p>
+
+        </div>
+
     </section>
+
 
 </div>
 
+
 <script>
 
-document.getElementById("registerForm").addEventListener("submit", function(event) {
+    /* =====================================================
+       CONFIGURAÇÃO
+    ===================================================== */
 
-    event.preventDefault();
+    const CHAVE_UTILIZADORES =
+        "casamentoPerfeitoUtilizadores";
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const message = document.getElementById("message");
 
-    message.style.display = "none";
-    message.className = "message";
+    /* =====================================================
+       MOSTRAR / OCULTAR PASSWORD
+    ===================================================== */
 
-    if (password !== confirmPassword) {
+    function alternarPassword(
+        id,
+        botao
+    ) {
 
-        message.textContent = "As palavras-passe não coincidem.";
-        message.classList.add("error");
-        message.style.display = "block";
+        const campo =
+            document.getElementById(id);
 
-        return;
+
+        if (
+            campo.type === "password"
+        ) {
+
+            campo.type = "text";
+
+            botao.textContent = "🙈";
+
+            botao.setAttribute(
+                "aria-label",
+                "Ocultar palavra-passe"
+            );
+
+        } else {
+
+            campo.type = "password";
+
+            botao.textContent = "👁️";
+
+            botao.setAttribute(
+                "aria-label",
+                "Mostrar palavra-passe"
+            );
+
+        }
+
     }
 
-    if (password.length < 6) {
+
+    /* =====================================================
+       FORÇA DA PASSWORD
+    ===================================================== */
+
+    document
+        .getElementById("password")
+        .addEventListener(
+            "input",
+            function () {
+
+                const password =
+                    this.value;
+
+
+                const fill =
+                    document.getElementById(
+                        "strengthFill"
+                    );
+
+
+                const text =
+                    document.getElementById(
+                        "strengthText"
+                    );
+
+
+                if (!password) {
+
+                    fill.style.width =
+                        "0%";
+
+                    text.textContent =
+                        "Digite uma palavra-passe";
+
+                    return;
+
+                }
+
+
+                let pontos = 0;
+
+
+                if (
+                    password.length >= 6
+                ) {
+
+                    pontos++;
+
+                }
+
+
+                if (
+                    password.length >= 10
+                ) {
+
+                    pontos++;
+
+                }
+
+
+                if (
+                    /[A-Z]/.test(password)
+                ) {
+
+                    pontos++;
+
+                }
+
+
+                if (
+                    /[0-9]/.test(password)
+                ) {
+
+                    pontos++;
+
+                }
+
+
+                if (
+                    /[^A-Za-z0-9]/.test(password)
+                ) {
+
+                    pontos++;
+
+                }
+
+
+                if (pontos <= 2) {
+
+                    fill.style.width =
+                        "35%";
+
+                    text.textContent =
+                        "Palavra-passe fraca";
+
+                } else if (pontos <= 4) {
+
+                    fill.style.width =
+                        "70%";
+
+                    text.textContent =
+                        "Palavra-passe média";
+
+                } else {
+
+                    fill.style.width =
+                        "100%";
+
+                    text.textContent =
+                        "Palavra-passe forte";
+
+                }
+
+            }
+        );
+
+
+    /* =====================================================
+       MENSAGEM
+    ===================================================== */
+
+    function mostrarMensagem(
+        texto,
+        tipo
+    ) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
 
         message.textContent =
-            "A palavra-passe deve ter pelo menos 6 caracteres.";
+            texto;
 
-        message.classList.add("error");
-        message.style.display = "block";
 
-        return;
+        message.className =
+            "message " + tipo;
+
+
+        message.style.display =
+            "block";
+
+
+        message.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
     }
 
-    const utilizadores =
-        JSON.parse(localStorage.getItem("casamentoPerfeitoUtilizadores")) || [];
 
-    const utilizadorExistente =
-        utilizadores.find(user => user.email === email);
+    /* =====================================================
+       OBTER RADIO
+    ===================================================== */
 
-    if (utilizadorExistente) {
+    function obterValorRadio(
+        nome
+    ) {
 
-        message.textContent =
-            "Já existe uma conta registada com este e-mail.";
+        const selecionado =
+            document.querySelector(
+                'input[name="' +
+                nome +
+                '"]:checked'
+            );
 
-        message.classList.add("error");
-        message.style.display = "block";
 
-        return;
+        return selecionado
+            ? selecionado.value
+            : "";
+
     }
 
-    const novoUtilizador = {
-        nome: nome,
-        email: email,
-        password: password
-    };
 
-    utilizadores.push(novoUtilizador);
+    /* =====================================================
+       DATA DE HOJE
+    ===================================================== */
 
-    localStorage.setItem(
-        "casamentoPerfeitoUtilizadores",
-        JSON.stringify(utilizadores)
-    );
+    function obterDataHoje() {
 
-    message.textContent =
-        "Conta criada com sucesso! Será encaminhado para o login.";
+        const hoje =
+            new Date();
 
-    message.classList.add("success");
-    message.style.display = "block";
 
-    document.getElementById("registerForm").reset();
+        const ano =
+            hoje.getFullYear();
 
-    setTimeout(function() {
-        window.location.href = "login.html";
-    }, 1500);
 
-});
+        const mes =
+            String(
+                hoje.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const dia =
+            String(
+                hoje.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
+
+    }
+
+
+    /* =====================================================
+       VALIDAR EMAIL
+    ===================================================== */
+
+    function emailValido(
+        email
+    ) {
+
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            .test(email);
+
+    }
+
+
+    /* =====================================================
+       CADASTRO
+    ===================================================== */
+
+    document
+        .getElementById("registerForm")
+        .addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const submitButton =
+                    document.getElementById(
+                        "submitButton"
+                    );
+
+
+                const message =
+                    document.getElementById(
+                        "message"
+                    );
+
+
+                message.style.display =
+                    "none";
+
+
+                message.className =
+                    "message";
+
+
+                /* =====================================
+                   CONTA
+                ====================================== */
+
+                const nome =
+                    document
+                        .getElementById("nome")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                const confirmPassword =
+                    document
+                        .getElementById(
+                            "confirmPassword"
+                        )
+                        .value;
+
+
+                const criadoPor =
+                    obterValorRadio(
+                        "criadoPor"
+                    );
+
+
+                /* =====================================
+                   CASAL
+                ====================================== */
+
+                const nomeNoivo =
+                    document
+                        .getElementById(
+                            "nomeNoivo"
+                        )
+                        .value
+                        .trim();
+
+
+                const telefoneNoivo =
+                    document
+                        .getElementById(
+                            "telefoneNoivo"
+                        )
+                        .value
+                        .trim();
+
+
+                const whatsappNoivo =
+                    document
+                        .getElementById(
+                            "whatsappNoivo"
+                        )
+                        .value
+                        .trim();
+
+
+                const emailNoivo =
+                    document
+                        .getElementById(
+                            "emailNoivo"
+                        )
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                const nomeNoiva =
+                    document
+                        .getElementById(
+                            "nomeNoiva"
+                        )
+                        .value
+                        .trim();
+
+
+                const telefoneNoiva =
+                    document
+                        .getElementById(
+                            "telefoneNoiva"
+                        )
+                        .value
+                        .trim();
+
+
+                const whatsappNoiva =
+                    document
+                        .getElementById(
+                            "whatsappNoiva"
+                        )
+                        .value
+                        .trim();
+
+
+                const emailNoiva =
+                    document
+                        .getElementById(
+                            "emailNoiva"
+                        )
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                /* =====================================
+                   CASAMENTO
+                ====================================== */
+
+                const dataCasamento =
+                    document
+                        .getElementById(
+                            "dataCasamento"
+                        )
+                        .value;
+
+
+                const horaCasamento =
+                    document
+                        .getElementById(
+                            "horaCasamento"
+                        )
+                        .value;
+
+
+                const cidade =
+                    document
+                        .getElementById(
+                            "cidade"
+                        )
+                        .value
+                        .trim();
+
+
+                const localCerimonia =
+                    document
+                        .getElementById(
+                            "localCerimonia"
+                        )
+                        .value
+                        .trim();
+
+
+                const localFesta =
+                    document
+                        .getElementById(
+                            "localFesta"
+                        )
+                        .value
+                        .trim();
+
+
+                const convidadosEstimados =
+                    document
+                        .getElementById(
+                            "convidadosEstimados"
+                        )
+                        .value;
+
+
+                const tipoCasamento =
+                    document
+                        .getElementById(
+                            "tipoCasamento"
+                        )
+                        .value;
+
+
+                const estiloCasamento =
+                    document
+                        .getElementById(
+                            "estiloCasamento"
+                        )
+                        .value;
+
+
+                /* =====================================
+                   PREFERÊNCIAS
+                ====================================== */
+
+                const moeda =
+                    document
+                        .getElementById(
+                            "moeda"
+                        )
+                        .value;
+
+
+                const orcamentoEstimado =
+                    document
+                        .getElementById(
+                            "orcamentoEstimado"
+                        )
+                        .value;
+
+
+                const observacoes =
+                    document
+                        .getElementById(
+                            "observacoes"
+                        )
+                        .value
+                        .trim();
+
+
+                /* =====================================
+                   VALIDAÇÕES
+                ====================================== */
+
+                if (!nome) {
+
+                    mostrarMensagem(
+                        "Introduza o nome do responsável.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!emailValido(email)) {
+
+                    mostrarMensagem(
+                        "Introduza um endereço de e-mail válido.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (password.length < 6) {
+
+                    mostrarMensagem(
+                        "A palavra-passe deve ter pelo menos 6 caracteres.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    mostrarMensagem(
+                        "As palavras-passe não coincidem.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!criadoPor) {
+
+                    mostrarMensagem(
+                        "Indique quem está a criar a conta.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!nomeNoivo) {
+
+                    mostrarMensagem(
+                        "Introduza o nome completo do noivo.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!nomeNoiva) {
+
+                    mostrarMensagem(
+                        "Introduza o nome completo da noiva.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    emailNoivo &&
+                    !emailValido(emailNoivo)
+                ) {
+
+                    mostrarMensagem(
+                        "O e-mail do noivo não é válido.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    emailNoiva &&
+                    !emailValido(emailNoiva)
+                ) {
+
+                    mostrarMensagem(
+                        "O e-mail da noiva não é válido.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!dataCasamento) {
+
+                    mostrarMensagem(
+                        "Indique a data do casamento.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Não permitir uma data passada.
+                 */
+
+                if (
+                    dataCasamento <
+                    obterDataHoje()
+                ) {
+
+                    mostrarMensagem(
+                        "A data do casamento não pode ser anterior à data atual.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* =====================================
+                   OBTER UTILIZADORES
+                ====================================== */
+
+                let utilizadores = [];
+
+
+                try {
+
+                    utilizadores =
+                        JSON.parse(
+                            localStorage.getItem(
+                                CHAVE_UTILIZADORES
+                            )
+                        ) || [];
+
+
+                    if (
+                        !Array.isArray(
+                            utilizadores
+                        )
+                    ) {
+
+                        utilizadores = [];
+
+                    }
+
+                } catch (erro) {
+
+                    utilizadores = [];
+
+                }
+
+
+                /* =====================================
+                   VERIFICAR CONTA EXISTENTE
+                ====================================== */
+
+                const utilizadorExistente =
+                    utilizadores.find(
+                        user =>
+                            String(
+                                user.email || ""
+                            )
+                            .toLowerCase() ===
+                            email
+                    );
+
+
+                if (utilizadorExistente) {
+
+                    mostrarMensagem(
+                        "Já existe uma conta registada com este e-mail.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* =====================================
+                   CRIAR UTILIZADOR
+                ====================================== */
+
+                const novoUtilizador = {
+
+                    /*
+                     * Dados principais
+                     */
+
+                    nome: nome,
+
+                    email: email,
+
+                    password: password,
+
+
+                    /*
+                     * Identificação de quem criou
+                     */
+
+                    criadoPor: criadoPor,
+
+
+                    /*
+                     * Dados do noivo
+                     */
+
+                    noivo: {
+
+                        nome: nomeNoivo,
+
+                        telefone: telefoneNoivo,
+
+                        whatsapp: whatsappNoivo,
+
+                        email: emailNoivo
+
+                    },
+
+
+                    /*
+                     * Dados da noiva
+                     */
+
+                    noiva: {
+
+                        nome: nomeNoiva,
+
+                        telefone: telefoneNoiva,
+
+                        whatsapp: whatsappNoiva,
+
+                        email: emailNoiva
+
+                    },
+
+
+                    /*
+                     * Dados do casamento
+                     */
+
+                    casamento: {
+
+                        data: dataCasamento,
+
+                        hora: horaCasamento,
+
+                        cidade: cidade,
+
+                        localCerimonia:
+                            localCerimonia,
+
+                        localFesta:
+                            localFesta,
+
+                        convidadosEstimados:
+                            convidadosEstimados
+                                ? Number(
+                                    convidadosEstimados
+                                )
+                                : 0,
+
+                        tipo:
+                            tipoCasamento,
+
+                        estilo:
+                            estiloCasamento
+
+                    },
+
+
+                    /*
+                     * Preferências
+                     */
+
+                    preferencias: {
+
+                        moeda:
+                            moeda,
+
+                        orcamentoEstimado:
+                            orcamentoEstimado
+                                ? Number(
+                                    orcamentoEstimado
+                                )
+                                : 0,
+
+                        observacoes:
+                            observacoes
+
+                    },
+
+
+                    /*
+                     * Data de criação
+                     */
+
+                    dataCriacao:
+                        new Date()
+                            .toISOString()
+
+                };
+
+
+                /* =====================================
+                   GUARDAR
+                ====================================== */
+
+                utilizadores.push(
+                    novoUtilizador
+                );
+
+
+                try {
+
+                    localStorage.setItem(
+
+                        CHAVE_UTILIZADORES,
+
+                        JSON.stringify(
+                            utilizadores
+                        )
+
+                    );
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao guardar conta:",
+                        erro
+                    );
+
+
+                    mostrarMensagem(
+                        "Não foi possível guardar a conta neste navegador.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* =====================================
+                   SUCESSO
+                ====================================== */
+
+                submitButton.disabled =
+                    true;
+
+
+                submitButton.textContent =
+                    "Conta criada com sucesso ✓";
+
+
+                mostrarMensagem(
+
+                    "Conta criada com sucesso! " +
+                    "Vamos encaminhá-lo para o login.",
+
+                    "success"
+
+                );
+
+
+                /*
+                 * Limpar formulário
+                 */
+
+                document
+                    .getElementById(
+                        "registerForm"
+                    )
+                    .reset();
+
+
+                /*
+                 * Redirecionar para login
+                 */
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "login.html";
+
+                    },
+                    1800
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       DEFINIR DATA MÍNIMA
+    ===================================================== */
+
+    document
+        .getElementById(
+            "dataCasamento"
+        )
+        .min =
+        obterDataHoje();
+
 
 </script>
+
 
 </body>
 </html>

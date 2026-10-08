@@ -1,785 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lista de Convidados | Casamento Perfeito</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f7f9fc;
-    color:#24324a;
-    min-height:100vh
-}
-
-header{
-    background:#fff;
-    border-bottom:1px solid #dfe5ef;
-    padding:15px 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:10
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-    color:#172a4d
-}
-
-.btn{
-    border:0;
-    border-radius:10px;
-    padding:11px 16px;
-    font-weight:bold;
-    cursor:pointer;
-    text-decoration:none;
-    font-size:14px
-}
-
-.primary{
-    background:#172a4d;
-    color:#fff
-}
-
-.secondary{
-    background:#fff;
-    color:#172a4d;
-    border:1px solid #cbd5e1
-}
-
-.danger{
-    background:#fff0f2;
-    color:#b6425e;
-    border:1px solid #efc5cf
-}
-
-main{
-    max-width:1250px;
-    margin:auto;
-    padding:35px 25px 60px
-}
-
-.hero{
-    background:linear-gradient(135deg,#fff,#eef3f9);
-    border:1px solid #dce4ef;
-    border-radius:24px;
-    padding:32px;
-    margin-bottom:25px
-}
-
-.hero small{
-    color:#172a4d;
-    font-weight:bold
-}
-
-.hero h1{
-    font-size:30px;
-    margin:8px 0
-}
-
-.hero p,.muted{
-    color:#6b7280;
-    line-height:1.6
-}
-
-.status{
-    display:none;
-    margin-bottom:20px;
-    padding:14px 16px;
-    border-radius:12px;
-    font-size:14px;
-    font-weight:bold
-}
-
-.status.show{display:block}
-.status.success{background:#e8f6ed;color:#267347;border:1px solid #bfe4cb}
-.status.error{background:#fde9ed;color:#a03f55;border:1px solid #efc5cf}
-.status.info{background:#eef3f9;color:#27456f;border:1px solid #cdd9e8}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:14px;
-    margin-bottom:25px
-}
-
-.stat,.box{
-    background:#fff;
-    border:1px solid #dfe5ef;
-    border-radius:16px;
-    padding:18px;
-    box-shadow:0 5px 18px rgba(20,40,70,.05)
-}
-
-.stat strong{
-    display:block;
-    font-size:25px;
-    color:#172a4d
-}
-
-.stat span{
-    font-size:13px;
-    color:#777
-}
-
-.tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
-    flex-wrap:wrap
-}
-
-.tab{
-    background:#fff;
-    border:1px solid #cbd5e1;
-    color:#334155;
-    border-radius:12px;
-    padding:12px 18px;
-    font-weight:bold;
-    cursor:pointer
-}
-
-.tab.active{
-    background:#172a4d;
-    color:#fff
-}
-
-.panel{display:none}
-.panel.active{display:block}
-
-.toolbar{
-    background:#fff;
-    border:1px solid #dfe5ef;
-    border-radius:18px;
-    padding:18px;
-    display:grid;
-    grid-template-columns:2fr repeat(4,1fr) auto;
-    gap:10px;
-    margin-bottom:18px
-}
-
-input,select,textarea{
-    width:100%;
-    border:1px solid #cbd5e1;
-    border-radius:9px;
-    padding:11px;
-    background:#fff;
-    color:#24324a;
-    font:inherit
-}
-
-input:focus,select:focus,textarea:focus{
-    outline:2px solid rgba(23,42,77,.15);
-    border-color:#172a4d
-}
-
-.list{
-    display:grid;
-    gap:14px
-}
-
-.guest{
-    background:#fff;
-    border:1px solid #dfe5ef;
-    border-radius:18px;
-    padding:20px
-}
-
-.top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px
-}
-
-.name{
-    font-size:18px;
-    font-weight:bold
-}
-
-.badges{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    margin-top:8px
-}
-
-.badge{
-    padding:5px 9px;
-    border-radius:999px;
-    background:#edf2f7;
-    font-size:11px;
-    font-weight:bold
-}
-
-.ok{background:#e8f6ed;color:#267347}
-.pending{background:#fff5d8;color:#8a6a16}
-.no{background:#fde9ed;color:#a03f55}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-    margin-top:16px
-}
-
-.info label{
-    display:block;
-    font-size:11px;
-    color:#999;
-    margin-bottom:4px
-}
-
-.actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-top:15px
-}
-
-.tables{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px
-}
-
-.table-card{
-    background:#fff;
-    border:1px solid #dfe5ef;
-    border-radius:18px;
-    padding:20px
-}
-
-.table-head{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:14px
-}
-
-.seats{
-    display:grid;
-    gap:7px
-}
-
-.seat{
-    padding:9px;
-    border-radius:9px;
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    display:flex;
-    justify-content:space-between;
-    font-size:13px
-}
-
-.occupied{
-    background:#e8eef7;
-    border-color:#c4d0df
-}
-
-.empty{
-    background:#fff;
-    border:1px dashed #b9c5d5;
-    border-radius:18px;
-    padding:35px;
-    text-align:center;
-    color:#777
-}
-
-.modal-bg{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.48);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:50
-}
-
-.modal-bg.open{display:flex}
-
-.modal{
-    background:#fff;
-    border-radius:22px;
-    width:min(900px,100%);
-    max-height:92vh;
-    overflow:auto;
-    padding:25px
-}
-
-.form{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:13px;
-    margin-top:20px
-}
-
-.full{grid-column:1/-1}
-
-.field label{
-    display:block;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:6px
-}
-
-.modal-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:8px;
-    margin-top:20px
-}
-
-.map{
-    display:flex;
-    flex-wrap:wrap;
-    gap:28px;
-    justify-content:center;
-    padding:25px
-}
-
-.map-table{
-    width:180px;
-    min-height:130px;
-    border:2px solid #94a3b8;
-    border-radius:50%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    background:#f8fafc;
-    text-align:center
-}
-
-.map-table strong{font-size:16px}
-.map-table span{
-    font-size:12px;
-    color:#777;
-    margin-top:5px
-}
-
-.loading{
-    text-align:center;
-    padding:35px;
-    color:#64748b
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#999;
-    font-size:13px
-}
-
-@media(max-width:1050px){
-    .stats{grid-template-columns:repeat(3,1fr)}
-    .toolbar{grid-template-columns:repeat(2,1fr)}
-    .grid{grid-template-columns:repeat(3,1fr)}
-    .tables{grid-template-columns:repeat(2,1fr)}
-}
-
-@media(max-width:650px){
-    header{padding:14px 18px}
-    .logo{font-size:18px}
-    main{padding:25px 15px}
-    .stats,.toolbar,.form{grid-template-columns:1fr}
-    .grid,.tables{grid-template-columns:1fr}
-    .full{grid-column:auto}
-    .top{flex-direction:column}
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <div class="logo">💕 Casamento Perfeito</div>
-
-    <div>
-        <a class="btn secondary" href="dashboard.html">← Painel</a>
-        <a class="btn secondary" href="planeador.html">Planeador</a>
-    </div>
-</header>
-
-<main>
-
-<section class="hero">
-    <small>GESTÃO DO CASAMENTO</small>
-    <h1>👥 Lista de Convidados</h1>
-    <p>
-        Registe convidados, acompanhe confirmações e organize
-        a distribuição pelas mesas.
-    </p>
-</section>
-
-<div id="statusBox" class="status"></div>
-
-<section class="stats">
-    <div class="stat">
-        <strong id="total">0</strong>
-        <span>Total</span>
-    </div>
-
-    <div class="stat">
-        <strong id="confirmed">0</strong>
-        <span>Confirmados</span>
-    </div>
-
-    <div class="stat">
-        <strong id="pending">0</strong>
-        <span>Pendentes</span>
-    </div>
-
-    <div class="stat">
-        <strong id="declined">0</strong>
-        <span>Não vão</span>
-    </div>
-
-    <div class="stat">
-        <strong id="adults">0</strong>
-        <span>Adultos</span>
-    </div>
-
-    <div class="stat">
-        <strong id="children">0</strong>
-        <span>Crianças</span>
-    </div>
-</section>
-
-<div class="tabs">
-    <button class="tab active" data-panel="guests">
-        👥 Convidados
-    </button>
-
-    <button class="tab" data-panel="tables">
-        🪑 Mesas
-    </button>
-
-    <button class="tab" data-panel="map">
-        🗺️ Mapa
-    </button>
-</div>
-
-<section id="guests" class="panel active">
-
-    <div class="toolbar">
-
-        <input
-            id="search"
-            placeholder="Pesquisar nome, telefone ou grupo">
-
-        <select id="rsvp">
-            <option value="">Todos os estados</option>
-            <option>Confirmado</option>
-            <option>Pendente</option>
-            <option>Não vai</option>
-        </select>
-
-        <select id="side">
-            <option value="">Todos os lados</option>
-            <option>Noiva</option>
-            <option>Noivo</option>
-            <option>Ambos</option>
-        </select>
-
-        <select id="type">
-            <option value="">Adultos e crianças</option>
-            <option>Adulto</option>
-            <option>Criança</option>
-        </select>
-
-        <select id="tableFilter">
-            <option value="">Todas as mesas</option>
-            <option value="none">Sem mesa</option>
-        </select>
-
-        <button class="btn primary" id="newGuest">
-            + Convidado
-        </button>
-
-    </div>
-
-    <div id="guestList" class="list">
-        <div class="loading">A carregar convidados...</div>
-    </div>
-
-</section>
-
-<section id="tables" class="panel">
-
-    <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:18px;
-        gap:10px
-    ">
-
-        <div>
-            <h2>Gestão de mesas</h2>
-            <p class="muted">
-                Crie mesas e defina a capacidade de cada uma.
-            </p>
-        </div>
-
-        <button class="btn primary" id="newTable">
-            + Nova mesa
-        </button>
-
-    </div>
-
-    <div id="tableList" class="tables">
-        <div class="loading">A carregar mesas...</div>
-    </div>
-
-</section>
-
-<section id="map" class="panel">
-
-    <div class="box">
-
-        <h2>Mapa das mesas</h2>
-
-        <p class="muted">
-            Visão geral da distribuição.
-        </p>
-
-        <div id="mapList" class="map"></div>
-
-    </div>
-
-</section>
-
-</main>
-
-<footer>
-    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
-</footer>
-
-
-<!-- MODAL CONVIDADO -->
-
-<div class="modal-bg" id="guestModal">
-
-<div class="modal">
-
-<h2 id="guestTitle">Adicionar convidado</h2>
-
-<form id="guestForm">
-
-<input type="hidden" id="guestId">
-
-<div class="form">
-
-<div class="field">
-<label>Nome completo *</label>
-<input id="name" required>
-</div>
-
-<div class="field">
-<label>Grupo / Família</label>
-<input id="group">
-</div>
-
-<div class="field">
-<label>Lado</label>
-<select id="guestSide">
-<option>Noiva</option>
-<option>Noivo</option>
-<option>Ambos</option>
-</select>
-</div>
-
-<div class="field">
-<label>Relação</label>
-<input id="relation">
-</div>
-
-<div class="field">
-<label>Telefone</label>
-<input id="phone">
-</div>
-
-<div class="field">
-<label>WhatsApp</label>
-<input id="whatsapp">
-</div>
-
-<div class="field">
-<label>Email</label>
-<input id="email" type="email">
-</div>
-
-<div class="field">
-<label>Tipo</label>
-<select id="guestType">
-<option>Adulto</option>
-<option>Criança</option>
-</select>
-</div>
-
-<div class="field">
-<label>RSVP</label>
-<select id="guestRsvp">
-<option>Pendente</option>
-<option>Confirmado</option>
-<option>Não vai</option>
-</select>
-</div>
-
-<div class="field">
-<label>Acompanhante</label>
-<select id="companion">
-<option>Não</option>
-<option>Sim</option>
-</select>
-</div>
-
-<div class="field">
-<label>Nome do acompanhante</label>
-<input id="companionName">
-</div>
-
-<div class="field">
-<label>Restrição alimentar</label>
-<input id="food">
-</div>
-
-<div class="field">
-<label>Mesa</label>
-<select id="guestTable">
-<option value="">Sem mesa</option>
-</select>
-</div>
-
-<div class="field">
-<label>Lugar</label>
-<input id="seat" type="number" min="1">
-</div>
-
-<div class="field full">
-<label>Observações</label>
-<textarea id="notes"></textarea>
-</div>
-
-</div>
-
-<div class="modal-actions">
-
-<button
-    type="button"
-    class="btn secondary close">
-    Cancelar
-</button>
-
-<button class="btn primary">
-    Guardar convidado
-</button>
-
-</div>
-
-</form>
-
-</div>
-</div>
-
-
-<!-- MODAL MESA -->
-
-<div class="modal-bg" id="tableModal">
-
-<div class="modal">
-
-<h2 id="tableTitle">Nova mesa</h2>
-
-<form id="tableForm">
-
-<input type="hidden" id="tableId">
-
-<div class="form">
-
-<div class="field">
-<label>Nome / número *</label>
-<input
-    id="tableName"
-    placeholder="Mesa 01"
-    required>
-</div>
-
-<div class="field">
-<label>Formato</label>
-
-<select id="shape">
-<option>Redonda</option>
-<option>Retangular</option>
-<option>Quadrada</option>
-<option>Imperial</option>
-<option>Personalizada</option>
-</select>
-
-</div>
-
-<div class="field">
-
-<label>Capacidade *</label>
-
-<input
-    id="capacity"
-    type="number"
-    min="1"
-    value="10"
-    required>
-
-</div>
-
-<div class="field">
-
-<label>Localização</label>
-
-<input
-    id="location"
-    placeholder="Salão principal">
-
-</div>
-
-<div class="field full">
-
-<label>Observações</label>
-
-<textarea id="tableNotes"></textarea>
-
-</div>
-
-</div>
-
-<div class="modal-actions">
-
-<button
-    type="button"
-    class="btn secondary close">
-    Cancelar
-</button>
-
-<button class="btn primary">
-    Guardar mesa
-</button>
-
-</div>
-
-</form>
-
-</div>
-</div>
-
-
 <script>
 
 "use strict";
@@ -840,7 +58,9 @@ function showStatus(message,type="info"){
     if(type === "success"){
 
         setTimeout(() => {
+
             box.className = "status";
+
         },3500);
     }
 }
@@ -848,13 +68,16 @@ function showStatus(message,type="info"){
 
 function errorMessage(error){
 
-    if(!error) return "Erro desconhecido.";
+    if(!error)
+        return "Erro desconhecido.";
 
     return [
         error.message,
         error.details,
         error.hint,
-        error.code ? "Código: " + error.code : ""
+        error.code
+            ? "Código: " + error.code
+            : ""
     ]
     .filter(Boolean)
     .join(" | ");
@@ -862,162 +85,7 @@ function errorMessage(error){
 
 
 /* =========================================================
-   AUTENTICAÇÃO E CASAMENTO
-========================================================= */
-
-async function init(){
-
-    try{
-
-        const {
-            data: sessionData,
-            error: sessionError
-        } = await supabaseClient.auth.getSession();
-
-        if(sessionError)
-            throw sessionError;
-
-        if(!sessionData.session){
-
-            window.location.replace("login.html");
-            return;
-        }
-
-        currentUser =
-            sessionData.session.user;
-
-
-        /*
-         * Procurar o casamento pertencente
-         * ao utilizador autenticado.
-         */
-
-        const {
-            data: weddings,
-            error: weddingError
-        } = await supabaseClient
-            .from("weddings")
-            .select("*")
-            .eq("user_id",currentUser.id)
-            .limit(1);
-
-        if(weddingError)
-            throw weddingError;
-
-
-        if(!weddings || !weddings.length){
-
-            showStatus(
-                "Não foi encontrado um casamento associado à sua conta.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        currentWeddingId =
-            weddings[0].id;
-
-
-        await carregarDados();
-
-    }catch(error){
-
-        console.error(error);
-
-        showStatus(
-            "Erro ao iniciar o módulo: " +
-            errorMessage(error),
-            "error"
-        );
-    }
-}
-
-
-/* =========================================================
-   CARREGAR MESAS E CONVIDADOS
-========================================================= */
-
-async function carregarDados(){
-
-    showStatus(
-        "A carregar convidados e mesas...",
-        "info"
-    );
-
-    await Promise.all([
-        carregarMesas(),
-        carregarConvidados()
-    ]);
-
-    atualizarFiltros();
-    render();
-
-    document.getElementById("statusBox")
-        .className = "status";
-}
-
-
-async function carregarMesas(){
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("tables")
-        .select("*")
-        .eq("wedding_id",currentWeddingId);
-
-    if(error){
-
-        console.error("Erro ao carregar mesas:",error);
-
-        showStatus(
-            "Erro ao carregar mesas: " +
-            errorMessage(error),
-            "error"
-        );
-
-        return;
-    }
-
-    mesas = data || [];
-}
-
-
-async function carregarConvidados(){
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("guests")
-        .select("*")
-        .eq("wedding_id",currentWeddingId);
-
-    if(error){
-
-        console.error(
-            "Erro ao carregar convidados:",
-            error
-        );
-
-        showStatus(
-            "Erro ao carregar convidados: " +
-            errorMessage(error),
-            "error"
-        );
-
-        return;
-    }
-
-    convidados = data || [];
-}
-
-
-/* =========================================================
-   NORMALIZAÇÃO
+   NORMALIZAÇÃO DAS MESAS
 ========================================================= */
 
 function tableName(table){
@@ -1054,6 +122,18 @@ function tableLocation(table){
            "";
 }
 
+
+function tableNotes(table){
+
+    return table.notas ??
+           table.notes ??
+           "";
+}
+
+
+/* =========================================================
+   NORMALIZAÇÃO DOS CONVIDADOS
+========================================================= */
 
 function guestName(guest){
 
@@ -1154,11 +234,6 @@ function guestFood(guest){
 
 function guestTableId(guest){
 
-    /*
-     * IMPORTANTE:
-     * mesa_id é UUID e referencia tables.id.
-     */
-
     return guest.mesa_id ??
            guest.table_id ??
            null;
@@ -1183,46 +258,370 @@ function guestNotes(guest){
 
 
 /* =========================================================
-   RENDER
+   ACOMPANHANTE
+========================================================= */
+
+function hasCompanion(guest){
+
+    const value =
+        guestCompanion(guest);
+
+    return (
+        value === true ||
+        value === "Sim" ||
+        value === "sim" ||
+        value === 1 ||
+        value === "1"
+    );
+}
+
+
+/*
+ * Cada convidado ocupa pelo menos um lugar.
+ *
+ * Se tiver acompanhante:
+ *
+ * 1 convidado + 1 acompanhante = 2 lugares
+ */
+
+function guestSeatCount(guest){
+
+    return hasCompanion(guest)
+        ? 2
+        : 1;
+}
+
+
+/* =========================================================
+   OCUPAÇÃO DAS MESAS
+========================================================= */
+
+function getTableGuests(tableId){
+
+    return convidados.filter(g => {
+
+        return String(guestTableId(g)) ===
+               String(tableId);
+
+    });
+}
+
+
+function getTableOccupancy(tableId){
+
+    const guests =
+        getTableGuests(tableId);
+
+    return guests.reduce(
+        (total,guest) =>
+            total + guestSeatCount(guest),
+        0
+    );
+}
+
+
+function getTableFreeSeats(tableId){
+
+    const table =
+        mesas.find(
+            t =>
+            String(t.id) ===
+            String(tableId)
+        );
+
+    if(!table)
+        return 0;
+
+    return Math.max(
+        0,
+        tableCapacity(table) -
+        getTableOccupancy(tableId)
+    );
+}
+
+
+function tableIsFull(tableId){
+
+    const table =
+        mesas.find(
+            t =>
+            String(t.id) ===
+            String(tableId)
+        );
+
+    if(!table)
+        return false;
+
+    return getTableOccupancy(tableId)
+        >= tableCapacity(table);
+}
+
+
+function tableOccupancyPercent(tableId){
+
+    const table =
+        mesas.find(
+            t =>
+            String(t.id) ===
+            String(tableId)
+        );
+
+    if(!table)
+        return 0;
+
+    const capacity =
+        tableCapacity(table);
+
+    if(!capacity)
+        return 0;
+
+    return Math.min(
+        100,
+        Math.round(
+            (
+                getTableOccupancy(tableId) /
+                capacity
+            ) * 100
+        )
+    );
+}
+
+
+/* =========================================================
+   AUTENTICAÇÃO
+========================================================= */
+
+async function init(){
+
+    try{
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+        await supabaseClient
+        .auth
+        .getSession();
+
+
+        if(sessionError)
+            throw sessionError;
+
+
+        if(!sessionData.session){
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+        }
+
+
+        currentUser =
+            sessionData.session.user;
+
+
+        const {
+            data: weddings,
+            error: weddingError
+        } =
+        await supabaseClient
+        .from("weddings")
+        .select("*")
+        .eq("user_id",currentUser.id)
+        .limit(1);
+
+
+        if(weddingError)
+            throw weddingError;
+
+
+        if(
+            !weddings ||
+            !weddings.length
+        ){
+
+            showStatus(
+                "Não foi encontrado um casamento associado à sua conta.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        currentWeddingId =
+            weddings[0].id;
+
+
+        await carregarDados();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "Erro ao iniciar o módulo: " +
+            errorMessage(error),
+            "error"
+        );
+    }
+}
+
+
+/* =========================================================
+   CARREGAR DADOS
+========================================================= */
+
+async function carregarDados(){
+
+    try{
+
+        await Promise.all([
+            carregarMesas(),
+            carregarConvidados()
+        ]);
+
+
+        atualizarFiltros();
+        render();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "Erro ao carregar dados: " +
+            errorMessage(error),
+            "error"
+        );
+    }
+}
+
+
+async function carregarMesas(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("tables")
+    .select("*")
+    .eq("wedding_id",currentWeddingId)
+    .order("created_at",{ascending:true});
+
+
+    if(error){
+
+        console.error(
+            "Erro ao carregar mesas:",
+            error
+        );
+
+        throw error;
+    }
+
+
+    mesas =
+        data || [];
+}
+
+
+async function carregarConvidados(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("guests")
+    .select("*")
+    .eq("wedding_id",currentWeddingId)
+    .order("created_at",{ascending:true});
+
+
+    if(error){
+
+        console.error(
+            "Erro ao carregar convidados:",
+            error
+        );
+
+        throw error;
+    }
+
+
+    convidados =
+        data || [];
+}
+
+
+/* =========================================================
+   RENDER GERAL
 ========================================================= */
 
 function render(){
 
-    const totalCount =
+    const total =
         convidados.length;
 
+    const confirmed =
+        convidados.filter(
+            g =>
+            guestRsvpValue(g) ===
+            "Confirmado"
+        ).length;
+
+    const pending =
+        convidados.filter(
+            g =>
+            guestRsvpValue(g) ===
+            "Pendente"
+        ).length;
+
+    const declined =
+        convidados.filter(
+            g =>
+            guestRsvpValue(g) ===
+            "Não vai"
+        ).length;
+
+    const adults =
+        convidados.filter(
+            g =>
+            guestTypeValue(g) ===
+            "Adulto"
+        ).length;
+
+    const children =
+        convidados.filter(
+            g =>
+            guestTypeValue(g) ===
+            "Criança"
+        ).length;
+
+
     document.getElementById("total")
-        .textContent = totalCount;
+        .textContent = total;
 
     document.getElementById("confirmed")
-        .textContent =
-        convidados.filter(
-            g => guestRsvpValue(g) === "Confirmado"
-        ).length;
+        .textContent = confirmed;
 
     document.getElementById("pending")
-        .textContent =
-        convidados.filter(
-            g => guestRsvpValue(g) === "Pendente"
-        ).length;
+        .textContent = pending;
 
     document.getElementById("declined")
-        .textContent =
-        convidados.filter(
-            g => guestRsvpValue(g) === "Não vai"
-        ).length;
+        .textContent = declined;
 
     document.getElementById("adults")
-        .textContent =
-        convidados.filter(
-            g => guestTypeValue(g) === "Adulto"
-        ).length;
+        .textContent = adults;
 
     document.getElementById("children")
-        .textContent =
-        convidados.filter(
-            g => guestTypeValue(g) === "Criança"
-        ).length;
+        .textContent = children;
 
 
     renderGuests();
@@ -1238,10 +637,12 @@ function render(){
 function atualizarFiltros(){
 
     const select =
-        document.getElementById("tableFilter");
+        document.getElementById(
+            "tableFilter"
+        );
 
-    select.innerHTML =
-        `
+
+    select.innerHTML = `
         <option value="">
             Todas as mesas
         </option>
@@ -1249,12 +650,24 @@ function atualizarFiltros(){
         <option value="none">
             Sem mesa
         </option>
-        ` +
-        mesas.map(table => `
-            <option value="${esc(table.id)}">
-                ${esc(tableName(table))}
-            </option>
-        `).join("");
+    `;
+
+
+    mesas.forEach(table => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            table.id;
+
+        option.textContent =
+            tableName(table);
+
+        select.appendChild(option);
+    });
 }
 
 
@@ -1266,78 +679,91 @@ function filteredGuests(){
         .toLowerCase()
         .trim();
 
+
     const rv =
-        document.getElementById("rsvp").value;
+        document.getElementById("rsvp")
+        .value;
+
 
     const sd =
-        document.getElementById("side").value;
+        document.getElementById("side")
+        .value;
+
 
     const tp =
-        document.getElementById("type").value;
+        document.getElementById("type")
+        .value;
+
 
     const tf =
-        document.getElementById("tableFilter").value;
+        document.getElementById("tableFilter")
+        .value;
 
 
     return convidados.filter(g => {
 
         const searchText = [
+
             guestName(g),
             guestGroup(g),
             guestPhone(g),
             guestWhatsapp(g)
+
         ]
         .join(" ")
         .toLowerCase();
 
 
-        const matchesSearch =
-            !q ||
-            searchText.includes(q);
-
-        const matchesRsvp =
-            !rv ||
-            guestRsvpValue(g) === rv;
-
-        const matchesSide =
-            !sd ||
-            guestSideValue(g) === sd;
-
-        const matchesType =
-            !tp ||
-            guestTypeValue(g) === tp;
-
-        const tableId =
-            guestTableId(g);
-
-        const matchesTable =
-            !tf ||
-            (
-                tf === "none"
-                    ? !tableId
-                    : String(tableId) === String(tf)
-            );
-
-
         return (
-            matchesSearch &&
-            matchesRsvp &&
-            matchesSide &&
-            matchesType &&
-            matchesTable
+
+            (!q ||
+                searchText.includes(q))
+
+            &&
+
+            (!rv ||
+                guestRsvpValue(g) === rv)
+
+            &&
+
+            (!sd ||
+                guestSideValue(g) === sd)
+
+            &&
+
+            (!tp ||
+                guestTypeValue(g) === tp)
+
+            &&
+
+            (
+                !tf ||
+                (
+                    tf === "none"
+                        ? !guestTableId(g)
+                        :
+                        String(
+                            guestTableId(g)
+                        ) === String(tf)
+                )
+            )
+
         );
     });
 }
 
 
 /* =========================================================
-   CONVIDADOS
+   RENDER CONVIDADOS
 ========================================================= */
 
 function renderGuests(){
 
     const list =
-        document.getElementById("guestList");
+        document.getElementById(
+            "guestList"
+        );
+
 
     const arr =
         filteredGuests();
@@ -1347,10 +773,15 @@ function renderGuests(){
 
         list.innerHTML = `
             <div class="empty">
-                <h3>Nenhum convidado encontrado</h3>
+
+                <h3>
+                    Nenhum convidado encontrado
+                </h3>
+
                 <p style="margin-top:7px">
                     Adicione o primeiro convidado.
                 </p>
+
             </div>
         `;
 
@@ -1372,12 +803,21 @@ function renderGuests(){
             const rsvp =
                 guestRsvpValue(g);
 
+
             const cls =
                 rsvp === "Confirmado"
                     ? "ok"
-                    : rsvp === "Não vai"
-                        ? "no"
-                        : "pending";
+                    :
+                rsvp === "Não vai"
+                    ? "no"
+                    :
+                    "pending";
+
+
+            const companionText =
+                hasCompanion(g)
+                    ? "Sim"
+                    : "Não";
 
 
             return `
@@ -1393,9 +833,15 @@ ${esc(guestName(g))}
 </div>
 
 <div class="muted">
-${esc(guestGroup(g) || "Sem grupo")}
+${esc(
+    guestGroup(g) ||
+    "Sem grupo"
+)}
  ·
-${esc(guestRelation(g) || "Relação não definida")}
+${esc(
+    guestRelation(g) ||
+    "Relação não definida"
+)}
 </div>
 
 <div class="badges">
@@ -1413,10 +859,11 @@ ${esc(guestSideValue(g))}
 </span>
 
 ${
-guestCompanion(g) === "Sim" ||
-guestCompanion(g) === true
+hasCompanion(g)
 ?
-`<span class="badge">+ acompanhante</span>`
+`<span class="badge">
++ acompanhante
+</span>`
 :
 ""
 }
@@ -1442,27 +889,41 @@ table
 
 <div class="info">
 <label>Telefone</label>
-<div>${esc(guestPhone(g) || "—")}</div>
+<div>
+${esc(guestPhone(g) || "—")}
+</div>
 </div>
 
 <div class="info">
 <label>WhatsApp</label>
-<div>${esc(guestWhatsapp(g) || "—")}</div>
+<div>
+${esc(guestWhatsapp(g) || "—")}
+</div>
 </div>
 
 <div class="info">
 <label>RSVP</label>
-<div>${esc(rsvp)}</div>
+<div>
+${esc(rsvp)}
+</div>
 </div>
 
 <div class="info">
 <label>Acompanhante</label>
-<div>${esc(guestCompanionName(g) || "Não")}</div>
+<div>
+${esc(
+    hasCompanion(g)
+        ? guestCompanionName(g) || "Sim"
+        : "Não"
+)}
+</div>
 </div>
 
 <div class="info">
 <label>Lugar</label>
-<div>${esc(guestSeat(g) || "—")}</div>
+<div>
+${esc(guestSeat(g) || "—")}
+</div>
 </div>
 
 </div>
@@ -1472,7 +933,8 @@ ${
 guestFood(g)
 ?
 `
-<div class="muted" style="margin-top:10px">
+<div class="muted"
+     style="margin-top:10px">
 🍽 ${esc(guestFood(g))}
 </div>
 `
@@ -1498,6 +960,7 @@ Eliminar
 </div>
 
 </article>
+
 `;
 
         }).join("");
@@ -1505,13 +968,15 @@ Eliminar
 
 
 /* =========================================================
-   MESAS
+   RENDER MESAS
 ========================================================= */
 
 function renderTables(){
 
     const list =
-        document.getElementById("tableList");
+        document.getElementById(
+            "tableList"
+        );
 
 
     if(!mesas.length){
@@ -1539,16 +1004,67 @@ function renderTables(){
     list.innerHTML =
         mesas.map(table => {
 
-            const guests =
-                convidados.filter(
-                    g =>
-                    String(guestTableId(g)) ===
-                    String(table.id)
+            const capacity =
+                tableCapacity(table);
+
+
+            const occupied =
+                getTableOccupancy(table.id);
+
+
+            const free =
+                Math.max(
+                    0,
+                    capacity - occupied
                 );
 
 
-            const capacity =
-                tableCapacity(table);
+            const percent =
+                capacity
+                    ? Math.min(
+                        100,
+                        Math.round(
+                            occupied /
+                            capacity *
+                            100
+                        )
+                    )
+                    : 0;
+
+
+            const isFull =
+                occupied >= capacity;
+
+
+            const isWarning =
+                !isFull &&
+                percent >= 80;
+
+
+            const statusClass =
+                isFull
+                    ? "full"
+                    :
+                isWarning
+                    ? "warning"
+                    :
+                    "";
+
+
+            const statusText =
+                isFull
+                    ? "LOTADA"
+                    :
+                isWarning
+                    ? "Quase lotada"
+                    :
+                    "Disponível";
+
+
+            const guests =
+                getTableGuests(
+                    table.id
+                );
 
 
             return `
@@ -1560,22 +1076,80 @@ function renderTables(){
 <div>
 
 <h3>
-🪑 ${esc(tableName(table))}
+🪑 ${esc(
+    tableName(table)
+)}
 </h3>
 
 <div class="muted">
 
-${esc(tableShape(table))}
+${esc(
+    tableShape(table)
+)}
  ·
-${esc(tableLocation(table) || "Local não definido")}
+${esc(
+    tableLocation(table) ||
+    "Local não definido"
+)}
 
 </div>
 
 </div>
 
 <strong>
-${guests.length}/${capacity}
+${occupied}/${capacity}
 </strong>
+
+</div>
+
+
+<div class="table-status ${statusClass}">
+
+<strong>
+${statusText}
+</strong>
+
+<span>
+${occupied} lugar(es) ocupado(s)
+ ·
+${free} lugar(es) disponível(is)
+</span>
+
+<div class="table-progress">
+
+<div
+class="table-progress-bar ${statusClass}"
+style="width:${percent}%">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="table-summary">
+
+<span>
+Capacidade: ${capacity}
+</span>
+
+<span>
+Ocupados: ${occupied}
+</span>
+
+<span>
+Livres: ${free}
+</span>
+
+${
+isFull
+?
+`<span class="full-badge">
+LOTADA
+</span>`
+:
+""
+}
 
 </div>
 
@@ -1583,6 +1157,10 @@ ${guests.length}/${capacity}
 <div class="seats">
 
 ${
+capacity > 0
+
+?
+
 Array.from(
     {length:capacity},
     (_,index) => {
@@ -1590,24 +1168,40 @@ Array.from(
         const seatNumber =
             index + 1;
 
+
         const guest =
             guests.find(
                 g =>
-                Number(guestSeat(g)) ===
-                seatNumber
+                Number(
+                    guestSeat(g)
+                ) === seatNumber
             );
 
 
         return `
 
-<div class="seat ${guest ? "occupied" : ""}">
+<div
+class="seat ${
+    guest
+        ? "occupied"
+        : ""
+}">
 
 <span>
 
 ${
 guest
-    ? esc(guestName(guest))
-    : "Lugar livre"
+    ?
+    esc(
+        guestName(guest)
+    ) +
+    (
+        hasCompanion(guest)
+            ? " + acompanhante"
+            : ""
+    )
+    :
+    "Lugar livre"
 }
 
 </span>
@@ -1622,6 +1216,15 @@ ${seatNumber}
 
     }
 ).join("")
+
+:
+
+`
+<div class="empty">
+Mesa sem capacidade definida.
+</div>
+`
+
 }
 
 </div>
@@ -1658,14 +1261,21 @@ Eliminar
 function renderMap(){
 
     const map =
-        document.getElementById("mapList");
+        document.getElementById(
+            "mapList"
+        );
 
 
     if(!mesas.length){
 
         map.innerHTML = `
-            <div class="empty" style="width:100%">
-                Crie mesas para visualizar o mapa.
+            <div
+                class="empty"
+                style="width:100%">
+
+                Crie mesas para visualizar
+                o mapa.
+
             </div>
         `;
 
@@ -1676,29 +1286,83 @@ function renderMap(){
     map.innerHTML =
         mesas.map(table => {
 
-            const count =
-                convidados.filter(
-                    g =>
-                    String(guestTableId(g)) ===
-                    String(table.id)
-                ).length;
+            const capacity =
+                tableCapacity(table);
+
+
+            const occupied =
+                getTableOccupancy(table.id);
+
+
+            const free =
+                Math.max(
+                    0,
+                    capacity - occupied
+                );
+
+
+            const percent =
+                capacity
+                    ? Math.round(
+                        occupied /
+                        capacity *
+                        100
+                    )
+                    : 0;
+
+
+            const isFull =
+                occupied >= capacity;
+
+
+            const isWarning =
+                !isFull &&
+                percent >= 80;
+
+
+            const statusClass =
+                isFull
+                    ? "full"
+                    :
+                isWarning
+                    ? "warning"
+                    :
+                    "";
 
 
             return `
 
-<div class="map-table">
+<div
+class="map-table ${statusClass}">
 
 <strong>
-${esc(tableName(table))}
+${esc(
+    tableName(table)
+)}
 </strong>
 
 <span>
-${count}/${tableCapacity(table)}
-convidados
+${occupied}/${capacity}
+lugares
+</span>
+
+<span class="${
+    free > 0
+        ? "map-free"
+        : ""
+}">
+${
+    isFull
+        ? "LOTADA"
+        :
+    free + " lugar(es) livre(s)"
+}
 </span>
 
 <span>
-${esc(tableShape(table))}
+${esc(
+    tableShape(table)
+)}
 </span>
 
 </div>
@@ -1710,13 +1374,16 @@ ${esc(tableShape(table))}
 
 
 /* =========================================================
-   MODAL CONVIDADO
+   POPULAR MESAS NO FORMULÁRIO
 ========================================================= */
 
 function populateGuestTables(){
 
     const select =
-        document.getElementById("guestTable");
+        document.getElementById(
+            "guestTable"
+        );
+
 
     select.innerHTML = `
         <option value="">
@@ -1724,31 +1391,63 @@ function populateGuestTables(){
         </option>
     `;
 
+
     mesas.forEach(table => {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
+
 
         option.value =
             table.id;
 
+
+        const occupied =
+            getTableOccupancy(
+                table.id
+            );
+
+
+        const free =
+            Math.max(
+                0,
+                tableCapacity(table) -
+                occupied
+            );
+
+
         option.textContent =
-            `${tableName(table)} — ${tableCapacity(table)} lugares`;
+            `${tableName(table)} — ` +
+            `${occupied}/${tableCapacity(table)} ` +
+            `(${free} livres)`;
+
 
         select.appendChild(option);
     });
 }
 
 
+/* =========================================================
+   MODAL CONVIDADO
+========================================================= */
+
 function openGuest(id=""){
 
-    document.getElementById("guestForm").reset();
+    document.getElementById(
+        "guestForm"
+    ).reset();
 
-    document.getElementById("guestId")
-        .value = id;
 
-    document.getElementById("guestTitle")
-        .textContent =
+    document.getElementById(
+        "guestId"
+    ).value = id;
+
+
+    document.getElementById(
+        "guestTitle"
+    ).textContent =
         id
             ? "Editar convidado"
             : "Adicionar convidado";
@@ -1761,67 +1460,84 @@ function openGuest(id=""){
 
         const g =
             convidados.find(
-                x => String(x.id) === String(id)
+                x =>
+                String(x.id) ===
+                String(id)
             );
 
-        if(!g) return;
+
+        if(!g)
+            return;
 
 
         document.getElementById("name")
-            .value = guestName(g);
+            .value =
+            guestName(g);
 
         document.getElementById("group")
-            .value = guestGroup(g);
+            .value =
+            guestGroup(g);
 
         document.getElementById("guestSide")
             .value =
-            guestSideValue(g) || "Noiva";
+            guestSideValue(g) ||
+            "Noiva";
 
         document.getElementById("relation")
-            .value = guestRelation(g);
+            .value =
+            guestRelation(g);
 
         document.getElementById("phone")
-            .value = guestPhone(g);
+            .value =
+            guestPhone(g);
 
         document.getElementById("whatsapp")
-            .value = guestWhatsapp(g);
+            .value =
+            guestWhatsapp(g);
 
         document.getElementById("email")
-            .value = guestEmail(g);
+            .value =
+            guestEmail(g);
 
         document.getElementById("guestType")
-            .value = guestTypeValue(g);
+            .value =
+            guestTypeValue(g);
 
         document.getElementById("guestRsvp")
-            .value = guestRsvpValue(g);
+            .value =
+            guestRsvpValue(g);
 
         document.getElementById("companion")
             .value =
-            guestCompanion(g) === true
+            hasCompanion(g)
                 ? "Sim"
-                : guestCompanion(g) || "Não";
+                : "Não";
 
         document.getElementById("companionName")
             .value =
             guestCompanionName(g);
 
         document.getElementById("food")
-            .value = guestFood(g);
+            .value =
+            guestFood(g);
 
         document.getElementById("guestTable")
             .value =
             guestTableId(g) || "";
 
         document.getElementById("seat")
-            .value = guestSeat(g);
+            .value =
+            guestSeat(g);
 
         document.getElementById("notes")
-            .value = guestNotes(g);
+            .value =
+            guestNotes(g);
     }
 
 
-    document.getElementById("guestModal")
-        .classList.add("open");
+    document.getElementById(
+        "guestModal"
+    ).classList.add("open");
 }
 
 
@@ -1835,9 +1551,13 @@ function editGuest(id){
    VALIDAR LUGAR
 ========================================================= */
 
-function validarLugar(tableId,seatValue,ignoreGuestId=""){
+function validarLugar(
+    tableId,
+    seatValue,
+    ignoreGuestId=""
+){
 
-    if(!tableId || !seatValue)
+    if(!tableId)
         return true;
 
 
@@ -1848,56 +1568,136 @@ function validarLugar(tableId,seatValue,ignoreGuestId=""){
             String(tableId)
         );
 
+
     if(!table)
         return true;
-
-
-    const seatNumber =
-        Number(seatValue);
 
 
     const capacity =
         tableCapacity(table);
 
 
-    if(
-        seatNumber < 1 ||
-        seatNumber > capacity
-    ){
+    /*
+     * Se foi indicado lugar,
+     * validar o número.
+     */
 
-        showStatus(
-            `O lugar deve estar entre 1 e ${capacity}.`,
-            "error"
-        );
+    if(seatValue){
 
-        return false;
+        const seatNumber =
+            Number(seatValue);
+
+
+        if(
+            seatNumber < 1 ||
+            seatNumber > capacity
+        ){
+
+            showStatus(
+                `O lugar deve estar entre 1 e ${capacity}.`,
+                "error"
+            );
+
+            return false;
+        }
+
+
+        const occupied =
+            convidados.some(g => {
+
+                if(
+                    String(g.id) ===
+                    String(ignoreGuestId)
+                )
+                    return false;
+
+
+                return (
+                    String(
+                        guestTableId(g)
+                    ) ===
+                    String(tableId)
+                    &&
+                    Number(
+                        guestSeat(g)
+                    ) ===
+                    seatNumber
+                );
+
+            });
+
+
+        if(occupied){
+
+            showStatus(
+                `O lugar ${seatNumber} dessa mesa já está ocupado.`,
+                "error"
+            );
+
+            return false;
+        }
     }
 
 
-    const occupied =
-        convidados.some(g => {
+    /*
+     * Verificar capacidade total.
+     */
 
-            if(
+    let currentOccupancy =
+        getTableOccupancy(tableId);
+
+
+    if(ignoreGuestId){
+
+        const oldGuest =
+            convidados.find(
+                g =>
                 String(g.id) ===
                 String(ignoreGuestId)
-            )
-                return false;
-
-            return (
-                String(guestTableId(g)) ===
-                String(tableId)
-                &&
-                Number(guestSeat(g)) ===
-                seatNumber
             );
 
-        });
+
+        if(
+            oldGuest &&
+            String(
+                guestTableId(oldGuest)
+            ) ===
+            String(tableId)
+        ){
+
+            currentOccupancy -=
+                guestSeatCount(oldGuest);
+        }
+    }
 
 
-    if(occupied){
+    /*
+     * O novo convidado ocupa
+     * 1 ou 2 lugares.
+     */
+
+    const companion =
+        document.getElementById(
+            "companion"
+        ).value === "Sim";
+
+
+    const newOccupancy =
+        currentOccupancy +
+        (companion ? 2 : 1);
+
+
+    if(
+        newOccupancy >
+        capacity
+    ){
 
         showStatus(
-            `O lugar ${seatNumber} dessa mesa já está ocupado.`,
+            `A mesa "${tableName(table)}" não tem lugares suficientes. ` +
+            `Restam ${Math.max(
+                0,
+                capacity - currentOccupancy
+            )} lugar(es) disponível(is).`,
             "error"
         );
 
@@ -1913,197 +1713,239 @@ function validarLugar(tableId,seatValue,ignoreGuestId=""){
    GUARDAR CONVIDADO
 ========================================================= */
 
-document.getElementById("guestForm")
-.addEventListener("submit",async function(event){
+document.getElementById(
+    "guestForm"
+)
+.addEventListener(
+    "submit",
+    async function(event){
 
-    event.preventDefault();
-
-
-    if(!currentWeddingId){
-
-        showStatus(
-            "Casamento não identificado.",
-            "error"
-        );
-
-        return;
-    }
+        event.preventDefault();
 
 
-    const id =
-        document.getElementById("guestId").value;
+        if(!currentWeddingId){
 
+            showStatus(
+                "Casamento não identificado.",
+                "error"
+            );
 
-    const tableId =
-        document.getElementById("guestTable").value ||
-        null;
-
-
-    const seatValue =
-        document.getElementById("seat").value ?
-        Number(document.getElementById("seat").value)
-        :
-        null;
-
-
-    if(
-        !validarLugar(
-            tableId,
-            seatValue,
-            id
-        )
-    )
-        return;
-
-
-    /*
-     * Os nomes abaixo correspondem ao modelo
-     * usado pelo módulo.
-     *
-     * mesa_id é UUID.
-     */
-
-    const payload = {
-
-        wedding_id:
-            currentWeddingId,
-
-        nome:
-            document.getElementById("name").value.trim(),
-
-        grupo:
-            document.getElementById("group").value.trim(),
-
-        lado:
-            document.getElementById("guestSide").value,
-
-        relacao:
-            document.getElementById("relation").value.trim(),
-
-        telefone:
-            document.getElementById("phone").value.trim(),
-
-        whatsapp:
-            document.getElementById("whatsapp").value.trim(),
-
-        email:
-            document.getElementById("email").value.trim(),
-
-        tipo:
-            document.getElementById("guestType").value,
-
-        rsvp:
-            document.getElementById("guestRsvp").value,
-
-        acompanhante:
-            document.getElementById("companion").value,
-
-        nome_acompanhante:
-            document.getElementById("companionName").value.trim(),
-
-        alimentacao:
-            document.getElementById("food").value.trim(),
-
-        mesa_id:
-            tableId,
-
-        lugar:
-            seatValue,
-
-        notas:
-            document.getElementById("notes").value.trim()
-    };
-
-
-    if(!payload.nome){
-
-        showStatus(
-            "O nome do convidado é obrigatório.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const button =
-        this.querySelector(
-            'button[type="submit"]'
-        );
-
-
-    button.disabled = true;
-    button.textContent = "A guardar...";
-
-
-    try{
-
-        let result;
-
-
-        if(id){
-
-            result =
-                await supabaseClient
-                .from("guests")
-                .update(payload)
-                .eq("id",id)
-                .eq("wedding_id",currentWeddingId)
-                .select()
-                .single();
-
-        }else{
-
-            result =
-                await supabaseClient
-                .from("guests")
-                .insert(payload)
-                .select()
-                .single();
+            return;
         }
 
 
-        if(result.error)
-            throw result.error;
+        const id =
+            document.getElementById(
+                "guestId"
+            ).value;
 
 
-        document.getElementById("guestModal")
+        const tableId =
+            document.getElementById(
+                "guestTable"
+            ).value || null;
+
+
+        const seatValue =
+            document.getElementById(
+                "seat"
+            ).value
+                ?
+                Number(
+                    document.getElementById(
+                        "seat"
+                    ).value
+                )
+                :
+                null;
+
+
+        if(
+            !validarLugar(
+                tableId,
+                seatValue,
+                id
+            )
+        )
+            return;
+
+
+        const payload = {
+
+            wedding_id:
+                currentWeddingId,
+
+            nome:
+                document.getElementById(
+                    "name"
+                ).value.trim(),
+
+            grupo:
+                document.getElementById(
+                    "group"
+                ).value.trim(),
+
+            lado:
+                document.getElementById(
+                    "guestSide"
+                ).value,
+
+            relacao:
+                document.getElementById(
+                    "relation"
+                ).value.trim(),
+
+            telefone:
+                document.getElementById(
+                    "phone"
+                ).value.trim(),
+
+            whatsapp:
+                document.getElementById(
+                    "whatsapp"
+                ).value.trim(),
+
+            email:
+                document.getElementById(
+                    "email"
+                ).value.trim(),
+
+            tipo:
+                document.getElementById(
+                    "guestType"
+                ).value,
+
+            rsvp:
+                document.getElementById(
+                    "guestRsvp"
+                ).value,
+
+            acompanhante:
+                document.getElementById(
+                    "companion"
+                ).value,
+
+            nome_acompanhante:
+                document.getElementById(
+                    "companionName"
+                ).value.trim(),
+
+            alimentacao:
+                document.getElementById(
+                    "food"
+                ).value.trim(),
+
+            mesa_id:
+                tableId,
+
+            lugar:
+                seatValue,
+
+            notas:
+                document.getElementById(
+                    "notes"
+                ).value.trim()
+        };
+
+
+        if(!payload.nome){
+
+            showStatus(
+                "O nome do convidado é obrigatório.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const button =
+            this.querySelector(
+                'button[type="submit"]'
+            );
+
+
+        button.disabled = true;
+        button.textContent =
+            "A guardar...";
+
+
+        try{
+
+            let result;
+
+
+            if(id){
+
+                result =
+                    await supabaseClient
+                    .from("guests")
+                    .update(payload)
+                    .eq("id",id)
+                    .eq(
+                        "wedding_id",
+                        currentWeddingId
+                    )
+                    .select()
+                    .single();
+
+            }else{
+
+                result =
+                    await supabaseClient
+                    .from("guests")
+                    .insert(payload)
+                    .select()
+                    .single();
+            }
+
+
+            if(result.error)
+                throw result.error;
+
+
+            document.getElementById(
+                "guestModal"
+            )
             .classList.remove("open");
 
 
-        await carregarDados();
+            await carregarDados();
 
 
-        showStatus(
-            id
-                ? "Convidado atualizado com sucesso."
-                : "Convidado guardado com sucesso.",
-            "success"
-        );
+            showStatus(
+                id
+                    ? "Convidado atualizado com sucesso."
+                    : "Convidado guardado com sucesso.",
+                "success"
+            );
 
 
-    }catch(error){
+        }catch(error){
 
-        console.error(
-            "Erro Supabase ao guardar convidado:",
-            error
-        );
+            console.error(
+                "Erro ao guardar convidado:",
+                error
+            );
 
 
-        showStatus(
-            "Erro Supabase ao guardar convidado: " +
-            errorMessage(error),
-            "error"
-        );
+            showStatus(
+                "Erro ao guardar convidado: " +
+                errorMessage(error),
+                "error"
+            );
 
-    }finally{
 
-        button.disabled = false;
-        button.textContent =
-            "Guardar convidado";
+        }finally{
+
+            button.disabled = false;
+
+            button.textContent =
+                "Guardar convidado";
+        }
+
     }
-
-});
+);
 
 
 /* =========================================================
@@ -2119,7 +1961,9 @@ async function delGuest(id){
             String(id)
         );
 
-    if(!guest) return;
+
+    if(!guest)
+        return;
 
 
     if(
@@ -2139,7 +1983,10 @@ async function delGuest(id){
         .from("guests")
         .delete()
         .eq("id",id)
-        .eq("wedding_id",currentWeddingId);
+        .eq(
+            "wedding_id",
+            currentWeddingId
+        );
 
 
         if(error)
@@ -2160,7 +2007,7 @@ async function delGuest(id){
         console.error(error);
 
         showStatus(
-            "Erro Supabase ao eliminar convidado: " +
+            "Erro ao eliminar convidado: " +
             errorMessage(error),
             "error"
         );
@@ -2174,20 +2021,27 @@ async function delGuest(id){
 
 function openTable(id=""){
 
-    document.getElementById("tableForm").reset();
+    document.getElementById(
+        "tableForm"
+    ).reset();
 
-    document.getElementById("tableId")
-        .value = id;
 
-    document.getElementById("tableTitle")
-        .textContent =
+    document.getElementById(
+        "tableId"
+    ).value = id;
+
+
+    document.getElementById(
+        "tableTitle"
+    ).textContent =
         id
             ? "Editar mesa"
             : "Nova mesa";
 
 
-    document.getElementById("capacity")
-        .value = 10;
+    document.getElementById(
+        "capacity"
+    ).value = 10;
 
 
     if(id){
@@ -2199,31 +2053,45 @@ function openTable(id=""){
                 String(id)
             );
 
-        if(!table) return;
+
+        if(!table)
+            return;
 
 
-        document.getElementById("tableName")
-            .value = tableName(table);
+        document.getElementById(
+            "tableName"
+        ).value =
+            tableName(table);
 
-        document.getElementById("shape")
-            .value = tableShape(table);
 
-        document.getElementById("capacity")
-            .value = tableCapacity(table);
+        document.getElementById(
+            "shape"
+        ).value =
+            tableShape(table);
 
-        document.getElementById("location")
-            .value = tableLocation(table);
 
-        document.getElementById("tableNotes")
-            .value =
-            table.notas ??
-            table.notes ??
-            "";
+        document.getElementById(
+            "capacity"
+        ).value =
+            tableCapacity(table);
+
+
+        document.getElementById(
+            "location"
+        ).value =
+            tableLocation(table);
+
+
+        document.getElementById(
+            "tableNotes"
+        ).value =
+            tableNotes(table);
     }
 
 
-    document.getElementById("tableModal")
-        .classList.add("open");
+    document.getElementById(
+        "tableModal"
+    ).classList.add("open");
 }
 
 
@@ -2237,182 +2105,283 @@ function editTable(id){
    GUARDAR MESA
 ========================================================= */
 
-document.getElementById("tableForm")
-.addEventListener("submit",async function(event){
+document.getElementById(
+    "tableForm"
+)
+.addEventListener(
+    "submit",
+    async function(event){
 
-    event.preventDefault();
-
-
-    if(!currentWeddingId){
-
-        showStatus(
-            "Casamento não identificado.",
-            "error"
-        );
-
-        return;
-    }
+        event.preventDefault();
 
 
-    const id =
-        document.getElementById("tableId").value;
+        if(!currentWeddingId){
 
+            showStatus(
+                "Casamento não identificado.",
+                "error"
+            );
 
-    const name =
-        document.getElementById("tableName")
-        .value
-        .trim();
-
-
-    const capacity =
-        Number(
-            document.getElementById("capacity")
-            .value
-        );
-
-
-    if(!name){
-
-        showStatus(
-            "O nome/número da mesa é obrigatório.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if(!capacity || capacity < 1){
-
-        showStatus(
-            "A capacidade da mesa deve ser pelo menos 1.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    /*
-     * ATENÇÃO:
-     * A mesa NÃO usa ID criado pelo JavaScript.
-     *
-     * O Supabase gera o UUID.
-     *
-     * wedding_id identifica o casamento.
-     */
-
-    const payload = {
-
-        wedding_id:
-            currentWeddingId,
-
-        nome:
-            name,
-
-        formato:
-            document.getElementById("shape").value,
-
-        capacidade:
-            capacity,
-
-        localizacao:
-            document.getElementById("location")
-            .value
-            .trim(),
-
-        notas:
-            document.getElementById("tableNotes")
-            .value
-            .trim()
-    };
-
-
-    const button =
-        this.querySelector(
-            'button[type="submit"]'
-        );
-
-
-    button.disabled = true;
-    button.textContent = "A guardar...";
-
-
-    try{
-
-        let result;
-
-
-        if(id){
-
-            result =
-                await supabaseClient
-                .from("tables")
-                .update(payload)
-                .eq("id",id)
-                .eq("wedding_id",currentWeddingId)
-                .select()
-                .single();
-
-        }else{
-
-            result =
-                await supabaseClient
-                .from("tables")
-                .insert(payload)
-                .select()
-                .single();
+            return;
         }
 
 
-        if(result.error)
-            throw result.error;
+        const id =
+            document.getElementById(
+                "tableId"
+            ).value;
 
 
-        document.getElementById("tableModal")
-            .classList.remove("open");
+        const name =
+            document.getElementById(
+                "tableName"
+            )
+            .value
+            .trim();
 
 
-        await carregarDados();
+        const capacity =
+            Number(
+                document.getElementById(
+                    "capacity"
+                ).value
+            );
 
 
-        showStatus(
-            id
-                ? "Mesa atualizada com sucesso."
-                : "Mesa guardada com sucesso.",
-            "success"
-        );
+        const shape =
+            document.getElementById(
+                "shape"
+            ).value;
 
 
-    }catch(error){
+        const location =
+            document.getElementById(
+                "location"
+            )
+            .value
+            .trim();
 
-        console.error(
-            "ERRO SUPABASE AO GUARDAR MESA:",
-            error
-        );
+
+        const notes =
+            document.getElementById(
+                "tableNotes"
+            )
+            .value
+            .trim();
+
+
+        if(!name){
+
+            showStatus(
+                "O nome/número da mesa é obrigatório.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if(
+            !Number.isFinite(capacity) ||
+            capacity < 1
+        ){
+
+            showStatus(
+                "A capacidade deve ser pelo menos 1.",
+                "error"
+            );
+
+            return;
+        }
 
 
         /*
-         * Agora o erro REAL aparece na página.
-         * Isto é importante para identificar RLS,
-         * coluna inexistente, UUID inválido, etc.
+         * Se estamos a editar,
+         * não permitir capacidade inferior
+         * à ocupação existente.
          */
 
-        showStatus(
-            "ERRO SUPABASE AO GUARDAR MESA: " +
-            errorMessage(error),
-            "error"
-        );
+        if(id){
+
+            const occupied =
+                getTableOccupancy(id);
 
 
-    }finally{
+            if(capacity < occupied){
 
-        button.disabled = false;
+                showStatus(
+                    `Não é possível definir capacidade ${capacity}. ` +
+                    `A mesa já possui ${occupied} lugar(es) ocupado(s). ` +
+                    `Aumente a capacidade para pelo menos ${occupied}.`,
+                    "error"
+                );
+
+                return;
+            }
+        }
+
+
+        /*
+         * IMPORTANTE:
+         *
+         * O ID da mesa NÃO é criado
+         * pelo JavaScript.
+         *
+         * O Supabase gera o UUID.
+         */
+
+        const payload = {
+
+            wedding_id:
+                currentWeddingId,
+
+            nome:
+                name,
+
+            formato:
+                shape,
+
+            capacidade:
+                capacity,
+
+            localizacao:
+                location,
+
+            notas:
+                notes
+        };
+
+
+        const button =
+            this.querySelector(
+                'button[type="submit"]'
+            );
+
+
+        button.disabled = true;
+
         button.textContent =
-            "Guardar mesa";
-    }
+            "A guardar...";
 
-});
+
+        try{
+
+            let result;
+
+
+            if(id){
+
+                /*
+                 * EDITAR
+                 */
+
+                result =
+                    await supabaseClient
+                    .from("tables")
+                    .update(payload)
+                    .eq("id",id)
+                    .eq(
+                        "wedding_id",
+                        currentWeddingId
+                    )
+                    .select()
+                    .single();
+
+
+            }else{
+
+                /*
+                 * NOVA MESA
+                 */
+
+                result =
+                    await supabaseClient
+                    .from("tables")
+                    .insert(payload)
+                    .select()
+                    .single();
+            }
+
+
+            /*
+             * Se o Supabase devolveu erro,
+             * mostrar o erro real.
+             */
+
+            if(result.error)
+                throw result.error;
+
+
+            /*
+             * Confirmar que realmente
+             * recebemos uma mesa.
+             */
+
+            if(!result.data){
+
+                throw new Error(
+                    "O Supabase não devolveu a mesa guardada."
+                );
+            }
+
+
+            /*
+             * Fechar modal.
+             */
+
+            document.getElementById(
+                "tableModal"
+            )
+            .classList.remove("open");
+
+
+            /*
+             * Recarregar tudo do Supabase.
+             *
+             * Isto atualiza:
+             * - mesas
+             * - convidados
+             * - ocupação
+             * - lugares livres
+             * - mapa
+             */
+
+            await carregarDados();
+
+
+            showStatus(
+                id
+                    ? "Mesa atualizada com sucesso."
+                    : "Mesa guardada com sucesso.",
+                "success"
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "ERRO AO GUARDAR MESA:",
+                error
+            );
+
+
+            showStatus(
+                "ERRO AO GUARDAR MESA: " +
+                errorMessage(error),
+                "error"
+            );
+
+
+        }finally{
+
+            button.disabled = false;
+
+            button.textContent =
+                "Guardar mesa";
+        }
+
+    }
+);
 
 
 /* =========================================================
@@ -2428,26 +2397,24 @@ async function delTable(id){
             String(id)
         );
 
-    if(!table) return;
+
+    if(!table)
+        return;
 
 
-    const assigned =
-        convidados.filter(
-            g =>
-            String(guestTableId(g)) ===
-            String(id)
-        );
+    const occupied =
+        getTableOccupancy(id);
 
 
     let message =
         `Eliminar a mesa "${tableName(table)}"?`;
 
 
-    if(assigned.length){
+    if(occupied){
 
         message +=
-            `\n\n${assigned.length} convidado(s) estão associados a esta mesa. ` +
-            `A mesa será removida e os convidados ficarão sem mesa.`;
+            `\n\nExistem ${occupied} lugar(es) ocupado(s) nesta mesa.` +
+            `\n\nOs convidados ficarão sem mesa.`;
     }
 
 
@@ -2457,14 +2424,6 @@ async function delTable(id){
 
     try{
 
-        /*
-         * Como guests.mesa_id tem ON DELETE SET NULL,
-         * primeiro tentamos eliminar a mesa.
-         *
-         * O Supabase deverá colocar mesa_id = NULL
-         * nos convidados relacionados.
-         */
-
         const {
             error
         } =
@@ -2472,28 +2431,43 @@ async function delTable(id){
         .from("tables")
         .delete()
         .eq("id",id)
-        .eq("wedding_id",currentWeddingId);
+        .eq(
+            "wedding_id",
+            currentWeddingId
+        );
 
 
         if(error)
             throw error;
 
 
+        /*
+         * O FK guests.mesa_id possui
+         * ON DELETE SET NULL.
+         *
+         * Portanto os convidados
+         * deverão ficar sem mesa.
+         */
+
         await carregarDados();
 
 
         showStatus(
-            "Mesa eliminada com sucesso.",
+            "Mesa eliminada com sucesso. Os convidados ficaram sem mesa.",
             "success"
         );
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Erro ao eliminar mesa:",
+            error
+        );
+
 
         showStatus(
-            "Erro Supabase ao eliminar mesa: " +
+            "Erro ao eliminar mesa: " +
             errorMessage(error),
             "error"
         );
@@ -2512,24 +2486,37 @@ document.querySelectorAll(".tab")
         "click",
         function(){
 
-            document.querySelectorAll(".tab")
+            document.querySelectorAll(
+                ".tab"
+            )
             .forEach(x =>
-                x.classList.remove("active")
+                x.classList.remove(
+                    "active"
+                )
             );
 
-            document.querySelectorAll(".panel")
+
+            document.querySelectorAll(
+                ".panel"
+            )
             .forEach(x =>
-                x.classList.remove("active")
+                x.classList.remove(
+                    "active"
+                )
             );
 
 
-            this.classList.add("active");
+            this.classList.add(
+                "active"
+            );
 
 
             document.getElementById(
                 this.dataset.panel
             )
-            .classList.add("active");
+            .classList.add(
+                "active"
+            );
         }
     );
 });
@@ -2548,9 +2535,18 @@ document.querySelectorAll(".tab")
 ]
 .forEach(id => {
 
-    document.getElementById(id)
-    .addEventListener(
+    const element =
+        document.getElementById(id);
+
+
+    element.addEventListener(
         "input",
+        renderGuests
+    );
+
+
+    element.addEventListener(
+        "change",
         renderGuests
     );
 
@@ -2561,25 +2557,31 @@ document.querySelectorAll(".tab")
    BOTÕES
 ========================================================= */
 
-document.getElementById("newGuest")
-    .addEventListener(
-        "click",
-        () => openGuest()
-    );
+document.getElementById(
+    "newGuest"
+)
+.addEventListener(
+    "click",
+    () => openGuest()
+);
 
 
-document.getElementById("newTable")
-    .addEventListener(
-        "click",
-        () => openTable()
-    );
+document.getElementById(
+    "newTable"
+)
+.addEventListener(
+    "click",
+    () => openTable()
+);
 
 
 /* =========================================================
    FECHAR MODAIS
 ========================================================= */
 
-document.querySelectorAll(".close")
+document.querySelectorAll(
+    ".close"
+)
 .forEach(button => {
 
     button.addEventListener(
@@ -2596,16 +2598,22 @@ document.querySelectorAll(".close")
 });
 
 
-document.querySelectorAll(".modal-bg")
+document.querySelectorAll(
+    ".modal-bg"
+)
 .forEach(modal => {
 
     modal.addEventListener(
         "click",
         function(event){
 
-            if(event.target === modal){
+            if(
+                event.target === modal
+            ){
 
-                modal.classList.remove("open");
+                modal.classList.remove(
+                    "open"
+                );
             }
         }
     );
@@ -2619,6 +2627,3 @@ document.querySelectorAll(".modal-bg")
 init();
 
 </script>
-
-</body>
-</html>

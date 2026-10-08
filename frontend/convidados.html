@@ -2887,172 +2887,333 @@
 
     }
 
-    function prepararEmail(id = "") {
+   async function prepararEmail(id = "") {
 
-      let g = null;
+  let g = null;
 
-      if (id) {
+  if (id) {
 
-        g =
-          convidados.find(
-            item => item.id === id
-          );
+    g = convidados.find(
+      item => item.id === id
+    );
 
-      } else {
+  } else {
 
-        const guestId =
-          document.getElementById("guestId").value;
+    const guestId =
+      document.getElementById("guestId").value;
 
-        if (guestId) {
+    if (guestId) {
 
-          g =
-            convidados.find(
-              item => item.id === guestId
-            );
+      g = convidados.find(
+        item => item.id === guestId
+      );
 
-        } else {
+    } else {
 
-          g = {
+      g = {
+        id: "",
+        nome:
+          document.getElementById("guestName").value,
+
+        email:
+          document.getElementById("guestEmail").value,
+
+        comunicacao: {
+
+          dataEnvio:
+            document.getElementById("guestInviteDate").value,
+
+          prazoConfirmacao:
+            document.getElementById("guestInviteDeadline").value
+
+        }
+      };
+
+    }
+
+  }
+
+  if (!g) {
+
+    alert(
+      "Convidado não encontrado."
+    );
+
+    return;
+
+  }
+
+  if (!g.email) {
+
+    alert(
+      "Este convidado ainda não possui um endereço de e-mail."
+    );
+
+    return;
+
+  }
+
+  const dataEnvio =
+    g.comunicacao?.dataEnvio ||
+    formatarDataISO(new Date());
+
+  const prazo =
+    g.comunicacao?.prazoConfirmacao ||
+    calcularPrazo15Dias(dataEnvio);
+
+  // --------------------------------------------------
+  // CONFIRMAR DADOS NO FORMULÁRIO
+  // --------------------------------------------------
+
+  const dataInput =
+    document.getElementById(
+      "guestInviteDate"
+    );
+
+  const prazoInput =
+    document.getElementById(
+      "guestInviteDeadline"
+    );
+
+  const lembreteInput =
+    document.getElementById(
+      "guestReminderDate"
+    );
+
+  const statusInput =
+    document.getElementById(
+      "guestInviteStatus"
+    );
+
+  if (dataInput) {
+    dataInput.value =
+      dataEnvio;
+  }
+
+  if (prazoInput) {
+    prazoInput.value =
+      prazo;
+  }
+
+  if (lembreteInput) {
+    lembreteInput.value =
+      calcularDataLembrete(dataEnvio);
+  }
+
+  if (statusInput) {
+    statusInput.value =
+      "A enviar...";
+  }
+
+  atualizarEmailStatus();
+
+  // --------------------------------------------------
+  // BOTÃO
+  // --------------------------------------------------
+
+  const botoes =
+    document.querySelectorAll(
+      "#guestModal button"
+    );
+
+  botoes.forEach(
+    botao => {
+
+      if (
+        botao.textContent
+          .includes("Enviar pré-convite")
+      ) {
+
+        botao.disabled = true;
+
+        botao.textContent =
+          "⏳ A enviar...";
+
+      }
+
+    }
+  );
+
+  try {
+
+    // ------------------------------------------------
+    // ENDPOINT DO BACKEND
+    // ------------------------------------------------
+
+    const API_URL =
+      window.CASAMENTO_EMAIL_API ||
+      "/api/enviar-pre-convite";
+
+    // ------------------------------------------------
+    // ENVIO REAL
+    // ------------------------------------------------
+
+    const resposta =
+      await fetch(
+        API_URL,
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
             nome:
-              document.getElementById("guestName").value,
+              g.nome,
 
             email:
-              document.getElementById("guestEmail").value,
+              g.email,
 
-            comunicacao: {
+            prazoConfirmacao:
+              formatarData(prazo)
 
-              dataEnvio:
-                document.getElementById("guestInviteDate").value,
-
-              prazoConfirmacao:
-                document.getElementById("guestInviteDeadline").value
-
-            }
-
-          };
+          })
 
         }
+      );
 
-      }
+    let resultado = {};
 
-      if (!g) {
+    try {
 
-        alert("Convidado não encontrado.");
+      resultado =
+        await resposta.json();
 
-        return;
+    } catch (erro) {
 
-      }
+      resultado = {};
 
-      if (!g.email) {
+    }
 
-        alert(
-          "Este convidado ainda não possui um endereço de e-mail."
+    // ------------------------------------------------
+    // ERRO
+    // ------------------------------------------------
+
+    if (
+      !resposta.ok ||
+      !resultado.sucesso
+    ) {
+
+      throw new Error(
+        resultado.erro ||
+        "Não foi possível enviar o pré-convite."
+      );
+
+    }
+
+    // ------------------------------------------------
+    // SOMENTE AGORA MARCAR COMO ENVIADO
+    // ------------------------------------------------
+
+    if (id) {
+
+      const index =
+        convidados.findIndex(
+          item => item.id === id
         );
 
-        return;
+      if (index !== -1) {
+
+        convidados[index].comunicacao =
+          convidados[index].comunicacao || {};
+
+        convidados[index].comunicacao.emailAtivo =
+          true;
+
+        convidados[index].comunicacao.preConviteEnviado =
+          true;
+
+        convidados[index].comunicacao.dataEnvio =
+          dataEnvio;
+
+        convidados[index].comunicacao.prazoConfirmacao =
+          prazo;
+
+        convidados[index].comunicacao.dataLembrete =
+          convidados[index].comunicacao.dataLembrete ||
+          calcularDataLembrete(dataEnvio);
+
+        convidados[index].comunicacao.estado =
+          "Enviado";
+
+        convidados[index].comunicacao.emailId =
+          resultado.id || "";
+
+        convidados[index].comunicacao.dataUltimoEnvio =
+          new Date().toISOString();
+
+        salvarDados();
+
+        renderGuests();
 
       }
 
-      const dataEnvio =
-        g.comunicacao?.dataEnvio ||
-        formatarDataISO(new Date());
+    } else {
 
-      const prazo =
-        g.comunicacao?.prazoConfirmacao ||
-        calcularPrazo15Dias(dataEnvio);
+      if (statusInput) {
 
-      const assunto =
-        "💍 Pré-convite do nosso casamento";
+        statusInput.value =
+          "Enviado";
 
-      const corpo =
-`Olá, ${g.nome}! 😊
+      }
 
-Estamos muito felizes por partilhar consigo que o nosso casamento está a chegar.
+      atualizarEmailStatus();
 
-Gostaríamos muito de contar consigo neste dia tão especial. ❤️
+    }
 
-Pedimos, por favor, que confirme a sua presença nos próximos 15 dias.
+    mostrarToast(
+      "✅ Pré-convite enviado com sucesso para " +
+      g.email
+    );
 
-Prazo para confirmação: ${formatarData(prazo)}
+  } catch (erro) {
 
-Em breve partilharemos todos os detalhes do casamento.
+    console.error(
+      "Erro no envio:",
+      erro
+    );
 
-Será uma alegria celebrar este momento consigo!
+    if (statusInput) {
 
-Com carinho,
-Casamento Perfeito 💍`;
+      statusInput.value =
+        "Não enviado";
 
-      const mailto =
-        "mailto:" +
-        encodeURIComponent(g.email) +
-        "?subject=" +
-        encodeURIComponent(assunto) +
-        "&body=" +
-        encodeURIComponent(corpo);
+    }
 
-      /*
-       * Regista localmente que o pré-convite
-       * foi preparado.
-       */
+    atualizarEmailStatus();
 
-      if (id) {
+    alert(
+      "Não foi possível enviar o pré-convite.\n\n" +
+      erro.message
+    );
 
-        const index =
-          convidados.findIndex(
-            item => item.id === id
-          );
+  } finally {
 
-        if (index !== -1) {
+    botoes.forEach(
+      botao => {
 
-          convidados[index].comunicacao =
-            convidados[index].comunicacao || {};
+        if (
+          botao.textContent
+            .includes("A enviar")
+        ) {
 
-          convidados[index].comunicacao.dataEnvio =
-            dataEnvio;
+          botao.disabled = false;
 
-          convidados[index].comunicacao.prazoConfirmacao =
-            prazo;
-
-          convidados[index].comunicacao.estado =
-            "Enviado";
-
-          convidados[index].comunicacao.preConviteEnviado =
-            true;
-
-          convidados[index].comunicacao.dataLembrete =
-            convidados[index].comunicacao.dataLembrete ||
-            calcularDataLembrete(dataEnvio);
-
-          salvarDados();
-
-          renderGuests();
+          botao.textContent =
+            "📧 Enviar pré-convite";
 
         }
 
-      } else {
-
-        document.getElementById("guestInviteStatus").value =
-          "Enviado";
-
-        document.getElementById("guestInviteDate").value =
-          dataEnvio;
-
-        document.getElementById("guestInviteDeadline").value =
-          prazo;
-
-        document.getElementById("guestReminderDate").value =
-          calcularDataLembrete(dataEnvio);
-
-        atualizarEmailStatus();
-
       }
+    );
 
-      /*
-       * Abre o cliente de e-mail.
-       */
+  }
 
-      window.location.href = mailto;
-
+}
       mostrarToast(
         "Pré-convite preparado no seu programa de e-mail."
       );

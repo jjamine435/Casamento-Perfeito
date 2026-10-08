@@ -1,4656 +1,2494 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Convidados | Casamento Perfeito</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f4f1;
-      color: #333;
-      min-height: 100vh;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .topbar {
-      background: linear-gradient(135deg, #8b5e5e, #b98282);
-      color: white;
-      padding: 18px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.12);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-
-    .brand h1 {
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
-
-    .brand p {
-      font-size: 13px;
-      opacity: .9;
-    }
-
-    .back-btn {
-      border: 1px solid rgba(255,255,255,.5);
-      background: rgba(255,255,255,.12);
-      color: white;
-      padding: 10px 16px;
-      border-radius: 10px;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 25px;
-    }
-
-    /* =========================
-       ESTATÍSTICAS
-    ========================= */
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .stat {
-      background: white;
-      border-radius: 15px;
-      padding: 18px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
-      border: 1px solid #eee;
-    }
-
-    .stat-icon {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
-
-    .stat-value {
-      font-size: 27px;
-      font-weight: bold;
-      color: #8b5e5e;
-    }
-
-    .stat-label {
-      color: #777;
-      font-size: 13px;
-      margin-top: 3px;
-    }
-
-    /* =========================
-       TABS
-    ========================= */
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      background: white;
-      padding: 8px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .tab {
-      flex: 1;
-      border: none;
-      background: transparent;
-      padding: 13px;
-      border-radius: 9px;
-      color: #666;
-      font-weight: bold;
-    }
-
-    .tab.active {
-      background: #8b5e5e;
-      color: white;
-    }
-
-    .tab:hover:not(.active) {
-      background: #f4eeee;
-    }
-
-    /* =========================
-       TOOLBAR
-    ========================= */
-
-    .toolbar {
-      background: white;
-      padding: 18px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .toolbar-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .toolbar h2 {
-      font-size: 20px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 9px;
-      padding: 10px 15px;
-      font-weight: bold;
-    }
-
-    .btn-primary {
-      background: #8b5e5e;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #754b4b;
-    }
-
-    .btn-secondary {
-      background: #eee5e5;
-      color: #704949;
-    }
-
-    .btn-success {
-      background: #e5f3e9;
-      color: #2e7544;
-    }
-
-    .btn-danger {
-      background: #f9e3e3;
-      color: #a33b3b;
-    }
-
-    .btn-info {
-      background: #e4eef8;
-      color: #315f87;
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: 2fr repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      padding: 11px 12px;
-      background: white;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #b98282;
-      box-shadow: 0 0 0 3px rgba(185,130,130,.12);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    /* =========================
-       CONVIDADOS
-    ========================= */
-
-    .guest-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .guest-card {
-      background: white;
-      border-radius: 15px;
-      padding: 18px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
-      border: 1px solid #eee;
-    }
-
-    .guest-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .guest-name {
-      font-size: 18px;
-      font-weight: bold;
-      color: #5d4141;
-    }
-
-    .guest-group {
-      font-size: 12px;
-      color: #888;
-      margin-top: 4px;
-    }
-
-    .badges {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .badge-confirmed {
-      background: #e3f3e7;
-      color: #2c7541;
-    }
-
-    .badge-pending {
-      background: #fff3d9;
-      color: #9b6a0b;
-    }
-
-    .badge-declined {
-      background: #f8e1e1;
-      color: #a03d3d;
-    }
-
-    .badge-adult {
-      background: #eee7f4;
-      color: #704e88;
-    }
-
-    .badge-child {
-      background: #e3eef7;
-      color: #356383;
-    }
-
-    .badge-email {
-      background: #e8edf9;
-      color: #405d8b;
-    }
-
-    .guest-info {
-      display: grid;
-      gap: 7px;
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 14px;
-    }
-
-    .guest-info div {
-      display: flex;
-      gap: 7px;
-      align-items: flex-start;
-    }
-
-    .guest-actions {
-      border-top: 1px solid #eee;
-      padding-top: 12px;
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    .guest-actions button {
-      padding: 7px 10px;
-      font-size: 12px;
-      border-radius: 7px;
-      border: none;
-    }
-
-    .empty {
-      background: white;
-      border-radius: 15px;
-      padding: 50px 20px;
-      text-align: center;
-      color: #888;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
-
-    .empty-icon {
-      font-size: 45px;
-      margin-bottom: 12px;
-    }
-
-    /* =========================
-       MESAS
-    ========================= */
-
-    .table-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .table-card {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
-    }
-
-    .table-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .table-name {
-      font-size: 19px;
-      font-weight: bold;
-      color: #5d4141;
-    }
-
-    .capacity {
-      background: #f0e8e8;
-      color: #754b4b;
-      padding: 6px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .table-meta {
-      font-size: 13px;
-      color: #777;
-      display: grid;
-      gap: 6px;
-      margin-bottom: 15px;
-    }
-
-    .seat-list {
-      display: grid;
-      gap: 5px;
-      margin-bottom: 15px;
-    }
-
-    .seat {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 10px;
-      background: #f8f8f8;
-      border-radius: 7px;
-      font-size: 12px;
-    }
-
-    .seat.occupied {
-      background: #e9f4eb;
-      color: #367043;
-    }
-
-    .seat.free {
-      color: #999;
-    }
-
-    .table-actions {
-      display: flex;
-      gap: 7px;
-      border-top: 1px solid #eee;
-      padding-top: 12px;
-    }
-
-    .table-actions button {
-      flex: 1;
-      padding: 8px;
-      border: none;
-      border-radius: 7px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    /* =========================
-       MAPA
-    ========================= */
-
-    .map-container {
-      background: white;
-      border-radius: 15px;
-      min-height: 600px;
-      padding: 30px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-      overflow: auto;
-    }
-
-    .map {
-      min-width: 850px;
-      min-height: 520px;
-      position: relative;
-      background:
-        linear-gradient(rgba(139,94,94,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139,94,94,.05) 1px, transparent 1px);
-      background-size: 30px 30px;
-      border-radius: 15px;
-      border: 1px solid #eee;
-    }
-
-    .map-table {
-      position: absolute;
-      width: 135px;
-      min-height: 100px;
-      background: #f4e8e8;
-      border: 3px solid #b98282;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      padding: 10px;
-    }
-
-    .map-table.retangular {
-      border-radius: 12px;
-    }
-
-    .map-table.quadrada {
-      border-radius: 12px;
-    }
-
-    .map-table.imperial {
-      width: 170px;
-      border-radius: 15px;
-    }
-
-    .map-table-name {
-      font-weight: bold;
-      color: #654444;
-    }
-
-    .map-table-count {
-      font-size: 12px;
-      color: #777;
-      margin-top: 5px;
-    }
-
-    /* =========================
-       MODAIS
-    ========================= */
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.5);
-      z-index: 1000;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .modal {
-      width: min(850px, 100%);
-      background: white;
-      border-radius: 18px;
-      margin: 20px auto;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      background: linear-gradient(135deg, #8b5e5e, #b98282);
-      color: white;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h3 {
-      font-size: 20px;
-    }
-
-    .close {
-      border: none;
-      background: rgba(255,255,255,.15);
-      color: white;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      font-size: 20px;
-    }
-
-    .modal-body {
-      padding: 22px;
-    }
-
-    .form-section {
-      margin-bottom: 22px;
-    }
-
-    .form-section-title {
-      font-size: 15px;
-      font-weight: bold;
-      color: #704949;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .form-group {
-      display: grid;
-      gap: 5px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    .form-group label {
-      font-size: 12px;
-      font-weight: bold;
-      color: #666;
-    }
-
-    .modal-footer {
-      padding: 15px 22px;
-      border-top: 1px solid #eee;
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    /* =========================
-       EMAIL
-    ========================= */
-
-    .email-box {
-      background: #f8f3f3;
-      border: 1px solid #eadcdc;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 12px;
-    }
-
-    .email-status {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .email-status strong {
-      color: #704949;
-    }
-
-    .deadline {
-      padding: 7px 10px;
-      background: #fff4db;
-      color: #93670c;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .deadline.expired {
-      background: #f8e1e1;
-      color: #9f3c3c;
-    }
-
-    .email-help {
-      font-size: 12px;
-      line-height: 1.5;
-      color: #777;
-      margin-top: 8px;
-    }
-
-    .email-preview {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      padding: 12px;
-      white-space: pre-line;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #555;
-      max-height: 230px;
-      overflow-y: auto;
-      margin-top: 10px;
-    }
-
-    /* =========================
-       TOAST
-    ========================= */
-
-    .toast {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #333;
-      color: white;
-      padding: 13px 18px;
-      border-radius: 10px;
-      box-shadow: 0 7px 25px rgba(0,0,0,.2);
-      z-index: 3000;
-      display: none;
-      max-width: 380px;
-      font-size: 13px;
-    }
-
-    .toast.show {
-      display: block;
-    }
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
-
-    @media (max-width: 1100px) {
-      .stats {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .guest-grid,
-      .table-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .filters {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .filters input {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding: 15px;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .guest-grid,
-      .table-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group.full {
-        grid-column: auto;
-      }
-
-      .filters {
-        grid-template-columns: 1fr;
-      }
-
-      .filters input {
-        grid-column: auto;
-      }
-
-      .tabs {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Convidados e Mesas | Casamento Perfeito</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff7fa;
+    color:#4a3039;
+    min-height:100vh
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #f2dfe6;
+    padding:15px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:10
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#c45f7d
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px
+}
+
+.primary{
+    background:#c45f7d;
+    color:#fff
+}
+
+.secondary{
+    background:#fff;
+    color:#c45f7d;
+    border:1px solid #e9c9d4
+}
+
+.danger{
+    background:#fff0f2;
+    color:#b6425e;
+    border:1px solid #efc5cf
+}
+
+main{
+    max-width:1250px;
+    margin:auto;
+    padding:35px 25px 60px
+}
+
+.hero{
+    background:linear-gradient(135deg,#fff,#fff0f5);
+    border:1px solid #f3dce4;
+    border-radius:24px;
+    padding:32px;
+    margin-bottom:25px
+}
+
+.hero small{
+    color:#c45f7d;
+    font-weight:bold
+}
+
+.hero h1{
+    font-size:30px;
+    margin:8px 0
+}
+
+.hero p,
+.muted{
+    color:#777;
+    line-height:1.6
+}
+
+.status-message{
+    display:none;
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:14px;
+    padding:15px 18px;
+    margin-bottom:20px;
+    color:#76545f
+}
+
+.status-message.error{
+    display:block;
+    background:#fff0f2;
+    border-color:#efc5cf;
+    color:#a03f55
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:14px;
+    margin-bottom:25px
+}
+
+.stat,
+.box{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 5px 18px rgba(100,50,70,.05)
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:#c45f7d
+}
+
+.stat span{
+    font-size:13px;
+    color:#777
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap
+}
+
+.tab{
+    background:#fff;
+    border:1px solid #ebd3db;
+    color:#76545f;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.tab.active{
+    background:#c45f7d;
+    color:#fff
+}
+
+.panel{
+    display:none
+}
+
+.panel.active{
+    display:block
+}
+
+.toolbar{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:18px;
+    display:grid;
+    grid-template-columns:2fr repeat(4,1fr) auto;
+    gap:10px;
+    margin-bottom:18px
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #dfcbd3;
+    border-radius:9px;
+    padding:11px;
+    background:#fff;
+    color:#4a3039;
+    font:inherit
+}
+
+.list{
+    display:grid;
+    gap:14px
+}
+
+.guest{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:20px
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px
+}
+
+.name{
+    font-size:18px;
+    font-weight:bold
+}
+
+.badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-top:8px
+}
+
+.badge{
+    padding:5px 9px;
+    border-radius:999px;
+    background:#f8eaf0;
+    font-size:11px;
+    font-weight:bold
+}
+
+.ok{
+    background:#e8f6ed;
+    color:#267347
+}
+
+.pending{
+    background:#fff5d8;
+    color:#8a6a16
+}
+
+.no{
+    background:#fde9ed;
+    color:#a03f55
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:16px
+}
+
+.info label{
+    display:block;
+    font-size:11px;
+    color:#999;
+    margin-bottom:4px
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px
+}
+
+.tables{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px
+}
+
+.table-card{
+    background:#fff;
+    border:1px solid #f1dfe5;
+    border-radius:18px;
+    padding:20px
+}
+
+.table-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px
+}
+
+.seats{
+    display:grid;
+    gap:7px
+}
+
+.seat{
+    padding:9px;
+    border-radius:9px;
+    background:#faf4f6;
+    border:1px solid #f0e0e5;
+    display:flex;
+    justify-content:space-between;
+    font-size:13px
+}
+
+.occupied{
+    background:#f5e8ee
+}
+
+.empty{
+    background:#fff;
+    border:1px dashed #dcbcc8;
+    border-radius:18px;
+    padding:35px;
+    text-align:center;
+    color:#777
+}
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    background:rgba(45,25,35,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:50
+}
+
+.modal-bg.open{
+    display:flex
+}
+
+.modal{
+    background:#fff;
+    border-radius:22px;
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    padding:25px
+}
+
+.form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px
+}
+
+.full{
+    grid-column:1/-1
+}
+
+.field label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:20px
+}
+
+.map{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    justify-content:center;
+    padding:25px
+}
+
+.map-table{
+    width:180px;
+    min-height:130px;
+    border:2px solid #d9b5c2;
+    border-radius:50%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:#fff8fb;
+    text-align:center
+}
+
+.map-table strong{
+    font-size:16px
+}
+
+.map-table span{
+    font-size:12px;
+    color:#777;
+    margin-top:5px
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#999;
+    font-size:13px
+}
+
+@media(max-width:1050px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr)
+    }
+
+    .toolbar{
+        grid-template-columns:repeat(2,1fr)
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr)
+    }
+
+    .tables{
+        grid-template-columns:repeat(2,1fr)
+    }
+}
+
+@media(max-width:650px){
+
+    header{
+        padding:14px 18px
+    }
+
+    .logo{
+        font-size:18px
+    }
+
+    main{
+        padding:25px 15px
+    }
+
+    .stats,
+    .toolbar,
+    .form{
+        grid-template-columns:1fr
+    }
+
+    .grid,
+    .tables{
+        grid-template-columns:1fr
+    }
+
+    .full{
+        grid-column:auto
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header class="topbar">
+<header>
 
-  <div class="brand">
-
-    <div class="brand-icon">💍</div>
-
-    <div>
-      <h1>Gestão de Convidados</h1>
-      <p>Convidados, mesas e confirmação de presença</p>
+    <div class="logo">
+        💕 Casamento Perfeito
     </div>
 
-  </div>
+    <div>
+        <a class="btn secondary" href="dashboard.html">
+            ← Painel
+        </a>
 
-  <button
-    type="button"
-    class="back-btn"
-    onclick="voltarDashboard()"
-  >
-    ← Voltar
-  </button>
+        <a class="btn secondary" href="planeador.html">
+            Planeador
+        </a>
+    </div>
 
 </header>
 
+<main>
 
-<main class="container">
+<section class="hero">
 
-  <!-- =========================
-       ESTATÍSTICAS
-  ========================== -->
+    <small>GESTÃO DO CASAMENTO</small>
 
-  <section class="stats">
+    <h1>👥 Convidados e Mesas</h1>
+
+    <p>
+        Registe convidados, acompanhe confirmações
+        e organize a distribuição pelas mesas.
+    </p>
+
+</section>
+
+<div id="statusMessage" class="status-message"></div>
+
+<section class="stats">
 
     <div class="stat">
-      <div class="stat-icon">👥</div>
-      <div class="stat-value" id="statTotal">0</div>
-      <div class="stat-label">Total de convidados</div>
+        <strong id="total">0</strong>
+        <span>Total</span>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">✅</div>
-      <div class="stat-value" id="statConfirmed">0</div>
-      <div class="stat-label">Confirmados</div>
+        <strong id="confirmed">0</strong>
+        <span>Confirmados</span>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">⏳</div>
-      <div class="stat-value" id="statPending">0</div>
-      <div class="stat-label">Pendentes</div>
+        <strong id="pending">0</strong>
+        <span>Pendentes</span>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">❌</div>
-      <div class="stat-value" id="statDeclined">0</div>
-      <div class="stat-label">Não vão</div>
+        <strong id="declined">0</strong>
+        <span>Não vão</span>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">🧑</div>
-      <div class="stat-value" id="statAdults">0</div>
-      <div class="stat-label">Adultos</div>
+        <strong id="adults">0</strong>
+        <span>Adultos</span>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">👶</div>
-      <div class="stat-value" id="statChildren">0</div>
-      <div class="stat-label">Crianças</div>
+        <strong id="children">0</strong>
+        <span>Crianças</span>
     </div>
 
-  </section>
+</section>
 
+<div class="tabs">
 
-  <!-- =========================
-       TABS
-  ========================== -->
-
-  <div class="tabs">
-
-    <button
-      type="button"
-      class="tab active"
-      id="tabConvidados"
-      onclick="showTab('convidados')"
-    >
-      👥 Convidados
+    <button class="tab active" data-panel="guests">
+        👥 Convidados
     </button>
 
-    <button
-      type="button"
-      class="tab"
-      id="tabMesas"
-      onclick="showTab('mesas')"
-    >
-      🪑 Mesas
+    <button class="tab" data-panel="tables">
+        🪑 Mesas
     </button>
 
-    <button
-      type="button"
-      class="tab"
-      id="tabMapa"
-      onclick="showTab('mapa')"
-    >
-      🗺️ Mapa
+    <button class="tab" data-panel="map">
+        🗺️ Mapa
     </button>
 
-  </div>
+</div>
 
-
-  <!-- =========================
-       CONVIDADOS
-  ========================== -->
-
-  <section id="viewConvidados">
+<section id="guests" class="panel active">
 
     <div class="toolbar">
 
-      <div class="toolbar-top">
+        <input
+            id="search"
+            placeholder="Pesquisar nome, telefone ou grupo"
+        >
 
-        <h2>Lista de convidados</h2>
+        <select id="rsvp">
+            <option value="">Todos os estados</option>
+            <option>Confirmado</option>
+            <option>Pendente</option>
+            <option>Não vai</option>
+        </select>
 
-        <div class="actions">
+        <select id="side">
+            <option value="">Todos os lados</option>
+            <option>Noiva</option>
+            <option>Noivo</option>
+            <option>Ambos</option>
+        </select>
 
-          <button
-            type="button"
-            class="btn btn-secondary"
-            onclick="exportarConvidados()"
-          >
-            📥 Exportar
-          </button>
+        <select id="type">
+            <option value="">Adultos e crianças</option>
+            <option>Adulto</option>
+            <option>Criança</option>
+        </select>
 
-          <button
-            type="button"
-            class="btn btn-primary"
-            onclick="openGuest()"
-          >
-            ➕ Novo convidado
-          </button>
+        <select id="tableFilter">
+            <option value="">Todas as mesas</option>
+            <option value="none">Sem mesa</option>
+        </select>
+
+        <button class="btn primary" id="newGuest">
+            + Convidado
+        </button>
+
+    </div>
+
+    <div id="guestList" class="list"></div>
+
+</section>
+
+<section id="tables" class="panel">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px">
+
+        <div>
+
+            <h2>Gestão de mesas</h2>
+
+            <p class="muted">
+                Crie mesas e defina a capacidade de cada uma.
+            </p>
 
         </div>
 
-      </div>
-
-
-      <div class="filters">
-
-        <input
-          type="text"
-          id="searchGuest"
-          placeholder="🔎 Procurar por nome, telefone, email..."
-          oninput="renderGuests()"
-        >
-
-        <select
-          id="filterRsvp"
-          onchange="renderGuests()"
-        >
-          <option value="">Todos os estados</option>
-          <option value="Pendente">⏳ Pendente</option>
-          <option value="Confirmado">✅ Confirmado</option>
-          <option value="Não vai">❌ Não vai</option>
-        </select>
-
-        <select
-          id="filterSide"
-          onchange="renderGuests()"
-        >
-          <option value="">Todos os lados</option>
-          <option value="Noiva">Noiva</option>
-          <option value="Noivo">Noivo</option>
-          <option value="Ambos">Ambos</option>
-        </select>
-
-        <select
-          id="filterType"
-          onchange="renderGuests()"
-        >
-          <option value="">Adultos e crianças</option>
-          <option value="Adulto">Adulto</option>
-          <option value="Criança">Criança</option>
-        </select>
-
-        <select
-          id="filterTable"
-          onchange="renderGuests()"
-        >
-          <option value="">Todas as mesas</option>
-          <option value="sem-mesa">Sem mesa</option>
-        </select>
-
-      </div>
-
-    </div>
-
-
-    <div
-      id="guestGrid"
-      class="guest-grid"
-    ></div>
-
-  </section>
-
-
-  <!-- =========================
-       MESAS
-  ========================== -->
-
-  <section
-    id="viewMesas"
-    style="display:none;"
-  >
-
-    <div class="toolbar">
-
-      <div class="toolbar-top">
-
-        <h2>Gestão de mesas</h2>
-
-        <button
-          type="button"
-          class="btn btn-primary"
-          onclick="openTable()"
-        >
-          ➕ Nova mesa
+        <button class="btn primary" id="newTable">
+            + Nova mesa
         </button>
 
-      </div>
-
     </div>
 
-    <div
-      id="tableGrid"
-      class="table-grid"
-    ></div>
+    <div id="tableList" class="tables"></div>
 
-  </section>
+</section>
 
+<section id="map" class="panel">
 
-  <!-- =========================
-       MAPA
-  ========================== -->
-
-  <section
-    id="viewMapa"
-    style="display:none;"
-  >
-
-    <div class="toolbar">
-
-      <div class="toolbar-top">
+    <div class="box">
 
         <h2>Mapa das mesas</h2>
 
-      </div>
+        <p class="muted">
+            Visão geral da distribuição.
+        </p>
+
+        <div id="mapList" class="map"></div>
 
     </div>
 
-    <div class="map-container">
-
-      <div
-        id="map"
-        class="map"
-      ></div>
-
-    </div>
-
-  </section>
+</section>
 
 </main>
 
+<footer>
+    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
+</footer>
 
-<!-- =====================================================
-     MODAL CONVIDADO
-===================================================== -->
 
-<div
-  class="modal-overlay"
-  id="guestModal"
->
+<!-- MODAL CONVIDADO -->
 
-  <div class="modal">
+<div class="modal-bg" id="guestModal">
 
-    <div class="modal-header">
+    <div class="modal">
 
-      <h3 id="guestModalTitle">
-        Novo convidado
-      </h3>
+        <h2 id="guestTitle">
+            Adicionar convidado
+        </h2>
 
-      <button
-        type="button"
-        class="close"
-        onclick="closeModal('guestModal')"
-      >
-        ×
-      </button>
+        <form id="guestForm">
+
+            <input type="hidden" id="guestId">
+
+            <div class="form">
+
+                <div class="field">
+                    <label>Nome completo *</label>
+                    <input id="name" required>
+                </div>
+
+                <div class="field">
+                    <label>Grupo / Família</label>
+                    <input id="group">
+                </div>
+
+                <div class="field">
+                    <label>Lado</label>
+
+                    <select id="guestSide">
+                        <option>Noiva</option>
+                        <option>Noivo</option>
+                        <option>Ambos</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Relação</label>
+                    <input id="relation">
+                </div>
+
+                <div class="field">
+                    <label>Telefone</label>
+                    <input id="phone">
+                </div>
+
+                <div class="field">
+                    <label>WhatsApp</label>
+                    <input id="whatsapp">
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input id="email" type="email">
+                </div>
+
+                <div class="field">
+                    <label>Tipo</label>
+
+                    <select id="guestType">
+                        <option>Adulto</option>
+                        <option>Criança</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>RSVP</label>
+
+                    <select id="guestRsvp">
+                        <option>Pendente</option>
+                        <option>Confirmado</option>
+                        <option>Não vai</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Acompanhante</label>
+
+                    <select id="companion">
+                        <option>Não</option>
+                        <option>Sim</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Nome do acompanhante</label>
+                    <input id="companionName">
+                </div>
+
+                <div class="field">
+                    <label>Restrição alimentar</label>
+                    <input id="food">
+                </div>
+
+                <div class="field">
+                    <label>Mesa</label>
+
+                    <select id="guestTable">
+                        <option value="">Sem mesa</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Lugar</label>
+                    <input id="seat" type="number" min="1">
+                </div>
+
+                <div class="field full">
+
+                    <label>Observações</label>
+
+                    <textarea id="notes"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn secondary close">
+                    Cancelar
+                </button>
+
+                <button class="btn primary">
+                    Guardar convidado
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
-
-
-    <form
-      id="guestForm"
-      onsubmit="saveGuest(event)"
-    >
-
-      <div class="modal-body">
-
-        <input
-          type="hidden"
-          id="guestId"
-        >
-
-
-        <!-- DADOS PRINCIPAIS -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            👤 Dados do convidado
-          </div>
-
-          <div class="form-grid">
-
-            <div class="form-group full">
-
-              <label for="guestName">
-                Nome completo *
-              </label>
-
-              <input
-                type="text"
-                id="guestName"
-                required
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestGroup">
-                Grupo / Família
-              </label>
-
-              <select id="guestGroup">
-
-                <option value="">
-                  Selecionar grupo
-                </option>
-
-                <option>Família da Noiva</option>
-                <option>Família do Noivo</option>
-                <option>Amigos da Noiva</option>
-                <option>Amigos do Noivo</option>
-                <option>Colegas de Trabalho</option>
-                <option>Vizinhos</option>
-                <option>Igreja</option>
-                <option>Padrinhos</option>
-                <option>Fornecedores</option>
-                <option>Outros</option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestRelation">
-                Relação
-              </label>
-
-              <select id="guestRelation">
-
-                <option value="">
-                  Selecionar relação
-                </option>
-
-                <option>Pai</option>
-                <option>Mãe</option>
-                <option>Irmão</option>
-                <option>Irmã</option>
-                <option>Tio</option>
-                <option>Tia</option>
-                <option>Primo</option>
-                <option>Prima</option>
-                <option>Avô</option>
-                <option>Avó</option>
-                <option>Sobrinho</option>
-                <option>Sobrinha</option>
-                <option>Amigo</option>
-                <option>Amiga</option>
-                <option>Colega</option>
-                <option>Vizinho</option>
-                <option>Vizinha</option>
-                <option>Padrinho</option>
-                <option>Madrinha</option>
-                <option>Outro</option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestSide">
-                Lado
-              </label>
-
-              <select id="guestSide">
-
-                <option value="Noiva">Noiva</option>
-                <option value="Noivo">Noivo</option>
-                <option value="Ambos">Ambos</option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestType">
-                Tipo
-              </label>
-
-              <select id="guestType">
-
-                <option value="Adulto">Adulto</option>
-                <option value="Criança">Criança</option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- CONTACTOS -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            📞 Contactos
-          </div>
-
-          <div class="form-grid">
-
-            <div class="form-group">
-
-              <label for="guestPhone">
-                Telefone
-              </label>
-
-              <input
-                type="tel"
-                id="guestPhone"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestWhatsapp">
-                WhatsApp
-              </label>
-
-              <input
-                type="tel"
-                id="guestWhatsapp"
-              >
-
-            </div>
-
-
-            <div class="form-group full">
-
-              <label for="guestEmail">
-                E-mail
-              </label>
-
-              <input
-                type="email"
-                id="guestEmail"
-              >
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- RSVP -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            💌 Confirmação de presença
-          </div>
-
-          <div class="form-grid">
-
-            <div class="form-group">
-
-              <label for="guestRsvp">
-                Estado RSVP
-              </label>
-
-              <select id="guestRsvp">
-
-                <option value="Pendente">
-                  Pendente
-                </option>
-
-                <option value="Confirmado">
-                  Confirmado
-                </option>
-
-                <option value="Não vai">
-                  Não vai
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestCompanion">
-                Leva acompanhante?
-              </label>
-
-              <select
-                id="guestCompanion"
-                onchange="toggleCompanionField()"
-              >
-
-                <option value="Não">
-                  Não
-                </option>
-
-                <option value="Sim">
-                  Sim
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div
-              class="form-group"
-              id="companionNameGroup"
-              style="display:none;"
-            >
-
-              <label for="guestCompanionName">
-                Nome do acompanhante
-              </label>
-
-              <input
-                type="text"
-                id="guestCompanionName"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestFood">
-                Alimentação
-              </label>
-
-              <select id="guestFood">
-
-                <option value="Normal">
-                  Normal
-                </option>
-
-                <option value="Vegetariano">
-                  Vegetariano
-                </option>
-
-                <option value="Vegano">
-                  Vegano
-                </option>
-
-                <option value="Infantil">
-                  Infantil
-                </option>
-
-                <option value="Outra">
-                  Outra
-                </option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MESA -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            🪑 Mesa e lugar
-          </div>
-
-          <div class="form-grid">
-
-            <div class="form-group">
-
-              <label for="guestTable">
-                Mesa
-              </label>
-
-              <select id="guestTable">
-
-                <option value="">
-                  Sem mesa
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="guestSeat">
-                Lugar
-              </label>
-
-              <input
-                type="number"
-                id="guestSeat"
-                min="1"
-              >
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- EMAIL -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            📧 Pré-convite
-          </div>
-
-          <div class="email-box">
-
-            <div class="email-status">
-
-              <strong id="emailStatusText">
-                Não enviado
-              </strong>
-
-              <span
-                id="emailDeadline"
-                class="deadline"
-              >
-                Prazo: —
-              </span>
-
-            </div>
-
-
-            <div class="form-grid">
-
-              <div class="form-group">
-
-                <label for="guestInviteDate">
-                  Data do envio
-                </label>
-
-                <input
-                  type="date"
-                  id="guestInviteDate"
-                  onchange="atualizarEmailStatus(); atualizarEmailPreview();"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="guestInviteDeadline">
-                  Prazo de confirmação
-                </label>
-
-                <input
-                  type="date"
-                  id="guestInviteDeadline"
-                  onchange="atualizarEmailStatus(); atualizarEmailPreview();"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="guestReminderDate">
-                  Data sugerida do lembrete
-                </label>
-
-                <input
-                  type="date"
-                  id="guestReminderDate"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="guestInviteStatus">
-                  Estado
-                </label>
-
-                <select id="guestInviteStatus">
-
-                  <option value="Não enviado">
-                    Não enviado
-                  </option>
-
-                  <option value="Preparado">
-                    Preparado
-                  </option>
-
-                  <option value="Enviado">
-                    Enviado
-                  </option>
-
-                  <option value="Confirmado">
-                    Confirmado
-                  </option>
-
-                  <option value="Expirado">
-                    Expirado
-                  </option>
-
-                </select>
-
-              </div>
-
-            </div>
-
-
-            <button
-              type="button"
-              class="btn btn-info"
-              style="margin-top:12px;"
-              onclick="prepararEmail()"
-            >
-              📧 Preparar pré-convite
-            </button>
-
-
-            <p class="email-help">
-              Por enquanto, o botão abre o seu programa de
-              e-mail através do sistema <strong>mailto:</strong>.
-              O envio automático pelo servidor será integrado
-              posteriormente.
-            </p>
-
-
-            <div
-              class="email-preview"
-              id="emailPreview"
-            ></div>
-
-          </div>
-
-        </div>
-
-
-        <!-- OBSERVAÇÕES -->
-
-        <div class="form-section">
-
-          <div class="form-section-title">
-            📝 Observações
-          </div>
-
-          <div class="form-group">
-
-            <label for="guestNotes">
-              Notas
-            </label>
-
-            <textarea
-              id="guestNotes"
-              placeholder="Observações sobre o convidado..."
-            ></textarea>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="modal-footer">
-
-        <button
-          type="button"
-          class="btn btn-secondary"
-          onclick="closeModal('guestModal')"
-        >
-          Cancelar
-        </button>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-        >
-          💾 Guardar convidado
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
 
 </div>
 
 
-<!-- =====================================================
-     MODAL MESA
-===================================================== -->
+<!-- MODAL MESA -->
 
-<div
-  class="modal-overlay"
-  id="tableModal"
->
+<div class="modal-bg" id="tableModal">
 
-  <div class="modal">
+    <div class="modal">
 
-    <div class="modal-header">
+        <h2 id="tableTitle">
+            Nova mesa
+        </h2>
 
-      <h3 id="tableModalTitle">
-        Nova mesa
-      </h3>
+        <form id="tableForm">
 
-      <button
-        type="button"
-        class="close"
-        onclick="closeModal('tableModal')"
-      >
-        ×
-      </button>
+            <input type="hidden" id="tableId">
+
+            <div class="form">
+
+                <div class="field">
+
+                    <label>Nome / número *</label>
+
+                    <input
+                        id="tableName"
+                        placeholder="Mesa 01"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>Formato</label>
+
+                    <select id="shape">
+                        <option>Redonda</option>
+                        <option>Retangular</option>
+                        <option>Quadrada</option>
+                        <option>Imperial</option>
+                        <option>Personalizada</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>Capacidade *</label>
+
+                    <input
+                        id="capacity"
+                        type="number"
+                        min="1"
+                        value="10"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>Localização</label>
+
+                    <input
+                        id="location"
+                        placeholder="Salão principal"
+                    >
+
+                </div>
+
+                <div class="field full">
+
+                    <label>Observações</label>
+
+                    <textarea id="tableNotes"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn secondary close">
+                    Cancelar
+                </button>
+
+                <button class="btn primary">
+                    Guardar mesa
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
-
-    <form
-      id="tableForm"
-      onsubmit="saveTable(event)"
-    >
-
-      <div class="modal-body">
-
-        <input
-          type="hidden"
-          id="tableId"
-        >
-
-        <div class="form-grid">
-
-          <div class="form-group full">
-
-            <label for="tableName">
-              Nome da mesa *
-            </label>
-
-            <input
-              type="text"
-              id="tableName"
-              placeholder="Ex.: Mesa 1"
-              required
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="tableFormat">
-              Formato
-            </label>
-
-            <select id="tableFormat">
-
-              <option value="Redonda">
-                Redonda
-              </option>
-
-              <option value="Retangular">
-                Retangular
-              </option>
-
-              <option value="Quadrada">
-                Quadrada
-              </option>
-
-              <option value="Imperial">
-                Imperial
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="tableCapacity">
-              Capacidade
-            </label>
-
-            <input
-              type="number"
-              id="tableCapacity"
-              min="1"
-              max="100"
-              value="8"
-              required
-            >
-
-          </div>
-
-
-          <div class="form-group full">
-
-            <label for="tableLocation">
-              Localização
-            </label>
-
-            <input
-              type="text"
-              id="tableLocation"
-              placeholder="Ex.: Salão principal"
-            >
-
-          </div>
-
-
-          <div class="form-group full">
-
-            <label for="tableNotes">
-              Observações
-            </label>
-
-            <textarea
-              id="tableNotes"
-            ></textarea>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="modal-footer">
-
-        <button
-          type="button"
-          class="btn btn-secondary"
-          onclick="closeModal('tableModal')"
-        >
-          Cancelar
-        </button>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-        >
-          💾 Guardar mesa
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-
 </div>
-
-
-<div
-  class="toast"
-  id="toast"
-></div>
 
 
 <script>
 
-/* =====================================================
-   CONFIGURAÇÃO
-===================================================== */
+"use strict";
 
-const STORAGE_GUESTS =
-  "casamentoPerfeitoConvidados_v1";
 
-const STORAGE_TABLES =
-  "casamentoPerfeitoMesas_v1";
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-const SESSION_KEY =
-  "casamentoPerfeitoSessao";
+const SUPABASE_URL =
+    "https://yucymctjoqbxpipmpzir.supabase.co";
 
+const SUPABASE_ANON_KEY =
+    "sb_publishable_dyhLNw_TpWigMqYjxlPktA_vwW0aUBH";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let utilizadorAtual = null;
+let casamentoAtual = null;
 
 let convidados = [];
 
-let mesas = [];
+/*
+   As mesas continuam temporariamente no localStorage.
+   Vamos migrá-las para o Supabase numa etapa seguinte.
+*/
+const TABLES_KEY =
+    "casamentoPerfeitoMesas_v1";
 
-
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-    carregarDados();
-
-    renderGuests();
-
-    renderTables();
-
-    renderMap();
-
-    atualizarFiltrosMesas();
-
-    atualizarEmailPreview();
-
-  }
+let mesas = JSON.parse(
+    localStorage.getItem(TABLES_KEY) || "[]"
 );
 
 
-/* =====================================================
-   NAVEGAÇÃO
-===================================================== */
+/* =========================================================
+   ELEMENTOS
+========================================================= */
 
-function voltarDashboard() {
+const statusMessage =
+    document.getElementById("statusMessage");
 
-  if (
-    document.referrer &&
-    document.referrer.includes("dashboard")
-  ) {
+const total =
+    document.getElementById("total");
 
-    history.back();
+const confirmed =
+    document.getElementById("confirmed");
 
-  } else {
+const pending =
+    document.getElementById("pending");
 
-    window.location.href =
-      "dashboard.html";
+const declined =
+    document.getElementById("declined");
 
-  }
+const adults =
+    document.getElementById("adults");
+
+const children =
+    document.getElementById("children");
+
+const search =
+    document.getElementById("search");
+
+const rsvp =
+    document.getElementById("rsvp");
+
+const side =
+    document.getElementById("side");
+
+const type =
+    document.getElementById("type");
+
+const tableFilter =
+    document.getElementById("tableFilter");
+
+const guestList =
+    document.getElementById("guestList");
+
+const tableList =
+    document.getElementById("tableList");
+
+const mapList =
+    document.getElementById("mapList");
+
+const guestModal =
+    document.getElementById("guestModal");
+
+const tableModal =
+    document.getElementById("tableModal");
+
+const guestForm =
+    document.getElementById("guestForm");
+
+const tableForm =
+    document.getElementById("tableForm");
+
+const guestId =
+    document.getElementById("guestId");
+
+const guestTitle =
+    document.getElementById("guestTitle");
+
+const tableId =
+    document.getElementById("tableId");
+
+const tableTitle =
+    document.getElementById("tableTitle");
+
+const guestTable =
+    document.getElementById("guestTable");
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+function mostrarErro(mensagem){
+
+    statusMessage.textContent = mensagem;
+
+    statusMessage.className =
+        "status-message error";
+
+}
+
+function limparErro(){
+
+    statusMessage.textContent = "";
+
+    statusMessage.className =
+        "status-message";
 
 }
 
 
-function showTab(tab) {
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-  const convidadosView =
-    document.getElementById(
-      "viewConvidados"
-    );
+function esc(valor){
 
-  const mesasView =
-    document.getElementById(
-      "viewMesas"
-    );
+    return String(valor ?? "")
+        .replace(/[&<>"']/g, function(c){
 
-  const mapaView =
-    document.getElementById(
-      "viewMapa"
-    );
+            return {
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+            }[c];
 
-  const tabConvidados =
-    document.getElementById(
-      "tabConvidados"
-    );
-
-  const tabMesas =
-    document.getElementById(
-      "tabMesas"
-    );
-
-  const tabMapa =
-    document.getElementById(
-      "tabMapa"
-    );
-
-
-  convidadosView.style.display =
-    tab === "convidados"
-      ? "block"
-      : "none";
-
-  mesasView.style.display =
-    tab === "mesas"
-      ? "block"
-      : "none";
-
-  mapaView.style.display =
-    tab === "mapa"
-      ? "block"
-      : "none";
-
-
-  tabConvidados.classList.toggle(
-    "active",
-    tab === "convidados"
-  );
-
-  tabMesas.classList.toggle(
-    "active",
-    tab === "mesas"
-  );
-
-  tabMapa.classList.toggle(
-    "active",
-    tab === "mapa"
-  );
-
-
-  if (tab === "mapa") {
-
-    renderMap();
-
-  }
+        });
 
 }
 
 
-/* =====================================================
-   DADOS
-===================================================== */
+/* =========================================================
+   AUTENTICAÇÃO
+========================================================= */
 
-function carregarDados() {
+async function iniciarPagina(){
 
-  try {
+    limparErro();
 
-    const convidadosSalvos =
-      localStorage.getItem(
-        STORAGE_GUESTS
-      );
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
 
-    const mesasSalvas =
-      localStorage.getItem(
-        STORAGE_TABLES
-      );
+    if(error){
 
+        console.error(error);
 
-    convidados =
-      convidadosSalvos
-        ? JSON.parse(convidadosSalvos)
-        : [];
-
-
-    mesas =
-      mesasSalvas
-        ? JSON.parse(mesasSalvas)
-        : [];
-
-
-    if (!Array.isArray(convidados)) {
-      convidados = [];
-    }
-
-    if (!Array.isArray(mesas)) {
-      mesas = [];
-    }
-
-
-    convidados =
-      convidados.map(
-        normalizarConvidado
-      );
-
-
-    mesas =
-      mesas.map(
-        normalizarMesa
-      );
-
-
-  } catch (erro) {
-
-    console.error(
-      "Erro ao carregar dados:",
-      erro
-    );
-
-    convidados = [];
-
-    mesas = [];
-
-  }
-
-}
-
-
-function salvarDados() {
-
-  localStorage.setItem(
-    STORAGE_GUESTS,
-    JSON.stringify(convidados)
-  );
-
-  localStorage.setItem(
-    STORAGE_TABLES,
-    JSON.stringify(mesas)
-  );
-
-}
-
-
-function gerarId() {
-
-  return (
-    Date.now().toString(36) +
-    Math.random()
-      .toString(36)
-      .substring(2, 9)
-  );
-
-}
-
-
-function normalizarConvidado(g) {
-
-  return {
-
-    id:
-      g.id || gerarId(),
-
-    nome:
-      g.nome || "",
-
-    grupo:
-      g.grupo || "",
-
-    relacao:
-      g.relacao || "",
-
-    lado:
-      g.lado || "Noiva",
-
-    tipo:
-      g.tipo || "Adulto",
-
-    telefone:
-      g.telefone || "",
-
-    whatsapp:
-      g.whatsapp || "",
-
-    email:
-      g.email || "",
-
-    rsvp:
-      g.rsvp || "Pendente",
-
-    acompanhante:
-      g.acompanhante || "Não",
-
-    nomeAcompanhante:
-      g.nomeAcompanhante || "",
-
-    alimentacao:
-      g.alimentacao || "Normal",
-
-    mesa:
-      g.mesa || "",
-
-    lugar:
-      g.lugar || "",
-
-    notas:
-      g.notas || "",
-
-    comunicacao: {
-
-      emailAtivo:
-        g.comunicacao?.emailAtivo ??
-        true,
-
-      preConviteEnviado:
-        g.comunicacao?.preConviteEnviado ??
-        false,
-
-      dataEnvio:
-        g.comunicacao?.dataEnvio ||
-        "",
-
-      prazoConfirmacao:
-        g.comunicacao?.prazoConfirmacao ||
-        "",
-
-      estado:
-        g.comunicacao?.estado ||
-        "Não enviado",
-
-      lembreteEnviado:
-        g.comunicacao?.lembreteEnviado ??
-        false,
-
-      dataLembrete:
-        g.comunicacao?.dataLembrete ||
-        "",
-
-      emailId:
-        g.comunicacao?.emailId ||
-        "",
-
-      dataUltimoEnvio:
-        g.comunicacao?.dataUltimoEnvio ||
-        ""
-
-    }
-
-  };
-
-}
-
-
-function normalizarMesa(m) {
-
-  return {
-
-    id:
-      m.id || gerarId(),
-
-    nome:
-      m.nome || "Mesa",
-
-    formato:
-      m.formato || "Redonda",
-
-    capacidade:
-      Number(m.capacidade) || 8,
-
-    localizacao:
-      m.localizacao || "",
-
-    notas:
-      m.notas || ""
-
-  };
-
-}
-
-
-/* =====================================================
-   ESTATÍSTICAS
-===================================================== */
-
-function atualizarEstatisticas() {
-
-  const total =
-    convidados.length;
-
-  const confirmados =
-    convidados.filter(
-      g => g.rsvp === "Confirmado"
-    ).length;
-
-  const pendentes =
-    convidados.filter(
-      g => g.rsvp === "Pendente"
-    ).length;
-
-  const recusados =
-    convidados.filter(
-      g => g.rsvp === "Não vai"
-    ).length;
-
-  const adultos =
-    convidados.filter(
-      g => g.tipo === "Adulto"
-    ).length;
-
-  const criancas =
-    convidados.filter(
-      g => g.tipo === "Criança"
-    ).length;
-
-
-  document.getElementById(
-    "statTotal"
-  ).textContent = total;
-
-
-  document.getElementById(
-    "statConfirmed"
-  ).textContent = confirmados;
-
-
-  document.getElementById(
-    "statPending"
-  ).textContent = pendentes;
-
-
-  document.getElementById(
-    "statDeclined"
-  ).textContent = recusados;
-
-
-  document.getElementById(
-    "statAdults"
-  ).textContent = adultos;
-
-
-  document.getElementById(
-    "statChildren"
-  ).textContent = criancas;
-
-}
-
-
-/* =====================================================
-   CONVIDADOS
-===================================================== */
-
-function renderGuests() {
-
-  const grid =
-    document.getElementById(
-      "guestGrid"
-    );
-
-  if (!grid) return;
-
-
-  const search =
-    (
-      document.getElementById(
-        "searchGuest"
-      )?.value || ""
-    )
-      .toLowerCase()
-      .trim();
-
-
-  const rsvp =
-    document.getElementById(
-      "filterRsvp"
-    )?.value || "";
-
-
-  const side =
-    document.getElementById(
-      "filterSide"
-    )?.value || "";
-
-
-  const type =
-    document.getElementById(
-      "filterType"
-    )?.value || "";
-
-
-  const table =
-    document.getElementById(
-      "filterTable"
-    )?.value || "";
-
-
-  const filtrados =
-    convidados.filter(
-      g => {
-
-        const texto =
-          [
-            g.nome,
-            g.telefone,
-            g.whatsapp,
-            g.email,
-            g.grupo,
-            g.relacao
-          ]
-            .join(" ")
-            .toLowerCase();
-
-
-        if (
-          search &&
-          !texto.includes(search)
-        ) {
-          return false;
-        }
-
-
-        if (
-          rsvp &&
-          g.rsvp !== rsvp
-        ) {
-          return false;
-        }
-
-
-        if (
-          side &&
-          g.lado !== side
-        ) {
-          return false;
-        }
-
-
-        if (
-          type &&
-          g.tipo !== type
-        ) {
-          return false;
-        }
-
-
-        if (
-          table === "sem-mesa" &&
-          g.mesa
-        ) {
-          return false;
-        }
-
-
-        if (
-          table &&
-          table !== "sem-mesa" &&
-          g.mesa !== table
-        ) {
-          return false;
-        }
-
-
-        return true;
-
-      }
-    );
-
-
-  atualizarEstatisticas();
-
-
-  if (!filtrados.length) {
-
-    grid.innerHTML = `
-
-      <div
-        class="empty"
-        style="grid-column:1/-1;"
-      >
-
-        <div class="empty-icon">
-          👥
-        </div>
-
-        <h3>
-          Nenhum convidado encontrado
-        </h3>
-
-        <p style="margin-top:8px;">
-          Adicione o primeiro convidado
-          ou altere os filtros.
-        </p>
-
-        <button
-          type="button"
-          class="btn btn-primary"
-          style="margin-top:15px;"
-          onclick="openGuest()"
-        >
-          ➕ Novo convidado
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  grid.innerHTML =
-    filtrados
-      .map(
-        renderGuestCard
-      )
-      .join("");
-
-}
-
-
-function renderGuestCard(g) {
-
-  const mesa =
-    mesas.find(
-      m => m.id === g.mesa
-    );
-
-
-  let rsvpClass =
-    "badge-pending";
-
-
-  if (
-    g.rsvp === "Confirmado"
-  ) {
-
-    rsvpClass =
-      "badge-confirmed";
-
-  }
-
-
-  if (
-    g.rsvp === "Não vai"
-  ) {
-
-    rsvpClass =
-      "badge-declined";
-
-  }
-
-
-  const emailStatus =
-    g.comunicacao?.estado ||
-    "Não enviado";
-
-
-  return `
-
-    <div class="guest-card">
-
-      <div class="guest-header">
-
-        <div>
-
-          <div class="guest-name">
-            ${escapeHtml(g.nome)}
-          </div>
-
-          <div class="guest-group">
-            ${escapeHtml(g.grupo || "Sem grupo")}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="badges">
-
-        <span class="badge ${rsvpClass}">
-          ${escapeHtml(g.rsvp)}
-        </span>
-
-        <span class="badge ${
-          g.tipo === "Criança"
-            ? "badge-child"
-            : "badge-adult"
-        }">
-          ${escapeHtml(g.tipo)}
-        </span>
-
-        ${
-          g.email
-            ? `
-              <span class="badge badge-email">
-                📧 ${escapeHtml(emailStatus)}
-              </span>
-            `
-            : ""
-        }
-
-      </div>
-
-
-      <div class="guest-info">
-
-        ${
-          g.relacao
-            ? `
-              <div>
-                👤
-                <span>
-                  ${escapeHtml(g.relacao)}
-                </span>
-              </div>
-            `
-            : ""
-        }
-
-
-        ${
-          g.telefone
-            ? `
-              <div>
-                📞
-                <span>
-                  ${escapeHtml(g.telefone)}
-                </span>
-              </div>
-            `
-            : ""
-        }
-
-
-        ${
-          g.email
-            ? `
-              <div>
-                ✉️
-                <span>
-                  ${escapeHtml(g.email)}
-                </span>
-              </div>
-            `
-            : ""
-        }
-
-
-        <div>
-          🪑
-          <span>
-            ${
-              mesa
-                ? escapeHtml(mesa.nome) +
-                  (
-                    g.lugar
-                      ? " · Lugar " +
-                        escapeHtml(g.lugar)
-                      : ""
-                  )
-                : "Sem mesa"
-            }
-          </span>
-        </div>
-
-
-        ${
-          g.acompanhante === "Sim"
-            ? `
-              <div>
-                👥
-                <span>
-                  Acompanhante:
-                  ${escapeHtml(
-                    g.nomeAcompanhante ||
-                    "Não informado"
-                  )}
-                </span>
-              </div>
-            `
-            : ""
-        }
-
-      </div>
-
-
-      <div class="guest-actions">
-
-        <button
-          type="button"
-          class="btn-info"
-          onclick="openGuest('${g.id}')"
-        >
-          ✏️ Editar
-        </button>
-
-        <button
-          type="button"
-          class="btn-success"
-          onclick="alterarRsvp('${g.id}')"
-        >
-          RSVP
-        </button>
-
-        ${
-          g.email
-            ? `
-              <button
-                type="button"
-                class="btn-secondary"
-                onclick="prepararEmail('${g.id}')"
-              >
-                📧 Pré-convite
-              </button>
-            `
-            : ""
-        }
-
-        <button
-          type="button"
-          class="btn-danger"
-          onclick="delGuest('${g.id}')"
-        >
-          🗑️
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   NOVO / EDITAR CONVIDADO
-===================================================== */
-
-function openGuest(id = "") {
-
-  document
-    .getElementById("guestForm")
-    .reset();
-
-
-  document.getElementById(
-    "guestId"
-  ).value = "";
-
-
-  document.getElementById(
-    "guestModalTitle"
-  ).textContent =
-    id
-      ? "Editar convidado"
-      : "Novo convidado";
-
-
-  document.getElementById(
-    "guestRsvp"
-  ).value =
-    "Pendente";
-
-
-  document.getElementById(
-    "guestType"
-  ).value =
-    "Adulto";
-
-
-  document.getElementById(
-    "guestSide"
-  ).value =
-    "Noiva";
-
-
-  document.getElementById(
-    "guestCompanion"
-  ).value =
-    "Não";
-
-
-  document.getElementById(
-    "guestFood"
-  ).value =
-    "Normal";
-
-
-  document.getElementById(
-    "guestInviteStatus"
-  ).value =
-    "Não enviado";
-
-
-  document.getElementById(
-    "guestInviteDate"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "guestInviteDeadline"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "guestReminderDate"
-  ).value =
-    "";
-
-
-  toggleCompanionField();
-
-
-  atualizarFiltrosMesas();
-
-
-  if (id) {
-
-    const g =
-      convidados.find(
-        item => item.id === id
-      );
-
-
-    if (!g) {
-
-      alert(
-        "Convidado não encontrado."
-      );
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "guestId"
-    ).value =
-      g.id;
-
-
-    document.getElementById(
-      "guestName"
-    ).value =
-      g.nome;
-
-
-    document.getElementById(
-      "guestGroup"
-    ).value =
-      g.grupo;
-
-
-    document.getElementById(
-      "guestRelation"
-    ).value =
-      g.relacao;
-
-
-    document.getElementById(
-      "guestSide"
-    ).value =
-      g.lado;
-
-
-    document.getElementById(
-      "guestType"
-    ).value =
-      g.tipo;
-
-
-    document.getElementById(
-      "guestPhone"
-    ).value =
-      g.telefone;
-
-
-    document.getElementById(
-      "guestWhatsapp"
-    ).value =
-      g.whatsapp;
-
-
-    document.getElementById(
-      "guestEmail"
-    ).value =
-      g.email;
-
-
-    document.getElementById(
-      "guestRsvp"
-    ).value =
-      g.rsvp;
-
-
-    document.getElementById(
-      "guestCompanion"
-    ).value =
-      g.acompanhante;
-
-
-    document.getElementById(
-      "guestCompanionName"
-    ).value =
-      g.nomeAcompanhante;
-
-
-    document.getElementById(
-      "guestFood"
-    ).value =
-      g.alimentacao;
-
-
-    document.getElementById(
-      "guestTable"
-    ).value =
-      g.mesa;
-
-
-    document.getElementById(
-      "guestSeat"
-    ).value =
-      g.lugar;
-
-
-    document.getElementById(
-      "guestNotes"
-    ).value =
-      g.notas;
-
-
-    document.getElementById(
-      "guestInviteDate"
-    ).value =
-      g.comunicacao.dataEnvio;
-
-
-    document.getElementById(
-      "guestInviteDeadline"
-    ).value =
-      g.comunicacao.prazoConfirmacao;
-
-
-    document.getElementById(
-      "guestReminderDate"
-    ).value =
-      g.comunicacao.dataLembrete;
-
-
-    document.getElementById(
-      "guestInviteStatus"
-    ).value =
-      g.comunicacao.estado ||
-      "Não enviado";
-
-  }
-
-
-  toggleCompanionField();
-
-  atualizarEmailPreview();
-
-  atualizarEmailStatus();
-
-
-  document
-    .getElementById("guestModal")
-    .classList.add("active");
-
-}
-
-
-function saveGuest(event) {
-
-  event.preventDefault();
-
-
-  const id =
-    document.getElementById(
-      "guestId"
-    ).value;
-
-
-  const anterior =
-    id
-      ? convidados.find(
-          g => g.id === id
-        )
-      : null;
-
-
-  const comunicacaoAnterior =
-    anterior?.comunicacao ||
-    {};
-
-
-  const convidado = {
-
-    id:
-      id || gerarId(),
-
-    nome:
-      document.getElementById(
-        "guestName"
-      ).value.trim(),
-
-    grupo:
-      document.getElementById(
-        "guestGroup"
-      ).value,
-
-    relacao:
-      document.getElementById(
-        "guestRelation"
-      ).value,
-
-    lado:
-      document.getElementById(
-        "guestSide"
-      ).value,
-
-    tipo:
-      document.getElementById(
-        "guestType"
-      ).value,
-
-    telefone:
-      document.getElementById(
-        "guestPhone"
-      ).value.trim(),
-
-    whatsapp:
-      document.getElementById(
-        "guestWhatsapp"
-      ).value.trim(),
-
-    email:
-      document.getElementById(
-        "guestEmail"
-      ).value.trim(),
-
-    rsvp:
-      document.getElementById(
-        "guestRsvp"
-      ).value,
-
-    acompanhante:
-      document.getElementById(
-        "guestCompanion"
-      ).value,
-
-    nomeAcompanhante:
-      document.getElementById(
-        "guestCompanionName"
-      ).value.trim(),
-
-    alimentacao:
-      document.getElementById(
-        "guestFood"
-      ).value,
-
-    mesa:
-      document.getElementById(
-        "guestTable"
-      ).value,
-
-    lugar:
-      document.getElementById(
-        "guestSeat"
-      ).value,
-
-    notas:
-      document.getElementById(
-        "guestNotes"
-      ).value.trim(),
-
-
-    comunicacao: {
-
-      emailAtivo:
-        true,
-
-      preConviteEnviado:
-        comunicacaoAnterior.preConviteEnviado ||
-        false,
-
-      dataEnvio:
-        document.getElementById(
-          "guestInviteDate"
-        ).value,
-
-      prazoConfirmacao:
-        document.getElementById(
-          "guestInviteDeadline"
-        ).value,
-
-      estado:
-        document.getElementById(
-          "guestInviteStatus"
-        ).value,
-
-      lembreteEnviado:
-        comunicacaoAnterior.lembreteEnviado ||
-        false,
-
-      dataLembrete:
-        document.getElementById(
-          "guestReminderDate"
-        ).value,
-
-      emailId:
-        comunicacaoAnterior.emailId ||
-        "",
-
-      dataUltimoEnvio:
-        comunicacaoAnterior.dataUltimoEnvio ||
-        ""
-
-    }
-
-  };
-
-
-  if (id) {
-
-    const index =
-      convidados.findIndex(
-        g => g.id === id
-      );
-
-
-    if (index !== -1) {
-
-      convidados[index] =
-        convidado;
-
-    }
-
-  } else {
-
-    convidados.push(
-      convidado
-    );
-
-  }
-
-
-  salvarDados();
-
-  renderGuests();
-
-  renderTables();
-
-  renderMap();
-
-  atualizarFiltrosMesas();
-
-  closeModal(
-    "guestModal"
-  );
-
-
-  mostrarToast(
-    id
-      ? "Convidado atualizado com sucesso."
-      : "Convidado adicionado com sucesso."
-  );
-
-}
-
-
-function delGuest(id) {
-
-  const g =
-    convidados.find(
-      item => item.id === id
-    );
-
-
-  if (!g) return;
-
-
-  if (
-    !confirm(
-      `Tem certeza que deseja eliminar "${g.nome}"?`
-    )
-  ) {
-    return;
-  }
-
-
-  convidados =
-    convidados.filter(
-      item => item.id !== id
-    );
-
-
-  salvarDados();
-
-  renderGuests();
-
-  renderTables();
-
-  renderMap();
-
-
-  mostrarToast(
-    "Convidado eliminado."
-  );
-
-}
-
-
-/* =====================================================
-   RSVP
-===================================================== */
-
-function alterarRsvp(id) {
-
-  const g =
-    convidados.find(
-      item => item.id === id
-    );
-
-
-  if (!g) return;
-
-
-  const opcoes = [
-    "Pendente",
-    "Confirmado",
-    "Não vai"
-  ];
-
-
-  const atual =
-    opcoes.indexOf(
-      g.rsvp
-    );
-
-
-  g.rsvp =
-    opcoes[
-      (atual + 1) %
-      opcoes.length
-    ];
-
-
-  salvarDados();
-
-  renderGuests();
-
-  atualizarEstatisticas();
-
-
-  mostrarToast(
-    `${g.nome}: ${g.rsvp}`
-  );
-
-}
-
-
-/* =====================================================
-   ACOMPANHANTE
-===================================================== */
-
-function toggleCompanionField() {
-
-  const value =
-    document.getElementById(
-      "guestCompanion"
-    ).value;
-
-
-  const group =
-    document.getElementById(
-      "companionNameGroup"
-    );
-
-
-  group.style.display =
-    value === "Sim"
-      ? "grid"
-      : "none";
-
-}
-
-
-/* =====================================================
-   MESAS
-===================================================== */
-
-function openTable(id = "") {
-
-  document
-    .getElementById("tableForm")
-    .reset();
-
-
-  document.getElementById(
-    "tableId"
-  ).value = "";
-
-
-  document.getElementById(
-    "tableModalTitle"
-  ).textContent =
-    id
-      ? "Editar mesa"
-      : "Nova mesa";
-
-
-  document.getElementById(
-    "tableFormat"
-  ).value =
-    "Redonda";
-
-
-  document.getElementById(
-    "tableCapacity"
-  ).value =
-    "8";
-
-
-  if (id) {
-
-    const table =
-      mesas.find(
-        t => t.id === id
-      );
-
-
-    if (!table) return;
-
-
-    document.getElementById(
-      "tableId"
-    ).value =
-      table.id;
-
-
-    document.getElementById(
-      "tableName"
-    ).value =
-      table.nome;
-
-
-    document.getElementById(
-      "tableFormat"
-    ).value =
-      table.formato;
-
-
-    document.getElementById(
-      "tableCapacity"
-    ).value =
-      table.capacidade;
-
-
-    document.getElementById(
-      "tableLocation"
-    ).value =
-      table.localizacao;
-
-
-    document.getElementById(
-      "tableNotes"
-    ).value =
-      table.notas;
-
-  }
-
-
-  document
-    .getElementById("tableModal")
-    .classList.add("active");
-
-}
-
-
-function saveTable(event) {
-
-  event.preventDefault();
-
-
-  const id =
-    document.getElementById(
-      "tableId"
-    ).value;
-
-
-  const nome =
-    document.getElementById(
-      "tableName"
-    ).value.trim();
-
-
-  if (!nome) {
-
-    alert(
-      "Informe o nome da mesa."
-    );
-
-    return;
-
-  }
-
-
-  const table = {
-
-    id:
-      id || gerarId(),
-
-    nome:
-
-      nome,
-
-    formato:
-      document.getElementById(
-        "tableFormat"
-      ).value,
-
-    capacidade:
-      Number(
-        document.getElementById(
-          "tableCapacity"
-        ).value
-      ) || 8,
-
-    localizacao:
-      document.getElementById(
-        "tableLocation"
-      ).value.trim(),
-
-    notas:
-      document.getElementById(
-        "tableNotes"
-      ).value.trim()
-
-  };
-
-
-  if (id) {
-
-    const index =
-      mesas.findIndex(
-        t => t.id === id
-      );
-
-
-    if (index !== -1) {
-
-      mesas[index] =
-        table;
-
-    }
-
-  } else {
-
-    mesas.push(
-      table
-    );
-
-  }
-
-
-  salvarDados();
-
-  renderTables();
-
-  renderGuests();
-
-  renderMap();
-
-  atualizarFiltrosMesas();
-
-  closeModal(
-    "tableModal"
-  );
-
-
-  mostrarToast(
-    id
-      ? "Mesa atualizada."
-      : "Mesa criada com sucesso."
-  );
-
-}
-
-
-function delTable(id) {
-
-  const table =
-    mesas.find(
-      t => t.id === id
-    );
-
-
-  if (!table) return;
-
-
-  const ocupados =
-    convidados.filter(
-      g => g.mesa === id
-    ).length;
-
-
-  if (ocupados > 0) {
-
-    alert(
-      `Não é possível eliminar esta mesa porque existem ${ocupados} convidado(s) associado(s) a ela.\n\nPrimeiro retire os convidados desta mesa.`
-    );
-
-    return;
-
-  }
-
-
-  if (
-    !confirm(
-      `Eliminar "${table.nome}"?`
-    )
-  ) {
-    return;
-  }
-
-
-  mesas =
-    mesas.filter(
-      t => t.id !== id
-    );
-
-
-  salvarDados();
-
-  renderTables();
-
-  renderGuests();
-
-  renderMap();
-
-  atualizarFiltrosMesas();
-
-
-  mostrarToast(
-    "Mesa eliminada."
-  );
-
-}
-
-
-function renderTables() {
-
-  const grid =
-    document.getElementById(
-      "tableGrid"
-    );
-
-
-  if (!mesas.length) {
-
-    grid.innerHTML = `
-
-      <div
-        class="empty"
-        style="grid-column:1/-1;"
-      >
-
-        <div class="empty-icon">
-          🪑
-        </div>
-
-        <h3>
-          Nenhuma mesa criada
-        </h3>
-
-        <p style="margin-top:8px;">
-          Crie as mesas do seu casamento.
-        </p>
-
-        <button
-          type="button"
-          class="btn btn-primary"
-          style="margin-top:15px;"
-          onclick="openTable()"
-        >
-          ➕ Criar primeira mesa
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  grid.innerHTML =
-    mesas
-      .map(
-        renderTableCard
-      )
-      .join("");
-
-}
-
-
-function renderTableCard(table) {
-
-  const ocupados =
-    convidados.filter(
-      g => g.mesa === table.id
-    );
-
-
-  let seats = "";
-
-
-  for (
-    let i = 1;
-    i <= table.capacidade;
-    i++
-  ) {
-
-    const guest =
-      ocupados.find(
-        g =>
-          String(g.lugar) ===
-          String(i)
-      );
-
-
-    seats += `
-
-      <div
-        class="seat ${
-          guest
-            ? "occupied"
-            : "free"
-        }"
-      >
-
-        <span>
-          Lugar ${i}
-        </span>
-
-        <span>
-          ${
-            guest
-              ? escapeHtml(
-                  guest.nome
-                )
-              : "Livre"
-          }
-        </span>
-
-      </div>
-
-    `;
-
-  }
-
-
-  return `
-
-    <div class="table-card">
-
-      <div class="table-header">
-
-        <div class="table-name">
-          ${escapeHtml(table.nome)}
-        </div>
-
-        <div class="capacity">
-          ${ocupados.length}/${table.capacidade}
-        </div>
-
-      </div>
-
-
-      <div class="table-meta">
-
-        <div>
-          🔵 Formato:
-          ${escapeHtml(table.formato)}
-        </div>
-
-        ${
-          table.localizacao
-            ? `
-              <div>
-                📍
-                ${escapeHtml(
-                  table.localizacao
-                )}
-              </div>
-            `
-            : ""
-        }
-
-      </div>
-
-
-      <div class="seat-list">
-        ${seats}
-      </div>
-
-
-      <div class="table-actions">
-
-        <button
-          type="button"
-          class="btn-info"
-          onclick="openTable('${table.id}')"
-        >
-          ✏️ Editar
-        </button>
-
-        <button
-          type="button"
-          class="btn-danger"
-          onclick="delTable('${table.id}')"
-        >
-          🗑️ Eliminar
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   FILTRO DE MESAS
-===================================================== */
-
-function atualizarFiltrosMesas() {
-
-  const filter =
-    document.getElementById(
-      "filterTable"
-    );
-
-
-  const select =
-    document.getElementById(
-      "guestTable"
-    );
-
-
-  if (!filter || !select) {
-    return;
-  }
-
-
-  const filtroAtual =
-    filter.value;
-
-
-  filter.innerHTML = `
-
-    <option value="">
-      Todas as mesas
-    </option>
-
-    <option value="sem-mesa">
-      Sem mesa
-    </option>
-
-  `;
-
-
-  select.innerHTML = `
-
-    <option value="">
-      Sem mesa
-    </option>
-
-  `;
-
-
-  mesas.forEach(
-    table => {
-
-      filter.innerHTML += `
-
-        <option value="${table.id}">
-          ${escapeHtml(table.nome)}
-        </option>
-
-      `;
-
-
-      select.innerHTML += `
-
-        <option value="${table.id}">
-          ${escapeHtml(table.nome)}
-        </option>
-
-      `;
-
-    }
-  );
-
-
-  if (
-    [...filter.options]
-      .some(
-        o =>
-          o.value ===
-          filtroAtual
-      )
-  ) {
-
-    filter.value =
-      filtroAtual;
-
-  }
-
-}
-
-
-/* =====================================================
-   MAPA
-===================================================== */
-
-function renderMap() {
-
-  const map =
-    document.getElementById(
-      "map"
-    );
-
-
-  if (!map) return;
-
-
-  if (!mesas.length) {
-
-    map.innerHTML = `
-
-      <div
-        style="
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          min-height:500px;
-          color:#888;
-          text-align:center;
-        "
-      >
-
-        <div>
-
-          <div
-            style="
-              font-size:50px;
-              margin-bottom:15px;
-            "
-          >
-            🪑
-          </div>
-
-          <h3>
-            Nenhuma mesa criada
-          </h3>
-
-          <p style="margin-top:8px;">
-            Crie mesas para visualizar o mapa.
-          </p>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-            style="margin-top:15px;"
-            onclick="openTable()"
-          >
-            ➕ Criar mesa
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  map.innerHTML = "";
-
-
-  const largura = 850;
-
-  const altura = 520;
-
-
-  mesas.forEach(
-    (table, index) => {
-
-      const coluna =
-        index % 4;
-
-      const linha =
-        Math.floor(
-          index / 4
+        mostrarErro(
+            "Não foi possível verificar a sessão."
         );
 
+        return;
+    }
 
-      const x =
-        110 +
-        coluna * 210;
+    const session =
+        data.session;
+
+    if(!session){
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return;
+    }
+
+    utilizadorAtual =
+        session.user;
+
+    await carregarCasamento();
+
+}
 
 
-      const y =
-        100 +
-        linha * 170;
+/* =========================================================
+   CARREGAR CASAMENTO
+========================================================= */
+
+async function carregarCasamento(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("weddings")
+            .select("*")
+            .eq(
+                "user_id",
+                utilizadorAtual.id
+            )
+            .order(
+                "criado_em",
+                {
+                    ascending:true
+                }
+            )
+            .limit(1)
+            .maybeSingle();
+
+    if(error){
+
+        console.error(
+            "Erro ao carregar casamento:",
+            error
+        );
+
+        mostrarErro(
+            "Não foi possível carregar os dados do casamento."
+        );
+
+        return;
+    }
+
+    if(!data){
+
+        mostrarErro(
+            "Ainda não existe um casamento associado à sua conta."
+        );
+
+        return;
+    }
+
+    casamentoAtual =
+        data;
+
+    await carregarConvidados();
+
+}
 
 
-      const ocupados =
+/* =========================================================
+   CARREGAR CONVIDADOS DO SUPABASE
+========================================================= */
+
+async function carregarConvidados(){
+
+    limparErro();
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("guests")
+            .select("*")
+            .eq(
+                "wedding_id",
+                casamentoAtual.id
+            )
+            .order(
+                "criado_em",
+                {
+                    ascending:true
+                }
+            );
+
+    if(error){
+
+        console.error(
+            "Erro ao carregar convidados:",
+            error
+        );
+
+        mostrarErro(
+            "Não foi possível carregar os convidados."
+        );
+
+        return;
+    }
+
+    convidados =
+        data || [];
+
+    render();
+
+}
+
+
+/* =========================================================
+   ATUALIZAR ESTATÍSTICAS
+========================================================= */
+
+function atualizarEstatisticas(){
+
+    total.textContent =
+        convidados.length;
+
+    confirmed.textContent =
         convidados.filter(
-          g => g.mesa === table.id
+            g => g.rsvp === "Confirmado"
         ).length;
 
+    pending.textContent =
+        convidados.filter(
+            g => g.rsvp === "Pendente"
+        ).length;
 
-      const div =
-        document.createElement(
-          "div"
+    declined.textContent =
+        convidados.filter(
+            g => g.rsvp === "Não vai"
+        ).length;
+
+    adults.textContent =
+        convidados.filter(
+            g => g.tipo === "Adulto"
+        ).length;
+
+    children.textContent =
+        convidados.filter(
+            g => g.tipo === "Criança"
+        ).length;
+
+}
+
+
+/* =========================================================
+   SELECT DE MESAS
+========================================================= */
+
+function atualizarSelectMesas(){
+
+    guestTable.innerHTML =
+        '<option value="">Sem mesa</option>' +
+
+        mesas.map(
+            t =>
+                `<option value="${esc(t.id)}">
+                    ${esc(t.nome)} — ${t.capacidade} lugares
+                </option>`
+        ).join("");
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    atualizarEstatisticas();
+
+    atualizarSelectMesas();
+
+    renderConvidados();
+
+    renderMesas();
+
+    renderMapa();
+
+}
+
+
+/* =========================================================
+   RENDER CONVIDADOS
+========================================================= */
+
+function renderConvidados(){
+
+    const q =
+        search.value
+            .toLowerCase()
+            .trim();
+
+    const rv =
+        rsvp.value;
+
+    const sd =
+        side.value;
+
+    const tp =
+        type.value;
+
+    const tf =
+        tableFilter.value;
+
+
+    const lista =
+        convidados.filter(function(g){
+
+            const texto =
+                [
+                    g.nome,
+                    g.grupo,
+                    g.telefone,
+                    g.whatsapp
+                ]
+                .join(" ")
+                .toLowerCase();
+
+            const mesa =
+                g.mesa_id || "";
+
+            return (
+
+                (!q || texto.includes(q)) &&
+
+                (!rv || g.rsvp === rv) &&
+
+                (!sd || g.lado === sd) &&
+
+                (!tp || g.tipo === tp) &&
+
+                (
+                    !tf ||
+
+                    (
+                        tf === "none"
+                        ? !mesa
+                        : mesa === tf
+                    )
+                )
+
+            );
+
+        });
+
+
+    guestList.innerHTML =
+        lista.length
+
+        ? lista.map(function(g){
+
+            /*
+                Nesta fase mesa_id pode estar vazio,
+                porque a tabela de mesas ainda está
+                no localStorage.
+            */
+
+            const mesa =
+                mesas.find(
+                    t => t.id === g.mesa_id
+                );
+
+            const classe =
+                g.rsvp === "Confirmado"
+                    ? "ok"
+                    : g.rsvp === "Não vai"
+                        ? "no"
+                        : "pending";
+
+
+            return `
+
+                <article class="guest">
+
+                    <div class="top">
+
+                        <div>
+
+                            <div class="name">
+                                ${esc(g.nome)}
+                            </div>
+
+                            <div class="muted">
+                                ${esc(g.grupo || "Sem grupo")}
+                                ·
+                                ${esc(g.relacao || "Relação não definida")}
+                            </div>
+
+                            <div class="badges">
+
+                                <span class="badge ${classe}">
+                                    ${esc(g.rsvp)}
+                                </span>
+
+                                <span class="badge">
+                                    ${esc(g.tipo)}
+                                </span>
+
+                                <span class="badge">
+                                    ${esc(g.lado)}
+                                </span>
+
+                                ${
+                                    g.acompanhante === "Sim"
+                                    ? '<span class="badge">+ acompanhante</span>'
+                                    : ''
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div class="muted">
+
+                            ${
+                                mesa
+                                ? esc(mesa.nome)
+                                : "Sem mesa"
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="grid">
+
+                        <div class="info">
+                            <label>Telefone</label>
+                            <div>
+                                ${esc(g.telefone || "—")}
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <label>WhatsApp</label>
+                            <div>
+                                ${esc(g.whatsapp || "—")}
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <label>RSVP</label>
+                            <div>
+                                ${esc(g.rsvp)}
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <label>Acompanhante</label>
+                            <div>
+                                ${esc(g.nome_acompanhante || "Não")}
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <label>Lugar</label>
+                            <div>
+                                ${esc(g.lugar || "—")}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        g.alimentacao
+
+                        ? `
+                            <div
+                                class="muted"
+                                style="margin-top:10px"
+                            >
+                                🍽 ${esc(g.alimentacao)}
+                            </div>
+                        `
+
+                        : ""
+                    }
+
+
+                    ${
+                        g.notas
+
+                        ? `
+                            <div
+                                class="muted"
+                                style="margin-top:10px"
+                            >
+                                📝 ${esc(g.notas)}
+                            </div>
+                        `
+
+                        : ""
+                    }
+
+
+                    <div class="actions">
+
+                        <button
+                            class="btn secondary"
+                            onclick="editGuest('${g.id}')">
+                            Editar
+                        </button>
+
+                        <button
+                            class="btn danger"
+                            onclick="delGuest('${g.id}')">
+                            Eliminar
+                        </button>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }).join("")
+
+        : `
+
+            <div class="empty">
+
+                <h3>
+                    Nenhum convidado encontrado
+                </h3>
+
+                <p style="margin-top:7px">
+                    Adicione o primeiro convidado.
+                </p>
+
+            </div>
+
+        `;
+
+}
+
+
+/* =========================================================
+   GUARDAR CONVIDADO NO SUPABASE
+========================================================= */
+
+async function guardarConvidado(event){
+
+    event.preventDefault();
+
+    if(!casamentoAtual){
+
+        mostrarErro(
+            "O casamento ainda não foi carregado."
         );
 
-
-      div.className =
-        "map-table " +
-        (
-          table.formato || ""
-        ).toLowerCase();
-
-
-      div.style.left =
-        Math.min(
-          x,
-          largura - 70
-        ) + "px";
-
-
-      div.style.top =
-        Math.min(
-          y,
-          altura - 50
-        ) + "px";
-
-
-      div.innerHTML = `
-
-        <div class="map-table-name">
-          ${escapeHtml(table.nome)}
-        </div>
-
-        <div class="map-table-count">
-          ${ocupados}/${table.capacidade}
-        </div>
-
-        ${
-          table.localizacao
-            ? `
-              <div
-                class="map-table-location"
-              >
-                ${escapeHtml(
-                  table.localizacao
-                )}
-              </div>
-            `
-            : ""
-        }
-
-      `;
-
-
-      div.title =
-        `${table.nome} — ${ocupados}/${table.capacidade}`;
-
-
-      map.appendChild(
-        div
-      );
-
+        return;
     }
-  );
-
-}
 
 
-/* =====================================================
-   E-MAIL / PRÉ-CONVITE
-===================================================== */
-
-function calcularPrazo15Dias(data) {
-
-  const d =
-    data
-      ? new Date(
-          data + "T12:00:00"
-        )
-      : new Date();
+    const id =
+        guestId.value;
 
 
-  d.setDate(
-    d.getDate() + 15
-  );
+    const convidado = {
 
-
-  return formatarDataISO(
-    d
-  );
-
-}
-
-
-function calcularDataLembrete(data) {
-
-  const d =
-    data
-      ? new Date(
-          data + "T12:00:00"
-        )
-      : new Date();
-
-
-  d.setDate(
-    d.getDate() + 10
-  );
-
-
-  return formatarDataISO(
-    d
-  );
-
-}
-
-
-/*
- * IMPORTANTE:
- *
- * Nesta versão o sistema NÃO envia automaticamente.
- *
- * O botão abre o cliente de e-mail através de mailto:
- *
- * O estado continua "Não enviado" até que o utilizador
- * guarde/atualize manualmente.
- *
- * Mais tarde substituiremos esta função pela API Resend.
- */
-
-function prepararEmail(id = "") {
-
-  let g = null;
-
-
-  if (id) {
-
-    g =
-      convidados.find(
-        item => item.id === id
-      );
-
-  } else {
-
-    const guestId =
-      document.getElementById(
-        "guestId"
-      ).value;
-
-
-    if (guestId) {
-
-      g =
-        convidados.find(
-          item => item.id === guestId
-        );
-
-    } else {
-
-      g = {
+        wedding_id:
+            casamentoAtual.id,
 
         nome:
-          document.getElementById(
-            "guestName"
-          ).value,
+            document.getElementById("name")
+                .value
+                .trim(),
+
+        grupo:
+            document.getElementById("group")
+                .value
+                .trim() || null,
+
+        lado:
+            document.getElementById("guestSide")
+                .value,
+
+        relacao:
+            document.getElementById("relation")
+                .value
+                .trim() || null,
+
+        telefone:
+            document.getElementById("phone")
+                .value
+                .trim() || null,
+
+        whatsapp:
+            document.getElementById("whatsapp")
+                .value
+                .trim() || null,
 
         email:
-          document.getElementById(
-            "guestEmail"
-          ).value,
+            document.getElementById("email")
+                .value
+                .trim() || null,
 
-        comunicacao: {
+        tipo:
+            document.getElementById("guestType")
+                .value,
 
-          dataEnvio:
-            document.getElementById(
-              "guestInviteDate"
-            ).value,
+        rsvp:
+            document.getElementById("guestRsvp")
+                .value,
 
-          prazoConfirmacao:
-            document.getElementById(
-              "guestInviteDeadline"
-            ).value
+        acompanhante:
+            document.getElementById("companion")
+                .value,
 
+        nome_acompanhante:
+            document.getElementById("companionName")
+                .value
+                .trim() || null,
+
+        alimentacao:
+            document.getElementById("food")
+                .value
+                .trim() || "Normal",
+
+        /*
+            mesa_id fica vazio nesta primeira fase,
+            porque a migração das mesas será feita
+            separadamente.
+        */
+
+        mesa_id:
+            document.getElementById("guestTable")
+                .value || null,
+
+        lugar:
+            document.getElementById("seat")
+                .value
+                ? Number(
+                    document.getElementById("seat")
+                        .value
+                )
+                : null,
+
+        notas:
+            document.getElementById("notes")
+                .value
+                .trim() || null
+
+    };
+
+
+    if(!convidado.nome){
+
+        alert(
+            "Informe o nome do convidado."
+        );
+
+        return;
+    }
+
+
+    const botao =
+        guestForm.querySelector(
+            'button[type="submit"]'
+        );
+
+    botao.disabled = true;
+
+    botao.textContent =
+        "A guardar...";
+
+
+    let resultado;
+
+
+    if(id){
+
+        resultado =
+            await supabaseClient
+                .from("guests")
+                .update(convidado)
+                .eq("id", id)
+                .eq(
+                    "wedding_id",
+                    casamentoAtual.id
+                );
+
+    }else{
+
+        resultado =
+            await supabaseClient
+                .from("guests")
+                .insert(convidado);
+
+    }
+
+
+    botao.disabled = false;
+
+    botao.textContent =
+        "Guardar convidado";
+
+
+    if(resultado.error){
+
+        console.error(
+            "Erro ao guardar convidado:",
+            resultado.error
+        );
+
+        mostrarErro(
+            "Não foi possível guardar o convidado: " +
+            resultado.error.message
+        );
+
+        return;
+    }
+
+
+    guestModal.classList.remove(
+        "open"
+    );
+
+    await carregarConvidados();
+
+}
+
+
+/* =========================================================
+   ABRIR CONVIDADO
+========================================================= */
+
+function openGuest(id = ""){
+
+    guestForm.reset();
+
+    guestId.value =
+        id;
+
+    guestTitle.textContent =
+        id
+            ? "Editar convidado"
+            : "Adicionar convidado";
+
+
+    atualizarSelectMesas();
+
+
+    if(id){
+
+        const g =
+            convidados.find(
+                x => x.id === id
+            );
+
+        if(!g){
+
+            mostrarErro(
+                "Convidado não encontrado."
+            );
+
+            return;
         }
 
-      };
+
+        document.getElementById("name")
+            .value =
+            g.nome || "";
+
+        document.getElementById("group")
+            .value =
+            g.grupo || "";
+
+        document.getElementById("guestSide")
+            .value =
+            g.lado || "Noiva";
+
+        document.getElementById("relation")
+            .value =
+            g.relacao || "";
+
+        document.getElementById("phone")
+            .value =
+            g.telefone || "";
+
+        document.getElementById("whatsapp")
+            .value =
+            g.whatsapp || "";
+
+        document.getElementById("email")
+            .value =
+            g.email || "";
+
+        document.getElementById("guestType")
+            .value =
+            g.tipo || "Adulto";
+
+        document.getElementById("guestRsvp")
+            .value =
+            g.rsvp || "Pendente";
+
+        document.getElementById("companion")
+            .value =
+            g.acompanhante || "Não";
+
+        document.getElementById("companionName")
+            .value =
+            g.nome_acompanhante || "";
+
+        document.getElementById("food")
+            .value =
+            g.alimentacao || "Normal";
+
+        document.getElementById("guestTable")
+            .value =
+            g.mesa_id || "";
+
+        document.getElementById("seat")
+            .value =
+            g.lugar || "";
+
+        document.getElementById("notes")
+            .value =
+            g.notas || "";
 
     }
 
-  }
 
-
-  if (!g) {
-
-    alert(
-      "Convidado não encontrado."
+    guestModal.classList.add(
+        "open"
     );
-
-    return;
-
-  }
-
-
-  if (!g.email) {
-
-    alert(
-      "Este convidado ainda não possui um endereço de e-mail."
-    );
-
-    return;
-
-  }
-
-
-  const dataEnvio =
-    g.comunicacao?.dataEnvio ||
-    formatarDataISO(
-      new Date()
-    );
-
-
-  const prazo =
-    g.comunicacao?.prazoConfirmacao ||
-    calcularPrazo15Dias(
-      dataEnvio
-    );
-
-
-  const assunto =
-    "💍 Pré-convite do nosso casamento";
-
-
-  const corpo =
-
-`Olá, ${g.nome}! 😊
-
-Estamos muito felizes por partilhar consigo que o nosso casamento está a chegar.
-
-Gostaríamos muito de contar consigo neste dia tão especial. ❤️
-
-Pedimos, por favor, que confirme a sua presença nos próximos 15 dias.
-
-Prazo para confirmação: ${formatarData(prazo)}
-
-Em breve partilharemos todos os detalhes do casamento.
-
-Será uma alegria celebrar este momento consigo!
-
-Com carinho,
-Casamento Perfeito 💍`;
-
-
-  const mailto =
-    "mailto:" +
-    encodeURIComponent(
-      g.email
-    ) +
-    "?subject=" +
-    encodeURIComponent(
-      assunto
-    ) +
-    "&body=" +
-    encodeURIComponent(
-      corpo
-    );
-
-
-  /*
-   * Atualizar apenas os campos de data.
-   * NÃO marcar como "Enviado".
-   */
-
-  const dataInput =
-    document.getElementById(
-      "guestInviteDate"
-    );
-
-
-  const prazoInput =
-    document.getElementById(
-      "guestInviteDeadline"
-    );
-
-
-  const lembreteInput =
-    document.getElementById(
-      "guestReminderDate"
-    );
-
-
-  if (dataInput) {
-
-    dataInput.value =
-      dataEnvio;
-
-  }
-
-
-  if (prazoInput) {
-
-    prazoInput.value =
-      prazo;
-
-  }
-
-
-  if (lembreteInput) {
-
-    lembreteInput.value =
-      calcularDataLembrete(
-        dataEnvio
-      );
-
-  }
-
-
-  atualizarEmailPreview();
-
-
-  /*
-   * Abre o cliente de e-mail.
-   */
-
-  window.location.href =
-    mailto;
-
-
-  mostrarToast(
-    "Pré-convite preparado. Clique em Enviar no seu programa de e-mail."
-  );
 
 }
 
 
-function atualizarEmailPreview() {
+/* =========================================================
+   EDITAR CONVIDADO
+========================================================= */
 
-  const preview =
-    document.getElementById(
-      "emailPreview"
-    );
+function editGuest(id){
 
-
-  if (!preview) return;
-
-
-  const nome =
-    document.getElementById(
-      "guestName"
-    )?.value ||
-    "[Nome do convidado]";
-
-
-  let prazo =
-    document.getElementById(
-      "guestInviteDeadline"
-    )?.value;
-
-
-  if (!prazo) {
-
-    const envio =
-      document.getElementById(
-        "guestInviteDate"
-      )?.value ||
-      formatarDataISO(
-        new Date()
-      );
-
-
-    prazo =
-      calcularPrazo15Dias(
-        envio
-      );
-
-  }
-
-
-  preview.textContent =
-
-`Olá, ${nome}! 😊
-
-Estamos muito felizes por partilhar consigo que o nosso casamento está a chegar.
-
-Gostaríamos muito de contar consigo neste dia tão especial. ❤️
-
-Pedimos, por favor, que confirme a sua presença nos próximos 15 dias.
-
-Prazo para confirmação: ${formatarData(prazo)}
-
-Em breve partilharemos todos os detalhes do casamento.
-
-Será uma alegria celebrar este momento consigo!
-
-Com carinho,
-Casamento Perfeito 💍`;
+    openGuest(id);
 
 }
 
 
-function atualizarEmailStatus() {
+/* =========================================================
+   ELIMINAR CONVIDADO
+========================================================= */
 
-  const status =
-    document.getElementById(
-      "guestInviteStatus"
-    );
+async function delGuest(id){
 
+    const convidado =
+        convidados.find(
+            x => x.id === id
+        );
 
-  const deadline =
-    document.getElementById(
-      "guestInviteDeadline"
-    );
+    if(!convidado){
 
-
-  const statusText =
-    document.getElementById(
-      "emailStatusText"
-    );
-
-
-  const deadlineEl =
-    document.getElementById(
-      "emailDeadline"
-    );
-
-
-  if (
-    !status ||
-    !deadline ||
-    !statusText ||
-    !deadlineEl
-  ) {
-    return;
-  }
-
-
-  statusText.textContent =
-    status.value;
-
-
-  if (!deadline.value) {
-
-    deadlineEl.textContent =
-      "Prazo: —";
-
-    deadlineEl.classList.remove(
-      "expired"
-    );
-
-    return;
-
-  }
-
-
-  const hoje =
-    new Date();
-
-
-  hoje.setHours(
-    0,
-    0,
-    0,
-    0
-  );
-
-
-  const prazo =
-    new Date(
-      deadline.value +
-      "T00:00:00"
-    );
-
-
-  if (
-    prazo < hoje &&
-    status.value !==
-      "Confirmado"
-  ) {
-
-    deadlineEl.textContent =
-      "⚠️ Prazo expirado";
-
-    deadlineEl.classList.add(
-      "expired"
-    );
-
-  } else {
-
-    deadlineEl.textContent =
-      "📅 Prazo: " +
-      formatarData(
-        deadline.value
-      );
-
-    deadlineEl.classList.remove(
-      "expired"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   EXPORTAÇÃO
-===================================================== */
-
-function exportarConvidados() {
-
-  if (!convidados.length) {
-
-    alert(
-      "Não existem convidados para exportar."
-    );
-
-    return;
-
-  }
-
-
-  const headers = [
-
-    "Nome",
-    "Grupo/Família",
-    "Relação",
-    "Lado",
-    "Tipo",
-    "Telefone",
-    "WhatsApp",
-    "Email",
-    "RSVP",
-    "Acompanhante",
-    "Nome Acompanhante",
-    "Alimentação",
-    "Mesa",
-    "Lugar",
-    "Pré-convite",
-    "Data Envio",
-    "Prazo Confirmação",
-    "Notas"
-
-  ];
-
-
-  const rows =
-    convidados.map(
-      g => {
-
-        const mesa =
-          mesas.find(
-            m => m.id === g.mesa
-          );
-
-
-        return [
-
-          g.nome,
-          g.grupo,
-          g.relacao,
-          g.lado,
-          g.tipo,
-          g.telefone,
-          g.whatsapp,
-          g.email,
-          g.rsvp,
-          g.acompanhante,
-          g.nomeAcompanhante,
-          g.alimentacao,
-          mesa?.nome || "",
-          g.lugar,
-          g.comunicacao?.estado || "",
-          g.comunicacao?.dataEnvio || "",
-          g.comunicacao?.prazoConfirmacao || "",
-          g.notas
-
-        ];
-
-      }
-    );
-
-
-  let csv =
-    headers
-      .map(csvEscape)
-      .join(";") +
-    "\n";
-
-
-  rows.forEach(
-    row => {
-
-      csv +=
-        row
-          .map(csvEscape)
-          .join(";") +
-        "\n";
-
+        return;
     }
-  );
 
 
-  const blob =
-    new Blob(
-      [
-        "\ufeff" +
-        csv
-      ],
-      {
-        type:
-          "text/csv;charset=utf-8;"
-      }
-    );
+    if(!confirm(
+        'Eliminar o convidado "' +
+        convidado.nome +
+        '"?'
+    )){
+
+        return;
+    }
 
 
-  const url =
-    URL.createObjectURL(
-      blob
-    );
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("guests")
+            .delete()
+            .eq("id", id)
+            .eq(
+                "wedding_id",
+                casamentoAtual.id
+            );
 
 
-  const a =
-    document.createElement(
-      "a"
-    );
+    if(error){
+
+        console.error(
+            "Erro ao eliminar convidado:",
+            error
+        );
+
+        mostrarErro(
+            "Não foi possível eliminar o convidado: " +
+            error.message
+        );
+
+        return;
+    }
 
 
-  a.href =
-    url;
-
-
-  a.download =
-    "convidados-casamento-perfeito.csv";
-
-
-  document.body.appendChild(
-    a
-  );
-
-
-  a.click();
-
-
-  document.body.removeChild(
-    a
-  );
-
-
-  URL.revokeObjectURL(
-    url
-  );
-
-
-  mostrarToast(
-    "Lista de convidados exportada."
-  );
+    await carregarConvidados();
 
 }
 
 
-function csvEscape(value) {
+/* =========================================================
+   MESAS — TEMPORARIAMENTE LOCALSTORAGE
+========================================================= */
 
-  return '"' +
-    String(
-      value ?? ""
-    )
-      .replace(
-        /"/g,
-        '""'
-      ) +
-    '"';
+function guardarMesasLocal(){
+
+    localStorage.setItem(
+        TABLES_KEY,
+        JSON.stringify(mesas)
+    );
 
 }
 
 
-/* =====================================================
-   MODAIS
-===================================================== */
+/* =========================================================
+   RENDER MESAS
+========================================================= */
 
-function closeModal(id) {
+function renderMesas(){
 
-  const modal =
-    document.getElementById(
-      id
-    );
+    tableList.innerHTML =
+        mesas.length
+
+        ? mesas.map(function(t){
+
+            const gs =
+                convidados.filter(
+                    g => g.mesa_id === t.id
+                );
 
 
-  if (modal) {
+            return `
 
-    modal.classList.remove(
-      "active"
-    );
+                <article class="table-card">
 
-  }
+                    <div class="table-head">
+
+                        <div>
+
+                            <h3>
+                                🪑 ${esc(t.nome)}
+                            </h3>
+
+                            <div class="muted">
+                                ${esc(t.formato)}
+                                ·
+                                ${esc(
+                                    t.localizacao ||
+                                    "Local não definido"
+                                )}
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ${gs.length}/${t.capacidade}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="seats">
+
+                        ${Array.from(
+                            {
+                                length:t.capacidade
+                            },
+                            (_,i) => {
+
+                                const g =
+                                    gs.find(
+                                        x =>
+                                            Number(x.lugar)
+                                            ===
+                                            i + 1
+                                    );
+
+
+                                return `
+
+                                    <div
+                                        class="seat ${
+                                            g
+                                            ? "occupied"
+                                            : ""
+                                        }"
+                                    >
+
+                                        <span>
+                                            ${
+                                                g
+                                                ? esc(g.nome)
+                                                : "Lugar livre"
+                                            }
+                                        </span>
+
+                                        <small>
+                                            ${i + 1}
+                                        </small>
+
+                                    </div>
+
+                                `;
+
+                            }
+                        ).join("")}
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button
+                            class="btn secondary"
+                            onclick="editTable('${t.id}')">
+                            Editar
+                        </button>
+
+                        <button
+                            class="btn danger"
+                            onclick="delTable('${t.id}')">
+                            Eliminar
+                        </button>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }).join("")
+
+        : `
+
+            <div
+                class="empty"
+                style="grid-column:1/-1"
+            >
+
+                <h3>
+                    Ainda não existem mesas
+                </h3>
+
+                <p style="margin-top:7px">
+                    Crie a primeira mesa.
+                </p>
+
+            </div>
+
+        `;
 
 }
 
 
-document.addEventListener(
-  "click",
-  function(event) {
+/* =========================================================
+   NOVA MESA
+========================================================= */
 
-    if (
-      event.target.classList.contains(
-        "modal-overlay"
-      )
-    ) {
+function openTable(id = ""){
 
-      event.target.classList.remove(
-        "active"
-      );
+    tableForm.reset();
+
+    tableId.value =
+        id;
+
+    tableTitle.textContent =
+        id
+            ? "Editar mesa"
+            : "Nova mesa";
+
+    document.getElementById("capacity")
+        .value = 10;
+
+
+    if(id){
+
+        const t =
+            mesas.find(
+                x => x.id === id
+            );
+
+        if(!t){
+
+            return;
+        }
+
+
+        document.getElementById("tableName")
+            .value =
+            t.nome || "";
+
+        document.getElementById("shape")
+            .value =
+            t.formato || "Redonda";
+
+        document.getElementById("capacity")
+            .value =
+            t.capacidade || 10;
+
+        document.getElementById("location")
+            .value =
+            t.localizacao || "";
+
+        document.getElementById("tableNotes")
+            .value =
+            t.notas || "";
 
     }
 
-  }
+
+    tableModal.classList.add(
+        "open"
+    );
+
+}
+
+
+function editTable(id){
+
+    openTable(id);
+
+}
+
+
+/* =========================================================
+   GUARDAR MESA
+========================================================= */
+
+function guardarMesa(event){
+
+    event.preventDefault();
+
+
+    const id =
+        tableId.value;
+
+
+    const mesa = {
+
+        id:
+            id ||
+            "mesa_" +
+            Date.now()
+            .toString(36) +
+            Math.random()
+                .toString(36)
+                .slice(2,6),
+
+        nome:
+            document.getElementById("tableName")
+                .value
+                .trim(),
+
+        formato:
+            document.getElementById("shape")
+                .value,
+
+        capacidade:
+            Number(
+                document.getElementById("capacity")
+                    .value
+            ) || 10,
+
+        localizacao:
+            document.getElementById("location")
+                .value
+                .trim(),
+
+        notas:
+            document.getElementById("tableNotes")
+                .value
+                .trim()
+
+    };
+
+
+    const index =
+        mesas.findIndex(
+            x => x.id === mesa.id
+        );
+
+
+    if(index >= 0){
+
+        mesas[index] =
+            mesa;
+
+    }else{
+
+        mesas.push(mesa);
+
+    }
+
+
+    guardarMesasLocal();
+
+    tableModal.classList.remove(
+        "open"
+    );
+
+    render();
+
+}
+
+
+/* =========================================================
+   ELIMINAR MESA
+========================================================= */
+
+async function delTable(id){
+
+    const mesa =
+        mesas.find(
+            x => x.id === id
+        );
+
+    if(!mesa){
+
+        return;
+    }
+
+
+    if(!confirm(
+        "Eliminar a " +
+        mesa.nome +
+        "? Os convidados ficarão sem mesa."
+    )){
+
+        return;
+    }
+
+
+    /*
+       Os convidados estão no Supabase.
+       Primeiro removemos a referência da mesa
+       dos convidados que estão associados a ela.
+    */
+
+    const associados =
+        convidados.filter(
+            g => g.mesa_id === id
+        );
+
+
+    for(const convidado of associados){
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("guests")
+                .update({
+                    mesa_id:null,
+                    lugar:null
+                })
+                .eq(
+                    "id",
+                    convidado.id
+                )
+                .eq(
+                    "wedding_id",
+                    casamentoAtual.id
+                );
+
+
+        if(error){
+
+            console.error(
+                "Erro ao libertar mesa:",
+                error
+            );
+
+            mostrarErro(
+                "Não foi possível remover a associação dos convidados."
+            );
+
+            return;
+        }
+
+    }
+
+
+    mesas =
+        mesas.filter(
+            x => x.id !== id
+        );
+
+
+    guardarMesasLocal();
+
+    await carregarConvidados();
+
+}
+
+
+/* =========================================================
+   MAPA
+========================================================= */
+
+function renderMapa(){
+
+    mapList.innerHTML =
+        mesas.length
+
+        ? mesas.map(function(t){
+
+            const n =
+                convidados.filter(
+                    g => g.mesa_id === t.id
+                ).length;
+
+
+            return `
+
+                <div class="map-table">
+
+                    <strong>
+                        ${esc(t.nome)}
+                    </strong>
+
+                    <span>
+                        ${n}/${t.capacidade}
+                        convidados
+                    </span>
+
+                    <span>
+                        ${esc(t.formato)}
+                    </span>
+
+                </div>
+
+            `;
+
+        }).join("")
+
+        : `
+
+            <div
+                class="empty"
+                style="width:100%"
+            >
+                Crie mesas para visualizar o mapa.
+            </div>
+
+        `;
+
+}
+
+
+/* =========================================================
+   ABAS
+========================================================= */
+
+document
+    .querySelectorAll(".tab")
+    .forEach(function(button){
+
+        button.onclick =
+            function(){
+
+                document
+                    .querySelectorAll(".tab")
+                    .forEach(
+                        x =>
+                            x.classList.remove(
+                                "active"
+                            )
+                    );
+
+                document
+                    .querySelectorAll(".panel")
+                    .forEach(
+                        x =>
+                            x.classList.remove(
+                                "active"
+                            )
+                    );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+                document
+                    .getElementById(
+                        button.dataset.panel
+                    )
+                    .classList.add(
+                        "active"
+                    );
+
+            };
+
+    });
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+[
+    "search",
+    "rsvp",
+    "side",
+    "type",
+    "tableFilter"
+]
+.forEach(function(id){
+
+    document
+        .getElementById(id)
+        .addEventListener(
+            "input",
+            renderConvidados
+        );
+
+});
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+document
+    .getElementById("newGuest")
+    .onclick =
+        function(){
+
+            openGuest();
+
+        };
+
+
+document
+    .getElementById("newTable")
+    .onclick =
+        function(){
+
+            openTable();
+
+        };
+
+
+/* =========================================================
+   FORMULÁRIOS
+========================================================= */
+
+guestForm.addEventListener(
+    "submit",
+    guardarConvidado
+);
+
+tableForm.addEventListener(
+    "submit",
+    guardarMesa
 );
 
 
-/* =====================================================
-   UTILITÁRIOS
-===================================================== */
+/* =========================================================
+   FECHAR MODAIS
+========================================================= */
 
-function formatarDataISO(date) {
+document
+    .querySelectorAll(".close")
+    .forEach(function(button){
 
-  const ano =
-    date.getFullYear();
+        button.onclick =
+            function(){
 
+                button
+                    .closest(".modal-bg")
+                    .classList.remove(
+                        "open"
+                    );
 
-  const mes =
-    String(
-      date.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    );
+            };
 
-
-  const dia =
-    String(
-      date.getDate()
-    ).padStart(
-      2,
-      "0"
-    );
+    });
 
 
-  return (
-    ano +
-    "-" +
-    mes +
-    "-" +
-    dia
-  );
+document
+    .querySelectorAll(".modal-bg")
+    .forEach(function(modal){
 
-}
+        modal.onclick =
+            function(event){
 
+                if(event.target === modal){
 
-function formatarData(value) {
+                    modal.classList.remove(
+                        "open"
+                    );
 
-  if (!value) {
-    return "—";
-  }
+                }
 
+            };
 
-  const parts =
-    value.split("-");
+    });
 
 
-  if (
-    parts.length !== 3
-  ) {
-    return value;
-  }
+/* =========================================================
+   INICIAR
+========================================================= */
 
-
-  return (
-    parts[2] +
-    "/" +
-    parts[1] +
-    "/" +
-    parts[0]
-  );
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(
-    value ?? ""
-  )
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function mostrarToast(message) {
-
-  const toast =
-    document.getElementById(
-      "toast"
-    );
-
-
-  if (!toast) return;
-
-
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    "show"
-  );
-
-
-  clearTimeout(
-    window.toastTimer
-  );
-
-
-  window.toastTimer =
-    setTimeout(
-      function() {
-
-        toast.classList.remove(
-          "show"
-        );
-
-      },
-      3500
-    );
-
-}
+iniciarPagina();
 
 </script>
 

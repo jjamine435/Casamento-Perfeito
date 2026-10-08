@@ -542,6 +542,11 @@
             font-weight: bold;
         }
 
+        .capacity-help.success {
+            color: #267347;
+            font-weight: bold;
+        }
+
         .map {
             display: flex;
 
@@ -1106,59 +1111,31 @@
                         data-target="group"
                     >
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Família"
-                        >
+                        <button type="button" class="suggestion" data-value="Família">
                             Família
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Amigos"
-                        >
+                        <button type="button" class="suggestion" data-value="Amigos">
                             Amigos
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Trabalho"
-                        >
+                        <button type="button" class="suggestion" data-value="Trabalho">
                             Trabalho
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Igreja"
-                        >
+                        <button type="button" class="suggestion" data-value="Igreja">
                             Igreja
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Escola"
-                        >
+                        <button type="button" class="suggestion" data-value="Escola">
                             Escola
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Vizinhos"
-                        >
+                        <button type="button" class="suggestion" data-value="Vizinhos">
                             Vizinhos
                         </button>
 
-                        <button
-                            type="button"
-                            class="suggestion"
-                            data-value="Padrinhos"
-                        >
+                        <button type="button" class="suggestion" data-value="Padrinhos">
                             Padrinhos
                         </button>
 
@@ -1490,13 +1467,16 @@
                         Lugar
                     </label>
 
-                    <input
-                        id="seat"
-                        type="number"
-                        min="1"
-                    >
+                    <select id="seat">
+
+                        <option value="">
+                            Escolha primeiro uma mesa
+                        </option>
+
+                    </select>
 
                     <div
+                        id="seatHelp"
                         class="capacity-help"
                     >
                         Escolha primeiro uma mesa.
@@ -1783,14 +1763,6 @@ let convidados = [];
 let mesas = [];
 
 
-/*
- * Backup das mesas antigas.
- *
- * Não apagamos esta informação.
- * Ela pode ser usada caso a migração precise
- * ser repetida manualmente.
- */
-
 const STORAGE_TABLES =
     "casamentoPerfeitoMesas_v1";
 
@@ -1973,12 +1945,6 @@ async function carregarDados() {
 
         await migrarMesasAntigas();
 
-        /*
-         * Depois da migração voltamos a carregar
-         * os convidados para garantir que as
-         * referências das mesas estão atualizadas.
-         */
-
         await carregarConvidados();
 
         renderizarTudo();
@@ -2107,11 +2073,6 @@ async function migrarMesasAntigas() {
     }
 
 
-    /*
-     * Se já existem mesas no Supabase,
-     * não fazemos nova migração.
-     */
-
     if (mesas.length > 0) {
 
         return;
@@ -2217,11 +2178,6 @@ async function migrarMesasAntigas() {
     }
 
 
-    /*
-     * Atualizar convidados que estavam
-     * associados às mesas antigas.
-     */
-
     for (
         const convidado
         of convidados
@@ -2230,22 +2186,13 @@ async function migrarMesasAntigas() {
         const novoMesaId =
             mapaMesas[
                 convidado.mesa_id
-            ];
-
-
-        /*
-         * Também tentamos a propriedade antiga
-         * "mesa", caso exista no backup.
-         */
-
-        const novoMesaIdAntigo =
-            novoMesaId ||
+            ] ||
             mapaMesas[
                 convidado.mesa
             ];
 
 
-        if (!novoMesaIdAntigo) {
+        if (!novoMesaId) {
 
             continue;
 
@@ -2260,7 +2207,7 @@ async function migrarMesasAntigas() {
                 .update({
 
                     mesa_id:
-                        novoMesaIdAntigo
+                        novoMesaId
 
                 })
                 .eq(
@@ -2364,6 +2311,274 @@ function contarOcupados(
 
 
 /* ======================================================
+   OBTER LUGARES OCUPADOS
+====================================================== */
+
+function obterLugaresOcupados(
+    mesaId,
+    ignorarConvidadoId = null
+) {
+
+    if (!mesaId) {
+
+        return [];
+
+    }
+
+
+    return convidados
+        .filter(convidado => {
+
+            if (
+                String(convidado.mesa_id) !==
+                String(mesaId)
+            ) {
+
+                return false;
+
+            }
+
+
+            if (
+                ignorarConvidadoId &&
+                String(convidado.id) ===
+                String(ignorarConvidadoId)
+            ) {
+
+                return false;
+
+            }
+
+
+            return Number.isInteger(
+                Number(convidado.lugar)
+            );
+
+        })
+        .map(
+            convidado =>
+                Number(convidado.lugar)
+        );
+
+}
+
+
+/* ======================================================
+   ATUALIZAR LUGARES DISPONÍVEIS
+====================================================== */
+
+function atualizarLugaresDisponiveis(
+    lugarSelecionado = null
+) {
+
+    const select =
+        $("seat");
+
+    const seatHelp =
+        $("seatHelp");
+
+    const mesaId =
+        $("guestTable").value;
+
+    const convidadoId =
+        $("guestId").value ||
+        null;
+
+
+    if (!mesaId) {
+
+        select.innerHTML = `
+            <option value="">
+                Escolha primeiro uma mesa
+            </option>
+        `;
+
+        seatHelp.textContent =
+            "Escolha primeiro uma mesa.";
+
+        seatHelp.className =
+            "capacity-help";
+
+        return;
+
+    }
+
+
+    const mesa =
+        obterMesa(mesaId);
+
+
+    if (!mesa) {
+
+        select.innerHTML = `
+            <option value="">
+                Mesa não encontrada
+            </option>
+        `;
+
+        seatHelp.textContent =
+            "A mesa selecionada não foi encontrada.";
+
+        seatHelp.className =
+            "capacity-help warning";
+
+        return;
+
+    }
+
+
+    const capacidade =
+        Number(mesa.lugares) || 0;
+
+
+    const lugaresOcupados =
+        obterLugaresOcupados(
+            mesaId,
+            convidadoId
+        );
+
+
+    const lugaresDisponiveis = [];
+
+
+    for (
+        let numero = 1;
+        numero <= capacidade;
+        numero++
+    ) {
+
+        if (
+            !lugaresOcupados.includes(
+                numero
+            )
+        ) {
+
+            lugaresDisponiveis.push(
+                numero
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Se estamos a editar um convidado,
+     * o lugar que ele já ocupa foi excluído
+     * da lista de ocupados e portanto continua
+     * disponível para ele.
+     */
+
+    let valorSelecionado =
+        lugarSelecionado !== null &&
+        lugarSelecionado !== undefined &&
+        lugarSelecionado !== ""
+            ? Number(lugarSelecionado)
+            : null;
+
+
+    /*
+     * Se o lugar escolhido ainda existe,
+     * selecionamos automaticamente.
+     */
+
+    if (
+        valorSelecionado &&
+        lugaresDisponiveis.includes(
+            valorSelecionado
+        )
+    ) {
+
+        // mantém o valor
+
+    } else {
+
+        valorSelecionado =
+            null;
+
+    }
+
+
+    if (
+        lugaresDisponiveis.length === 0
+    ) {
+
+        select.innerHTML = `
+            <option value="">
+                Nenhum lugar disponível
+            </option>
+        `;
+
+        select.value = "";
+
+        seatHelp.textContent =
+            `${mesa.nome}: todos os ${capacidade} lugares estão ocupados.`;
+
+        seatHelp.className =
+            "capacity-help warning";
+
+        return;
+
+    }
+
+
+    let html = `
+        <option value="">
+            Escolher lugar
+        </option>
+    `;
+
+
+    lugaresDisponiveis.forEach(
+        numero => {
+
+            html += `
+                <option
+                    value="${numero}"
+                    ${
+                        Number(valorSelecionado) ===
+                        Number(numero)
+                            ? "selected"
+                            : ""
+                    }
+                >
+                    Lugar ${numero}
+                </option>
+            `;
+
+        }
+    );
+
+
+    select.innerHTML =
+        html;
+
+
+    if (valorSelecionado) {
+
+        select.value =
+            String(valorSelecionado);
+
+    }
+
+
+    const ocupados =
+        contarOcupados(
+            mesaId,
+            convidadoId
+        );
+
+
+    seatHelp.textContent =
+        `${mesa.nome}: ${ocupados}/${capacidade} ocupados — ${lugaresDisponiveis.length} lugar(es) disponível(eis).`;
+
+    seatHelp.className =
+        "capacity-help success";
+
+}
+
+
+/* ======================================================
    VALIDAR MESA E LUGAR
 ====================================================== */
 
@@ -2373,11 +2588,6 @@ function validarLugarEMesa(
     convidadoId = null,
     mesaAnteriorId = null
 ) {
-
-    /*
-     * Sem mesa:
-     * não existe validação de capacidade.
-     */
 
     if (!mesaId) {
 
@@ -2411,99 +2621,108 @@ function validarLugarEMesa(
 
 
     /*
-     * Validar número do lugar.
+     * Quando uma mesa é selecionada,
+     * o lugar deve ser obrigatório.
      */
 
-    if (lugar !== null) {
+    if (lugar === null) {
 
-        if (
-            !Number.isInteger(lugar) ||
-            lugar < 1
-        ) {
+        return {
 
-            return {
+            valido: false,
 
-                valido: false,
+            mensagem:
+                `Escolha um lugar disponível na ${mesa.nome}.`
 
-                mensagem:
-                    "O número do lugar deve ser um número inteiro maior que zero."
+        };
 
-            };
-
-        }
+    }
 
 
-        if (lugar > capacidade) {
+    if (
+        !Number.isInteger(lugar) ||
+        lugar < 1
+    ) {
 
-            return {
+        return {
 
-                valido: false,
+            valido: false,
 
-                mensagem:
-                    `A ${mesa.nome} tem apenas ${capacidade} lugar(es). O lugar ${lugar} não existe.`
+            mensagem:
+                "Escolha um lugar válido."
 
-            };
+        };
 
-        }
-
-
-        /*
-         * Verificar se o lugar já está ocupado.
-         */
-
-        const lugarOcupado =
-            convidados.some(
-                convidado => {
-
-                    if (
-                        String(convidado.mesa_id) !==
-                        String(mesaId)
-                    ) {
-
-                        return false;
-
-                    }
+    }
 
 
-                    if (
-                        Number(convidado.lugar) !==
-                        Number(lugar)
-                    ) {
+    if (
+        lugar > capacidade
+    ) {
 
-                        return false;
+        return {
 
-                    }
+            valido: false,
 
+            mensagem:
+                `A ${mesa.nome} tem apenas ${capacidade} lugar(es).`
 
-                    if (
-                        convidadoId &&
-                        String(convidado.id) ===
-                        String(convidadoId)
-                    ) {
+        };
 
-                        return false;
-
-                    }
+    }
 
 
-                    return true;
+    const lugarOcupado =
+        convidados.some(
+            convidado => {
+
+                if (
+                    String(convidado.mesa_id) !==
+                    String(mesaId)
+                ) {
+
+                    return false;
 
                 }
-            );
 
 
-        if (lugarOcupado) {
+                if (
+                    Number(convidado.lugar) !==
+                    Number(lugar)
+                ) {
 
-            return {
+                    return false;
 
-                valido: false,
+                }
 
-                mensagem:
-                    `O lugar ${lugar} da ${mesa.nome} já está ocupado.`
 
-            };
+                if (
+                    convidadoId &&
+                    String(convidado.id) ===
+                    String(convidadoId)
+                ) {
 
-        }
+                    return false;
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    if (lugarOcupado) {
+
+        return {
+
+            valido: false,
+
+            mensagem:
+                `O lugar ${lugar} da ${mesa.nome} já está ocupado.`
+
+        };
 
     }
 
@@ -2514,18 +2733,6 @@ function validarLugarEMesa(
             convidadoId
         );
 
-
-    /*
-     * IMPORTANTE:
-     *
-     * Se estamos a editar um convidado
-     * que já estava nesta mesma mesa,
-     * não bloqueamos a edição apenas porque
-     * a mesa já estava sobrelotada.
-     *
-     * Isto permite corrigir dados de convidados
-     * antigos sem apagar informação.
-     */
 
     const mesmaMesa =
         convidadoId &&
@@ -2567,6 +2774,8 @@ function renderizarTudo() {
     atualizarEstatisticas();
 
     atualizarSelectMesas();
+
+    atualizarFiltroMesas();
 
     renderizarConvidados();
 
@@ -2630,6 +2839,74 @@ function atualizarEstatisticas() {
 
 
 /* ======================================================
+   FILTRO DE MESAS
+====================================================== */
+
+function atualizarFiltroMesas() {
+
+    const select =
+        $("tableFilter");
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const valorAtual =
+        select.value;
+
+
+    let html = `
+        <option value="">
+            Todas as mesas
+        </option>
+
+        <option value="none">
+            Sem mesa
+        </option>
+    `;
+
+
+    mesas.forEach(
+        mesa => {
+
+            html += `
+                <option
+                    value="${escAttr(mesa.id)}"
+                >
+                    ${esc(mesa.nome)}
+                </option>
+            `;
+
+        }
+    );
+
+
+    select.innerHTML =
+        html;
+
+
+    if (
+        valorAtual === "none" ||
+        mesas.some(
+            mesa =>
+                String(mesa.id) ===
+                String(valorAtual)
+        )
+    ) {
+
+        select.value =
+            valorAtual;
+
+    }
+
+}
+
+
+/* ======================================================
    SELECT DE MESAS
 ====================================================== */
 
@@ -2667,15 +2944,17 @@ function atualizarSelectMesas(
                 Number(mesa.lugares) || 0;
 
 
+            const disponiveis =
+                Math.max(
+                    capacidade -
+                    ocupados,
+                    0
+                );
+
+
             const cheia =
                 ocupados >= capacidade;
 
-
-            /*
-             * A mesa atual do convidado
-             * continua selecionável mesmo
-             * quando está cheia.
-             */
 
             const atual =
                 mesaSelecionada &&
@@ -2696,7 +2975,11 @@ function atualizarSelectMesas(
                 >
                     ${esc(mesa.nome)}
                     — ${ocupados}/${capacidade}
-                    ${cheia ? " — Lotada" : ""}
+                    ${
+                        cheia
+                            ? " — Lotada"
+                            : ` — ${disponiveis} disponível(eis)`
+                    }
                 </option>
             `;
 
@@ -2727,10 +3010,6 @@ function atualizarInformacaoMesa() {
         $("tableCapacityHelp");
 
 
-    const lugar =
-        $("seat");
-
-
     if (!mesaId) {
 
         ajuda.textContent =
@@ -2739,9 +3018,7 @@ function atualizarInformacaoMesa() {
         ajuda.className =
             "capacity-help";
 
-        lugar.removeAttribute(
-            "max"
-        );
+        atualizarLugaresDisponiveis();
 
         return;
 
@@ -2777,13 +3054,10 @@ function atualizarInformacaoMesa() {
 
     const disponiveis =
         Math.max(
-            capacidade - ocupados,
+            capacidade -
+            ocupados,
             0
         );
-
-
-    lugar.max =
-        capacidade;
 
 
     if (
@@ -2802,9 +3076,14 @@ function atualizarInformacaoMesa() {
             `${mesa.nome}: ${ocupados}/${capacidade} ocupados — ${disponiveis} lugar(es) disponível(eis).`;
 
         ajuda.className =
-            "capacity-help";
+            "capacity-help success";
 
     }
+
+
+    atualizarLugaresDisponiveis(
+        $("seat").value
+    );
 
 }
 
@@ -3370,7 +3649,7 @@ function renderizarMesas() {
                                     ${
                                         cheia
                                             ? "Lotada"
-                                            : `${disponiveis} livre(s)`
+                                            : `${disponiveis} lugar(es) disponível(eis)`
                                     }
 
                                 </span>
@@ -3569,9 +3848,10 @@ function renderizarMapa() {
                         </span>
 
                         <span>
-                            ${cheia
-                                ? "Lotada"
-                                : `${capacidade - ocupados} lugar(es) livre(s)`
+                            ${
+                                cheia
+                                    ? "Lotada"
+                                    : `${capacidade - ocupados} lugar(es) livre(s)`
                             }
                         </span>
 
@@ -3712,6 +3992,12 @@ function openGuest(id = "") {
 
 
     atualizarInformacaoMesa();
+
+    atualizarLugaresDisponiveis(
+        convidado
+            ? convidado.lugar
+            : null
+    );
 
 
     $("guestModal")
@@ -3856,12 +4142,6 @@ async function guardarConvidado() {
             ? Number(lugarTexto)
             : null;
 
-
-    /*
-     * Descobrir dados anteriores
-     * para sabermos se o convidado
-     * já estava na mesma mesa.
-     */
 
     const convidadoAnterior =
         id
@@ -4185,11 +4465,16 @@ function atualizarAvisoCapacidadeMesa() {
 
     } else {
 
+        const disponiveis =
+            capacidade -
+            ocupados;
+
+
         aviso.textContent =
-            `Esta mesa tem atualmente ${ocupados} convidado(s).`;
+            `Esta mesa tem ${ocupados}/${capacidade} lugares ocupados — ${disponiveis} disponível(eis).`;
 
         aviso.className =
-            "capacity-help";
+            "capacity-help success";
 
     }
 
@@ -4242,12 +4527,6 @@ async function guardarMesa() {
 
     }
 
-
-    /*
-     * Se estamos a editar uma mesa,
-     * não podemos reduzir a capacidade
-     * abaixo dos convidados existentes.
-     */
 
     if (id) {
 
@@ -4430,13 +4709,6 @@ async function delTable(id) {
 
 
     try {
-
-        /*
-         * Primeiro retiramos a mesa dos convidados.
-         * A FK também possui ON DELETE SET NULL,
-         * mas fazemos explicitamente para manter
-         * o estado claro.
-         */
 
         if (ocupados > 0) {
 
@@ -4647,13 +4919,6 @@ function configurarSugestoes() {
                                         "";
 
 
-                                    /*
-                                     * Para observações,
-                                     * acrescentamos o texto
-                                     * em vez de apagar o
-                                     * que já existe.
-                                     */
-
                                     if (
                                         targetId ===
                                         "notes"
@@ -4716,11 +4981,6 @@ function configurarSugestoes() {
             }
         );
 
-
-    /*
-     * Fechar sugestões quando clicamos
-     * fora do campo.
-     */
 
     document.addEventListener(
         "click",
@@ -4843,16 +5103,7 @@ function configurarFormularios() {
 
                 atualizarInformacaoMesa();
 
-            }
-        );
-
-
-    $("capacity")
-        .addEventListener(
-            "input",
-            () => {
-
-                atualizarAvisoCapacidadeMesa();
+                atualizarLugaresDisponiveis();
 
             }
         );
@@ -4860,7 +5111,7 @@ function configurarFormularios() {
 
     $("seat")
         .addEventListener(
-            "input",
+            "change",
             () => {
 
                 const mesaId =
@@ -4884,6 +5135,13 @@ function configurarFormularios() {
                     );
 
 
+                if (!valor) {
+
+                    return;
+
+                }
+
+
                 const capacidade =
                     Number(
                         mesa.lugares
@@ -4903,7 +5161,20 @@ function configurarFormularios() {
 
                     );
 
+                    atualizarLugaresDisponiveis();
+
                 }
+
+            }
+        );
+
+
+    $("capacity")
+        .addEventListener(
+            "input",
+            () => {
+
+                atualizarAvisoCapacidadeMesa();
 
             }
         );
@@ -4937,10 +5208,6 @@ function configurarFormularios() {
             }
         );
 
-
-    /*
-     * Fechar modal clicando fora.
-     */
 
     document
         .querySelectorAll(".modal-bg")

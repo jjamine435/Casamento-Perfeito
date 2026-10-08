@@ -1,224 +1,458 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Dashboard | Casamento Perfeito</title>
 
-<title>Dashboard | Casamento Perfeito</title>
+    <style>
 
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #fff7fa;
-        color: #4a3039;
-        min-height: 100vh;
-    }
-
-    header {
-        background: #ffffff;
-        min-height: 72px;
-        padding: 15px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #f2dfe6;
-    }
-
-    .logo {
-        font-size: 22px;
-        font-weight: bold;
-        color: #c45f7d;
-    }
-
-    #logoutButton {
-        border: none;
-        background: #c45f7d;
-        color: white;
-        padding: 11px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    #logoutButton:hover {
-        background: #aa4e69;
-    }
-
-    main {
-        max-width: 1180px;
-        margin: auto;
-        padding: 45px 25px 60px;
-    }
-
-    .welcome {
-        background: linear-gradient(135deg, #ffffff, #fff0f5);
-        border-radius: 24px;
-        padding: 40px;
-        margin-bottom: 35px;
-        border: 1px solid #f3dce4;
-        box-shadow: 0 8px 30px rgba(100, 50, 70, 0.08);
-    }
-
-    .welcome small {
-        display: block;
-        color: #c45f7d;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .welcome h1 {
-        font-size: 32px;
-        margin-bottom: 12px;
-    }
-
-    .welcome p {
-        color: #777;
-        line-height: 1.6;
-    }
-
-    #userWelcome {
-        margin-top: 20px;
-        color: #c45f7d;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-
-    .section-header h2 {
-        font-size: 23px;
-    }
-
-    .section-header span {
-        color: #999;
-        font-size: 14px;
-    }
-
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
-    }
-
-    .card {
-        background: white;
-        border: 1px solid #f1dfe5;
-        border-radius: 20px;
-        padding: 28px;
-        text-decoration: none;
-        color: inherit;
-        transition: 0.25s;
-        box-shadow: 0 6px 22px rgba(100, 50, 70, 0.06);
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 28px rgba(100, 50, 70, 0.12);
-    }
-
-    .card-icon {
-        font-size: 32px;
-        margin-bottom: 18px;
-    }
-
-    .card h3 {
-        margin-bottom: 9px;
-        font-size: 19px;
-    }
-
-    .card p {
-        color: #777;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .card-action {
-        display: inline-block;
-        margin-top: 17px;
-        color: #c45f7d;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    .info-box {
-        background: white;
-        border: 1px solid #f1dfe5;
-        border-radius: 20px;
-        padding: 30px;
-        margin-top: 35px;
-    }
-
-    .info-box h2 {
-        margin-bottom: 10px;
-    }
-
-    .info-box p {
-        color: #777;
-        line-height: 1.6;
-        font-size: 14px;
-    }
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        color: #999;
-        font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-        .cards {
-            grid-template-columns: repeat(2, 1fr);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-    }
 
-    @media (max-width: 600px) {
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff7fa;
+            color: #4a3039;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
         header {
-            padding: 15px 18px;
+            background: #ffffff;
+            min-height: 72px;
+            padding: 15px 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #f2dfe6;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
-            font-size: 18px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #c45f7d;
         }
+
+        #logoutButton {
+            border: none;
+            background: #c45f7d;
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        #logoutButton:hover {
+            background: #aa4e69;
+            transform: translateY(-1px);
+        }
+
+        #logoutButton:active {
+            transform: translateY(0);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
 
         main {
-            padding: 30px 18px;
+            max-width: 1180px;
+            margin: auto;
+            padding: 45px 25px 60px;
         }
 
+        /* =========================
+           WELCOME
+        ========================= */
+
         .welcome {
-            padding: 28px 22px;
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #fff0f5
+            );
+
+            border-radius: 24px;
+
+            padding: 40px;
+
+            margin-bottom: 35px;
+
+            border: 1px solid #f3dce4;
+
+            box-shadow:
+                0 8px 30px rgba(100, 50, 70, 0.08);
+        }
+
+        .welcome small {
+            display: block;
+
+            color: #c45f7d;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+            letter-spacing: 0.5px;
         }
 
         .welcome h1 {
-            font-size: 25px;
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        .cards {
-            grid-template-columns: 1fr;
+        .welcome p {
+            color: #777;
+            line-height: 1.6;
         }
+
+        #userWelcome {
+            margin-top: 20px;
+
+            color: #c45f7d;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           RESUMO
+        ========================= */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+
+            border: 1px solid #f1dfe5;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 5px 18px rgba(100, 50, 70, 0.05);
+        }
+
+        .summary-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .summary-number {
+            font-size: 27px;
+            font-weight: bold;
+
+            color: #c45f7d;
+
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* =========================
+           SECTION HEADER
+        ========================= */
 
         .section-header {
-            display: block;
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 23px;
         }
 
         .section-header span {
-            display: block;
-            margin-top: 7px;
+            color: #999;
+            font-size: 14px;
         }
-    }
-</style>
 
+        /* =========================
+           CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+
+            border: 1px solid #f1dfe5;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            text-decoration: none;
+
+            color: inherit;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 6px 22px rgba(100, 50, 70, 0.06);
+
+            display: block;
+
+            min-height: 230px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 28px rgba(100, 50, 70, 0.12);
+
+            border-color: #e8c4d0;
+        }
+
+        .card.disabled {
+            cursor: not-allowed;
+            opacity: 0.72;
+        }
+
+        .card.disabled:hover {
+            transform: none;
+
+            box-shadow:
+                0 6px 22px rgba(100, 50, 70, 0.06);
+        }
+
+        .card-icon {
+            font-size: 32px;
+
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 9px;
+
+            font-size: 19px;
+        }
+
+        .card p {
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .card-action {
+            display: inline-block;
+
+            margin-top: 17px;
+
+            color: #c45f7d;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .card.disabled .card-action {
+            color: #aaa;
+        }
+
+        /* =========================
+           INFO BOX
+        ========================= */
+
+        .info-box {
+            background: white;
+
+            border: 1px solid #f1dfe5;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-top: 35px;
+        }
+
+        .info-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #777;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-message {
+            margin-top: 18px;
+
+            padding: 12px 15px;
+
+            background: #fff7fa;
+
+            border: 1px solid #f1dfe5;
+
+            border-radius: 10px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 15px 18px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            #logoutButton {
+                padding: 9px 13px;
+                font-size: 13px;
+            }
+
+            main {
+                padding: 30px 18px;
+            }
+
+            .welcome {
+                padding: 28px 22px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+
+            #userWelcome {
+                font-size: 16px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 12px;
+            }
+
+            .summary-card {
+                padding: 17px;
+            }
+
+            .summary-number {
+                font-size: 23px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                display: block;
+            }
+
+            .section-header span {
+                display: block;
+                margin-top: 7px;
+            }
+
+            .card {
+                min-height: auto;
+            }
+
+        }
+
+        @media (max-width: 380px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -226,200 +460,856 @@
 
 <header>
 
+    <div class="logo">
+        💕 Casamento Perfeito
+    </div>
 
-<div class="logo">
-    💕 Casamento Perfeito
-</div>
-
-<button id="logoutButton" type="button">
-    Terminar sessão
-</button>
-
+    <button
+        id="logoutButton"
+        type="button"
+        onclick="terminarSessao()"
+    >
+        Terminar sessão
+    </button>
 
 </header>
 
+
 <main>
 
+    <!-- =========================
+         BOAS-VINDAS
+    ========================== -->
 
-<section class="welcome">
+    <section class="welcome">
 
-    <small>O SEU GRANDE DIA</small>
+        <small>
+            O SEU GRANDE DIA
+        </small>
 
-    <h1>
-        Bem-vindo ao seu painel ❤️
-    </h1>
+        <h1>
+            Bem-vindo ao seu painel ❤️
+        </h1>
 
-    <p>
-        Tenha tudo o que precisa para organizar
-        o seu casamento num único lugar.
-    </p>
+        <p>
+            Tenha tudo o que precisa para organizar
+            o seu casamento num único lugar.
+        </p>
 
-    <div id="userWelcome">
-        A carregar os dados da sua conta...
+        <div id="userWelcome">
+            A carregar os dados da sua conta...
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESUMO
+    ========================== -->
+
+    <section class="summary">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                👥
+            </div>
+
+            <div
+                class="summary-number"
+                id="totalConvidados"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Convidados
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                🪑
+            </div>
+
+            <div
+                class="summary-number"
+                id="totalMesas"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Mesas
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                💰
+            </div>
+
+            <div
+                class="summary-number"
+                id="totalOrcamento"
+            >
+                —
+            </div>
+
+            <div class="summary-label">
+                Orçamento
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                ✅
+            </div>
+
+            <div
+                class="summary-number"
+                id="totalConfirmados"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Confirmados
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MÓDULOS
+    ========================== -->
+
+    <div class="section-header">
+
+        <h2>
+            Organize o seu casamento
+        </h2>
+
+        <span>
+            Tudo num só lugar
+        </span>
+
     </div>
 
-</section>
 
-<div class="section-header">
-
-    <h2>
-        Organize o seu casamento
-    </h2>
-
-    <span>
-        Tudo num só lugar
-    </span>
-
-</div>
-
-<section class="cards">
-
-    <a href="planeador.html" class="card">
-    <div class="card-icon">💍</div>
+    <section class="cards">
 
 
-<h3>Planeador</h3>
+        <!-- PLANEADOR -->
 
-<p>
-    Organize todas as tarefas necessárias
-    para preparar o seu casamento.
-</p>
+        <a
+            href="planeador.html"
+            class="card"
+        >
 
-<span class="card-action">
-    Abrir planeador →
-</span>
+            <div class="card-icon">
+                💍
+            </div>
+
+            <h3>
+                Planeador
+            </h3>
+
+            <p>
+                Organize todas as tarefas necessárias
+                para preparar o seu casamento.
+            </p>
+
+            <span class="card-action">
+                Abrir planeador →
+            </span>
+
+        </a>
 
 
-</a>
+        <!-- CONVIDADOS -->
+
+        <a
+            href="frontend/convidados.html"
+            class="card"
+        >
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <h3>
+                Convidados
+            </h3>
+
+            <p>
+                Registe os convidados, organize as mesas,
+                acompanhe confirmações e visualize o
+                mapa das mesas.
+            </p>
+
+            <span class="card-action">
+                Gerir convidados →
+            </span>
+
+        </a>
 
 
-    <a href="#" class="card">
-        <div class="card-icon">👥</div>
+        <!-- ORÇAMENTO -->
 
-        <h3>Convidados</h3>
+        <a
+            href="#"
+            class="card disabled"
+            onclick="mostrarModuloEmBreve(event, 'Orçamento')"
+        >
+
+            <div class="card-icon">
+                💰
+            </div>
+
+            <h3>
+                Orçamento
+            </h3>
+
+            <p>
+                Controle as despesas, fornecedores,
+                pagamentos e mantenha o orçamento
+                organizado.
+            </p>
+
+            <span class="card-action">
+                Em desenvolvimento
+            </span>
+
+        </a>
+
+
+        <!-- FORNECEDORES -->
+
+        <a
+            href="#"
+            class="card disabled"
+            onclick="mostrarModuloEmBreve(event, 'Fornecedores')"
+        >
+
+            <div class="card-icon">
+                🤝
+            </div>
+
+            <h3>
+                Fornecedores
+            </h3>
+
+            <p>
+                Organize fotógrafos, decoração,
+                catering, música e outros serviços.
+            </p>
+
+            <span class="card-action">
+                Em desenvolvimento
+            </span>
+
+        </a>
+
+
+        <!-- CRONOGRAMA -->
+
+        <a
+            href="#"
+            class="card disabled"
+            onclick="mostrarModuloEmBreve(event, 'Cronograma')"
+        >
+
+            <div class="card-icon">
+                📅
+            </div>
+
+            <h3>
+                Cronograma
+            </h3>
+
+            <p>
+                Acompanhe datas e momentos importantes
+                antes e durante o casamento.
+            </p>
+
+            <span class="card-action">
+                Em desenvolvimento
+            </span>
+
+        </a>
+
+
+        <!-- MEU CASAMENTO -->
+
+        <a
+            href="#"
+            class="card disabled"
+            onclick="mostrarModuloEmBreve(event, 'Meu casamento')"
+        >
+
+            <div class="card-icon">
+                ❤️
+            </div>
+
+            <h3>
+                Meu casamento
+            </h3>
+
+            <p>
+                Consulte e personalize as informações
+                do seu grande dia.
+            </p>
+
+            <span class="card-action">
+                Em desenvolvimento
+            </span>
+
+        </a>
+
+
+    </section>
+
+
+    <!-- =========================
+         INFORMAÇÃO
+    ========================== -->
+
+    <section class="info-box">
+
+        <h2>
+            💕 O seu casamento começa aqui
+        </h2>
 
         <p>
-            Registe os convidados e acompanhe
-            as confirmações.
+            Este é o seu espaço pessoal para organizar
+            todos os detalhes do casamento.
         </p>
 
-        <span class="card-action">
-            Gerir convidados →
-        </span>
-    </a>
+        <div class="status-message">
 
-    <a href="#" class="card">
-        <div class="card-icon">💰</div>
+            <strong>
+                Próximos módulos:
+            </strong>
 
-        <h3>Orçamento</h3>
+            Orçamento, Fornecedores, Cronograma
+            e Meu Casamento.
 
-        <p>
-            Controle as despesas e mantenha
-            o orçamento organizado.
-        </p>
+        </div>
 
-        <span class="card-action">
-            Gerir orçamento →
-        </span>
-    </a>
-
-    <a href="#" class="card">
-        <div class="card-icon">🤝</div>
-
-        <h3>Fornecedores</h3>
-
-        <p>
-            Organize fotógrafos, decoração,
-            catering, música e outros serviços.
-        </p>
-
-        <span class="card-action">
-            Ver fornecedores →
-        </span>
-    </a>
-
-    <a href="#" class="card">
-        <div class="card-icon">📅</div>
-
-        <h3>Cronograma</h3>
-
-        <p>
-            Acompanhe datas e momentos importantes
-            antes do casamento.
-        </p>
-
-        <span class="card-action">
-            Ver cronograma →
-        </span>
-    </a>
-
-    <a href="#" class="card">
-        <div class="card-icon">❤️</div>
-
-        <h3>Meu casamento</h3>
-
-        <p>
-            Consulte e personalize as informações
-            do seu grande dia.
-        </p>
-
-        <span class="card-action">
-            Ver casamento →
-        </span>
-    </a>
-
-</section>
-
-<section class="info-box">
-
-    <h2>
-        💕 O seu casamento começa aqui
-    </h2>
-
-    <p>
-        Este é o seu espaço pessoal para organizar
-        todos os detalhes do casamento.
-    </p>
-
-</section>
+    </section>
 
 
 </main>
 
+
 <footer>
-    © 2026 Casamento Perfeito — Planeie o seu grande dia ❤️
+
+    © 2026 Casamento Perfeito —
+    Planeie o seu grande dia ❤️
+
 </footer>
+
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+    /* =====================================================
+       CONFIGURAÇÃO DA SESSÃO
+    ===================================================== */
 
-        const chaveSessao = "casamentoPerfeitoSessao";
+    const CHAVE_SESSAO =
+        "casamentoPerfeitoSessao";
 
-        const sessao = localStorage.getItem(chaveSessao);
+
+    /* =====================================================
+       VERIFICAR SESSÃO
+    ===================================================== */
+
+    function verificarSessao() {
+
+        let sessao =
+            localStorage.getItem(CHAVE_SESSAO);
+
+        /*
+         * Se não existir no localStorage,
+         * tentamos verificar também o sessionStorage.
+         */
 
         if (!sessao) {
-            window.location.replace("login.html");
-            return;
+
+            sessao =
+                sessionStorage.getItem(CHAVE_SESSAO);
+
         }
 
-        let utilizador;
+
+        /*
+         * Não existe sessão.
+         */
+
+        if (!sessao) {
+
+            redirecionarParaLogin();
+
+            return null;
+
+        }
+
+
+        /*
+         * Tentar interpretar os dados.
+         */
 
         try {
-            utilizador = JSON.parse(sessao);
+
+            const utilizador =
+                JSON.parse(sessao);
+
+            /*
+             * Verificação básica.
+             */
+
+            if (
+                !utilizador ||
+                typeof utilizador !== "object"
+            ) {
+
+                throw new Error(
+                    "Sessão inválida."
+                );
+
+            }
+
+            return utilizador;
+
         } catch (erro) {
 
-            localStorage.removeItem(chaveSessao);
-            window.location.replace("login.html");
+            console.error(
+                "Sessão inválida:",
+                erro
+            );
+
+            localStorage.removeItem(
+                CHAVE_SESSAO
+            );
+
+            sessionStorage.removeItem(
+                CHAVE_SESSAO
+            );
+
+            redirecionarParaLogin();
+
+            return null;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       REDIRECIONAR PARA LOGIN
+    ===================================================== */
+
+    function redirecionarParaLogin() {
+
+        /*
+         * Como dashboard.html está no mesmo nível
+         * que login.html, usamos simplesmente:
+         */
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+
+    /* =====================================================
+       TERMINAR SESSÃO
+    ===================================================== */
+
+    function terminarSessao() {
+
+        const confirmar =
+            confirm(
+                "Tem a certeza de que deseja terminar a sessão?"
+            );
+
+
+        if (!confirmar) {
+
             return;
 
         }
 
+
+        /*
+         * Remover sessão do localStorage.
+         */
+
+        localStorage.removeItem(
+            CHAVE_SESSAO
+        );
+
+
+        /*
+         * Remover também do sessionStorage.
+         */
+
+        sessionStorage.removeItem(
+            CHAVE_SESSAO
+        );
+
+
+        /*
+         * Limpar possíveis dados temporários
+         * relacionados com a sessão.
+         */
+
+        sessionStorage.clear();
+
+
+        /*
+         * Redirecionar para login.
+         */
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR UTILIZADOR
+    ===================================================== */
+
+    function mostrarUtilizador(
+        utilizador
+    ) {
+
         const userWelcome =
-            document.getElementById("userWelcome");
+            document.getElementById(
+                "userWelcome"
+            );
 
-        if (userWelcome) {
 
-            if (utilizador.nome) {
+        if (!userWelcome) {
 
-                userWelcome.textCon
+            return;
+
+        }
+
+
+        /*
+         * Tentar obter o nome
+         * através de diferentes propriedades.
+         */
+
+        const nome =
+            utilizador.nome ||
+            utilizador.name ||
+            utilizador.nomeCompleto ||
+            utilizador.email ||
+            "Utilizador";
+
+
+        userWelcome.textContent =
+            "Olá, " + nome + "! 👋";
+
+    }
+
+
+    /* =====================================================
+       CARREGAR ESTATÍSTICAS
+    ===================================================== */
+
+    function carregarEstatisticas() {
+
+        /*
+         * Convidados
+         */
+
+        let convidados = [];
+
+        try {
+
+            convidados =
+                JSON.parse(
+                    localStorage.getItem(
+                        "casamentoPerfeitoConvidados_v1"
+                    )
+                ) || [];
+
+        } catch (erro) {
+
+            convidados = [];
+
+        }
+
+
+        const totalConvidados =
+            document.getElementById(
+                "totalConvidados"
+            );
+
+
+        const totalConfirmados =
+            document.getElementById(
+                "totalConfirmados"
+            );
+
+
+        if (totalConvidados) {
+
+            totalConvidados.textContent =
+                convidados.length;
+
+        }
+
+
+        /*
+         * Contar convidados confirmados.
+         */
+
+        const confirmados =
+            convidados.filter(
+                convidado => {
+
+                    const estado =
+                        String(
+                            convidado.rsvp ||
+                            convidado.estadoRSVP ||
+                            convidado.confirmacao ||
+                            ""
+                        ).toLowerCase();
+
+                    return (
+                        estado === "confirmado" ||
+                        estado === "confirmada" ||
+                        estado === "sim" ||
+                        estado === "yes"
+                    );
+
+                }
+            );
+
+
+        if (totalConfirmados) {
+
+            totalConfirmados.textContent =
+                confirmados.length;
+
+        }
+
+
+        /*
+         * Mesas
+         */
+
+        let mesas = [];
+
+        try {
+
+            mesas =
+                JSON.parse(
+                    localStorage.getItem(
+                        "casamentoPerfeitoMesas_v1"
+                    )
+                ) || [];
+
+        } catch (erro) {
+
+            mesas = [];
+
+        }
+
+
+        const totalMesas =
+            document.getElementById(
+                "totalMesas"
+            );
+
+
+        if (totalMesas) {
+
+            totalMesas.textContent =
+                mesas.length;
+
+        }
+
+
+        /*
+         * Orçamento
+         *
+         * Este módulo ainda não foi criado,
+         * portanto deixamos "—".
+         */
+
+        const totalOrcamento =
+            document.getElementById(
+                "totalOrcamento"
+            );
+
+
+        if (totalOrcamento) {
+
+            totalOrcamento.textContent =
+                "—";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MÓDULOS AINDA NÃO DISPONÍVEIS
+    ===================================================== */
+
+    function mostrarModuloEmBreve(
+        evento,
+        nomeModulo
+    ) {
+
+        /*
+         * Impedir o href="#"
+         */
+
+        if (evento) {
+
+            evento.preventDefault();
+
+        }
+
+
+        alert(
+            nomeModulo +
+            " ainda está em desenvolvimento.\n\n" +
+            "Vamos adicionar este módulo ao Casamento Perfeito."
+        );
+
+    }
+
+
+    /* =====================================================
+       INICIALIZAÇÃO
+    ===================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            /*
+             * Verificar se existe sessão.
+             */
+
+            const utilizador =
+                verificarSessao();
+
+
+            /*
+             * Se não houver utilizador,
+             * parar aqui.
+             */
+
+            if (!utilizador) {
+
+                return;
+
+            }
+
+
+            /*
+             * Mostrar nome.
+             */
+
+            mostrarUtilizador(
+                utilizador
+            );
+
+
+            /*
+             * Carregar estatísticas.
+             */
+
+            carregarEstatisticas();
+
+
+            /*
+             * Garantir que o botão
+             * está funcional.
+             */
+
+            const logoutButton =
+                document.getElementById(
+                    "logoutButton"
+                );
+
+
+            if (logoutButton) {
+
+                logoutButton.addEventListener(
+                    "click",
+                    terminarSessao
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       PROTEÇÃO CONTRA PÁGINA EM CACHE
+    ===================================================== */
+
+    window.addEventListener(
+        "pageshow",
+        function () {
+
+            const sessao =
+                localStorage.getItem(
+                    CHAVE_SESSAO
+                ) ||
+                sessionStorage.getItem(
+                    CHAVE_SESSAO
+                );
+
+
+            if (!sessao) {
+
+                /*
+                 * Só redirecionar se não estivermos
+                 * já no login.
+                 */
+
+                if (
+                    !window.location.pathname
+                        .toLowerCase()
+                        .includes("login.html")
+                ) {
+
+                    redirecionarParaLogin();
+
+                }
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

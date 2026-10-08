@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -12,14 +13,14 @@
 *{
     box-sizing:border-box;
     margin:0;
-    padding:0
+    padding:0;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#fff7fa;
     color:#4a3039;
-    min-height:100vh
+    min-height:100vh;
 }
 
 header{
@@ -31,13 +32,13 @@ header{
     justify-content:space-between;
     position:sticky;
     top:0;
-    z-index:10
+    z-index:10;
 }
 
 .logo{
     font-size:22px;
     font-weight:bold;
-    color:#c45f7d
+    color:#c45f7d;
 }
 
 .btn{
@@ -47,30 +48,30 @@ header{
     font-weight:bold;
     cursor:pointer;
     text-decoration:none;
-    font-size:14px
+    font-size:14px;
 }
 
 .primary{
     background:#c45f7d;
-    color:#fff
+    color:#fff;
 }
 
 .secondary{
     background:#fff;
     color:#c45f7d;
-    border:1px solid #e9c9d4
+    border:1px solid #e9c9d4;
 }
 
 .danger{
     background:#fff0f2;
     color:#b6425e;
-    border:1px solid #efc5cf
+    border:1px solid #efc5cf;
 }
 
 main{
     max-width:1250px;
     margin:auto;
-    padding:35px 25px 60px
+    padding:35px 25px 60px;
 }
 
 .hero{
@@ -78,47 +79,30 @@ main{
     border:1px solid #f3dce4;
     border-radius:24px;
     padding:32px;
-    margin-bottom:25px
+    margin-bottom:25px;
 }
 
 .hero small{
     color:#c45f7d;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .hero h1{
     font-size:30px;
-    margin:8px 0
+    margin:8px 0;
 }
 
 .hero p,
 .muted{
     color:#777;
-    line-height:1.6
-}
-
-.status-message{
-    display:none;
-    background:#fff;
-    border:1px solid #f1dfe5;
-    border-radius:14px;
-    padding:15px 18px;
-    margin-bottom:20px;
-    color:#76545f
-}
-
-.status-message.error{
-    display:block;
-    background:#fff0f2;
-    border-color:#efc5cf;
-    color:#a03f55
+    line-height:1.6;
 }
 
 .stats{
     display:grid;
     grid-template-columns:repeat(6,1fr);
     gap:14px;
-    margin-bottom:25px
+    margin-bottom:25px;
 }
 
 .stat,
@@ -127,25 +111,25 @@ main{
     border:1px solid #f1dfe5;
     border-radius:16px;
     padding:18px;
-    box-shadow:0 5px 18px rgba(100,50,70,.05)
+    box-shadow:0 5px 18px rgba(100,50,70,.05);
 }
 
 .stat strong{
     display:block;
     font-size:25px;
-    color:#c45f7d
+    color:#c45f7d;
 }
 
 .stat span{
     font-size:13px;
-    color:#777
+    color:#777;
 }
 
 .tabs{
     display:flex;
     gap:8px;
     margin-bottom:20px;
-    flex-wrap:wrap
+    flex-wrap:wrap;
 }
 
 .tab{
@@ -155,20 +139,20 @@ main{
     border-radius:12px;
     padding:12px 18px;
     font-weight:bold;
-    cursor:pointer
+    cursor:pointer;
 }
 
 .tab.active{
     background:#c45f7d;
-    color:#fff
+    color:#fff;
 }
 
 .panel{
-    display:none
+    display:none;
 }
 
 .panel.active{
-    display:block
+    display:block;
 }
 
 .toolbar{
@@ -179,7 +163,7 @@ main{
     display:grid;
     grid-template-columns:2fr repeat(4,1fr) auto;
     gap:10px;
-    margin-bottom:18px
+    margin-bottom:18px;
 }
 
 input,
@@ -191,37 +175,42 @@ textarea{
     padding:11px;
     background:#fff;
     color:#4a3039;
-    font:inherit
+    font:inherit;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 .list{
     display:grid;
-    gap:14px
+    gap:14px;
 }
 
 .guest{
     background:#fff;
     border:1px solid #f1dfe5;
     border-radius:18px;
-    padding:20px
+    padding:20px;
 }
 
 .top{
     display:flex;
     justify-content:space-between;
-    gap:10px
+    gap:10px;
 }
 
 .name{
     font-size:18px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .badges{
     display:flex;
     gap:6px;
     flex-wrap:wrap;
-    margin-top:8px
+    margin-top:8px;
 }
 
 .badge{
@@ -229,67 +218,67 @@ textarea{
     border-radius:999px;
     background:#f8eaf0;
     font-size:11px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .ok{
     background:#e8f6ed;
-    color:#267347
+    color:#267347;
 }
 
 .pending{
     background:#fff5d8;
-    color:#8a6a16
+    color:#8a6a16;
 }
 
 .no{
     background:#fde9ed;
-    color:#a03f55
+    color:#a03f55;
 }
 
 .grid{
     display:grid;
     grid-template-columns:repeat(5,1fr);
     gap:12px;
-    margin-top:16px
+    margin-top:16px;
 }
 
 .info label{
     display:block;
     font-size:11px;
     color:#999;
-    margin-bottom:4px
+    margin-bottom:4px;
 }
 
 .actions{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
-    margin-top:15px
+    margin-top:15px;
 }
 
 .tables{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:18px
+    gap:18px;
 }
 
 .table-card{
     background:#fff;
     border:1px solid #f1dfe5;
     border-radius:18px;
-    padding:20px
+    padding:20px;
 }
 
 .table-head{
     display:flex;
     justify-content:space-between;
-    margin-bottom:14px
+    margin-bottom:14px;
 }
 
 .seats{
     display:grid;
-    gap:7px
+    gap:7px;
 }
 
 .seat{
@@ -299,11 +288,11 @@ textarea{
     border:1px solid #f0e0e5;
     display:flex;
     justify-content:space-between;
-    font-size:13px
+    font-size:13px;
 }
 
 .occupied{
-    background:#f5e8ee
+    background:#f5e8ee;
 }
 
 .empty{
@@ -312,7 +301,7 @@ textarea{
     border-radius:18px;
     padding:35px;
     text-align:center;
-    color:#777
+    color:#777;
 }
 
 .modal-bg{
@@ -323,11 +312,11 @@ textarea{
     align-items:center;
     justify-content:center;
     padding:20px;
-    z-index:50
+    z-index:50;
 }
 
 .modal-bg.open{
-    display:flex
+    display:flex;
 }
 
 .modal{
@@ -336,31 +325,31 @@ textarea{
     width:min(900px,100%);
     max-height:92vh;
     overflow:auto;
-    padding:25px
+    padding:25px;
 }
 
 .form{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:13px
+    gap:13px;
 }
 
 .full{
-    grid-column:1/-1
+    grid-column:1/-1;
 }
 
 .field label{
     display:block;
     font-size:12px;
     font-weight:bold;
-    margin-bottom:6px
+    margin-bottom:6px;
 }
 
 .modal-actions{
     display:flex;
     justify-content:flex-end;
     gap:8px;
-    margin-top:20px
+    margin-top:20px;
 }
 
 .map{
@@ -368,7 +357,7 @@ textarea{
     flex-wrap:wrap;
     gap:28px;
     justify-content:center;
-    padding:25px
+    padding:25px;
 }
 
 .map-table{
@@ -381,72 +370,86 @@ textarea{
     align-items:center;
     justify-content:center;
     background:#fff8fb;
-    text-align:center
+    text-align:center;
 }
 
 .map-table strong{
-    font-size:16px
+    font-size:16px;
 }
 
 .map-table span{
     font-size:12px;
     color:#777;
-    margin-top:5px
+    margin-top:5px;
+}
+
+.notice{
+    display:none;
+    background:#fff5d8;
+    border:1px solid #ead59b;
+    color:#765d1d;
+    border-radius:12px;
+    padding:12px 15px;
+    margin-bottom:18px;
+}
+
+.notice.show{
+    display:block;
 }
 
 footer{
     text-align:center;
     padding:25px;
     color:#999;
-    font-size:13px
+    font-size:13px;
 }
 
 @media(max-width:1050px){
 
     .stats{
-        grid-template-columns:repeat(3,1fr)
+        grid-template-columns:repeat(3,1fr);
     }
 
     .toolbar{
-        grid-template-columns:repeat(2,1fr)
+        grid-template-columns:repeat(2,1fr);
     }
 
     .grid{
-        grid-template-columns:repeat(3,1fr)
+        grid-template-columns:repeat(3,1fr);
     }
 
     .tables{
-        grid-template-columns:repeat(2,1fr)
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
 @media(max-width:650px){
 
     header{
-        padding:14px 18px
+        padding:14px 18px;
     }
 
     .logo{
-        font-size:18px
+        font-size:18px;
     }
 
     main{
-        padding:25px 15px
+        padding:25px 15px;
     }
 
     .stats,
     .toolbar,
     .form{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
     }
 
     .grid,
     .tables{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
     }
 
     .full{
-        grid-column:auto
+        grid-column:auto;
     }
 }
 </style>
@@ -478,16 +481,17 @@ footer{
 
     <small>GESTÃO DO CASAMENTO</small>
 
-    <h1>👥 Convidados e Mesas</h1>
+    <h1>
+        👥 Convidados e Mesas
+    </h1>
 
     <p>
-        Registe convidados, acompanhe confirmações
-        e organize a distribuição pelas mesas.
+        Registe convidados, acompanhe confirmações e organize a distribuição pelas mesas.
     </p>
 
 </section>
 
-<div id="statusMessage" class="status-message"></div>
+<div id="notice" class="notice"></div>
 
 <section class="stats">
 
@@ -525,71 +529,137 @@ footer{
 
 <div class="tabs">
 
-    <button class="tab active" data-panel="guests">
+    <button
+        class="tab active"
+        data-panel="guests">
         👥 Convidados
     </button>
 
-    <button class="tab" data-panel="tables">
+    <button
+        class="tab"
+        data-panel="tables">
         🪑 Mesas
     </button>
 
-    <button class="tab" data-panel="map">
+    <button
+        class="tab"
+        data-panel="map">
         🗺️ Mapa
     </button>
 
 </div>
 
-<section id="guests" class="panel active">
+<section
+    id="guests"
+    class="panel active">
 
     <div class="toolbar">
 
         <input
             id="search"
-            placeholder="Pesquisar nome, telefone ou grupo"
-        >
+            placeholder="Pesquisar nome, telefone ou grupo">
 
         <select id="rsvp">
-            <option value="">Todos os estados</option>
-            <option>Confirmado</option>
-            <option>Pendente</option>
-            <option>Não vai</option>
+
+            <option value="">
+                Todos os estados
+            </option>
+
+            <option>
+                Confirmado
+            </option>
+
+            <option>
+                Pendente
+            </option>
+
+            <option>
+                Não vai
+            </option>
+
         </select>
 
         <select id="side">
-            <option value="">Todos os lados</option>
-            <option>Noiva</option>
-            <option>Noivo</option>
-            <option>Ambos</option>
+
+            <option value="">
+                Todos os lados
+            </option>
+
+            <option>
+                Noiva
+            </option>
+
+            <option>
+                Noivo
+            </option>
+
+            <option>
+                Ambos
+            </option>
+
         </select>
 
         <select id="type">
-            <option value="">Adultos e crianças</option>
-            <option>Adulto</option>
-            <option>Criança</option>
+
+            <option value="">
+                Adultos e crianças
+            </option>
+
+            <option>
+                Adulto
+            </option>
+
+            <option>
+                Criança
+            </option>
+
         </select>
 
         <select id="tableFilter">
-            <option value="">Todas as mesas</option>
-            <option value="none">Sem mesa</option>
+
+            <option value="">
+                Todas as mesas
+            </option>
+
+            <option value="none">
+                Sem mesa
+            </option>
+
         </select>
 
-        <button class="btn primary" id="newGuest">
+        <button
+            class="btn primary"
+            id="newGuest">
             + Convidado
         </button>
 
     </div>
 
-    <div id="guestList" class="list"></div>
+    <div
+        id="guestList"
+        class="list">
+    </div>
 
 </section>
 
-<section id="tables" class="panel">
+<section
+    id="tables"
+    class="panel">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px">
+    <div
+        style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:18px;
+            gap:10px;
+        ">
 
         <div>
 
-            <h2>Gestão de mesas</h2>
+            <h2>
+                Gestão de mesas
+            </h2>
 
             <p class="muted">
                 Crie mesas e defina a capacidade de cada uma.
@@ -597,27 +667,39 @@ footer{
 
         </div>
 
-        <button class="btn primary" id="newTable">
+        <button
+            class="btn primary"
+            id="newTable">
             + Nova mesa
         </button>
 
     </div>
 
-    <div id="tableList" class="tables"></div>
+    <div
+        id="tableList"
+        class="tables">
+    </div>
 
 </section>
 
-<section id="map" class="panel">
+<section
+    id="map"
+    class="panel">
 
     <div class="box">
 
-        <h2>Mapa das mesas</h2>
+        <h2>
+            Mapa das mesas
+        </h2>
 
         <p class="muted">
             Visão geral da distribuição.
         </p>
 
-        <div id="mapList" class="map"></div>
+        <div
+            id="mapList"
+            class="map">
+        </div>
 
     </div>
 
@@ -630,9 +712,13 @@ footer{
 </footer>
 
 
-<!-- MODAL CONVIDADO -->
+<!-- =====================================================
+     MODAL — CONVIDADO
+===================================================== -->
 
-<div class="modal-bg" id="guestModal">
+<div
+    class="modal-bg"
+    id="guestModal">
 
     <div class="modal">
 
@@ -642,111 +728,272 @@ footer{
 
         <form id="guestForm">
 
-            <input type="hidden" id="guestId">
+            <input
+                type="hidden"
+                id="guestId">
 
             <div class="form">
 
-                <div class="field">
-                    <label>Nome completo *</label>
-                    <input id="name" required>
-                </div>
+                <!-- NOME -->
 
                 <div class="field">
-                    <label>Grupo / Família</label>
-                    <input id="group">
+
+                    <label>
+                        Nome completo *
+                    </label>
+
+                    <input
+                        id="name"
+                        required>
+
                 </div>
 
+
+                <!-- GRUPO -->
+
                 <div class="field">
-                    <label>Lado</label>
+
+                    <label>
+                        Grupo / Família
+                    </label>
+
+                    <input
+                        id="group">
+
+                </div>
+
+
+                <!-- LADO -->
+
+                <div class="field">
+
+                    <label>
+                        Lado
+                    </label>
 
                     <select id="guestSide">
-                        <option>Noiva</option>
-                        <option>Noivo</option>
-                        <option>Ambos</option>
+
+                        <option>
+                            Noiva
+                        </option>
+
+                        <option>
+                            Noivo
+                        </option>
+
+                        <option>
+                            Ambos
+                        </option>
+
                     </select>
 
                 </div>
 
-                <div class="field">
-                    <label>Relação</label>
-                    <input id="relation">
-                </div>
+
+                <!-- RELAÇÃO -->
 
                 <div class="field">
-                    <label>Telefone</label>
-                    <input id="phone">
+
+                    <label>
+                        Relação
+                    </label>
+
+                    <input
+                        id="relation">
+
                 </div>
 
-                <div class="field">
-                    <label>WhatsApp</label>
-                    <input id="whatsapp">
-                </div>
+
+                <!-- TELEFONE -->
 
                 <div class="field">
-                    <label>Email</label>
-                    <input id="email" type="email">
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input
+                        id="phone">
+
                 </div>
 
+
+                <!-- WHATSAPP -->
+
                 <div class="field">
-                    <label>Tipo</label>
+
+                    <label>
+                        WhatsApp
+                    </label>
+
+                    <input
+                        id="whatsapp">
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email">
+
+                </div>
+
+
+                <!-- TIPO -->
+
+                <div class="field">
+
+                    <label>
+                        Tipo
+                    </label>
 
                     <select id="guestType">
-                        <option>Adulto</option>
-                        <option>Criança</option>
+
+                        <option>
+                            Adulto
+                        </option>
+
+                        <option>
+                            Criança
+                        </option>
+
                     </select>
 
                 </div>
 
+
+                <!-- RSVP -->
+
                 <div class="field">
-                    <label>RSVP</label>
+
+                    <label>
+                        RSVP
+                    </label>
 
                     <select id="guestRsvp">
-                        <option>Pendente</option>
-                        <option>Confirmado</option>
-                        <option>Não vai</option>
+
+                        <option>
+                            Pendente
+                        </option>
+
+                        <option>
+                            Confirmado
+                        </option>
+
+                        <option>
+                            Não vai
+                        </option>
+
                     </select>
 
                 </div>
 
+
+                <!-- ACOMPANHANTE -->
+
                 <div class="field">
-                    <label>Acompanhante</label>
+
+                    <label>
+                        Acompanhante
+                    </label>
 
                     <select id="companion">
-                        <option>Não</option>
-                        <option>Sim</option>
+
+                        <option>
+                            Não
+                        </option>
+
+                        <option>
+                            Sim
+                        </option>
+
                     </select>
 
                 </div>
 
-                <div class="field">
-                    <label>Nome do acompanhante</label>
-                    <input id="companionName">
-                </div>
+
+                <!-- NOME ACOMPANHANTE -->
 
                 <div class="field">
-                    <label>Restrição alimentar</label>
-                    <input id="food">
+
+                    <label>
+                        Nome do acompanhante
+                    </label>
+
+                    <input
+                        id="companionName">
+
                 </div>
 
+
+                <!-- ALIMENTAÇÃO -->
+
                 <div class="field">
-                    <label>Mesa</label>
+
+                    <label>
+                        Restrição alimentar
+                    </label>
+
+                    <input
+                        id="food">
+
+                </div>
+
+
+                <!-- MESA -->
+
+                <div class="field">
+
+                    <label>
+                        Mesa
+                    </label>
 
                     <select id="guestTable">
-                        <option value="">Sem mesa</option>
+
+                        <option value="">
+                            Sem mesa
+                        </option>
+
                     </select>
 
                 </div>
 
+
+                <!-- LUGAR -->
+
                 <div class="field">
-                    <label>Lugar</label>
-                    <input id="seat" type="number" min="1">
+
+                    <label>
+                        Lugar
+                    </label>
+
+                    <input
+                        id="seat"
+                        type="number"
+                        min="1">
+
                 </div>
+
+
+                <!-- OBSERVAÇÕES -->
 
                 <div class="field full">
 
-                    <label>Observações</label>
+                    <label>
+                        Observações
+                    </label>
 
-                    <textarea id="notes"></textarea>
+                    <textarea
+                        id="notes">
+                    </textarea>
 
                 </div>
 
@@ -760,7 +1007,8 @@ footer{
                     Cancelar
                 </button>
 
-                <button class="btn primary">
+                <button
+                    class="btn primary">
                     Guardar convidado
                 </button>
 
@@ -773,9 +1021,13 @@ footer{
 </div>
 
 
-<!-- MODAL MESA -->
+<!-- =====================================================
+     MODAL — MESA
+===================================================== -->
 
-<div class="modal-bg" id="tableModal">
+<div
+    class="modal-bg"
+    id="tableModal">
 
     <div class="modal">
 
@@ -785,66 +1037,97 @@ footer{
 
         <form id="tableForm">
 
-            <input type="hidden" id="tableId">
+            <input
+                type="hidden"
+                id="tableId">
 
             <div class="form">
 
                 <div class="field">
 
-                    <label>Nome / número *</label>
+                    <label>
+                        Nome / número *
+                    </label>
 
                     <input
                         id="tableName"
                         placeholder="Mesa 01"
-                        required
-                    >
+                        required>
 
                 </div>
 
+
                 <div class="field">
 
-                    <label>Formato</label>
+                    <label>
+                        Formato
+                    </label>
 
                     <select id="shape">
-                        <option>Redonda</option>
-                        <option>Retangular</option>
-                        <option>Quadrada</option>
-                        <option>Imperial</option>
-                        <option>Personalizada</option>
+
+                        <option>
+                            Redonda
+                        </option>
+
+                        <option>
+                            Retangular
+                        </option>
+
+                        <option>
+                            Quadrada
+                        </option>
+
+                        <option>
+                            Imperial
+                        </option>
+
+                        <option>
+                            Personalizada
+                        </option>
+
                     </select>
 
                 </div>
 
+
                 <div class="field">
 
-                    <label>Capacidade *</label>
+                    <label>
+                        Capacidade *
+                    </label>
 
                     <input
                         id="capacity"
                         type="number"
                         min="1"
                         value="10"
-                        required
-                    >
+                        required>
 
                 </div>
+
 
                 <div class="field">
 
-                    <label>Localização</label>
+                    <label>
+                        Localização
+                    </label>
 
                     <input
                         id="location"
-                        placeholder="Salão principal"
-                    >
+                        placeholder="Salão principal">
 
                 </div>
 
+
                 <div class="field full">
 
-                    <label>Observações</label>
+                    <label>
+                        Observações
+                    </label>
 
-                    <textarea id="tableNotes"></textarea>
+                    <textarea
+                        id="tableNotes">
+                    </textarea>
 
                 </div>
 
@@ -858,7 +1141,8 @@ footer{
                     Cancelar
                 </button>
 
-                <button class="btn primary">
+                <button
+                    class="btn primary">
                     Guardar mesa
                 </button>
 
@@ -873,12 +1157,9 @@ footer{
 
 <script>
 
-"use strict";
-
-
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://yucymctjoqbxpipmpzir.supabase.co";
@@ -893,33 +1174,39 @@ const supabaseClient =
     );
 
 
-/* =========================================================
-   ESTADO
-========================================================= */
+/* =====================================================
+   LOCAL STORAGE — SOMENTE PARA MESAS TEMPORARIAMENTE
+===================================================== */
 
-let utilizadorAtual = null;
-let casamentoAtual = null;
-
-let convidados = [];
-
-/*
-   As mesas continuam temporariamente no localStorage.
-   Vamos migrá-las para o Supabase numa etapa seguinte.
-*/
 const TABLES_KEY =
     "casamentoPerfeitoMesas_v1";
 
-let mesas = JSON.parse(
-    localStorage.getItem(TABLES_KEY) || "[]"
-);
+const OLD_GUESTS_KEY =
+    "casamentoPerfeitoConvidados_v1";
+
+const GUEST_TABLE_MAP_KEY =
+    "casamentoPerfeitoGuestTableMap_v1";
 
 
-/* =========================================================
+/* =====================================================
+   ESTADO
+===================================================== */
+
+let db = {
+    convidados: [],
+    mesas: []
+};
+
+let weddingId = null;
+let utilizadorAtual = null;
+
+
+/* =====================================================
    ELEMENTOS
-========================================================= */
+===================================================== */
 
-const statusMessage =
-    document.getElementById("statusMessage");
+const notice =
+    document.getElementById("notice");
 
 const total =
     document.getElementById("total");
@@ -963,17 +1250,11 @@ const tableList =
 const mapList =
     document.getElementById("mapList");
 
-const guestModal =
-    document.getElementById("guestModal");
-
-const tableModal =
-    document.getElementById("tableModal");
-
 const guestForm =
     document.getElementById("guestForm");
 
-const tableForm =
-    document.getElementById("tableForm");
+const guestModal =
+    document.getElementById("guestModal");
 
 const guestId =
     document.getElementById("guestId");
@@ -981,46 +1262,86 @@ const guestId =
 const guestTitle =
     document.getElementById("guestTitle");
 
+const name =
+    document.getElementById("name");
+
+const group =
+    document.getElementById("group");
+
+const guestSide =
+    document.getElementById("guestSide");
+
+const relation =
+    document.getElementById("relation");
+
+const phone =
+    document.getElementById("phone");
+
+const whatsapp =
+    document.getElementById("whatsapp");
+
+const email =
+    document.getElementById("email");
+
+const guestType =
+    document.getElementById("guestType");
+
+const guestRsvp =
+    document.getElementById("guestRsvp");
+
+const companion =
+    document.getElementById("companion");
+
+const companionName =
+    document.getElementById("companionName");
+
+const food =
+    document.getElementById("food");
+
+const guestTable =
+    document.getElementById("guestTable");
+
+const seat =
+    document.getElementById("seat");
+
+const notes =
+    document.getElementById("notes");
+
+const tableModal =
+    document.getElementById("tableModal");
+
+const tableForm =
+    document.getElementById("tableForm");
+
 const tableId =
     document.getElementById("tableId");
 
 const tableTitle =
     document.getElementById("tableTitle");
 
-const guestTable =
-    document.getElementById("guestTable");
+const tableName =
+    document.getElementById("tableName");
+
+const shape =
+    document.getElementById("shape");
+
+const capacity =
+    document.getElementById("capacity");
+
+const location =
+    document.getElementById("location");
+
+const tableNotes =
+    document.getElementById("tableNotes");
 
 
-/* =========================================================
-   MENSAGENS
-========================================================= */
+/* =====================================================
+   UTILITÁRIOS
+===================================================== */
 
-function mostrarErro(mensagem){
+function esc(value){
 
-    statusMessage.textContent = mensagem;
-
-    statusMessage.className =
-        "status-message error";
-
-}
-
-function limparErro(){
-
-    statusMessage.textContent = "";
-
-    statusMessage.className =
-        "status-message";
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function esc(valor){
-
-    return String(valor ?? "")
+    return String(value ?? "")
         .replace(/[&<>"']/g, function(c){
 
             return {
@@ -1036,288 +1357,579 @@ function esc(valor){
 }
 
 
-/* =========================================================
-   AUTENTICAÇÃO
-========================================================= */
+function mostrarAviso(mensagem){
 
-async function iniciarPagina(){
+    notice.textContent = mensagem;
+    notice.classList.add("show");
 
-    limparErro();
+}
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
 
-    if(error){
+function esconderAviso(){
+
+    notice.textContent = "";
+    notice.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   MESAS — TEMPORARIAMENTE LOCAL STORAGE
+===================================================== */
+
+function carregarMesas(){
+
+    try{
+
+        db.mesas =
+            JSON.parse(
+                localStorage.getItem(TABLES_KEY)
+                || "[]"
+            );
+
+        if(!Array.isArray(db.mesas)){
+            db.mesas = [];
+        }
+
+    }catch(error){
 
         console.error(error);
 
-        mostrarErro(
-            "Não foi possível verificar a sessão."
-        );
+        db.mesas = [];
 
-        return;
     }
 
-    const session =
-        data.session;
+}
 
-    if(!session){
+
+function guardarMesas(){
+
+    localStorage.setItem(
+        TABLES_KEY,
+        JSON.stringify(db.mesas)
+    );
+
+}
+
+
+/* =====================================================
+   MAPA CONVIDADO → MESA
+===================================================== */
+
+function carregarMapaMesas(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                GUEST_TABLE_MAP_KEY
+            ) || "{}"
+        );
+
+    }catch(error){
+
+        return {};
+
+    }
+
+}
+
+
+function guardarMapaMesas(map){
+
+    localStorage.setItem(
+        GUEST_TABLE_MAP_KEY,
+        JSON.stringify(map)
+    );
+
+}
+
+
+/* =====================================================
+   CARREGAR CASAMENTO DO UTILIZADOR
+===================================================== */
+
+async function carregarCasamento(){
+
+    const {
+        data: { session },
+        error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+    if(sessionError){
+        throw sessionError;
+    }
+
+    if(!session || !session.user){
 
         window.location.replace(
             "login.html"
         );
 
-        return;
+        return false;
     }
 
     utilizadorAtual =
         session.user;
 
-    await carregarCasamento();
-
-}
-
-
-/* =========================================================
-   CARREGAR CASAMENTO
-========================================================= */
-
-async function carregarCasamento(){
 
     const {
-        data,
+        data: casamento,
         error
-    } =
-        await supabaseClient
-            .from("weddings")
-            .select("*")
-            .eq(
-                "user_id",
-                utilizadorAtual.id
-            )
-            .order(
-                "criado_em",
-                {
-                    ascending:true
-                }
-            )
-            .limit(1)
-            .maybeSingle();
+    } = await supabaseClient
+        .from("weddings")
+        .select("*")
+        .eq(
+            "user_id",
+            utilizadorAtual.id
+        )
+        .order(
+            "criado_em",
+            {
+                ascending:true
+            }
+        )
+        .limit(1)
+        .maybeSingle();
+
 
     if(error){
-
-        console.error(
-            "Erro ao carregar casamento:",
-            error
-        );
-
-        mostrarErro(
-            "Não foi possível carregar os dados do casamento."
-        );
-
-        return;
+        throw error;
     }
 
-    if(!data){
 
-        mostrarErro(
-            "Ainda não existe um casamento associado à sua conta."
+    if(!casamento){
+
+        mostrarAviso(
+            "Não foi encontrado um casamento associado à sua conta."
         );
 
-        return;
+        return false;
     }
 
-    casamentoAtual =
-        data;
 
-    await carregarConvidados();
+    weddingId =
+        casamento.id;
+
+
+    return true;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    CARREGAR CONVIDADOS DO SUPABASE
-========================================================= */
+===================================================== */
 
 async function carregarConvidados(){
 
-    limparErro();
-
     const {
         data,
         error
-    } =
-        await supabaseClient
-            .from("guests")
-            .select("*")
-            .eq(
-                "wedding_id",
-                casamentoAtual.id
-            )
-            .order(
-                "criado_em",
-                {
-                    ascending:true
-                }
-            );
+    } = await supabaseClient
+        .from("guests")
+        .select("*")
+        .eq(
+            "wedding_id",
+            weddingId
+        )
+        .order(
+            "criado_em",
+            {
+                ascending:true
+            }
+        );
+
 
     if(error){
+        throw error;
+    }
 
-        console.error(
-            "Erro ao carregar convidados:",
-            error
-        );
 
-        mostrarErro(
-            "Não foi possível carregar os convidados."
-        );
+    db.convidados =
+        (data || []).map(function(g){
 
+            return {
+
+                id:g.id,
+
+                nome:g.nome || "",
+
+                grupo:g.grupo || "",
+
+                relacao:g.relacao || "",
+
+                lado:g.lado || "Noiva",
+
+                tipo:g.tipo || "Adulto",
+
+                telefone:g.telefone || "",
+
+                whatsapp:g.whatsapp || "",
+
+                email:g.email || "",
+
+                rsvp:g.rsvp || "Pendente",
+
+                acompanhante:
+                    g.acompanhante || "Não",
+
+                nomeAcompanhante:
+                    g.nome_acompanhante || "",
+
+                alimentacao:
+                    g.alimentacao || "",
+
+                mesaId:
+                    g.mesa_id || "",
+
+                lugar:
+                    g.lugar || "",
+
+                notas:
+                    g.notas || ""
+
+            };
+
+        });
+
+
+    /*
+     * Recuperamos temporariamente a mesa
+     * do localStorage porque a tabela
+     * de mesas ainda não foi migrada
+     * para o Supabase.
+     */
+
+    const mapa =
+        carregarMapaMesas();
+
+
+    db.convidados.forEach(function(g){
+
+        if(
+            mapa[g.id] &&
+            !g.mesaId
+        ){
+
+            g.mesaId =
+                mapa[g.id];
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   MIGRAÇÃO DOS CONVIDADOS ANTIGOS
+===================================================== */
+
+async function migrarConvidadosAntigos(){
+
+    if(!weddingId){
         return;
     }
 
-    convidados =
-        data || [];
 
-    render();
+    const chaveMigracao =
+        "casamentoPerfeitoConvidadosMigrados_" +
+        weddingId;
+
+
+    if(
+        localStorage.getItem(
+            chaveMigracao
+        )
+    ){
+
+        return;
+
+    }
+
+
+    let antigos = [];
+
+    try{
+
+        antigos =
+            JSON.parse(
+                localStorage.getItem(
+                    OLD_GUESTS_KEY
+                ) || "[]"
+            );
+
+    }catch(error){
+
+        antigos = [];
+
+    }
+
+
+    if(
+        !Array.isArray(antigos) ||
+        antigos.length === 0
+    ){
+
+        localStorage.setItem(
+            chaveMigracao,
+            "true"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Só migramos se ainda não houver
+     * convidados no Supabase.
+     */
+
+    if(db.convidados.length > 0){
+
+        localStorage.setItem(
+            chaveMigracao,
+            "true"
+        );
+
+        return;
+
+    }
+
+
+    const mapa =
+        carregarMapaMesas();
+
+
+    let migrados = 0;
+
+
+    for(
+        const antigo of antigos
+    ){
+
+        if(!antigo.nome){
+            continue;
+        }
+
+
+        const registro = {
+
+            wedding_id:weddingId,
+
+            nome:antigo.nome,
+
+            grupo:antigo.grupo || null,
+
+            relacao:antigo.relacao || null,
+
+            lado:antigo.lado || "Noiva",
+
+            tipo:antigo.tipo || "Adulto",
+
+            telefone:antigo.telefone || null,
+
+            whatsapp:antigo.whatsapp || null,
+
+            email:antigo.email || null,
+
+            rsvp:antigo.rsvp || "Pendente",
+
+            acompanhante:
+                antigo.acompanhante || "Não",
+
+            nome_acompanhante:
+                antigo.nomeAcompanhante || null,
+
+            alimentacao:
+                antigo.alimentacao || "Normal",
+
+            lugar:
+                antigo.lugar
+                    ? Number(antigo.lugar)
+                    : null,
+
+            notas:
+                antigo.notas || null
+
+        };
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("guests")
+            .insert(registro)
+            .select("*")
+            .single();
+
+
+        if(error){
+
+            console.error(
+                "Erro ao migrar convidado:",
+                error
+            );
+
+            continue;
+
+        }
+
+
+        if(
+            antigo.mesa &&
+            data &&
+            data.id
+        ){
+
+            mapa[data.id] =
+                antigo.mesa;
+
+        }
+
+
+        migrados++;
+
+    }
+
+
+    guardarMapaMesas(mapa);
+
+
+    localStorage.setItem(
+        chaveMigracao,
+        "true"
+    );
+
+
+    if(migrados > 0){
+
+        mostrarAviso(
+            migrados +
+            " convidado(s) antigo(s) foram migrados para o Supabase."
+        );
+
+    }
 
 }
 
 
-/* =========================================================
-   ATUALIZAR ESTATÍSTICAS
-========================================================= */
-
-function atualizarEstatisticas(){
-
-    total.textContent =
-        convidados.length;
-
-    confirmed.textContent =
-        convidados.filter(
-            g => g.rsvp === "Confirmado"
-        ).length;
-
-    pending.textContent =
-        convidados.filter(
-            g => g.rsvp === "Pendente"
-        ).length;
-
-    declined.textContent =
-        convidados.filter(
-            g => g.rsvp === "Não vai"
-        ).length;
-
-    adults.textContent =
-        convidados.filter(
-            g => g.tipo === "Adulto"
-        ).length;
-
-    children.textContent =
-        convidados.filter(
-            g => g.tipo === "Criança"
-        ).length;
-
-}
-
-
-/* =========================================================
-   SELECT DE MESAS
-========================================================= */
-
-function atualizarSelectMesas(){
-
-    guestTable.innerHTML =
-        '<option value="">Sem mesa</option>' +
-
-        mesas.map(
-            t =>
-                `<option value="${esc(t.id)}">
-                    ${esc(t.nome)} — ${t.capacidade} lugares
-                </option>`
-        ).join("");
-
-}
-
-
-/* =========================================================
+/* =====================================================
    RENDER
-========================================================= */
+===================================================== */
 
 function render(){
 
-    atualizarEstatisticas();
+    const c =
+        db.convidados;
+
+
+    total.textContent =
+        c.length;
+
+
+    confirmed.textContent =
+        c.filter(
+            x => x.rsvp === "Confirmado"
+        ).length;
+
+
+    pending.textContent =
+        c.filter(
+            x => x.rsvp === "Pendente"
+        ).length;
+
+
+    declined.textContent =
+        c.filter(
+            x => x.rsvp === "Não vai"
+        ).length;
+
+
+    adults.textContent =
+        c.filter(
+            x => x.tipo === "Adulto"
+        ).length;
+
+
+    children.textContent =
+        c.filter(
+            x => x.tipo === "Criança"
+        ).length;
+
 
     atualizarSelectMesas();
 
-    renderConvidados();
-
-    renderMesas();
-
-    renderMapa();
-
-}
-
-
-/* =========================================================
-   RENDER CONVIDADOS
-========================================================= */
-
-function renderConvidados(){
 
     const q =
         search.value
             .toLowerCase()
             .trim();
 
+
     const rv =
         rsvp.value;
+
 
     const sd =
         side.value;
 
+
     const tp =
         type.value;
+
 
     const tf =
         tableFilter.value;
 
 
-    const lista =
-        convidados.filter(function(g){
+    const arr =
+        c.filter(function(g){
 
-            const texto =
-                [
-                    g.nome,
-                    g.grupo,
-                    g.telefone,
-                    g.whatsapp
-                ]
+            const texto = [
+
+                g.nome,
+                g.grupo,
+                g.telefone,
+                g.whatsapp
+
+            ]
                 .join(" ")
                 .toLowerCase();
 
-            const mesa =
-                g.mesa_id || "";
 
             return (
 
-                (!q || texto.includes(q)) &&
+                (!q ||
+                    texto.includes(q))
 
-                (!rv || g.rsvp === rv) &&
+                &&
 
-                (!sd || g.lado === sd) &&
+                (!rv ||
+                    g.rsvp === rv)
 
-                (!tp || g.tipo === tp) &&
+                &&
+
+                (!sd ||
+                    g.lado === sd)
+
+                &&
+
+                (!tp ||
+                    g.tipo === tp)
+
+                &&
 
                 (
                     !tf ||
 
                     (
                         tf === "none"
-                        ? !mesa
-                        : mesa === tf
+                        ? !g.mesaId
+                        : g.mesaId === tf
                     )
                 )
 
@@ -1327,387 +1939,536 @@ function renderConvidados(){
 
 
     guestList.innerHTML =
-        lista.length
+        arr.length
+            ? arr.map(
+                renderConvidado
+              ).join("")
+            : `
+                <div class="empty">
 
-        ? lista.map(function(g){
+                    <h3>
+                        Nenhum convidado encontrado
+                    </h3>
 
-            /*
-                Nesta fase mesa_id pode estar vazio,
-                porque a tabela de mesas ainda está
-                no localStorage.
-            */
+                    <p style="margin-top:7px">
 
-            const mesa =
-                mesas.find(
-                    t => t.id === g.mesa_id
-                );
+                        Adicione o primeiro convidado.
 
-            const classe =
-                g.rsvp === "Confirmado"
-                    ? "ok"
-                    : g.rsvp === "Não vai"
-                        ? "no"
-                        : "pending";
+                    </p>
+
+                </div>
+              `;
 
 
-            return `
+    tableList.innerHTML =
+        db.mesas.length
+            ? db.mesas
+                .map(renderMesa)
+                .join("")
+            : `
+                <div
+                    class="empty"
+                    style="grid-column:1/-1">
 
-                <article class="guest">
+                    <h3>
+                        Ainda não existem mesas
+                    </h3>
 
-                    <div class="top">
+                    <p style="margin-top:7px">
 
-                        <div>
+                        Crie a primeira mesa.
 
-                            <div class="name">
-                                ${esc(g.nome)}
-                            </div>
+                    </p>
 
-                            <div class="muted">
-                                ${esc(g.grupo || "Sem grupo")}
-                                ·
-                                ${esc(g.relacao || "Relação não definida")}
-                            </div>
+                </div>
+              `;
 
-                            <div class="badges">
 
-                                <span class="badge ${classe}">
-                                    ${esc(g.rsvp)}
-                                </span>
+    mapList.innerHTML =
+        db.mesas.length
+            ? db.mesas
+                .map(function(t){
 
-                                <span class="badge">
-                                    ${esc(g.tipo)}
-                                </span>
+                    const n =
+                        c.filter(
+                            x =>
+                                x.mesaId === t.id
+                        ).length;
 
-                                <span class="badge">
-                                    ${esc(g.lado)}
-                                </span>
 
-                                ${
-                                    g.acompanhante === "Sim"
-                                    ? '<span class="badge">+ acompanhante</span>'
-                                    : ''
-                                }
+                    return `
+                        <div class="map-table">
 
-                            </div>
+                            <strong>
+                                ${esc(t.nome)}
+                            </strong>
+
+                            <span>
+                                ${n}/${t.capacidade}
+                                convidados
+                            </span>
+
+                            <span>
+                                ${esc(t.formato)}
+                            </span>
 
                         </div>
+                    `;
 
-                        <div class="muted">
+                })
+                .join("")
+            : `
+                <div
+                    class="empty"
+                    style="width:100%">
 
-                            ${
-                                mesa
-                                ? esc(mesa.nome)
-                                : "Sem mesa"
-                            }
+                    Crie mesas para visualizar
+                    o mapa.
 
-                        </div>
+                </div>
+              `;
+
+}
+
+
+/* =====================================================
+   SELECT DE MESAS
+===================================================== */
+
+function atualizarSelectMesas(){
+
+    guestTable.innerHTML =
+        '<option value="">Sem mesa</option>' +
+
+        db.mesas
+            .map(function(t){
+
+                return `
+                    <option value="${esc(t.id)}">
+
+                        ${esc(t.nome)}
+                        —
+                        ${t.capacidade}
+                        lugares
+
+                    </option>
+                `;
+
+            })
+            .join("");
+
+
+    const current =
+        guestId.value
+            ? db.convidados.find(
+                x => x.id === guestId.value
+              )
+            : null;
+
+
+    if(current){
+
+        guestTable.value =
+            current.mesaId || "";
+
+    }
+
+
+    tableFilter.innerHTML =
+        `
+            <option value="">
+                Todas as mesas
+            </option>
+
+            <option value="none">
+                Sem mesa
+            </option>
+        ` +
+
+        db.mesas
+            .map(function(t){
+
+                return `
+                    <option value="${esc(t.id)}">
+
+                        ${esc(t.nome)}
+
+                    </option>
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =====================================================
+   RENDER CONVIDADO
+===================================================== */
+
+function renderConvidado(g){
+
+    const t =
+        db.mesas.find(
+            x => x.id === g.mesaId
+        );
+
+
+    const cls =
+        g.rsvp === "Confirmado"
+            ? "ok"
+            : g.rsvp === "Não vai"
+                ? "no"
+                : "pending";
+
+
+    return `
+
+        <article class="guest">
+
+            <div class="top">
+
+                <div>
+
+                    <div class="name">
+
+                        ${esc(g.nome)}
+
+                    </div>
+
+                    <div class="muted">
+
+                        ${esc(
+                            g.grupo ||
+                            "Sem grupo"
+                        )}
+
+                        ·
+
+                        ${esc(
+                            g.relacao ||
+                            "Relação não definida"
+                        )}
 
                     </div>
 
 
-                    <div class="grid">
+                    <div class="badges">
 
-                        <div class="info">
-                            <label>Telefone</label>
-                            <div>
-                                ${esc(g.telefone || "—")}
-                            </div>
-                        </div>
+                        <span
+                            class="badge ${cls}">
 
-                        <div class="info">
-                            <label>WhatsApp</label>
-                            <div>
-                                ${esc(g.whatsapp || "—")}
-                            </div>
-                        </div>
+                            ${esc(g.rsvp)}
 
-                        <div class="info">
-                            <label>RSVP</label>
-                            <div>
-                                ${esc(g.rsvp)}
-                            </div>
-                        </div>
+                        </span>
 
-                        <div class="info">
-                            <label>Acompanhante</label>
-                            <div>
-                                ${esc(g.nome_acompanhante || "Não")}
-                            </div>
-                        </div>
 
-                        <div class="info">
-                            <label>Lugar</label>
-                            <div>
-                                ${esc(g.lugar || "—")}
-                            </div>
-                        </div>
+                        <span class="badge">
+
+                            ${esc(g.tipo)}
+
+                        </span>
+
+
+                        <span class="badge">
+
+                            ${esc(g.lado)}
+
+                        </span>
+
+
+                        ${
+                            g.acompanhante === "Sim"
+
+                            ? `
+                                <span class="badge">
+
+                                    + acompanhante
+
+                                </span>
+                              `
+
+                            : ""
+                        }
 
                     </div>
 
+                </div>
+
+
+                <div class="muted">
 
                     ${
-                        g.alimentacao
-
-                        ? `
-                            <div
-                                class="muted"
-                                style="margin-top:10px"
-                            >
-                                🍽 ${esc(g.alimentacao)}
-                            </div>
-                        `
-
-                        : ""
+                        t
+                            ? esc(t.nome)
+                            : "Sem mesa"
                     }
 
-
-                    ${
-                        g.notas
-
-                        ? `
-                            <div
-                                class="muted"
-                                style="margin-top:10px"
-                            >
-                                📝 ${esc(g.notas)}
-                            </div>
-                        `
-
-                        : ""
-                    }
-
-
-                    <div class="actions">
-
-                        <button
-                            class="btn secondary"
-                            onclick="editGuest('${g.id}')">
-                            Editar
-                        </button>
-
-                        <button
-                            class="btn danger"
-                            onclick="delGuest('${g.id}')">
-                            Eliminar
-                        </button>
-
-                    </div>
-
-                </article>
-
-            `;
-
-        }).join("")
-
-        : `
-
-            <div class="empty">
-
-                <h3>
-                    Nenhum convidado encontrado
-                </h3>
-
-                <p style="margin-top:7px">
-                    Adicione o primeiro convidado.
-                </p>
+                </div>
 
             </div>
 
-        `;
+
+            <div class="grid">
+
+                <div class="info">
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <div>
+                        ${esc(
+                            g.telefone || "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <label>
+                        WhatsApp
+                    </label>
+
+                    <div>
+                        ${esc(
+                            g.whatsapp || "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <label>
+                        RSVP
+                    </label>
+
+                    <div>
+                        ${esc(g.rsvp)}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <label>
+                        Acompanhante
+                    </label>
+
+                    <div>
+
+                        ${esc(
+                            g.nomeAcompanhante ||
+                            "Não"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <label>
+                        Lugar
+                    </label>
+
+                    <div>
+                        ${esc(
+                            g.lugar || "—"
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            ${
+                g.alimentacao
+
+                ? `
+                    <div
+                        class="muted"
+                        style="margin-top:10px">
+
+                        🍽
+                        ${esc(g.alimentacao)}
+
+                    </div>
+                  `
+
+                : ""
+            }
+
+
+            <div class="actions">
+
+                <button
+                    class="btn secondary"
+                    onclick="editGuest('${g.id}')">
+
+                    Editar
+
+                </button>
+
+
+                <button
+                    class="btn danger"
+                    onclick="delGuest('${g.id}')">
+
+                    Eliminar
+
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
 
 }
 
 
-/* =========================================================
-   GUARDAR CONVIDADO NO SUPABASE
-========================================================= */
+/* =====================================================
+   RENDER MESA
+===================================================== */
 
-async function guardarConvidado(event){
+function renderMesa(t){
 
-    event.preventDefault();
-
-    if(!casamentoAtual){
-
-        mostrarErro(
-            "O casamento ainda não foi carregado."
+    const gs =
+        db.convidados.filter(
+            g => g.mesaId === t.id
         );
 
-        return;
-    }
+
+    return `
+
+        <article class="table-card">
+
+            <div class="table-head">
+
+                <div>
+
+                    <h3>
+                        🪑
+                        ${esc(t.nome)}
+                    </h3>
+
+                    <div class="muted">
+
+                        ${esc(t.formato)}
+
+                        ·
+
+                        ${esc(
+                            t.localizacao ||
+                            "Local não definido"
+                        )}
+
+                    </div>
+
+                </div>
+
+                <strong>
+
+                    ${gs.length}/${t.capacidade}
+
+                </strong>
+
+            </div>
 
 
-    const id =
-        guestId.value;
+            <div class="seats">
+
+                ${
+                    Array.from(
+                        {
+                            length:
+                                t.capacidade
+                        },
+                        (_, i) => {
+
+                            const g =
+                                gs.find(
+                                    x =>
+                                        Number(
+                                            x.lugar
+                                        ) === i + 1
+                                );
 
 
-    const convidado = {
+                            return `
 
-        wedding_id:
-            casamentoAtual.id,
+                                <div
+                                    class="
+                                        seat
+                                        ${g ? "occupied" : ""}
+                                    ">
 
-        nome:
-            document.getElementById("name")
-                .value
-                .trim(),
+                                    <span>
 
-        grupo:
-            document.getElementById("group")
-                .value
-                .trim() || null,
+                                        ${
+                                            g
+                                                ? esc(g.nome)
+                                                : "Lugar livre"
+                                        }
 
-        lado:
-            document.getElementById("guestSide")
-                .value,
+                                    </span>
 
-        relacao:
-            document.getElementById("relation")
-                .value
-                .trim() || null,
+                                    <small>
 
-        telefone:
-            document.getElementById("phone")
-                .value
-                .trim() || null,
+                                        ${i + 1}
 
-        whatsapp:
-            document.getElementById("whatsapp")
-                .value
-                .trim() || null,
+                                    </small>
 
-        email:
-            document.getElementById("email")
-                .value
-                .trim() || null,
+                                </div>
 
-        tipo:
-            document.getElementById("guestType")
-                .value,
+                            `;
 
-        rsvp:
-            document.getElementById("guestRsvp")
-                .value,
+                        }
+                    ).join("")
+                }
 
-        acompanhante:
-            document.getElementById("companion")
-                .value,
-
-        nome_acompanhante:
-            document.getElementById("companionName")
-                .value
-                .trim() || null,
-
-        alimentacao:
-            document.getElementById("food")
-                .value
-                .trim() || "Normal",
-
-        /*
-            mesa_id fica vazio nesta primeira fase,
-            porque a migração das mesas será feita
-            separadamente.
-        */
-
-        mesa_id:
-            document.getElementById("guestTable")
-                .value || null,
-
-        lugar:
-            document.getElementById("seat")
-                .value
-                ? Number(
-                    document.getElementById("seat")
-                        .value
-                )
-                : null,
-
-        notas:
-            document.getElementById("notes")
-                .value
-                .trim() || null
-
-    };
+            </div>
 
 
-    if(!convidado.nome){
+            <div class="actions">
 
-        alert(
-            "Informe o nome do convidado."
-        );
+                <button
+                    class="btn secondary"
+                    onclick="editTable('${t.id}')">
 
-        return;
-    }
+                    Editar
 
-
-    const botao =
-        guestForm.querySelector(
-            'button[type="submit"]'
-        );
-
-    botao.disabled = true;
-
-    botao.textContent =
-        "A guardar...";
+                </button>
 
 
-    let resultado;
+                <button
+                    class="btn danger"
+                    onclick="delTable('${t.id}')">
 
+                    Eliminar
 
-    if(id){
+                </button>
 
-        resultado =
-            await supabaseClient
-                .from("guests")
-                .update(convidado)
-                .eq("id", id)
-                .eq(
-                    "wedding_id",
-                    casamentoAtual.id
-                );
+            </div>
 
-    }else{
+        </article>
 
-        resultado =
-            await supabaseClient
-                .from("guests")
-                .insert(convidado);
-
-    }
-
-
-    botao.disabled = false;
-
-    botao.textContent =
-        "Guardar convidado";
-
-
-    if(resultado.error){
-
-        console.error(
-            "Erro ao guardar convidado:",
-            resultado.error
-        );
-
-        mostrarErro(
-            "Não foi possível guardar o convidado: " +
-            resultado.error.message
-        );
-
-        return;
-    }
-
-
-    guestModal.classList.remove(
-        "open"
-    );
-
-    await carregarConvidados();
+    `;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    ABRIR CONVIDADO
-========================================================= */
+===================================================== */
 
 function openGuest(id = ""){
 
@@ -1715,6 +2476,7 @@ function openGuest(id = ""){
 
     guestId.value =
         id;
+
 
     guestTitle.textContent =
         id
@@ -1728,78 +2490,73 @@ function openGuest(id = ""){
     if(id){
 
         const g =
-            convidados.find(
+            db.convidados.find(
                 x => x.id === id
             );
 
+
         if(!g){
-
-            mostrarErro(
-                "Convidado não encontrado."
-            );
-
             return;
         }
 
 
-        document.getElementById("name")
-            .value =
+        name.value =
             g.nome || "";
 
-        document.getElementById("group")
-            .value =
+
+        group.value =
             g.grupo || "";
 
-        document.getElementById("guestSide")
-            .value =
+
+        guestSide.value =
             g.lado || "Noiva";
 
-        document.getElementById("relation")
-            .value =
+
+        relation.value =
             g.relacao || "";
 
-        document.getElementById("phone")
-            .value =
+
+        phone.value =
             g.telefone || "";
 
-        document.getElementById("whatsapp")
-            .value =
+
+        whatsapp.value =
             g.whatsapp || "";
 
-        document.getElementById("email")
-            .value =
+
+        email.value =
             g.email || "";
 
-        document.getElementById("guestType")
-            .value =
+
+        guestType.value =
             g.tipo || "Adulto";
 
-        document.getElementById("guestRsvp")
-            .value =
+
+        guestRsvp.value =
             g.rsvp || "Pendente";
 
-        document.getElementById("companion")
-            .value =
+
+        companion.value =
             g.acompanhante || "Não";
 
-        document.getElementById("companionName")
-            .value =
-            g.nome_acompanhante || "";
 
-        document.getElementById("food")
-            .value =
-            g.alimentacao || "Normal";
+        companionName.value =
+            g.nomeAcompanhante || "";
 
-        document.getElementById("guestTable")
-            .value =
-            g.mesa_id || "";
 
-        document.getElementById("seat")
-            .value =
+        food.value =
+            g.alimentacao || "";
+
+
+        guestTable.value =
+            g.mesaId || "";
+
+
+        seat.value =
             g.lugar || "";
 
-        document.getElementById("notes")
-            .value =
+
+        notes.value =
             g.notas || "";
 
     }
@@ -1812,9 +2569,9 @@ function openGuest(id = ""){
 }
 
 
-/* =========================================================
+/* =====================================================
    EDITAR CONVIDADO
-========================================================= */
+===================================================== */
 
 function editGuest(id){
 
@@ -1823,224 +2580,251 @@ function editGuest(id){
 }
 
 
-/* =========================================================
+/* =====================================================
    ELIMINAR CONVIDADO
-========================================================= */
+===================================================== */
 
 async function delGuest(id){
 
-    const convidado =
-        convidados.find(
+    const g =
+        db.convidados.find(
             x => x.id === id
         );
 
-    if(!convidado){
+
+    if(
+        !g ||
+        !confirm(
+            'Eliminar o convidado "' +
+            g.nome +
+            '"?'
+        )
+    ){
 
         return;
-    }
 
-
-    if(!confirm(
-        'Eliminar o convidado "' +
-        convidado.nome +
-        '"?'
-    )){
-
-        return;
     }
 
 
     const {
         error
-    } =
-        await supabaseClient
-            .from("guests")
-            .delete()
-            .eq("id", id)
-            .eq(
-                "wedding_id",
-                casamentoAtual.id
-            );
+    } = await supabaseClient
+        .from("guests")
+        .delete()
+        .eq("id", id)
+        .eq(
+            "wedding_id",
+            weddingId
+        );
 
 
     if(error){
 
-        console.error(
-            "Erro ao eliminar convidado:",
-            error
-        );
+        console.error(error);
 
-        mostrarErro(
-            "Não foi possível eliminar o convidado: " +
-            error.message
+        alert(
+            "Não foi possível eliminar o convidado."
         );
 
         return;
+
     }
 
 
-    await carregarConvidados();
+    db.convidados =
+        db.convidados.filter(
+            x => x.id !== id
+        );
+
+
+    const mapa =
+        carregarMapaMesas();
+
+
+    delete mapa[id];
+
+    guardarMapaMesas(mapa);
+
+
+    render();
 
 }
 
 
-/* =========================================================
-   MESAS — TEMPORARIAMENTE LOCALSTORAGE
-========================================================= */
+/* =====================================================
+   GUARDAR CONVIDADO
+===================================================== */
 
-function guardarMesasLocal(){
+guestForm.onsubmit =
+    async function(e){
 
-    localStorage.setItem(
-        TABLES_KEY,
-        JSON.stringify(mesas)
-    );
-
-}
+        e.preventDefault();
 
 
-/* =========================================================
-   RENDER MESAS
-========================================================= */
+        if(!weddingId){
 
-function renderMesas(){
+            alert(
+                "Não foi encontrado o casamento."
+            );
 
-    tableList.innerHTML =
-        mesas.length
+            return;
 
-        ? mesas.map(function(t){
-
-            const gs =
-                convidados.filter(
-                    g => g.mesa_id === t.id
-                );
+        }
 
 
-            return `
-
-                <article class="table-card">
-
-                    <div class="table-head">
-
-                        <div>
-
-                            <h3>
-                                🪑 ${esc(t.nome)}
-                            </h3>
-
-                            <div class="muted">
-                                ${esc(t.formato)}
-                                ·
-                                ${esc(
-                                    t.localizacao ||
-                                    "Local não definido"
-                                )}
-                            </div>
-
-                        </div>
-
-                        <strong>
-                            ${gs.length}/${t.capacidade}
-                        </strong>
-
-                    </div>
+        const id =
+            guestId.value;
 
 
-                    <div class="seats">
+        const registro = {
 
-                        ${Array.from(
-                            {
-                                length:t.capacidade
-                            },
-                            (_,i) => {
+            nome:
+                name.value.trim(),
 
-                                const g =
-                                    gs.find(
-                                        x =>
-                                            Number(x.lugar)
-                                            ===
-                                            i + 1
-                                    );
+            grupo:
+                group.value.trim() || null,
 
+            relacao:
+                relation.value.trim() || null,
 
-                                return `
+            lado:
+                guestSide.value,
 
-                                    <div
-                                        class="seat ${
-                                            g
-                                            ? "occupied"
-                                            : ""
-                                        }"
-                                    >
+            tipo:
+                guestType.value,
 
-                                        <span>
-                                            ${
-                                                g
-                                                ? esc(g.nome)
-                                                : "Lugar livre"
-                                            }
-                                        </span>
+            telefone:
+                phone.value.trim() || null,
 
-                                        <small>
-                                            ${i + 1}
-                                        </small>
+            whatsapp:
+                whatsapp.value.trim() || null,
 
-                                    </div>
+            email:
+                email.value.trim() || null,
 
-                                `;
+            rsvp:
+                guestRsvp.value,
 
-                            }
-                        ).join("")}
+            acompanhante:
+                companion.value,
 
-                    </div>
+            nome_acompanhante:
+                companionName.value.trim() || null,
 
+            alimentacao:
+                food.value.trim() || "Normal",
 
-                    <div class="actions">
+            lugar:
+                seat.value
+                    ? Number(seat.value)
+                    : null,
 
-                        <button
-                            class="btn secondary"
-                            onclick="editTable('${t.id}')">
-                            Editar
-                        </button>
+            notas:
+                notes.value.trim() || null,
 
-                        <button
-                            class="btn danger"
-                            onclick="delTable('${t.id}')">
-                            Eliminar
-                        </button>
+            wedding_id:
+                weddingId
 
-                    </div>
-
-                </article>
-
-            `;
-
-        }).join("")
-
-        : `
-
-            <div
-                class="empty"
-                style="grid-column:1/-1"
-            >
-
-                <h3>
-                    Ainda não existem mesas
-                </h3>
-
-                <p style="margin-top:7px">
-                    Crie a primeira mesa.
-                </p>
-
-            </div>
-
-        `;
-
-}
+        };
 
 
-/* =========================================================
-   NOVA MESA
-========================================================= */
+        let resultado;
+
+
+        if(id){
+
+            resultado =
+                await supabaseClient
+                    .from("guests")
+                    .update(registro)
+                    .eq("id", id)
+                    .eq(
+                        "wedding_id",
+                        weddingId
+                    )
+                    .select("*")
+                    .single();
+
+        }else{
+
+            resultado =
+                await supabaseClient
+                    .from("guests")
+                    .insert(registro)
+                    .select("*")
+                    .single();
+
+        }
+
+
+        if(resultado.error){
+
+            console.error(
+                resultado.error
+            );
+
+            alert(
+                "Não foi possível guardar o convidado.\n\n" +
+                resultado.error.message
+            );
+
+            return;
+
+        }
+
+
+        const salvo =
+            resultado.data;
+
+
+        /*
+         * A mesa continua temporariamente
+         * no localStorage porque a tabela
+         * de mesas ainda não está no Supabase.
+         */
+
+        const mesaSelecionada =
+            guestTable.value;
+
+
+        const mapa =
+            carregarMapaMesas();
+
+
+        if(salvo.id){
+
+            if(mesaSelecionada){
+
+                mapa[salvo.id] =
+                    mesaSelecionada;
+
+            }else{
+
+                delete mapa[salvo.id];
+
+            }
+
+        }
+
+
+        guardarMapaMesas(mapa);
+
+
+        guestModal.classList.remove(
+            "open"
+        );
+
+
+        await carregarConvidados();
+
+        render();
+
+    };
+
+
+/* =====================================================
+   ABRIR MESA
+===================================================== */
 
 function openTable(id = ""){
 
@@ -2049,47 +2833,52 @@ function openTable(id = ""){
     tableId.value =
         id;
 
+
     tableTitle.textContent =
         id
             ? "Editar mesa"
             : "Nova mesa";
 
-    document.getElementById("capacity")
-        .value = 10;
+
+    capacity.value =
+        10;
 
 
     if(id){
 
         const t =
-            mesas.find(
+            db.mesas.find(
                 x => x.id === id
             );
 
-        if(!t){
 
+        if(!t){
             return;
         }
 
 
-        document.getElementById("tableName")
-            .value =
+        tableName.value =
             t.nome || "";
 
-        document.getElementById("shape")
-            .value =
-            t.formato || "Redonda";
 
-        document.getElementById("capacity")
-            .value =
-            t.capacidade || 10;
+        shape.value =
+            t.formato ||
+            "Redonda";
 
-        document.getElementById("location")
-            .value =
-            t.localizacao || "";
 
-        document.getElementById("tableNotes")
-            .value =
-            t.notas || "";
+        capacity.value =
+            t.capacidade ||
+            10;
+
+
+        location.value =
+            t.localizacao ||
+            "";
+
+
+        tableNotes.value =
+            t.notas ||
+            "";
 
     }
 
@@ -2101,6 +2890,10 @@ function openTable(id = ""){
 }
 
 
+/* =====================================================
+   EDITAR MESA
+===================================================== */
+
 function editTable(id){
 
     openTable(id);
@@ -2108,240 +2901,157 @@ function editTable(id){
 }
 
 
-/* =========================================================
-   GUARDAR MESA
-========================================================= */
+/* =====================================================
+   ELIMINAR MESA
+===================================================== */
 
-function guardarMesa(event){
+async function delTable(id){
 
-    event.preventDefault();
-
-
-    const id =
-        tableId.value;
-
-
-    const mesa = {
-
-        id:
-            id ||
-            "mesa_" +
-            Date.now()
-            .toString(36) +
-            Math.random()
-                .toString(36)
-                .slice(2,6),
-
-        nome:
-            document.getElementById("tableName")
-                .value
-                .trim(),
-
-        formato:
-            document.getElementById("shape")
-                .value,
-
-        capacidade:
-            Number(
-                document.getElementById("capacity")
-                    .value
-            ) || 10,
-
-        localizacao:
-            document.getElementById("location")
-                .value
-                .trim(),
-
-        notas:
-            document.getElementById("tableNotes")
-                .value
-                .trim()
-
-    };
-
-
-    const index =
-        mesas.findIndex(
-            x => x.id === mesa.id
+    const t =
+        db.mesas.find(
+            x => x.id === id
         );
 
 
-    if(index >= 0){
+    if(
+        !t ||
+        !confirm(
+            "Eliminar a " +
+            t.nome +
+            "? Os convidados ficarão sem mesa."
+        )
+    ){
 
-        mesas[index] =
-            mesa;
-
-    }else{
-
-        mesas.push(mesa);
+        return;
 
     }
 
 
-    guardarMesasLocal();
+    /*
+     * Como as mesas ainda estão no
+     * localStorage, apenas removemos
+     * a associação visual dos convidados.
+     */
 
-    tableModal.classList.remove(
-        "open"
+    const mapa =
+        carregarMapaMesas();
+
+
+    db.convidados.forEach(
+        function(g){
+
+            if(g.mesaId === id){
+
+                delete mapa[g.id];
+
+                g.mesaId = "";
+
+            }
+
+        }
     );
+
+
+    guardarMapaMesas(mapa);
+
+
+    db.mesas =
+        db.mesas.filter(
+            x => x.id !== id
+        );
+
+
+    guardarMesas();
 
     render();
 
 }
 
 
-/* =========================================================
-   ELIMINAR MESA
-========================================================= */
+/* =====================================================
+   GUARDAR MESA
+===================================================== */
 
-async function delTable(id){
+tableForm.onsubmit =
+    function(e){
 
-    const mesa =
-        mesas.find(
-            x => x.id === id
-        );
-
-    if(!mesa){
-
-        return;
-    }
+        e.preventDefault();
 
 
-    if(!confirm(
-        "Eliminar a " +
-        mesa.nome +
-        "? Os convidados ficarão sem mesa."
-    )){
-
-        return;
-    }
+        const id =
+            tableId.value;
 
 
-    /*
-       Os convidados estão no Supabase.
-       Primeiro removemos a referência da mesa
-       dos convidados que estão associados a ela.
-    */
+        const o = {
 
-    const associados =
-        convidados.filter(
-            g => g.mesa_id === id
-        );
+            id:
+                id ||
+                "mesa_" +
+                Date.now().toString(36) +
+                Math.random()
+                    .toString(36)
+                    .slice(2,6),
 
+            nome:
+                tableName.value.trim(),
 
-    for(const convidado of associados){
+            formato:
+                shape.value,
 
-        const {
-            error
-        } =
-            await supabaseClient
-                .from("guests")
-                .update({
-                    mesa_id:null,
-                    lugar:null
-                })
-                .eq(
-                    "id",
-                    convidado.id
-                )
-                .eq(
-                    "wedding_id",
-                    casamentoAtual.id
-                );
+            capacidade:
+                Number(
+                    capacity.value
+                ) || 10,
+
+            localizacao:
+                location.value.trim(),
+
+            notas:
+                tableNotes.value.trim()
+
+        };
 
 
-        if(error){
-
-            console.error(
-                "Erro ao libertar mesa:",
-                error
+        const i =
+            db.mesas.findIndex(
+                x => x.id === o.id
             );
 
-            mostrarErro(
-                "Não foi possível remover a associação dos convidados."
-            );
 
-            return;
+        if(i >= 0){
+
+            db.mesas[i] =
+                o;
+
+        }else{
+
+            db.mesas.push(o);
+
         }
 
-    }
+
+        guardarMesas();
 
 
-    mesas =
-        mesas.filter(
-            x => x.id !== id
+        tableModal.classList.remove(
+            "open"
         );
 
 
-    guardarMesasLocal();
+        render();
 
-    await carregarConvidados();
-
-}
+    };
 
 
-/* =========================================================
-   MAPA
-========================================================= */
-
-function renderMapa(){
-
-    mapList.innerHTML =
-        mesas.length
-
-        ? mesas.map(function(t){
-
-            const n =
-                convidados.filter(
-                    g => g.mesa_id === t.id
-                ).length;
-
-
-            return `
-
-                <div class="map-table">
-
-                    <strong>
-                        ${esc(t.nome)}
-                    </strong>
-
-                    <span>
-                        ${n}/${t.capacidade}
-                        convidados
-                    </span>
-
-                    <span>
-                        ${esc(t.formato)}
-                    </span>
-
-                </div>
-
-            `;
-
-        }).join("")
-
-        : `
-
-            <div
-                class="empty"
-                style="width:100%"
-            >
-                Crie mesas para visualizar o mapa.
-            </div>
-
-        `;
-
-}
-
-
-/* =========================================================
-   ABAS
-========================================================= */
+/* =====================================================
+   TABS
+===================================================== */
 
 document
     .querySelectorAll(".tab")
-    .forEach(function(button){
+    .forEach(function(b){
 
-        button.onclick =
+        b.onclick =
             function(){
 
                 document
@@ -2353,6 +3063,7 @@ document
                             )
                     );
 
+
                 document
                     .querySelectorAll(".panel")
                     .forEach(
@@ -2363,13 +3074,14 @@ document
                     );
 
 
-                button.classList.add(
+                b.classList.add(
                     "active"
                 );
 
+
                 document
                     .getElementById(
-                        button.dataset.panel
+                        b.dataset.panel
                     )
                     .classList.add(
                         "active"
@@ -2380,9 +3092,9 @@ document
     });
 
 
-/* =========================================================
+/* =====================================================
    FILTROS
-========================================================= */
+===================================================== */
 
 [
     "search",
@@ -2397,15 +3109,15 @@ document
         .getElementById(id)
         .addEventListener(
             "input",
-            renderConvidados
+            render
         );
 
 });
 
 
-/* =========================================================
+/* =====================================================
    BOTÕES
-========================================================= */
+===================================================== */
 
 document
     .getElementById("newGuest")
@@ -2427,24 +3139,9 @@ document
         };
 
 
-/* =========================================================
-   FORMULÁRIOS
-========================================================= */
-
-guestForm.addEventListener(
-    "submit",
-    guardarConvidado
-);
-
-tableForm.addEventListener(
-    "submit",
-    guardarMesa
-);
-
-
-/* =========================================================
+/* =====================================================
    FECHAR MODAIS
-========================================================= */
+===================================================== */
 
 document
     .querySelectorAll(".close")
@@ -2469,9 +3166,11 @@ document
     .forEach(function(modal){
 
         modal.onclick =
-            function(event){
+            function(e){
 
-                if(event.target === modal){
+                if(
+                    e.target === modal
+                ){
 
                     modal.classList.remove(
                         "open"
@@ -2484,13 +3183,89 @@ document
     });
 
 
-/* =========================================================
-   INICIAR
-========================================================= */
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
 
-iniciarPagina();
+async function iniciar(){
+
+    try{
+
+        esconderAviso();
+
+
+        carregarMesas();
+
+
+        const ok =
+            await carregarCasamento();
+
+
+        if(!ok){
+            return;
+        }
+
+
+        await carregarConvidados();
+
+
+        await migrarConvidadosAntigos();
+
+
+        /*
+         * Recarrega depois da migração
+         * para mostrar os dados novos.
+         */
+
+        await carregarConvidados();
+
+
+        render();
+
+
+    }catch(error){
+
+        console.error(
+            "Erro ao carregar convidados:",
+            error
+        );
+
+
+        mostrarAviso(
+            "Não foi possível carregar os dados dos convidados. " +
+            "Abra o Console do navegador (F12) para verificar o erro."
+        );
+
+    }
+
+}
+
+
+iniciar();
+
+
+/* =====================================================
+   LOGOUT AUTOMÁTICO
+===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event){
+
+        if(
+            event === "SIGNED_OUT"
+        ){
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
 </html>
+```

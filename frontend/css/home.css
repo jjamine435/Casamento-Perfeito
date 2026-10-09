@@ -1,0 +1,659 @@
+
+/* =====================================================
+   CASAMENTO PERFEITO — CSS EXCLUSIVO DA PÁGINA INICIAL
+   Ficheiro: frontend/css/home.css
+   Não substitui nem modifica o style.css existente.
+   ===================================================== */
+
+body:has(> header.navbar) {
+    --home-pink: #e94f91;
+    --home-pink-dark: #d9367c;
+    --home-purple: #7857c5;
+    --home-orange: #f3a35c;
+    --home-green: #63b99a;
+    --home-blue: #6ba9df;
+    --home-yellow: #f0c75e;
+    --home-text: #343044;
+    --home-muted: #777486;
+
+    margin: 0;
+    background: #fffafd;
+    color: var(--home-text);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+body:has(> header.navbar) *,
+body:has(> header.navbar) *::before,
+body:has(> header.navbar) *::after {
+    box-sizing: border-box;
+}
+
+/* NAVEGAÇÃO */
+
+body:has(> header.navbar) > header.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 7%;
+    background: rgba(255, 255, 255, 0.97);
+    border: 0;
+    border-bottom: 1px solid #f1e8ef;
+    box-shadow: 0 4px 20px rgba(80, 40, 75, 0.04);
+    backdrop-filter: blur(12px);
+}
+
+body:has(> header.navbar) .navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--home-pink-dark);
+    font-size: 21px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+body:has(> header.navbar) .navbar nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+body:has(> header.navbar) .navbar nav a {
+    color: #514b5c;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+body:has(> header.navbar) .navbar nav a:hover {
+    color: var(--home-pink-dark);
+}
+
+body:has(> header.navbar) .navbar nav a.btn-login {
+    padding: 9px 19px;
+    border: 1px solid #f0c9dc;
+    border-radius: 999px;
+    color: var(--home-pink-dark);
+    background: #fff5fa;
+}
+
+body:has(> header.navbar) .navbar nav a.btn-login:hover {
+    background: #ffe8f2;
+}
+
+/* LAYOUT PRINCIPAL */
+
+body:has(> header.navbar) > main {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* SECÇÃO HERO */
+
+body:has(> header.navbar) .hero {
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    align-items: center;
+    gap: 60px;
+    margin: 0;
+    padding: 80px 10%;
+    border: 0;
+    border-radius: 0;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(235, 185, 222, 0.36),
+            transparent 32%
+        ),
+        linear-gradient(120deg, #fff8fc, #fff 53%, #f8f3ff);
+    box-shadow: none;
+}
+
+body:has(> header.navbar) .hero-content {
+    max-width: 650px;
+}
+
+body:has(> header.navbar) .hero-tag {
+    display: inline-block;
+    margin-bottom: 22px;
+    padding: 8px 15px;
+    border: 1px solid #f5d5e5;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--home-pink-dark);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+body:has(> header.navbar) .hero h1 {
+    margin: 0 0 22px;
+    color: #30283e;
+    font-size: clamp(38px, 4.4vw, 61px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -1.8px;
+}
+
+body:has(> header.navbar) .hero h1 strong {
+    display: block;
+    color: var(--home-pink);
+}
+
+body:has(> header.navbar) .hero-content > p {
+    max-width: 570px;
+    margin: 0 0 30px;
+    color: var(--home-muted);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* BOTÕES */
+
+body:has(> header.navbar) .hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-wrap: wrap;
+}
+
+body:has(> header.navbar) .hero-buttons a,
+body:has(> header.navbar) .cta a.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body:has(> header.navbar) .hero-buttons a:hover,
+body:has(> header.navbar) .cta a.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+body:has(> header.navbar) .hero-buttons a.btn-primary {
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        var(--home-pink),
+        var(--home-purple)
+    );
+    box-shadow: 0 9px 22px rgba(210, 70, 145, 0.2);
+}
+
+body:has(> header.navbar) .hero-buttons a.btn-secondary {
+    border: 1px solid #e9dce9;
+    color: #554b65;
+    background: #fff;
+}
+
+body:has(> header.navbar) .hero-buttons a.btn-secondary:hover {
+    background: #fff3f9;
+}
+
+/* CARTÃO DECORATIVO */
+
+body:has(> header.navbar) .hero-card {
+    width: 100%;
+    max-width: 390px;
+    justify-self: center;
+    padding: 38px 30px;
+    border: 1px solid #fff;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 25px 70px rgba(108, 69, 125, 0.13);
+    text-align: center;
+}
+
+body:has(> header.navbar) .hero-card .heart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 22px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ffe1ee, #eee3ff);
+    font-size: 39px;
+}
+
+body:has(> header.navbar) .hero-card h3 {
+    margin: 0 0 10px;
+    color: #3b3048;
+    font-size: 23px;
+    line-height: 1.35;
+}
+
+body:has(> header.navbar) .hero-card > p {
+    margin: 0;
+    color: var(--home-muted);
+    font-size: 14px;
+}
+
+body:has(> header.navbar) .mini-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 27px;
+}
+
+body:has(> header.navbar) .mini-info > div {
+    padding: 13px 5px;
+    border-radius: 12px;
+    background: #fff5fa;
+    color: #65556a;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+body:has(> header.navbar) .mini-info strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--home-pink-dark);
+    font-size: 19px;
+}
+
+/* TÍTULOS DAS SECÇÕES */
+
+body:has(> header.navbar) .section-heading {
+    max-width: 720px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+body:has(> header.navbar) .section-heading > span {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--home-pink-dark);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+body:has(> header.navbar) .section-heading h2 {
+    margin: 0 0 15px;
+    color: #342b40;
+    font-size: clamp(29px, 3vw, 40px);
+    line-height: 1.25;
+}
+
+body:has(> header.navbar) .section-heading p {
+    margin: 0;
+    color: var(--home-muted);
+    font-size: 16px;
+}
+
+/* FUNCIONALIDADES */
+
+body:has(> header.navbar) .features,
+body:has(> header.navbar) .how-it-works {
+    padding: 85px 8%;
+}
+
+body:has(> header.navbar) .features {
+    background: #fff;
+}
+
+body:has(> header.navbar) .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+body:has(> header.navbar) .feature-card {
+    min-width: 0;
+    padding: 28px 25px;
+    border: 1px solid #f0e8f0;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(65, 39, 75, 0.045);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body:has(> header.navbar) .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 34px rgba(65, 39, 75, 0.09);
+}
+
+body:has(> header.navbar) .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    font-size: 25px;
+}
+
+body:has(> header.navbar) .feature-pink {
+    background: linear-gradient(145deg, #fff, #fff3f8);
+}
+
+body:has(> header.navbar) .feature-pink .feature-icon {
+    background: #ffe1ed;
+}
+
+body:has(> header.navbar) .feature-purple {
+    background: linear-gradient(145deg, #fff, #f6f1ff);
+}
+
+body:has(> header.navbar) .feature-purple .feature-icon {
+    background: #e9ddff;
+}
+
+body:has(> header.navbar) .feature-orange {
+    background: linear-gradient(145deg, #fff, #fff6ec);
+}
+
+body:has(> header.navbar) .feature-orange .feature-icon {
+    background: #ffe7ce;
+}
+
+body:has(> header.navbar) .feature-green {
+    background: linear-gradient(145deg, #fff, #effbf6);
+}
+
+body:has(> header.navbar) .feature-green .feature-icon {
+    background: #d8f4e8;
+}
+
+body:has(> header.navbar) .feature-blue {
+    background: linear-gradient(145deg, #fff, #f0f7ff);
+}
+
+body:has(> header.navbar) .feature-blue .feature-icon {
+    background: #dcecff;
+}
+
+body:has(> header.navbar) .feature-yellow {
+    background: linear-gradient(145deg, #fff, #fffbed);
+}
+
+body:has(> header.navbar) .feature-yellow .feature-icon {
+    background: #fff0bf;
+}
+
+body:has(> header.navbar) .feature-card h3 {
+    margin: 0 0 10px;
+    color: #3c3048;
+    font-size: 19px;
+}
+
+body:has(> header.navbar) .feature-card p {
+    margin: 0;
+    color: var(--home-muted);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+/* COMO FUNCIONA */
+
+body:has(> header.navbar) .how-it-works {
+    background: #fff8fc;
+}
+
+body:has(> header.navbar) .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+body:has(> header.navbar) .step {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+body:has(> header.navbar) .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 20px;
+    border: 1px solid #f2d2e2;
+    border-radius: 21px;
+    background: #fff;
+    color: var(--home-pink-dark);
+    font-size: 22px;
+    font-weight: 800;
+    box-shadow: 0 8px 22px rgba(210, 70, 145, 0.08);
+}
+
+body:has(> header.navbar) .step h3 {
+    margin: 0 0 10px;
+    color: #3c3048;
+    font-size: 18px;
+}
+
+body:has(> header.navbar) .step p {
+    margin: 0;
+    color: var(--home-muted);
+    font-size: 14px;
+}
+
+/* CHAMADA FINAL */
+
+body:has(> header.navbar) .cta {
+    margin: 65px 8%;
+    padding: 55px 30px;
+    border-radius: 28px;
+    background: linear-gradient(120deg, #e94f91, #8057c8);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 18px 40px rgba(153, 76, 164, 0.18);
+}
+
+body:has(> header.navbar) .cta > div {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+body:has(> header.navbar) .cta span {
+    display: block;
+    margin-bottom: 13px;
+    color: #fff1f8;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+body:has(> header.navbar) .cta h2 {
+    margin: 0 0 15px;
+    color: #fff;
+    font-size: clamp(28px, 3.5vw, 40px);
+    line-height: 1.25;
+}
+
+body:has(> header.navbar) .cta p {
+    margin: 0 0 25px;
+    color: #fff4fa;
+    font-size: 15px;
+}
+
+body:has(> header.navbar) .cta a.btn-primary {
+    color: var(--home-pink-dark);
+    background: #fff;
+}
+
+/* RODAPÉ */
+
+body:has(> header.navbar) > footer {
+    padding: 30px 20px;
+    border: 0;
+    background: #fff;
+    color: var(--home-muted);
+    text-align: center;
+}
+
+body:has(> header.navbar) .footer-logo {
+    margin-bottom: 8px;
+    color: var(--home-pink-dark);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+body:has(> header.navbar) > footer p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+body:has(> header.navbar) .copyright {
+    margin-top: 18px;
+    color: #9a94a1;
+    font-size: 12px;
+}
+
+/* ACESSIBILIDADE */
+
+body:has(> header.navbar) a:focus-visible {
+    outline: 3px solid #9c70db;
+    outline-offset: 4px;
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+    body:has(> header.navbar) > header.navbar {
+        padding: 16px 5%;
+    }
+
+    body:has(> header.navbar) .navbar nav {
+        gap: 15px;
+    }
+
+    body:has(> header.navbar) .hero {
+        grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+        gap: 30px;
+        padding: 65px 6%;
+    }
+
+    body:has(> header.navbar) .features,
+    body:has(> header.navbar) .how-it-works {
+        padding: 65px 6%;
+    }
+
+    body:has(> header.navbar) .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* TELEMÓVEIS */
+
+@media (max-width: 650px) {
+    body:has(> header.navbar) > header.navbar {
+        position: relative;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px 20px;
+    }
+
+    body:has(> header.navbar) .navbar .logo {
+        font-size: 19px;
+    }
+
+    body:has(> header.navbar) .navbar nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px 16px;
+    }
+
+    body:has(> header.navbar) .navbar nav a {
+        font-size: 13px;
+    }
+
+    body:has(> header.navbar) .navbar nav a.btn-login {
+        padding: 7px 13px;
+    }
+
+    body:has(> header.navbar) .hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 38px;
+        padding: 55px 22px;
+    }
+
+    body:has(> header.navbar) .hero h1 {
+        font-size: clamp(35px, 9vw, 48px);
+        letter-spacing: -1px;
+    }
+
+    body:has(> header.navbar) .hero-content > p {
+        font-size: 15px;
+    }
+
+    body:has(> header.navbar) .hero-buttons {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    body:has(> header.navbar) .hero-buttons a {
+        width: 100%;
+    }
+
+    body:has(> header.navbar) .hero-card {
+        max-width: 420px;
+        padding: 30px 22px;
+    }
+
+    body:has(> header.navbar) .features,
+    body:has(> header.navbar) .how-it-works {
+        padding: 55px 20px;
+    }
+
+    body:has(> header.navbar) .section-heading {
+        margin-bottom: 30px;
+    }
+
+    body:has(> header.navbar) .feature-grid,
+    body:has(> header.navbar) .steps {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    body:has(> header.navbar) .feature-card {
+        padding: 24px;
+    }
+
+    body:has(> header.navbar) .step {
+        padding: 18px 12px;
+    }
+
+    body:has(> header.navbar) .cta {
+        margin: 35px 15px;
+        padding: 40px 22px;
+        border-radius: 22px;
+    }
+}
+
+/* REDUÇÃO DE MOVIMENTO */
+
+@media (prefers-reduced-motion: reduce) {
+    body:has(> header.navbar) *,
+    body:has(> header.navbar) *::before,
+    body:has(> header.navbar) *::after {
+        scroll-behavior: auto;
+        transition-duration: 0.01ms;
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+}

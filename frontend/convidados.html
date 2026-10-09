@@ -1,91 +1,635 @@
-Para não te enviar um código incompleto ou com partes em falta, preciso esclarecer uma coisa: o ficheiro completo tem mais de 3.400 linhas. Posso enviá-lo em várias partes, mantendo a ordem original.
+```html
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convidados e Mesas | Casamento Perfeito</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --primary: #8b5e5e;
+  --primary-dark: #704747;
+  --bg: #f7f4f2;
+  --white: #fff;
+  --text: #332d2d;
+  --muted: #777;
+  --border: #e9e1de;
+  --success: #287a4b;
+  --danger: #b42323;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.logo { color: var(--primary); font-size: 22px; font-weight: 700; }
+main { max-width: 1200px; margin: auto; padding: 28px 18px 60px; }
+.hero {
+  background: linear-gradient(135deg, #805353, #b98282);
+  color: white;
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 22px;
+}
+.hero h1 { margin: 0 0 8px; font-size: 28px; }
+.hero p { margin: 0; line-height: 1.5; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.stat, .panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+}
+.stat span { display: block; color: var(--muted); font-size: 13px; }
+.stat strong { display: block; color: var(--primary); font-size: 27px; margin-top: 8px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.btn, .tab {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 15px;
+  font-weight: 700;
+}
+.btn-primary, .tab.active { background: var(--primary); color: white; }
+.btn-primary:hover, .tab.active:hover { background: var(--primary-dark); }
+.btn-secondary, .tab { background: #eee7e4; color: #624949; }
+.btn-danger { background: #fbe5e5; color: var(--danger); }
+.btn-small { padding: 7px 10px; font-size: 13px; }
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+input, select {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid #dcd3cf;
+  border-radius: 9px;
+  padding: 11px;
+  background: white;
+  color: var(--text);
+}
+.toolbar input { flex: 1; min-width: 180px; }
+.field { margin-bottom: 13px; }
+.field label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+.full { grid-column: 1 / -1; }
+h2 { font-size: 20px; margin: 0 0 15px; }
+h3 { font-size: 17px; margin: 0 0 10px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 650px; }
+th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee7e4; }
+th { font-size: 12px; color: var(--muted); text-transform: uppercase; }
+td { font-size: 14px; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge { display: inline-block; padding: 5px 8px; border-radius: 20px; font-size: 12px; background: #eee; }
+.badge.yes { background: #e1f4e8; color: #216a40; }
+.badge.no { background: #fbe5e5; color: #a12424; }
+.badge.pending { background: #fff1cf; color: #805a00; }
+.notice { padding: 12px 14px; border-radius: 9px; margin-bottom: 16px; display: none; }
+.notice.show { display: block; }
+.notice.error { background: #fbe5e5; color: #8d2020; }
+.notice.success { background: #e1f4e8; color: #216a40; }
+.empty { color: var(--muted); text-align: center; padding: 28px 10px; }
+.hidden { display: none !important; }
+.table-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.table-card { border: 1px solid var(--border); padding: 16px; border-radius: 12px; background: white; }
+.table-card p { color: var(--muted); font-size: 14px; }
+footer { color: var(--muted); text-align: center; font-size: 12px; padding: 22px; }
+@media (max-width: 700px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero h1 { font-size: 23px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  header { padding: 15px; }
+}
+</style>
+</head>
+<body>
 
-Entretanto, se o objetivo imediato é corrigir o erro ao guardar mesas, substitui a função `guardarMesa(event)` pela seguinte versão completa:
+<header>
+  <div class="logo">Casamento Perfeito</div>
+  <button class="btn btn-secondary" id="refreshBtn" type="button">Atualizar dados</button>
+</header>
 
-```javascript
-async function guardarMesa(event) {
-    event.preventDefault();
+<main>
+  <section class="hero">
+    <h1>Gestão de convidados e mesas</h1>
+    <p>Organiza os teus convidados, acompanha as confirmações e distribui os lugares do casamento.</p>
+  </section>
 
-    if (!casamentoAtual || !casamentoAtual.id) {
-        mostrarMensagem(
-            "Não foi encontrado o casamento desta conta.",
-            "error"
-        );
-        return;
+  <div id="message" class="notice" role="status"></div>
+
+  <section class="stats">
+    <div class="stat"><span>Total de convidados</span><strong id="totalGuests">0</strong></div>
+    <div class="stat"><span>Presenças confirmadas</span><strong id="confirmedGuests">0</strong></div>
+    <div class="stat"><span>Mesas criadas</span><strong id="totalTables">0</strong></div>
+    <div class="stat"><span>Lugares disponíveis</span><strong id="freeSeats">0</strong></div>
+  </section>
+
+  <div id="loginNotice" class="panel hidden">
+    <h2>Inicia sessão para continuar</h2>
+    <p>Não foi encontrada uma sessão ativa do Supabase. Entra na tua conta no site e volta a abrir esta página.</p>
+  </div>
+
+  <div id="app" class="hidden">
+    <nav class="tabs">
+      <button class="tab active" data-tab="guestsPanel" type="button">Convidados</button>
+      <button class="tab" data-tab="tablesPanel" type="button">Mesas</button>
+    </nav>
+
+    <section id="guestsPanel" class="panel">
+      <h2>Lista de convidados</h2>
+      <form id="guestForm">
+        <input type="hidden" id="guestId">
+        <div class="form-grid">
+          <div class="field">
+            <label for="guestName">Nome completo *</label>
+            <input id="guestName" required maxlength="150" placeholder="Nome do convidado">
+          </div>
+          <div class="field">
+            <label for="guestGroup">Grupo / família</label>
+            <input id="guestGroup" maxlength="100" placeholder="Ex.: Família, Amigos">
+          </div>
+          <div class="field">
+            <label for="guestPhone">Telefone</label>
+            <input id="guestPhone" type="tel" maxlength="40" placeholder="Contacto">
+          </div>
+          <div class="field">
+            <label for="guestRsvp">Confirmação de presença</label>
+            <select id="guestRsvp">
+              <option value="Pendente">Pendente</option>
+              <option value="Confirmado">Confirmado</option>
+              <option value="Recusado">Recusado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="guestTable">Mesa atribuída</label>
+            <select id="guestTable"><option value="">Sem mesa atribuída</option></select>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="saveGuestBtn">Adicionar convidado</button>
+        <button class="btn btn-secondary hidden" type="button" id="cancelGuestBtn">Cancelar edição</button>
+      </form>
+
+      <div class="toolbar">
+        <input id="searchGuests" placeholder="Pesquisar por nome ou grupo...">
+        <select id="filterRsvp" style="max-width:220px">
+          <option value="">Todas as confirmações</option>
+          <option value="Confirmado">Confirmados</option>
+          <option value="Pendente">Pendentes</option>
+          <option value="Recusado">Recusados</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nome</th><th>Grupo</th><th>Telefone</th><th>Presença</th><th>Mesa</th><th>Ações</th></tr></thead>
+          <tbody id="guestsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tablesPanel" class="panel hidden">
+      <h2>Gestão de mesas</h2>
+      <form id="tableForm">
+        <input type="hidden" id="tableId">
+        <div class="form-grid">
+          <div class="field">
+            <label for="tableName">Nome da mesa *</label>
+            <input id="tableName" required maxlength="100" placeholder="Ex.: Mesa 1">
+          </div>
+          <div class="field">
+            <label for="tableSeats">Capacidade de lugares *</label>
+            <input id="tableSeats" type="number" min="1" max="1000" value="8" required>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="saveTableBtn">Criar mesa</button>
+        <button class="btn btn-secondary hidden" type="button" id="cancelTableBtn">Cancelar edição</button>
+      </form>
+      <div style="height:18px"></div>
+      <div id="tablesContainer" class="table-grid"></div>
+    </section>
+  </div>
+</main>
+
+<footer>Casamento Perfeito · Organização do teu grande dia</footer>
+
+<script>
+"use strict";
+
+/* Configuração Supabase do projeto */
+const SUPABASE_URL = "https://yucymctjoqbxpipmpzir.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_dyhLNw_TpWigMqYjxlPktA_vwW0aUBH";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+let utilizadorAtual = null;
+let casamentoAtual = null;
+let convidados = [];
+let mesas = [];
+
+const $ = id => document.getElementById(id);
+
+function mostrarMensagem(texto, tipo = "success") {
+  const box = $("message");
+  box.textContent = texto;
+  box.className = "notice show " + tipo;
+  window.clearTimeout(mostrarMensagem.timer);
+  mostrarMensagem.timer = window.setTimeout(() => {
+    box.className = "notice";
+  }, 6000);
+}
+
+function escapar(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+    '"': "&quot;", "'": "&#39;"
+  })[c]);
+}
+
+function normalizarEstado(valor) {
+  const estado = String(valor || "Pendente").toLowerCase();
+  if (["confirmado", "confirmed", "sim", "yes"].includes(estado)) return "Confirmado";
+  if (["recusado", "declined", "não", "nao", "no"].includes(estado)) return "Recusado";
+  return "Pendente";
+}
+
+function classeEstado(valor) {
+  const estado = normalizarEstado(valor);
+  if (estado === "Confirmado") return "yes";
+  if (estado === "Recusado") return "no";
+  return "pending";
+}
+
+async function inicializar() {
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+    if (error) throw error;
+
+    const session = data.session;
+    if (!session) {
+      $("loginNotice").classList.remove("hidden");
+      $("app").classList.add("hidden");
+      return;
     }
 
-    const id = document.getElementById("tableId").value.trim();
-    const nome = document.getElementById("tableName").value.trim();
-    const lugares = Number(document.getElementById("tableSeats").value);
+    utilizadorAtual = session.user;
+    const { data: casamento, error: erroCasamento } = await supabaseClient
+      .from("weddings")
+      .select("*")
+      .eq("user_id", utilizadorAtual.id)
+      .limit(1)
+      .maybeSingle();
 
-    if (!nome) {
-        mostrarMensagem("O nome da mesa é obrigatório.", "error");
-        return;
+    if (erroCasamento) throw erroCasamento;
+
+    if (!casamento) {
+      mostrarMensagem("Não foi encontrado um casamento associado a esta conta.", "error");
+      $("app").classList.remove("hidden");
+      $("guestsBody").innerHTML =
+        '<tr><td colspan="6" class="empty">Configura primeiro o teu casamento.</td></tr>';
+      return;
     }
 
-    if (!Number.isInteger(lugares) || lugares < 1) {
-        mostrarMensagem(
-            "Indique uma capacidade válida, de pelo menos 1 lugar.",
-            "error"
-        );
-        return;
+    casamentoAtual = casamento;
+    $("loginNotice").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    await carregarTudo();
+  } catch (error) {
+    console.error("Erro na inicialização:", error);
+    mostrarMensagem("Não foi possível ligar ao Supabase: " + (error.message || "erro desconhecido"), "error");
+  }
+}
+
+async function carregarTudo() {
+  if (!casamentoAtual) return;
+
+  const [resultadoConvidados, resultadoMesas] = await Promise.all([
+    supabaseClient.from("guests")
+      .select("*")
+      .eq("wedding_id", casamentoAtual.id)
+      .order("nome", { ascending: true }),
+    supabaseClient.from("tables")
+      .select("*")
+      .eq("wedding_id", casamentoAtual.id)
+      .order("nome", { ascending: true })
+  ]);
+
+  if (resultadoConvidados.error) throw resultadoConvidados.error;
+  if (resultadoMesas.error) throw resultadoMesas.error;
+
+  convidados = resultadoConvidados.data || [];
+  mesas = resultadoMesas.data || [];
+
+  renderizarTudo();
+}
+
+function nomeMesa(id) {
+  const mesa = mesas.find(m => String(m.id) === String(id));
+  return mesa ? mesa.nome : "Sem mesa";
+}
+
+function renderizarTudo() {
+  renderizarEstatisticas();
+  renderizarOpcoesMesas();
+  renderizarConvidados();
+  renderizarMesas();
+}
+
+function renderizarEstatisticas() {
+  $("totalGuests").textContent = convidados.length;
+  $("confirmedGuests").textContent = convidados.filter(
+    g => normalizarEstado(g.rsvp) === "Confirmado"
+  ).length;
+  $("totalTables").textContent = mesas.length;
+
+  const capacidade = mesas.reduce((total, mesa) => total + Number(mesa.lugares || 0), 0);
+  const ocupados = convidados.filter(g => g.mesa_id).length;
+  $("freeSeats").textContent = Math.max(0, capacidade - ocupados);
+}
+
+function renderizarOpcoesMesas() {
+  const select = $("guestTable");
+  const atual = select.value;
+  select.innerHTML = '<option value="">Sem mesa atribuída</option>' +
+    mesas.map(m => `<option value="${escapar(m.id)}">${escapar(m.nome)} (${Number(m.lugares || 0)} lugares)</option>`).join("");
+  if ([...select.options].some(o => o.value === atual)) select.value = atual;
+}
+
+function renderizarConvidados() {
+  const pesquisa = $("searchGuests").value.trim().toLowerCase();
+  const filtro = $("filterRsvp").value;
+
+  const lista = convidados.filter(g => {
+    const texto = `${g.nome || ""} ${g.grupo || ""}`.toLowerCase();
+    return texto.includes(pesquisa) &&
+      (!filtro || normalizarEstado(g.rsvp) === filtro);
+  });
+
+  if (!lista.length) {
+    $("guestsBody").innerHTML =
+      '<tr><td colspan="6" class="empty">Nenhum convidado encontrado.</td></tr>';
+    return;
+  }
+
+  $("guestsBody").innerHTML = lista.map(g => `
+    <tr>
+      <td><strong>${escapar(g.nome)}</strong></td>
+      <td>${escapar(g.grupo || "—")}</td>
+      <td>${escapar(g.telefone || "—")}</td>
+      <td><span class="badge ${classeEstado(g.rsvp)}">${escapar(normalizarEstado(g.rsvp))}</span></td>
+      <td>${escapar(nomeMesa(g.mesa_id))}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-secondary btn-small" type="button" data-edit-guest="${escapar(g.id)}">Editar</button>
+          <button class="btn btn-danger btn-small" type="button" data-delete-guest="${escapar(g.id)}">Apagar</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function renderizarMesas() {
+  if (!mesas.length) {
+    $("tablesContainer").innerHTML = '<p class="empty">Ainda não existem mesas. Cria a primeira acima.</p>';
+    return;
+  }
+
+  $("tablesContainer").innerHTML = mesas.map(m => {
+    const atribuídos = convidados.filter(g => String(g.mesa_id) === String(m.id));
+    const capacidade = Number(m.lugares || 0);
+    return `
+      <article class="table-card">
+        <h3>${escapar(m.nome)}</h3>
+        <p>${atribuídos.length} convidados atribuídos · ${Math.max(0, capacidade - atribuídos.length)} lugares livres de ${capacidade}</p>
+        <div class="actions">
+          <button class="btn btn-secondary btn-small" type="button" data-edit-table="${escapar(m.id)}">Editar</button>
+          <button class="btn btn-danger btn-small" type="button" data-delete-table="${escapar(m.id)}">Apagar</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function limparFormularioConvidado() {
+  $("guestForm").reset();
+  $("guestId").value = "";
+  $("guestRsvp").value = "Pendente";
+  $("saveGuestBtn").textContent = "Adicionar convidado";
+  $("cancelGuestBtn").classList.add("hidden");
+}
+
+function limparFormularioMesa() {
+  $("tableForm").reset();
+  $("tableId").value = "";
+  $("tableSeats").value = 8;
+  $("saveTableBtn").textContent = "Criar mesa";
+  $("cancelTableBtn").classList.add("hidden");
+}
+
+$("guestForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!casamentoAtual) return mostrarMensagem("Não existe um casamento selecionado.", "error");
+
+  const id = $("guestId").value;
+  const nome = $("guestName").value.trim();
+  if (!nome) return mostrarMensagem("O nome do convidado é obrigatório.", "error");
+
+  const dados = {
+    wedding_id: casamentoAtual.id,
+    nome,
+    grupo: $("guestGroup").value.trim() || null,
+    telefone: $("guestPhone").value.trim() || null,
+    rsvp: $("guestRsvp").value,
+    mesa_id: $("guestTable").value || null
+  };
+
+  try {
+    const resultado = id
+      ? await supabaseClient.from("guests").update(dados)
+          .eq("id", id).eq("wedding_id", casamentoAtual.id)
+      : await supabaseClient.from("guests").insert(dados);
+
+    if (resultado.error) throw resultado.error;
+
+    limparFormularioConvidado();
+    await carregarTudo();
+    mostrarMensagem(id ? "Convidado atualizado com sucesso." : "Convidado adicionado com sucesso.");
+  } catch (error) {
+    console.error("Erro ao guardar convidado:", error);
+    mostrarMensagem("Não foi possível guardar o convidado: " + (error.message || "erro desconhecido"), "error");
+  }
+});
+
+$("tableForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!casamentoAtual) return mostrarMensagem("Não existe um casamento selecionado.", "error");
+
+  const id = $("tableId").value;
+  const nome = $("tableName").value.trim();
+  const lugares = Number($("tableSeats").value);
+
+  if (!nome) return mostrarMensagem("O nome da mesa é obrigatório.", "error");
+  if (!Number.isInteger(lugares) || lugares < 1) {
+    return mostrarMensagem("Indica uma capacidade válida de pelo menos um lugar.", "error");
+  }
+
+  try {
+    let resultado;
+
+    if (id) {
+      resultado = await supabaseClient.from("tables")
+        .update({ nome, lugares })
+        .eq("id", id)
+        .eq("wedding_id", casamentoAtual.id);
+    } else {
+      resultado = await supabaseClient.from("tables")
+        .insert({ wedding_id: casamentoAtual.id, nome, lugares });
     }
+
+    if (resultado.error) throw resultado.error;
+
+    limparFormularioMesa();
+    await carregarTudo();
+    mostrarMensagem(id ? "Mesa atualizada com sucesso." : "Mesa criada com sucesso.");
+  } catch (error) {
+    console.error("Erro ao guardar mesa:", error);
+    mostrarMensagem("Não foi possível guardar a mesa: " + (error.message || "erro desconhecido"), "error");
+  }
+});
+
+$("guestsBody").addEventListener("click", async event => {
+  const editar = event.target.closest("[data-edit-guest]");
+  const apagar = event.target.closest("[data-delete-guest]");
+
+  if (editar) {
+    const g = convidados.find(item => String(item.id) === editar.dataset.editGuest);
+    if (!g) return;
+
+    $("guestId").value = g.id;
+    $("guestName").value = g.nome || "";
+    $("guestGroup").value = g.grupo || "";
+    $("guestPhone").value = g.telefone || "";
+    $("guestRsvp").value = normalizarEstado(g.rsvp);
+    $("guestTable").value = g.mesa_id || "";
+    $("saveGuestBtn").textContent = "Guardar alterações";
+    $("cancelGuestBtn").classList.remove("hidden");
+    $("guestName").focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  if (apagar) {
+    const id = apagar.dataset.deleteGuest;
+    const g = convidados.find(item => String(item.id) === id);
+    if (!g || !confirm(`Tens a certeza de que queres apagar ${g.nome}?`)) return;
 
     try {
-        let resultado;
-
-        if (id) {
-            resultado = await supabaseClient
-                .from("tables")
-                .update({
-                    nome: nome,
-                    lugares: lugares
-                })
-                .eq("id", id)
-                .eq("wedding_id", casamentoAtual.id)
-                .select();
-        } else {
-            resultado = await supabaseClient
-                .from("tables")
-                .insert({
-                    wedding_id: casamentoAtual.id,
-                    nome: nome,
-                    lugares: lugares
-                })
-                .select();
-        }
-
-        if (resultado.error) {
-            throw resultado.error;
-        }
-
-        if (!resultado.data || resultado.data.length === 0) {
-            throw new Error(
-                "Nenhuma mesa foi alterada. Verifique as permissões do Supabase."
-            );
-        }
-
-        await carregarMesas();
-        await carregarConvidados();
-
-        renderizarMesas();
-        renderizarConvidados();
-
-        document.getElementById("tableModal").classList.remove("open");
-
-        mostrarMensagem(
-            id
-                ? "Mesa atualizada com sucesso."
-                : "Mesa criada com sucesso.",
-            "success"
-        );
+      const { error } = await supabaseClient.from("guests")
+        .delete().eq("id", id).eq("wedding_id", casamentoAtual.id);
+      if (error) throw error;
+      await carregarTudo();
+      mostrarMensagem("Convidado apagado com sucesso.");
     } catch (error) {
-        console.error("Erro ao guardar mesa:", error);
-
-        mostrarMensagem(
-            "Não foi possível guardar a mesa: " +
-            (error.message || "Erro desconhecido."),
-            "error"
-        );
+      console.error(error);
+      mostrarMensagem("Não foi possível apagar o convidado: " + error.message, "error");
     }
-}
+  }
+});
+
+$("tablesContainer").addEventListener("click", async event => {
+  const editar = event.target.closest("[data-edit-table]");
+  const apagar = event.target.closest("[data-delete-table]");
+
+  if (editar) {
+    const mesa = mesas.find(item => String(item.id) === editar.dataset.editTable);
+    if (!mesa) return;
+
+    $("tableId").value = mesa.id;
+    $("tableName").value = mesa.nome || "";
+    $("tableSeats").value = Number(mesa.lugares || 1);
+    $("saveTableBtn").textContent = "Guardar alterações";
+    $("cancelTableBtn").classList.remove("hidden");
+    $("tableName").focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  if (apagar) {
+    const id = apagar.dataset.deleteTable;
+    const mesa = mesas.find(item => String(item.id) === id);
+    if (!mesa || !confirm(`Apagar "${mesa.nome}"? Os convidados ficarão sem mesa atribuída.`)) return;
+
+    try {
+      const { error: erroConvidados } = await supabaseClient.from("guests")
+        .update({ mesa_id: null })
+        .eq("wedding_id", casamentoAtual.id)
+        .eq("mesa_id", id);
+
+      if (erroConvidados) throw erroConvidados;
+
+      const { error: erroMesa } = await supabaseClient.from("tables")
+        .delete().eq("id", id).eq("wedding_id", casamentoAtual.id);
+
+      if (erroMesa) throw erroMesa;
+
+      await carregarTudo();
+      mostrarMensagem("Mesa apagada com sucesso.");
+    } catch (error) {
+      console.error(error);
+      mostrarMensagem("Não foi possível apagar a mesa: " + error.message, "error");
+    }
+  }
+});
+
+$("cancelGuestBtn").addEventListener("click", limparFormularioConvidado);
+$("cancelTableBtn").addEventListener("click", limparFormularioMesa);
+$("searchGuests").addEventListener("input", renderizarConvidados);
+$("filterRsvp").addEventListener("change", renderizarConvidados);
+
+$("refreshBtn").addEventListener("click", async () => {
+  try {
+    await carregarTudo();
+    mostrarMensagem("Dados atualizados.");
+  } catch (error) {
+    console.error(error);
+    mostrarMensagem("Erro ao atualizar dados: " + error.message, "error");
+  }
+});
+
+document.querySelectorAll("[data-tab]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-tab]").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    $("guestsPanel").classList.toggle("hidden", button.dataset.tab !== "guestsPanel");
+    $("tablesPanel").classList.toggle("hidden", button.dataset.tab !== "tablesPanel");
+  });
+});
+
+inicializar();
+</script>
+</body>
+</html>
+```

@@ -1,251 +1,277 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Convidados e Mesas | Casamento Perfeito</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convidados, Mesas e Mapa | Casamento Perfeito</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
-  --primary: #8b5e5e;
-  --primary-dark: #704747;
-  --bg: #f7f4f2;
-  --white: #fff;
-  --text: #332d2d;
-  --muted: #777;
-  --border: #e9e1de;
-  --success: #287a4b;
-  --danger: #b42323;
+  --primary:#895c5c;
+  --dark:#694242;
+  --bg:#f7f3f0;
+  --white:#fff;
+  --text:#332d2d;
+  --muted:#777;
+  --border:#e8ded9;
+  --green:#287548;
+  --red:#b42323;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-button, input, select { font: inherit; }
-button { cursor: pointer; }
-header {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 18px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.logo { color: var(--primary); font-size: 22px; font-weight: 700; }
-main { max-width: 1200px; margin: auto; padding: 28px 18px 60px; }
-.hero {
-  background: linear-gradient(135deg, #805353, #b98282);
-  color: white;
-  border-radius: 18px;
-  padding: 26px;
-  margin-bottom: 22px;
-}
-.hero h1 { margin: 0 0 8px; font-size: 28px; }
-.hero p { margin: 0; line-height: 1.5; }
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 22px;
-}
-.stat, .panel {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-}
-.stat span { display: block; color: var(--muted); font-size: 13px; }
-.stat strong { display: block; color: var(--primary); font-size: 27px; margin-top: 8px; }
-.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.btn, .tab {
-  border: 0;
-  border-radius: 9px;
-  padding: 11px 15px;
-  font-weight: 700;
-}
-.btn-primary, .tab.active { background: var(--primary); color: white; }
-.btn-primary:hover, .tab.active:hover { background: var(--primary-dark); }
-.btn-secondary, .tab { background: #eee7e4; color: #624949; }
-.btn-danger { background: #fbe5e5; color: var(--danger); }
-.btn-small { padding: 7px 10px; font-size: 13px; }
-.toolbar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 16px 0;
-}
-input, select {
-  min-width: 0;
-  width: 100%;
-  border: 1px solid #dcd3cf;
-  border-radius: 9px;
-  padding: 11px;
-  background: white;
-  color: var(--text);
-}
-.toolbar input { flex: 1; min-width: 180px; }
-.field { margin-bottom: 13px; }
-.field label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
-.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
-.full { grid-column: 1 / -1; }
-h2 { font-size: 20px; margin: 0 0 15px; }
-h3 { font-size: 17px; margin: 0 0 10px; }
-.table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 650px; }
-th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee7e4; }
-th { font-size: 12px; color: var(--muted); text-transform: uppercase; }
-td { font-size: 14px; }
-.actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.badge { display: inline-block; padding: 5px 8px; border-radius: 20px; font-size: 12px; background: #eee; }
-.badge.yes { background: #e1f4e8; color: #216a40; }
-.badge.no { background: #fbe5e5; color: #a12424; }
-.badge.pending { background: #fff1cf; color: #805a00; }
-.notice { padding: 12px 14px; border-radius: 9px; margin-bottom: 16px; display: none; }
-.notice.show { display: block; }
-.notice.error { background: #fbe5e5; color: #8d2020; }
-.notice.success { background: #e1f4e8; color: #216a40; }
-.empty { color: var(--muted); text-align: center; padding: 28px 10px; }
-.hidden { display: none !important; }
-.table-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-.table-card { border: 1px solid var(--border); padding: 16px; border-radius: 12px; background: white; }
-.table-card p { color: var(--muted); font-size: 14px; }
-footer { color: var(--muted); text-align: center; font-size: 12px; padding: 22px; }
-@media (max-width: 700px) {
-  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero h1 { font-size: 23px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .full { grid-column: auto; }
-  header { padding: 15px; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{background:white;border-bottom:1px solid var(--border);padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:22px;font-weight:bold;color:var(--primary)}
+main{max-width:1250px;margin:auto;padding:25px 16px 50px}
+.hero{background:linear-gradient(135deg,#765050,#b88989);color:white;padding:27px;border-radius:16px;margin-bottom:20px}
+.hero h1{margin:0 0 8px;font-size:27px}
+.hero p{margin:0;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.stat,.panel{background:white;border:1px solid var(--border);border-radius:13px;padding:17px}
+.stat span{display:block;color:var(--muted);font-size:13px}
+.stat strong{display:block;font-size:27px;color:var(--primary);margin-top:7px}
+h2{font-size:20px;margin:0 0 16px}
+h3{margin:0 0 9px}
+.tabs,.toolbar,.actions{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{margin-bottom:15px}
+button{border:0;border-radius:8px;padding:10px 14px;font-weight:bold}
+.primary,.tab.active{background:var(--primary);color:white}
+.primary:hover,.tab.active:hover{background:var(--dark)}
+.secondary,.tab{background:#eee6e2;color:#5f4444}
+.danger{background:#fbe5e5;color:var(--red)}
+.small{font-size:12px;padding:7px 9px}
+.field{margin-bottom:13px}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}
+input,select{width:100%;min-width:0;padding:11px;border:1px solid #d9ceca;border-radius:8px;background:white;color:var(--text)}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.full{grid-column:1/-1}
+.toolbar{margin:17px 0}
+.toolbar input{flex:1;min-width:180px}
+.toolbar select{max-width:230px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #eee7e4;font-size:13px}
+th{color:var(--muted);font-size:11px;text-transform:uppercase}
+.badge{display:inline-block;border-radius:20px;padding:5px 8px;background:#eee;font-size:11px}
+.confirmed{background:#e0f3e6;color:#216b40}
+.declined{background:#fbe5e5;color:#a12424}
+.pending{background:#fff0ca;color:#805a00}
+.origin-groom{background:#e5ecff;color:#304e91}
+.origin-bride{background:#ffe5ee;color:#96385d}
+.origin-both{background:#eee5fa;color:#70419a}
+.notice{display:none;padding:12px;border-radius:8px;margin-bottom:15px}
+.notice.show{display:block}
+.notice.error{background:#fbe5e5;color:#8d2020}
+.notice.success{background:#e0f3e6;color:#216b40}
+.hidden{display:none!important}
+.empty{text-align:center;color:var(--muted);padding:25px 8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.table-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px}
+.table-card p{font-size:13px;color:var(--muted)}
+.capacity{height:7px;border-radius:9px;background:#eee6e2;overflow:hidden;margin:12px 0}
+.capacity span{display:block;height:100%;background:#a47b68}
+.section-note{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* MAPA VISUAL DO SALÃO */
+.map-legend{display:flex;gap:13px;flex-wrap:wrap;margin:10px 0 16px;font-size:12px;color:var(--muted)}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.venue{background:#f8f2eb;border:2px solid #d9c8b9;border-radius:16px;padding:15px;overflow:hidden}
+.stage{background:#765050;color:white;border-radius:10px;text-align:center;padding:15px;font-weight:bold;margin:0 auto 14px;max-width:430px}
+.stage small{display:block;font-weight:normal;margin-top:5px}
+.map-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,.8fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.map-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-content:start}
+.map-table{background:white;border:2px solid #c9ad91;border-radius:50%;min-height:100px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;box-shadow:0 2px 5px #0000000a}
+.map-table strong{font-size:13px}
+.map-table small{font-size:10px;color:var(--muted);margin-top:5px}
+.map-center{display:flex;flex-direction:column;gap:12px}
+.dance-floor{background:#e7d7bd;border:2px dashed #a38b6d;border-radius:12px;min-height:160px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-weight:bold;color:#614c35}
+.dance-floor span{display:block;font-size:11px;font-weight:normal;margin-top:8px}
+.map-zone{background:white;border:1px solid var(--border);border-radius:10px;text-align:center;padding:13px;font-size:12px}
+.map-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}
+.map-bottom .map-zone{background:#fffaf6}
+.map-empty{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:720px){
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .form-grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .map-main{grid-template-columns:1fr}
+ .map-side{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .map-center{display:grid;grid-template-columns:1fr 1fr}
+ .dance-floor{min-height:120px}
+ .stage{margin-bottom:12px}
+ .hero h1{font-size:23px}
 }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">Casamento Perfeito</div>
-  <button class="btn btn-secondary" id="refreshBtn" type="button">Atualizar dados</button>
+  <button class="secondary" id="refreshBtn" type="button">Atualizar dados</button>
 </header>
 
 <main>
-  <section class="hero">
-    <h1>Gestão de convidados e mesas</h1>
-    <p>Organiza os teus convidados, acompanha as confirmações e distribui os lugares do casamento.</p>
-  </section>
+<section class="hero">
+  <h1>Convidados, mesas e mapa do salão</h1>
+  <p>Organiza as famílias, confirma presenças e planeia a disposição do casamento num só lugar.</p>
+</section>
 
-  <div id="message" class="notice" role="status"></div>
+<div id="message" class="notice" role="status"></div>
 
-  <section class="stats">
-    <div class="stat"><span>Total de convidados</span><strong id="totalGuests">0</strong></div>
-    <div class="stat"><span>Presenças confirmadas</span><strong id="confirmedGuests">0</strong></div>
-    <div class="stat"><span>Mesas criadas</span><strong id="totalTables">0</strong></div>
-    <div class="stat"><span>Lugares disponíveis</span><strong id="freeSeats">0</strong></div>
-  </section>
+<section class="stats">
+  <div class="stat"><span>Total de convidados</span><strong id="totalGuests">0</strong></div>
+  <div class="stat"><span>Presenças confirmadas</span><strong id="confirmedGuests">0</strong></div>
+  <div class="stat"><span>Total de mesas</span><strong id="totalTables">0</strong></div>
+  <div class="stat"><span>Lugares livres</span><strong id="freeSeats">0</strong></div>
+</section>
 
-  <div id="loginNotice" class="panel hidden">
-    <h2>Inicia sessão para continuar</h2>
-    <p>Não foi encontrada uma sessão ativa do Supabase. Entra na tua conta no site e volta a abrir esta página.</p>
-  </div>
+<div id="loginNotice" class="panel hidden">
+  <h2>Inicia sessão</h2>
+  <p>Não foi encontrada uma sessão ativa. Entra na tua conta do Casamento Perfeito e volta a abrir esta página.</p>
+</div>
 
-  <div id="app" class="hidden">
-    <nav class="tabs">
-      <button class="tab active" data-tab="guestsPanel" type="button">Convidados</button>
-      <button class="tab" data-tab="tablesPanel" type="button">Mesas</button>
-    </nav>
+<div id="app" class="hidden">
+<nav class="tabs">
+  <button class="tab active" data-tab="guestsPanel" type="button">Convidados</button>
+  <button class="tab" data-tab="tablesPanel" type="button">Mesas</button>
+  <button class="tab" data-tab="mapPanel" type="button">Mapa do salão</button>
+</nav>
 
-    <section id="guestsPanel" class="panel">
-      <h2>Lista de convidados</h2>
-      <form id="guestForm">
-        <input type="hidden" id="guestId">
-        <div class="form-grid">
-          <div class="field">
-            <label for="guestName">Nome completo *</label>
-            <input id="guestName" required maxlength="150" placeholder="Nome do convidado">
-          </div>
-          <div class="field">
-            <label for="guestGroup">Grupo / família</label>
-            <input id="guestGroup" maxlength="100" placeholder="Ex.: Família, Amigos">
-          </div>
-          <div class="field">
-            <label for="guestPhone">Telefone</label>
-            <input id="guestPhone" type="tel" maxlength="40" placeholder="Contacto">
-          </div>
-          <div class="field">
-            <label for="guestRsvp">Confirmação de presença</label>
-            <select id="guestRsvp">
-              <option value="Pendente">Pendente</option>
-              <option value="Confirmado">Confirmado</option>
-              <option value="Recusado">Recusado</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="guestTable">Mesa atribuída</label>
-            <select id="guestTable"><option value="">Sem mesa atribuída</option></select>
-          </div>
-        </div>
-        <button class="btn btn-primary" type="submit" id="saveGuestBtn">Adicionar convidado</button>
-        <button class="btn btn-secondary hidden" type="button" id="cancelGuestBtn">Cancelar edição</button>
-      </form>
-
-      <div class="toolbar">
-        <input id="searchGuests" placeholder="Pesquisar por nome ou grupo...">
-        <select id="filterRsvp" style="max-width:220px">
-          <option value="">Todas as confirmações</option>
-          <option value="Confirmado">Confirmados</option>
-          <option value="Pendente">Pendentes</option>
-          <option value="Recusado">Recusados</option>
+<section id="guestsPanel" class="panel">
+  <h2>Registar convidado</h2>
+  <form id="guestForm">
+    <input type="hidden" id="guestId">
+    <div class="form-grid">
+      <div class="field">
+        <label for="guestName">Nome completo *</label>
+        <input id="guestName" maxlength="150" required placeholder="Nome do convidado">
+      </div>
+      <div class="field">
+        <label for="guestGroup">Família / grupo</label>
+        <input id="guestGroup" maxlength="100" placeholder="Ex.: Família, amigos, colegas">
+      </div>
+      <div class="field">
+        <label for="guestPhone">Telefone</label>
+        <input id="guestPhone" type="tel" maxlength="40" placeholder="Contacto">
+      </div>
+      <div class="field">
+        <label for="guestOrigin">Origem do convidado *</label>
+        <select id="guestOrigin" required>
+          <option value="noivo">Parte do noivo</option>
+          <option value="noiva">Parte da noiva</option>
+          <option value="ambos" selected>Ambos</option>
         </select>
       </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Nome</th><th>Grupo</th><th>Telefone</th><th>Presença</th><th>Mesa</th><th>Ações</th></tr></thead>
-          <tbody id="guestsBody"></tbody>
-        </table>
+      <div class="field">
+        <label for="guestRsvp">Confirmação de presença</label>
+        <select id="guestRsvp">
+          <option value="Pendente">Pendente</option>
+          <option value="Confirmado">Confirmado</option>
+          <option value="Recusado">Recusado</option>
+        </select>
       </div>
-    </section>
+      <div class="field">
+        <label for="guestTable">Mesa atribuída</label>
+        <select id="guestTable"><option value="">Sem mesa atribuída</option></select>
+      </div>
+    </div>
+    <button class="primary" id="saveGuestBtn" type="submit">Adicionar convidado</button>
+    <button class="secondary hidden" id="cancelGuestBtn" type="button">Cancelar edição</button>
+  </form>
 
-    <section id="tablesPanel" class="panel hidden">
-      <h2>Gestão de mesas</h2>
-      <form id="tableForm">
-        <input type="hidden" id="tableId">
-        <div class="form-grid">
-          <div class="field">
-            <label for="tableName">Nome da mesa *</label>
-            <input id="tableName" required maxlength="100" placeholder="Ex.: Mesa 1">
-          </div>
-          <div class="field">
-            <label for="tableSeats">Capacidade de lugares *</label>
-            <input id="tableSeats" type="number" min="1" max="1000" value="8" required>
-          </div>
-        </div>
-        <button class="btn btn-primary" type="submit" id="saveTableBtn">Criar mesa</button>
-        <button class="btn btn-secondary hidden" type="button" id="cancelTableBtn">Cancelar edição</button>
-      </form>
-      <div style="height:18px"></div>
-      <div id="tablesContainer" class="table-grid"></div>
-    </section>
+  <div class="toolbar">
+    <input id="searchGuests" placeholder="Pesquisar por nome ou grupo">
+    <select id="filterOrigin">
+      <option value="">Todas as origens</option>
+      <option value="noivo">Parte do noivo</option>
+      <option value="noiva">Parte da noiva</option>
+      <option value="ambos">Ambos</option>
+    </select>
+    <select id="filterRsvp">
+      <option value="">Todas as presenças</option>
+      <option value="Confirmado">Confirmados</option>
+      <option value="Pendente">Pendentes</option>
+      <option value="Recusado">Recusados</option>
+    </select>
   </div>
-</main>
 
-<footer>Casamento Perfeito · Organização do teu grande dia</footer>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Nome</th><th>Família/grupo</th><th>Origem</th><th>Telefone</th><th>Presença</th><th>Mesa</th><th>Ações</th></tr>
+      </thead>
+      <tbody id="guestsBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="tablesPanel" class="panel hidden">
+  <h2>Gerir mesas</h2>
+  <form id="tableForm">
+    <input type="hidden" id="tableId">
+    <div class="form-grid">
+      <div class="field">
+        <label for="tableName">Nome da mesa *</label>
+        <input id="tableName" required maxlength="100" placeholder="Ex.: Mesa 1, Família do noivo">
+      </div>
+      <div class="field">
+        <label for="tableSeats">Capacidade de lugares *</label>
+        <input id="tableSeats" type="number" min="1" max="1000" value="8" required>
+      </div>
+    </div>
+    <button class="primary" id="saveTableBtn" type="submit">Criar mesa</button>
+    <button class="secondary hidden" id="cancelTableBtn" type="button">Cancelar edição</button>
+  </form>
+  <div id="tablesContainer" class="cards"></div>
+</section>
+
+<section id="mapPanel" class="panel hidden">
+  <h2>Mapa visual de disposição das mesas</h2>
+  <p class="section-note">
+    Planta esquemática inicial para um salão retangular. A mesa presidencial fica no fundo,
+    a pista de dança ao centro e as mesas são distribuídas dos dois lados. O buffet e o bar
+    ficam numa zona de apoio. A disposição deve ser ajustada às medidas reais do espaço.
+  </p>
+  <div class="map-legend">
+    <span><i class="legend-dot" style="background:#895c5c"></i>Mesa presidencial</span>
+    <span><i class="legend-dot" style="background:#c9ad91"></i>Mesas de convidados</span>
+    <span><i class="legend-dot" style="background:#e7d7bd"></i>Pista de dança</span>
+  </div>
+
+  <div class="venue">
+    <div class="stage">
+      MESA DOS NOIVOS
+      <small>Zona presidencial · backdrop e decoração floral</small>
+    </div>
+
+    <div class="map-main">
+      <div id="mapLeft" class="map-side"></div>
+      <div class="map-center">
+        <div class="dance-floor">PISTA DE DANÇA<span>Manter o acesso livre</span></div>
+        <div class="map-zone">Passagem principal<span style="display:block;color:#777;margin-top:5px">Circulação dos convidados</span></div>
+      </div>
+      <div id="mapRight" class="map-side"></div>
+    </div>
+
+    <div class="map-bottom">
+      <div class="map-zone">BUFFET / ILHAS GASTRONÓMICAS<br><span style="color:#777">Acesso sem bloquear as mesas</span></div>
+      <div class="map-zone">BAR / BEBIDAS<br><span style="color:#777">Próximo da zona social, fora da passagem</span></div>
+    </div>
+  </div>
+
+  <div id="mapEmpty" class="map-empty hidden">Cria mesas no separador “Mesas” para as visualizar no mapa.</div>
+  <p class="section-note">O mapa mostra as mesas registadas, a capacidade e o número de convidados atribuídos. Não representa distâncias físicas exatas.</p>
+</section>
+</div>
+</main>
 
 <script>
 "use strict";
 
-/* Configuração Supabase do projeto */
 const SUPABASE_URL = "https://yucymctjoqbxpipmpzir.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_dyhLNw_TpWigMqYjxlPktA_vwW0aUBH";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let utilizadorAtual = null;
 let casamentoAtual = null;
@@ -258,47 +284,58 @@ function mostrarMensagem(texto, tipo = "success") {
   const box = $("message");
   box.textContent = texto;
   box.className = "notice show " + tipo;
-  window.clearTimeout(mostrarMensagem.timer);
-  mostrarMensagem.timer = window.setTimeout(() => {
-    box.className = "notice";
-  }, 6000);
+  clearTimeout(mostrarMensagem.timer);
+  mostrarMensagem.timer = setTimeout(() => box.className = "notice", 6000);
 }
 
 function escapar(valor) {
   return String(valor ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;",
-    '"': "&quot;", "'": "&#39;"
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
   })[c]);
 }
 
-function normalizarEstado(valor) {
-  const estado = String(valor || "Pendente").toLowerCase();
-  if (["confirmado", "confirmed", "sim", "yes"].includes(estado)) return "Confirmado";
-  if (["recusado", "declined", "não", "nao", "no"].includes(estado)) return "Recusado";
+function origemTexto(origem) {
+  if (origem === "noivo") return "Parte do noivo";
+  if (origem === "noiva") return "Parte da noiva";
+  return "Ambos";
+}
+
+function origemClasse(origem) {
+  if (origem === "noivo") return "origin-groom";
+  if (origem === "noiva") return "origin-bride";
+  return "origin-both";
+}
+
+function estadoNormalizado(estado) {
+  const s = String(estado || "Pendente").toLowerCase();
+  if (["confirmado","confirmed","sim","yes"].includes(s)) return "Confirmado";
+  if (["recusado","declined","não","nao","no"].includes(s)) return "Recusado";
   return "Pendente";
 }
 
-function classeEstado(valor) {
-  const estado = normalizarEstado(valor);
-  if (estado === "Confirmado") return "yes";
-  if (estado === "Recusado") return "no";
-  return "pending";
+function estadoClasse(estado) {
+  const s = estadoNormalizado(estado);
+  return s === "Confirmado" ? "confirmed" : s === "Recusado" ? "declined" : "pending";
+}
+
+function nomeMesa(id) {
+  const mesa = mesas.find(m => String(m.id) === String(id));
+  return mesa ? mesa.nome : "Sem mesa";
 }
 
 async function inicializar() {
   try {
-    const { data, error } = await supabaseClient.auth.getSession();
+    const {data, error} = await supabaseClient.auth.getSession();
     if (error) throw error;
 
-    const session = data.session;
-    if (!session) {
+    if (!data.session) {
       $("loginNotice").classList.remove("hidden");
-      $("app").classList.add("hidden");
       return;
     }
 
-    utilizadorAtual = session.user;
-    const { data: casamento, error: erroCasamento } = await supabaseClient
+    utilizadorAtual = data.session.user;
+
+    const {data: casamento, error: erroCasamento} = await supabaseClient
       .from("weddings")
       .select("*")
       .eq("user_id", utilizadorAtual.id)
@@ -308,10 +345,9 @@ async function inicializar() {
     if (erroCasamento) throw erroCasamento;
 
     if (!casamento) {
-      mostrarMensagem("Não foi encontrado um casamento associado a esta conta.", "error");
-      $("app").classList.remove("hidden");
-      $("guestsBody").innerHTML =
-        '<tr><td colspan="6" class="empty">Configura primeiro o teu casamento.</td></tr>';
+      $("loginNotice").classList.remove("hidden");
+      $("loginNotice").querySelector("p").textContent =
+        "Não foi encontrado um casamento associado à conta. Verifica o registo do casamento na base de dados.";
       return;
     }
 
@@ -320,37 +356,27 @@ async function inicializar() {
     $("app").classList.remove("hidden");
     await carregarTudo();
   } catch (error) {
-    console.error("Erro na inicialização:", error);
-    mostrarMensagem("Não foi possível ligar ao Supabase: " + (error.message || "erro desconhecido"), "error");
+    console.error(error);
+    mostrarMensagem("Erro ao iniciar: " + (error.message || "erro desconhecido"), "error");
   }
 }
 
 async function carregarTudo() {
   if (!casamentoAtual) return;
 
-  const [resultadoConvidados, resultadoMesas] = await Promise.all([
-    supabaseClient.from("guests")
-      .select("*")
-      .eq("wedding_id", casamentoAtual.id)
-      .order("nome", { ascending: true }),
-    supabaseClient.from("tables")
-      .select("*")
-      .eq("wedding_id", casamentoAtual.id)
-      .order("nome", { ascending: true })
+  const [g, t] = await Promise.all([
+    supabaseClient.from("guests").select("*")
+      .eq("wedding_id", casamentoAtual.id).order("nome", {ascending:true}),
+    supabaseClient.from("tables").select("*")
+      .eq("wedding_id", casamentoAtual.id).order("nome", {ascending:true})
   ]);
 
-  if (resultadoConvidados.error) throw resultadoConvidados.error;
-  if (resultadoMesas.error) throw resultadoMesas.error;
+  if (g.error) throw g.error;
+  if (t.error) throw t.error;
 
-  convidados = resultadoConvidados.data || [];
-  mesas = resultadoMesas.data || [];
-
+  convidados = g.data || [];
+  mesas = t.data || [];
   renderizarTudo();
-}
-
-function nomeMesa(id) {
-  const mesa = mesas.find(m => String(m.id) === String(id));
-  return mesa ? mesa.nome : "Sem mesa";
 }
 
 function renderizarTudo() {
@@ -358,41 +384,44 @@ function renderizarTudo() {
   renderizarOpcoesMesas();
   renderizarConvidados();
   renderizarMesas();
+  renderizarMapa();
 }
 
 function renderizarEstatisticas() {
   $("totalGuests").textContent = convidados.length;
   $("confirmedGuests").textContent = convidados.filter(
-    g => normalizarEstado(g.rsvp) === "Confirmado"
+    g => estadoNormalizado(g.rsvp) === "Confirmado"
   ).length;
   $("totalTables").textContent = mesas.length;
 
-  const capacidade = mesas.reduce((total, mesa) => total + Number(mesa.lugares || 0), 0);
+  const capacidade = mesas.reduce((s, m) => s + Number(m.lugares || 0), 0);
   const ocupados = convidados.filter(g => g.mesa_id).length;
   $("freeSeats").textContent = Math.max(0, capacidade - ocupados);
 }
 
 function renderizarOpcoesMesas() {
   const select = $("guestTable");
-  const atual = select.value;
+  const valorAtual = select.value;
   select.innerHTML = '<option value="">Sem mesa atribuída</option>' +
-    mesas.map(m => `<option value="${escapar(m.id)}">${escapar(m.nome)} (${Number(m.lugares || 0)} lugares)</option>`).join("");
-  if ([...select.options].some(o => o.value === atual)) select.value = atual;
+    mesas.map(m => `<option value="${escapar(m.id)}">${escapar(m.nome)} — ${Number(m.lugares || 0)} lugares</option>`).join("");
+  if ([...select.options].some(o => o.value === valorAtual)) select.value = valorAtual;
 }
 
 function renderizarConvidados() {
   const pesquisa = $("searchGuests").value.trim().toLowerCase();
-  const filtro = $("filterRsvp").value;
+  const filtroOrigem = $("filterOrigin").value;
+  const filtroEstado = $("filterRsvp").value;
 
   const lista = convidados.filter(g => {
     const texto = `${g.nome || ""} ${g.grupo || ""}`.toLowerCase();
+    const origem = g.origem || "ambos";
     return texto.includes(pesquisa) &&
-      (!filtro || normalizarEstado(g.rsvp) === filtro);
+      (!filtroOrigem || origem === filtroOrigem) &&
+      (!filtroEstado || estadoNormalizado(g.rsvp) === filtroEstado);
   });
 
   if (!lista.length) {
-    $("guestsBody").innerHTML =
-      '<tr><td colspan="6" class="empty">Nenhum convidado encontrado.</td></tr>';
+    $("guestsBody").innerHTML = '<tr><td colspan="7" class="empty">Nenhum convidado encontrado.</td></tr>';
     return;
   }
 
@@ -400,17 +429,15 @@ function renderizarConvidados() {
     <tr>
       <td><strong>${escapar(g.nome)}</strong></td>
       <td>${escapar(g.grupo || "—")}</td>
+      <td><span class="badge ${origemClasse(g.origem || "ambos")}">${escapar(origemTexto(g.origem || "ambos"))}</span></td>
       <td>${escapar(g.telefone || "—")}</td>
-      <td><span class="badge ${classeEstado(g.rsvp)}">${escapar(normalizarEstado(g.rsvp))}</span></td>
+      <td><span class="badge ${estadoClasse(g.rsvp)}">${escapar(estadoNormalizado(g.rsvp))}</span></td>
       <td>${escapar(nomeMesa(g.mesa_id))}</td>
-      <td>
-        <div class="actions">
-          <button class="btn btn-secondary btn-small" type="button" data-edit-guest="${escapar(g.id)}">Editar</button>
-          <button class="btn btn-danger btn-small" type="button" data-delete-guest="${escapar(g.id)}">Apagar</button>
-        </div>
-      </td>
-    </tr>
-  `).join("");
+      <td><div class="actions">
+        <button class="secondary small" type="button" data-edit-guest="${escapar(g.id)}">Editar</button>
+        <button class="danger small" type="button" data-delete-guest="${escapar(g.id)}">Apagar</button>
+      </div></td>
+    </tr>`).join("");
 }
 
 function renderizarMesas() {
@@ -420,24 +447,44 @@ function renderizarMesas() {
   }
 
   $("tablesContainer").innerHTML = mesas.map(m => {
-    const atribuídos = convidados.filter(g => String(g.mesa_id) === String(m.id));
+    const ocupados = convidados.filter(g => String(g.mesa_id) === String(m.id)).length;
     const capacidade = Number(m.lugares || 0);
-    return `
-      <article class="table-card">
-        <h3>${escapar(m.nome)}</h3>
-        <p>${atribuídos.length} convidados atribuídos · ${Math.max(0, capacidade - atribuídos.length)} lugares livres de ${capacidade}</p>
-        <div class="actions">
-          <button class="btn btn-secondary btn-small" type="button" data-edit-table="${escapar(m.id)}">Editar</button>
-          <button class="btn btn-danger btn-small" type="button" data-delete-table="${escapar(m.id)}">Apagar</button>
-        </div>
-      </article>
-    `;
+    const percentagem = capacidade ? Math.min(100, ocupados / capacidade * 100) : 0;
+    return `<article class="table-card">
+      <h3>${escapar(m.nome)}</h3>
+      <p>${ocupados} convidados · ${Math.max(0, capacidade - ocupados)} lugares livres de ${capacidade}</p>
+      <div class="capacity"><span style="width:${percentagem}%"></span></div>
+      <div class="actions">
+        <button class="secondary small" type="button" data-edit-table="${escapar(m.id)}">Editar</button>
+        <button class="danger small" type="button" data-delete-table="${escapar(m.id)}">Apagar</button>
+      </div>
+    </article>`;
   }).join("");
+}
+
+function renderizarMapa() {
+  const esquerda = $("mapLeft");
+  const direita = $("mapRight");
+  esquerda.innerHTML = "";
+  direita.innerHTML = "";
+
+  $("mapEmpty").classList.toggle("hidden", mesas.length > 0);
+
+  mesas.forEach((m, index) => {
+    const ocupados = convidados.filter(g => String(g.mesa_id) === String(m.id)).length;
+    const lado = index % 2 === 0 ? esquerda : direita;
+    const mesa = document.createElement("div");
+    mesa.className = "map-table";
+    mesa.innerHTML = `<strong>${escapar(m.nome)}</strong>
+      <small>${ocupados}/${Number(m.lugares || 0)} lugares</small>`;
+    lado.appendChild(mesa);
+  });
 }
 
 function limparFormularioConvidado() {
   $("guestForm").reset();
   $("guestId").value = "";
+  $("guestOrigin").value = "ambos";
   $("guestRsvp").value = "Pendente";
   $("saveGuestBtn").textContent = "Adicionar convidado";
   $("cancelGuestBtn").classList.add("hidden");
@@ -453,7 +500,7 @@ function limparFormularioMesa() {
 
 $("guestForm").addEventListener("submit", async event => {
   event.preventDefault();
-  if (!casamentoAtual) return mostrarMensagem("Não existe um casamento selecionado.", "error");
+  if (!casamentoAtual) return;
 
   const id = $("guestId").value;
   const nome = $("guestName").value.trim();
@@ -464,6 +511,7 @@ $("guestForm").addEventListener("submit", async event => {
     nome,
     grupo: $("guestGroup").value.trim() || null,
     telefone: $("guestPhone").value.trim() || null,
+    origem: $("guestOrigin").value,
     rsvp: $("guestRsvp").value,
     mesa_id: $("guestTable").value || null
   };
@@ -480,36 +528,30 @@ $("guestForm").addEventListener("submit", async event => {
     await carregarTudo();
     mostrarMensagem(id ? "Convidado atualizado com sucesso." : "Convidado adicionado com sucesso.");
   } catch (error) {
-    console.error("Erro ao guardar convidado:", error);
-    mostrarMensagem("Não foi possível guardar o convidado: " + (error.message || "erro desconhecido"), "error");
+    console.error(error);
+    mostrarMensagem("Erro ao guardar convidado: " + (error.message || "erro desconhecido"), "error");
   }
 });
 
 $("tableForm").addEventListener("submit", async event => {
   event.preventDefault();
-  if (!casamentoAtual) return mostrarMensagem("Não existe um casamento selecionado.", "error");
+  if (!casamentoAtual) return;
 
   const id = $("tableId").value;
   const nome = $("tableName").value.trim();
   const lugares = Number($("tableSeats").value);
 
   if (!nome) return mostrarMensagem("O nome da mesa é obrigatório.", "error");
-  if (!Number.isInteger(lugares) || lugares < 1) {
+  if (!Number.isInteger(lugares) || lugares < 1)
     return mostrarMensagem("Indica uma capacidade válida de pelo menos um lugar.", "error");
-  }
 
   try {
-    let resultado;
-
-    if (id) {
-      resultado = await supabaseClient.from("tables")
-        .update({ nome, lugares })
-        .eq("id", id)
-        .eq("wedding_id", casamentoAtual.id);
-    } else {
-      resultado = await supabaseClient.from("tables")
-        .insert({ wedding_id: casamentoAtual.id, nome, lugares });
-    }
+    const resultado = id
+      ? await supabaseClient.from("tables").update({nome, lugares})
+          .eq("id", id).eq("wedding_id", casamentoAtual.id)
+      : await supabaseClient.from("tables").insert({
+          wedding_id: casamentoAtual.id, nome, lugares
+        });
 
     if (resultado.error) throw resultado.error;
 
@@ -517,89 +559,82 @@ $("tableForm").addEventListener("submit", async event => {
     await carregarTudo();
     mostrarMensagem(id ? "Mesa atualizada com sucesso." : "Mesa criada com sucesso.");
   } catch (error) {
-    console.error("Erro ao guardar mesa:", error);
-    mostrarMensagem("Não foi possível guardar a mesa: " + (error.message || "erro desconhecido"), "error");
+    console.error(error);
+    mostrarMensagem("Erro ao guardar mesa: " + (error.message || "erro desconhecido"), "error");
   }
 });
 
 $("guestsBody").addEventListener("click", async event => {
-  const editar = event.target.closest("[data-edit-guest]");
-  const apagar = event.target.closest("[data-delete-guest]");
+  const edit = event.target.closest("[data-edit-guest]");
+  const del = event.target.closest("[data-delete-guest]");
 
-  if (editar) {
-    const g = convidados.find(item => String(item.id) === editar.dataset.editGuest);
+  if (edit) {
+    const g = convidados.find(x => String(x.id) === edit.dataset.editGuest);
     if (!g) return;
-
     $("guestId").value = g.id;
     $("guestName").value = g.nome || "";
     $("guestGroup").value = g.grupo || "";
     $("guestPhone").value = g.telefone || "";
-    $("guestRsvp").value = normalizarEstado(g.rsvp);
+    $("guestOrigin").value = g.origem || "ambos";
+    $("guestRsvp").value = estadoNormalizado(g.rsvp);
     $("guestTable").value = g.mesa_id || "";
     $("saveGuestBtn").textContent = "Guardar alterações";
     $("cancelGuestBtn").classList.remove("hidden");
     $("guestName").focus();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top:0, behavior:"smooth"});
   }
 
-  if (apagar) {
-    const id = apagar.dataset.deleteGuest;
-    const g = convidados.find(item => String(item.id) === id);
-    if (!g || !confirm(`Tens a certeza de que queres apagar ${g.nome}?`)) return;
-
+  if (del) {
+    const id = del.dataset.deleteGuest;
+    const g = convidados.find(x => String(x.id) === id);
+    if (!g || !confirm(`Apagar o convidado "${g.nome}"?`)) return;
     try {
-      const { error } = await supabaseClient.from("guests")
-        .delete().eq("id", id).eq("wedding_id", casamentoAtual.id);
+      const {error} = await supabaseClient.from("guests").delete()
+        .eq("id", id).eq("wedding_id", casamentoAtual.id);
       if (error) throw error;
       await carregarTudo();
-      mostrarMensagem("Convidado apagado com sucesso.");
+      mostrarMensagem("Convidado apagado.");
     } catch (error) {
-      console.error(error);
-      mostrarMensagem("Não foi possível apagar o convidado: " + error.message, "error");
+      mostrarMensagem("Erro ao apagar convidado: " + error.message, "error");
     }
   }
 });
 
 $("tablesContainer").addEventListener("click", async event => {
-  const editar = event.target.closest("[data-edit-table]");
-  const apagar = event.target.closest("[data-delete-table]");
+  const edit = event.target.closest("[data-edit-table]");
+  const del = event.target.closest("[data-delete-table]");
 
-  if (editar) {
-    const mesa = mesas.find(item => String(item.id) === editar.dataset.editTable);
-    if (!mesa) return;
-
-    $("tableId").value = mesa.id;
-    $("tableName").value = mesa.nome || "";
-    $("tableSeats").value = Number(mesa.lugares || 1);
+  if (edit) {
+    const m = mesas.find(x => String(x.id) === edit.dataset.editTable);
+    if (!m) return;
+    $("tableId").value = m.id;
+    $("tableName").value = m.nome || "";
+    $("tableSeats").value = Number(m.lugares || 1);
     $("saveTableBtn").textContent = "Guardar alterações";
     $("cancelTableBtn").classList.remove("hidden");
     $("tableName").focus();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top:0, behavior:"smooth"});
   }
 
-  if (apagar) {
-    const id = apagar.dataset.deleteTable;
-    const mesa = mesas.find(item => String(item.id) === id);
-    if (!mesa || !confirm(`Apagar "${mesa.nome}"? Os convidados ficarão sem mesa atribuída.`)) return;
+  if (del) {
+    const id = del.dataset.deleteTable;
+    const m = mesas.find(x => String(x.id) === id);
+    if (!m || !confirm(`Apagar a mesa "${m.nome}"? Os convidados ficarão sem mesa atribuída.`)) return;
 
     try {
-      const { error: erroConvidados } = await supabaseClient.from("guests")
-        .update({ mesa_id: null })
-        .eq("wedding_id", casamentoAtual.id)
-        .eq("mesa_id", id);
-
+      const {error: erroConvidados} = await supabaseClient.from("guests")
+        .update({mesa_id:null})
+        .eq("wedding_id", casamentoAtual.id).eq("mesa_id", id);
       if (erroConvidados) throw erroConvidados;
 
-      const { error: erroMesa } = await supabaseClient.from("tables")
+      const {error: erroMesa} = await supabaseClient.from("tables")
         .delete().eq("id", id).eq("wedding_id", casamentoAtual.id);
-
       if (erroMesa) throw erroMesa;
 
       await carregarTudo();
-      mostrarMensagem("Mesa apagada com sucesso.");
+      mostrarMensagem("Mesa apagada.");
     } catch (error) {
-      console.error(error);
-      mostrarMensagem("Não foi possível apagar a mesa: " + error.message, "error");
+      mostrarMensagem("Erro ao apagar mesa: " + error.message, "error");
     }
   }
 });
@@ -607,6 +642,7 @@ $("tablesContainer").addEventListener("click", async event => {
 $("cancelGuestBtn").addEventListener("click", limparFormularioConvidado);
 $("cancelTableBtn").addEventListener("click", limparFormularioMesa);
 $("searchGuests").addEventListener("input", renderizarConvidados);
+$("filterOrigin").addEventListener("change", renderizarConvidados);
 $("filterRsvp").addEventListener("change", renderizarConvidados);
 
 $("refreshBtn").addEventListener("click", async () => {
@@ -614,8 +650,7 @@ $("refreshBtn").addEventListener("click", async () => {
     await carregarTudo();
     mostrarMensagem("Dados atualizados.");
   } catch (error) {
-    console.error(error);
-    mostrarMensagem("Erro ao atualizar dados: " + error.message, "error");
+    mostrarMensagem("Erro ao atualizar: " + error.message, "error");
   }
 });
 
@@ -623,8 +658,9 @@ document.querySelectorAll("[data-tab]").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelectorAll("[data-tab]").forEach(b => b.classList.remove("active"));
     button.classList.add("active");
-    $("guestsPanel").classList.toggle("hidden", button.dataset.tab !== "guestsPanel");
-    $("tablesPanel").classList.toggle("hidden", button.dataset.tab !== "tablesPanel");
+    ["guestsPanel","tablesPanel","mapPanel"].forEach(id => {
+      $(id).classList.toggle("hidden", id !== button.dataset.tab);
+    });
   });
 });
 
@@ -632,3 +668,4 @@ inicializar();
 </script>
 </body>
 </html>
+```

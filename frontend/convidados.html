@@ -117,6 +117,47 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
  .hero h1{font-size:23px}
  .panel{padding:13px}
 }
+  
+/* BOTÃO VOLTAR AO DASHBOARD */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-dashboard {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: white;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-dashboard:hover {
+  background: var(--primary);
+  color: white;
+}
+
+@media(max-width:720px) {
+  .header-actions {
+    width: 100%;
+  }
+
+  .btn-dashboard,
+  #refreshBtn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
 </style>
 </head>
 <body>

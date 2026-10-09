@@ -17,11 +17,13 @@
   --border:#e8ded9;
   --green:#287548;
   --red:#b42323;
+  --orange:#946200;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
 button,input,select{font:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
 header{background:white;border-bottom:1px solid var(--border);padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .logo{font-size:22px;font-weight:bold;color:var(--primary)}
 main{max-width:1250px;margin:auto;padding:25px 16px 50px}
@@ -45,6 +47,7 @@ button{border:0;border-radius:8px;padding:10px 14px;font-weight:bold}
 .field{margin-bottom:13px}
 label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}
 input,select{width:100%;min-width:0;padding:11px;border:1px solid #d9ceca;border-radius:8px;background:white;color:var(--text)}
+select option:disabled{color:#999}
 .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
 .full{grid-column:1/-1}
 .toolbar{margin:17px 0}
@@ -61,7 +64,7 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
 .origin-groom{background:#e5ecff;color:#304e91}
 .origin-bride{background:#ffe5ee;color:#96385d}
 .origin-both{background:#eee5fa;color:#70419a}
-.notice{display:none;padding:12px;border-radius:8px;margin-bottom:15px}
+.notice{display:none;padding:12px;border-radius:8px;margin-bottom:15px;line-height:1.5;overflow-wrap:anywhere}
 .notice.show{display:block}
 .notice.error{background:#fbe5e5;color:#8d2020}
 .notice.success{background:#e0f3e6;color:#216b40}
@@ -69,10 +72,18 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
 .empty{text-align:center;color:var(--muted);padding:25px 8px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
 .table-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px}
-.table-card p{font-size:13px;color:var(--muted)}
-.capacity{height:7px;border-radius:9px;background:#eee6e2;overflow:hidden;margin:12px 0}
-.capacity span{display:block;height:100%;background:#a47b68}
+.table-card p{font-size:13px;color:var(--muted);line-height:1.5}
+.table-card.is-full{border-color:#e4a0a0;background:#fffafa}
+.capacity{height:8px;border-radius:9px;background:#eee6e2;overflow:hidden;margin:12px 0}
+.capacity span{display:block;height:100%;background:#a47b68;transition:width .2s}
+.capacity span.is-full{background:#c62828}
+.capacity span.is-low{background:#d18b18}
+.table-status{display:inline-block;font-size:11px;font-weight:bold;border-radius:20px;padding:6px 9px;margin-bottom:5px}
+.status-available{background:#e0f3e6;color:#216b40}
+.status-low{background:#fff0ca;color:#805a00}
+.status-full{background:#fbe5e5;color:#a12424}
 .section-note{font-size:13px;color:var(--muted);line-height:1.5}
+.capacity-summary{background:#f8f2eb;border-radius:9px;padding:12px;margin:14px 0;font-size:13px;line-height:1.5}
 
 /* MAPA VISUAL DO SALÃO */
 .map-legend{display:flex;gap:13px;flex-wrap:wrap;margin:10px 0 16px;font-size:12px;color:var(--muted)}
@@ -82,9 +93,11 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
 .stage small{display:block;font-weight:normal;margin-top:5px}
 .map-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,.8fr) minmax(0,1fr);gap:12px;align-items:stretch}
 .map-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-content:start}
-.map-table{background:white;border:2px solid #c9ad91;border-radius:50%;min-height:100px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;box-shadow:0 2px 5px #0000000a}
+.map-table{background:white;border:2px solid #c9ad91;border-radius:50%;min-height:100px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;overflow-wrap:anywhere}
 .map-table strong{font-size:13px}
 .map-table small{font-size:10px;color:var(--muted);margin-top:5px}
+.map-table.is-full{border-color:#c62828;background:#fff0f0}
+.map-table.is-low{border-color:#d18b18;background:#fff9e9}
 .map-center{display:flex;flex-direction:column;gap:12px}
 .dance-floor{background:#e7d7bd;border:2px dashed #a38b6d;border-radius:12px;min-height:160px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-weight:bold;color:#614c35}
 .dance-floor span{display:block;font-size:11px;font-weight:normal;margin-top:8px}
@@ -102,6 +115,7 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
  .dance-floor{min-height:120px}
  .stage{margin-bottom:12px}
  .hero h1{font-size:23px}
+ .panel{padding:13px}
 }
 </style>
 </head>
@@ -114,10 +128,10 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
 <main>
 <section class="hero">
   <h1>Convidados, mesas e mapa do salão</h1>
-  <p>Organiza as famílias, confirma presenças e planeia a disposição do casamento num só lugar.</p>
+  <p>Organiza as famílias, confirma presenças e controla a lotação das mesas num só lugar.</p>
 </section>
 
-<div id="message" class="notice" role="status"></div>
+<div id="message" class="notice" role="status" aria-live="polite"></div>
 
 <section class="stats">
   <div class="stat"><span>Total de convidados</span><strong id="totalGuests">0</strong></div>
@@ -176,6 +190,11 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
         <select id="guestTable"><option value="">Sem mesa atribuída</option></select>
       </div>
     </div>
+
+    <div id="guestTableHint" class="capacity-summary">
+      Seleciona uma mesa para verificar os lugares disponíveis.
+    </div>
+
     <button class="primary" id="saveGuestBtn" type="submit">Adicionar convidado</button>
     <button class="secondary hidden" id="cancelGuestBtn" type="button">Cancelar edição</button>
   </form>
@@ -208,6 +227,8 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
 
 <section id="tablesPanel" class="panel hidden">
   <h2>Gerir mesas</h2>
+  <p class="section-note">As mesas lotadas ficam identificadas e não podem ser selecionadas para novos convidados. A capacidade não pode ser reduzida abaixo da ocupação atual.</p>
+
   <form id="tableForm">
     <input type="hidden" id="tableId">
     <div class="form-grid">
@@ -231,12 +252,13 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
   <p class="section-note">
     Planta esquemática inicial para um salão retangular. A mesa presidencial fica no fundo,
     a pista de dança ao centro e as mesas são distribuídas dos dois lados. O buffet e o bar
-    ficam numa zona de apoio. A disposição deve ser ajustada às medidas reais do espaço.
+    ficam numa zona de apoio.
   </p>
   <div class="map-legend">
     <span><i class="legend-dot" style="background:#895c5c"></i>Mesa presidencial</span>
-    <span><i class="legend-dot" style="background:#c9ad91"></i>Mesas de convidados</span>
-    <span><i class="legend-dot" style="background:#e7d7bd"></i>Pista de dança</span>
+    <span><i class="legend-dot" style="background:#c9ad91"></i>Mesa disponível</span>
+    <span><i class="legend-dot" style="background:#d18b18"></i>Quase lotada</span>
+    <span><i class="legend-dot" style="background:#c62828"></i>Mesa lotada</span>
   </div>
 
   <div class="venue">
@@ -261,7 +283,7 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase}
   </div>
 
   <div id="mapEmpty" class="map-empty hidden">Cria mesas no separador “Mesas” para as visualizar no mapa.</div>
-  <p class="section-note">O mapa mostra as mesas registadas, a capacidade e o número de convidados atribuídos. Não representa distâncias físicas exatas.</p>
+  <p class="section-note">O mapa mostra as mesas registadas, a capacidade e o número de convidados atribuídos.</p>
 </section>
 </div>
 </main>
@@ -285,7 +307,7 @@ function mostrarMensagem(texto, tipo = "success") {
   box.textContent = texto;
   box.className = "notice show " + tipo;
   clearTimeout(mostrarMensagem.timer);
-  mostrarMensagem.timer = setTimeout(() => box.className = "notice", 6000);
+  mostrarMensagem.timer = setTimeout(() => box.className = "notice", 7000);
 }
 
 function escapar(valor) {
@@ -323,6 +345,52 @@ function nomeMesa(id) {
   return mesa ? mesa.nome : "Sem mesa";
 }
 
+function ocupacaoMesa(mesaId, excluirConvidadoId = null) {
+  return convidados.filter(g =>
+    String(g.mesa_id) === String(mesaId) &&
+    (excluirConvidadoId === null || String(g.id) !== String(excluirConvidadoId))
+  ).length;
+}
+
+function capacidadeMesa(mesa) {
+  const capacidade = Number(mesa?.lugares);
+  return Number.isFinite(capacidade) && capacidade > 0 ? capacidade : 0;
+}
+
+function lugaresLivres(mesa, excluirConvidadoId = null) {
+  return Math.max(0, capacidadeMesa(mesa) - ocupacaoMesa(mesa.id, excluirConvidadoId));
+}
+
+function mesaLotada(mesa, excluirConvidadoId = null) {
+  return lugaresLivres(mesa, excluirConvidadoId) <= 0;
+}
+
+function classeEstadoMesa(mesa, ocupados = ocupacaoMesa(mesa.id)) {
+  const capacidade = capacidadeMesa(mesa);
+  if (capacidade > 0 && ocupados >= capacidade) return "status-full";
+  if (capacidade > 0 && ocupados / capacidade >= 0.8) return "status-low";
+  return "status-available";
+}
+
+function textoEstadoMesa(mesa, ocupados = ocupacaoMesa(mesa.id)) {
+  const capacidade = capacidadeMesa(mesa);
+  if (!capacidade) return "CAPACIDADE INVÁLIDA";
+  if (ocupados >= capacidade) return "LOTADA";
+  if (ocupados / capacidade >= 0.8) return "QUASE LOTADA";
+  return "DISPONÍVEL";
+}
+
+function erroLotacao(error) {
+  const mensagem = String(error?.message || "");
+  if (/MESA LOTADA|capacidade de .* lugares|mesa selecionada não existe/i.test(mensagem)) {
+    return "Não foi possível atribuir este convidado. A mesa está lotada ou não pertence a este casamento. Escolhe outra mesa.";
+  }
+  if (/Define uma capacidade válida|capacidade válida/i.test(mensagem)) {
+    return "A mesa não tem uma capacidade válida. Corrige a capacidade antes de continuar.";
+  }
+  return mensagem || "Ocorreu um erro desconhecido.";
+}
+
 async function inicializar() {
   try {
     const {data, error} = await supabaseClient.auth.getSession();
@@ -357,7 +425,7 @@ async function inicializar() {
     await carregarTudo();
   } catch (error) {
     console.error(error);
-    mostrarMensagem("Erro ao iniciar: " + (error.message || "erro desconhecido"), "error");
+    mostrarMensagem("Erro ao iniciar: " + erroLotacao(error), "error");
   }
 }
 
@@ -382,6 +450,7 @@ async function carregarTudo() {
 function renderizarTudo() {
   renderizarEstatisticas();
   renderizarOpcoesMesas();
+  renderizarResumoMesaSelecionada();
   renderizarConvidados();
   renderizarMesas();
   renderizarMapa();
@@ -394,7 +463,7 @@ function renderizarEstatisticas() {
   ).length;
   $("totalTables").textContent = mesas.length;
 
-  const capacidade = mesas.reduce((s, m) => s + Number(m.lugares || 0), 0);
+  const capacidade = mesas.reduce((s, m) => s + capacidadeMesa(m), 0);
   const ocupados = convidados.filter(g => g.mesa_id).length;
   $("freeSeats").textContent = Math.max(0, capacidade - ocupados);
 }
@@ -402,9 +471,58 @@ function renderizarEstatisticas() {
 function renderizarOpcoesMesas() {
   const select = $("guestTable");
   const valorAtual = select.value;
+  const convidadoEditado = $("guestId").value;
+
   select.innerHTML = '<option value="">Sem mesa atribuída</option>' +
-    mesas.map(m => `<option value="${escapar(m.id)}">${escapar(m.nome)} — ${Number(m.lugares || 0)} lugares</option>`).join("");
-  if ([...select.options].some(o => o.value === valorAtual)) select.value = valorAtual;
+    mesas.map(m => {
+      const capacidade = capacidadeMesa(m);
+      const ocupados = ocupacaoMesa(m.id, convidadoEditado || null);
+      const livres = Math.max(0, capacidade - ocupados);
+      const eMesaAtual = convidados.some(g =>
+        String(g.id) === String(convidadoEditado) &&
+        String(g.mesa_id) === String(m.id)
+      );
+      const lotada = livres <= 0 && !eMesaAtual;
+      const descricao = lotada
+        ? `${m.nome} — LOTADA (${ocupados}/${capacidade})`
+        : `${m.nome} — ${livres} lugares livres (${ocupados}/${capacidade})`;
+      return `<option value="${escapar(m.id)}" ${lotada ? "disabled" : ""}>${escapar(descricao)}</option>`;
+    }).join("");
+
+  if ([...select.options].some(o => o.value === valorAtual && !o.disabled)) {
+    select.value = valorAtual;
+  } else {
+    select.value = "";
+  }
+}
+
+function renderizarResumoMesaSelecionada() {
+  const idMesa = $("guestTable").value;
+  const editId = $("guestId").value;
+  const hint = $("guestTableHint");
+
+  if (!idMesa) {
+    hint.textContent = "Sem mesa atribuída. Podes guardar o convidado sem escolher uma mesa.";
+    return;
+  }
+
+  const mesa = mesas.find(m => String(m.id) === String(idMesa));
+  if (!mesa) {
+    hint.textContent = "A mesa selecionada já não existe. Atualiza os dados.";
+    return;
+  }
+
+  const ocupados = ocupacaoMesa(mesa.id, editId || null);
+  const capacidade = capacidadeMesa(mesa);
+  const livres = Math.max(0, capacidade - ocupados);
+
+  if (!capacidade) {
+    hint.textContent = "Esta mesa tem uma capacidade inválida. Corrige-a antes de atribuir convidados.";
+  } else if (livres <= 0) {
+    hint.textContent = `LOTADA: ${mesa.nome} já atingiu ${capacidade} lugares. Escolhe outra mesa.`;
+  } else {
+    hint.textContent = `${mesa.nome}: ${ocupados}/${capacidade} lugares ocupados. Restam ${livres} ${livres === 1 ? "lugar" : "lugares"}.`;
+  }
 }
 
 function renderizarConvidados() {
@@ -447,13 +565,23 @@ function renderizarMesas() {
   }
 
   $("tablesContainer").innerHTML = mesas.map(m => {
-    const ocupados = convidados.filter(g => String(g.mesa_id) === String(m.id)).length;
-    const capacidade = Number(m.lugares || 0);
+    const ocupados = ocupacaoMesa(m.id);
+    const capacidade = capacidadeMesa(m);
+    const livres = Math.max(0, capacidade - ocupados);
     const percentagem = capacidade ? Math.min(100, ocupados / capacidade * 100) : 0;
-    return `<article class="table-card">
+    const cheia = capacidade > 0 && ocupados >= capacidade;
+    const quaseCheia = !cheia && capacidade > 0 && ocupados / capacidade >= 0.8;
+    const statusClasse = classeEstadoMesa(m, ocupados);
+    const statusTexto = textoEstadoMesa(m, ocupados);
+
+    return `<article class="table-card ${cheia ? "is-full" : ""}">
       <h3>${escapar(m.nome)}</h3>
-      <p>${ocupados} convidados · ${Math.max(0, capacidade - ocupados)} lugares livres de ${capacidade}</p>
-      <div class="capacity"><span style="width:${percentagem}%"></span></div>
+      <span class="table-status ${statusClasse}">${statusTexto}</span>
+      <p><strong>${ocupados}/${capacidade}</strong> convidados atribuídos</p>
+      <p>${cheia ? "Não aceita novos convidados." : `Restam ${livres} ${livres === 1 ? "lugar" : "lugares"}.`}</p>
+      <div class="capacity" role="progressbar" aria-valuenow="${percentagem}" aria-valuemin="0" aria-valuemax="100" aria-label="Ocupação da ${escapar(m.nome)}">
+        <span class="${cheia ? "is-full" : quaseCheia ? "is-low" : ""}" style="width:${percentagem}%"></span>
+      </div>
       <div class="actions">
         <button class="secondary small" type="button" data-edit-table="${escapar(m.id)}">Editar</button>
         <button class="danger small" type="button" data-delete-table="${escapar(m.id)}">Apagar</button>
@@ -471,12 +599,18 @@ function renderizarMapa() {
   $("mapEmpty").classList.toggle("hidden", mesas.length > 0);
 
   mesas.forEach((m, index) => {
-    const ocupados = convidados.filter(g => String(g.mesa_id) === String(m.id)).length;
+    const ocupados = ocupacaoMesa(m.id);
+    const capacidade = capacidadeMesa(m);
+    const percentagem = capacidade ? ocupados / capacidade : 0;
+    const cheia = capacidade > 0 && ocupados >= capacidade;
+    const quaseCheia = !cheia && capacidade > 0 && percentagem >= 0.8;
     const lado = index % 2 === 0 ? esquerda : direita;
     const mesa = document.createElement("div");
-    mesa.className = "map-table";
+
+    mesa.className = "map-table" + (cheia ? " is-full" : quaseCheia ? " is-low" : "");
     mesa.innerHTML = `<strong>${escapar(m.nome)}</strong>
-      <small>${ocupados}/${Number(m.lugares || 0)} lugares</small>`;
+      <small>${ocupados}/${capacidade} lugares</small>
+      <small><strong>${escapar(textoEstadoMesa(m, ocupados))}</strong></small>`;
     lado.appendChild(mesa);
   });
 }
@@ -488,6 +622,8 @@ function limparFormularioConvidado() {
   $("guestRsvp").value = "Pendente";
   $("saveGuestBtn").textContent = "Adicionar convidado";
   $("cancelGuestBtn").classList.add("hidden");
+  renderizarOpcoesMesas();
+  renderizarResumoMesaSelecionada();
 }
 
 function limparFormularioMesa() {
@@ -498,13 +634,46 @@ function limparFormularioMesa() {
   $("cancelTableBtn").classList.add("hidden");
 }
 
+$("guestTable").addEventListener("change", renderizarResumoMesaSelecionada);
+
 $("guestForm").addEventListener("submit", async event => {
   event.preventDefault();
   if (!casamentoAtual) return;
 
   const id = $("guestId").value;
   const nome = $("guestName").value.trim();
-  if (!nome) return mostrarMensagem("O nome do convidado é obrigatório.", "error");
+  const mesaId = $("guestTable").value || null;
+
+  if (!nome) {
+    mostrarMensagem("O nome do convidado é obrigatório.", "error");
+    return;
+  }
+
+  // Validação preventiva no navegador. O trigger do Supabase
+  // continua a ser necessário para proteger a base de dados.
+  if (mesaId) {
+    const mesa = mesas.find(m => String(m.id) === String(mesaId));
+
+    if (!mesa) {
+      mostrarMensagem("A mesa selecionada não foi encontrada. Atualiza os dados.", "error");
+      return;
+    }
+
+    const capacidade = capacidadeMesa(mesa);
+    const ocupados = ocupacaoMesa(mesaId, id || null);
+
+    if (!capacidade) {
+      mostrarMensagem("A mesa selecionada não tem uma capacidade válida.", "error");
+      return;
+    }
+
+    if (ocupados >= capacidade) {
+      mostrarMensagem(`MESA LOTADA: "${mesa.nome}" já atingiu a capacidade de ${capacidade} lugares. Escolhe outra mesa.`, "error");
+      renderizarOpcoesMesas();
+      renderizarResumoMesaSelecionada();
+      return;
+    }
+  }
 
   const dados = {
     wedding_id: casamentoAtual.id,
@@ -513,8 +682,12 @@ $("guestForm").addEventListener("submit", async event => {
     telefone: $("guestPhone").value.trim() || null,
     origem: $("guestOrigin").value,
     rsvp: $("guestRsvp").value,
-    mesa_id: $("guestTable").value || null
+    mesa_id: mesaId
   };
+
+  const botao = $("saveGuestBtn");
+  botao.disabled = true;
+  botao.textContent = "A guardar...";
 
   try {
     const resultado = id
@@ -529,7 +702,15 @@ $("guestForm").addEventListener("submit", async event => {
     mostrarMensagem(id ? "Convidado atualizado com sucesso." : "Convidado adicionado com sucesso.");
   } catch (error) {
     console.error(error);
-    mostrarMensagem("Erro ao guardar convidado: " + (error.message || "erro desconhecido"), "error");
+    mostrarMensagem("Não foi possível guardar o convidado: " + erroLotacao(error), "error");
+    try {
+      await carregarTudo();
+    } catch (refreshError) {
+      console.error("Erro ao atualizar os dados após a falha:", refreshError);
+    }
+  } finally {
+    botao.disabled = false;
+    botao.textContent = $("guestId").value ? "Guardar alterações" : "Adicionar convidado";
   }
 });
 
@@ -541,9 +722,28 @@ $("tableForm").addEventListener("submit", async event => {
   const nome = $("tableName").value.trim();
   const lugares = Number($("tableSeats").value);
 
-  if (!nome) return mostrarMensagem("O nome da mesa é obrigatório.", "error");
-  if (!Number.isInteger(lugares) || lugares < 1)
-    return mostrarMensagem("Indica uma capacidade válida de pelo menos um lugar.", "error");
+  if (!nome) {
+    mostrarMensagem("O nome da mesa é obrigatório.", "error");
+    return;
+  }
+
+  if (!Number.isInteger(lugares) || lugares < 1 || lugares > 1000) {
+    mostrarMensagem("Indica uma capacidade inteira entre 1 e 1000 lugares.", "error");
+    return;
+  }
+
+  // Não permitir reduzir a capacidade abaixo da ocupação atual.
+  if (id) {
+    const ocupados = ocupacaoMesa(id);
+    if (lugares < ocupados) {
+      mostrarMensagem(`Não podes definir ${lugares} lugares: esta mesa já tem ${ocupados} convidados atribuídos. Aumenta a capacidade ou reorganiza os convidados primeiro.`, "error");
+      return;
+    }
+  }
+
+  const botao = $("saveTableBtn");
+  botao.disabled = true;
+  botao.textContent = "A guardar...";
 
   try {
     const resultado = id
@@ -560,7 +760,10 @@ $("tableForm").addEventListener("submit", async event => {
     mostrarMensagem(id ? "Mesa atualizada com sucesso." : "Mesa criada com sucesso.");
   } catch (error) {
     console.error(error);
-    mostrarMensagem("Erro ao guardar mesa: " + (error.message || "erro desconhecido"), "error");
+    mostrarMensagem("Erro ao guardar mesa: " + erroLotacao(error), "error");
+  } finally {
+    botao.disabled = false;
+    botao.textContent = $("tableId").value ? "Guardar alterações" : "Criar mesa";
   }
 });
 
@@ -571,15 +774,19 @@ $("guestsBody").addEventListener("click", async event => {
   if (edit) {
     const g = convidados.find(x => String(x.id) === edit.dataset.editGuest);
     if (!g) return;
+
     $("guestId").value = g.id;
     $("guestName").value = g.nome || "";
     $("guestGroup").value = g.grupo || "";
     $("guestPhone").value = g.telefone || "";
     $("guestOrigin").value = g.origem || "ambos";
     $("guestRsvp").value = estadoNormalizado(g.rsvp);
+
+    renderizarOpcoesMesas();
     $("guestTable").value = g.mesa_id || "";
     $("saveGuestBtn").textContent = "Guardar alterações";
     $("cancelGuestBtn").classList.remove("hidden");
+    renderizarResumoMesaSelecionada();
     $("guestName").focus();
     window.scrollTo({top:0, behavior:"smooth"});
   }
@@ -588,14 +795,16 @@ $("guestsBody").addEventListener("click", async event => {
     const id = del.dataset.deleteGuest;
     const g = convidados.find(x => String(x.id) === id);
     if (!g || !confirm(`Apagar o convidado "${g.nome}"?`)) return;
+
     try {
       const {error} = await supabaseClient.from("guests").delete()
         .eq("id", id).eq("wedding_id", casamentoAtual.id);
       if (error) throw error;
+
       await carregarTudo();
       mostrarMensagem("Convidado apagado.");
     } catch (error) {
-      mostrarMensagem("Erro ao apagar convidado: " + error.message, "error");
+      mostrarMensagem("Erro ao apagar convidado: " + erroLotacao(error), "error");
     }
   }
 });
@@ -607,6 +816,7 @@ $("tablesContainer").addEventListener("click", async event => {
   if (edit) {
     const m = mesas.find(x => String(x.id) === edit.dataset.editTable);
     if (!m) return;
+
     $("tableId").value = m.id;
     $("tableName").value = m.nome || "";
     $("tableSeats").value = Number(m.lugares || 1);
@@ -634,7 +844,7 @@ $("tablesContainer").addEventListener("click", async event => {
       await carregarTudo();
       mostrarMensagem("Mesa apagada.");
     } catch (error) {
-      mostrarMensagem("Erro ao apagar mesa: " + error.message, "error");
+      mostrarMensagem("Erro ao apagar mesa: " + erroLotacao(error), "error");
     }
   }
 });
@@ -646,11 +856,16 @@ $("filterOrigin").addEventListener("change", renderizarConvidados);
 $("filterRsvp").addEventListener("change", renderizarConvidados);
 
 $("refreshBtn").addEventListener("click", async () => {
+  const botao = $("refreshBtn");
+  botao.disabled = true;
+
   try {
     await carregarTudo();
     mostrarMensagem("Dados atualizados.");
   } catch (error) {
-    mostrarMensagem("Erro ao atualizar: " + error.message, "error");
+    mostrarMensagem("Erro ao atualizar: " + erroLotacao(error), "error");
+  } finally {
+    botao.disabled = false;
   }
 });
 
@@ -658,6 +873,7 @@ document.querySelectorAll("[data-tab]").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelectorAll("[data-tab]").forEach(b => b.classList.remove("active"));
     button.classList.add("active");
+
     ["guestsPanel","tablesPanel","mapPanel"].forEach(id => {
       $(id).classList.toggle("hidden", id !== button.dataset.tab);
     });
@@ -668,4 +884,3 @@ inicializar();
 </script>
 </body>
 </html>
-
